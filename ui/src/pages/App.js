@@ -9,6 +9,7 @@ import Personnel from "./Personnel";
 import Teams from "./Teams";
 import SingleMission from "./SingleMission";
 import SingleTeam from "./SingleTeam";
+import SubmitConop from "./SubmitConop";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/teams/:teamid" element={<SingleTeam />} />
         <Route path="/personnel" element={<Personnel />} />
         <Route path="/personnel/:personid" />
+        <Route path="/conop" element={<SubmitConop />} />
       </Routes>
     </div>
   );
