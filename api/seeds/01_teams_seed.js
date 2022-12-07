@@ -25,19 +25,3 @@ exports.seed = async function(knex) {
     {id: 16, name: 'Maintenance Team', city_base: 'Camp Arifjan', country: 'Kuwait', comms_status: 'green', personnel_status: 'green', equipment_status: 'green'}
   ]);
 };
-
-//  Camp Buehring - Kuwait
-// Air Base Ali Al Salem - Kuwait
-// Camp Doha Army Base in Kuwait Bay, Kuwait
-//Camp Virginia Army Base in Al Jahra, Kuwait
-//Camp Buehring Army Base in Udari, Kuwait
-//Camp Partriot Army Base in Southeast Coast, Kuwait
-//Camp New York Army Base in Kuwait Desert, Kuwaitmiss
-//Camp Spearhead Army Base in Shuaiba, Kuwait
-// Ali Al Salem Air Base in Kuwait City, Kuwait
-// King Abdullah II Air Base - Jordan
-
-// H-4 Air Base -Jordan
-//Muwaffaq Salti Air Base (Azraq) -Jordan
-
-//Camp Lemonnier -Djibouti
