@@ -11,21 +11,21 @@ const Fetches = () => {
 
 
   useEffect(() => {
-    ctx.setQuery("")
+
 
     fetch(urlMissions)
       .then(res => res.json())
-      .then(data => ctx.setStarWarsCharacter(data.results))
+      .then(data => ctx.setMissions(data.results))
       .catch(err => console.error(err))
 
     fetch(urlPersonnel)
       .then(res => res.json())
-      .then(data => ctx.setStarWarsPlanet(data.results))
+      .then(data => ctx.setTeams(data.results))
       .catch(err => console.error(err))
 
       fetch(urlTeams)
       .then(res => res.json())
-      .then(data => ctx.setfilm(data.results))
+      .then(data => ctx.setPersonnel(data.results))
       .catch(err => console.error(err))
 
 
@@ -36,7 +36,7 @@ const Fetches = () => {
 
 
   return (
-    <div>Fetches</div>
+    <div></div>
   )
 }
 

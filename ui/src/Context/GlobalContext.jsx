@@ -3,19 +3,20 @@ import React, { useState } from "react";
 const GlobalContext = React.createContext();
 
 const ContextProvider = ({ children }) => {
-  const [mission, setMission] = useState([]);
+  const [missions, setMissions] = useState([]);
   const [teams, setTeams] = useState([]);
   const [personnel, setPersonnel] = useState([]);
   const [dashboard, setDashoard] = useState([]);
   const [singleMission, setSingleMission] = useState([]);
   const [singleTeam, setSingleTeam] = useState([]);
   const [submitConop, setsubmitConop] = useState([]);
+  const [query, setQuery] = useState([]);
 
 
 
   const ctx = {
-    mission, 
-    setMission,
+    missions, 
+    setMissions,
     teams, 
     setTeams,
     personnel, 
@@ -27,8 +28,9 @@ const ContextProvider = ({ children }) => {
     singleTeam, 
     setSingleTeam,
     submitConop, 
-    setsubmitConop
-
+    setsubmitConop,
+    query, 
+    setQuery
   }
 
   return (
