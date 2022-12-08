@@ -106,18 +106,21 @@ app.delete('/personnel/:id', async (req, res) => {
 
 app.delete('/teams/:id', async (req, res) => {
   const team_id = parseInt(req.params.id);
-  console.log(team_id)
   try{
-    await knex('personnel').where('team_id', team_id).update({
-      team_id: 0
-    })
-    await knex('missions').where('team_id', team_id).update({
-      team_id: 0
-    })
-    await knex('teams').where('id', team_id).update({
-      is_archived: true
-    });
-    res.status(202).send(`Team with id ${team_id} successfully deleted.`)
+    if (team_id === 1) {
+      res.status(400).send("Team 1 can not be deleted.")
+    } else {
+      await knex('personnel').where('team_id', team_id).update({
+        team_id: 1
+      })
+      await knex('missions').where('team_id', team_id).update({
+        team_id: 1
+      })
+      await knex('teams').where('id', team_id).update({
+        is_archived: true
+      });
+      res.status(202).send(`Team with id ${team_id} successfully deleted.`)
+    }
   } catch (e) {
     console.log(e);
     res.status(400).send('There was an error processing your request.');
