@@ -102,13 +102,22 @@ app.delete('/personnel/:id', async (req, res) => {
 })
 
 //delete team by id endpoint
+  // if a team is archived/deleted => every mission and personnel with the corresponding team_id needs to have their team_id updated to 0.
+
 app.delete('/teams/:id', async (req, res) => {
-  const id = parseInt(req.params.id);
+  const team_id = parseInt(req.params.id);
+  console.log(team_id)
   try{
-    await knex('teams').where('id', id).update({
+    await knex('personnel').where('team_id', team_id).update({
+      team_id: 0
+    })
+    await knex('missions').where('team_id', team_id).update({
+      team_id: 0
+    })
+    await knex('teams').where('id', team_id).update({
       is_archived: true
     });
-    res.status(202).send(`Team with id ${id} successfully deleted.`)
+    res.status(202).send(`Team with id ${team_id} successfully deleted.`)
   } catch (e) {
     console.log(e);
     res.status(400).send('There was an error processing your request.');

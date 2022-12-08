@@ -6,8 +6,9 @@
     return knex.schema.createTable('teams', table => {
       table.increments();
       table.string('name', 250);
-      table.string('city_base', 250);
-      table.string('country', 250);
+      table.jsonb('location', 250);
+      // table.string('city_base', 250);
+      // table.string('country', 250);
       table.string('comms_status', 250);
       table.string('personnel_status', 250);
       table.string('equipment_status', 250);
