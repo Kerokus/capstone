@@ -5,12 +5,12 @@ import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import DatePicker from "react-datepicker";
-​
+
 const Dashboard = () => {
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
   };
-​
+
   const localizer = dateFnsLocalizer({
     format,
     parse,
@@ -18,7 +18,7 @@ const Dashboard = () => {
     getDay,
     locales,
   });
-​
+
   const events = [
     {
       title: "Operation: Justinson",

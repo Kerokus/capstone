@@ -9,36 +9,36 @@ const ContextProvider = ({ children }) => {
   const [dashboard, setDashoard] = useState([]);
   const [singleMission, setSingleMission] = useState([]);
   const [singleTeam, setSingleTeam] = useState([]);
-  const [submitConop, setsubmitConop] = useState([]);
+  const [submitConop, setSubmitConop] = useState({});
   const [query, setQuery] = useState([]);
+  const [latLong, setLatLong] = useState([]);
 
-
+  //Submit Conop Contexts
 
   const ctx = {
-    missions, 
+    missions,
     setMissions,
-    teams, 
+    teams,
     setTeams,
-    personnel, 
+    personnel,
     setPersonnel,
-    dashboard, 
+    dashboard,
     setDashoard,
-    singleMission, 
+    singleMission,
     setSingleMission,
-    singleTeam, 
+    singleTeam,
     setSingleTeam,
-    submitConop, 
-    setsubmitConop,
-    query, 
-    setQuery
-  }
+    submitConop,
+    setSubmitConop,
+    query,
+    setQuery,
+    latLong,
+    setLatLong,
+  };
 
   return (
-    <GlobalContext.Provider value={ctx}>
-      {children}
-    </GlobalContext.Provider>
-  )
-
+    <GlobalContext.Provider value={ctx}>{children}</GlobalContext.Provider>
+  );
 };
 
 export { ContextProvider, GlobalContext };
