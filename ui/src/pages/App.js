@@ -1,5 +1,6 @@
 //import components and styling
 import "../styling/app.css";
+import { ContextProvider} from "../Context/GlobalContext";
 import { Routes, Route } from "react-router-dom";
 
 //import pages
@@ -13,6 +14,8 @@ import SubmitConop from "./SubmitConop";
 
 function App() {
   return (
+    <>
+    <ContextProvider>
     <div className="app-container">
       <Routes>
         <Route path="/" element={<Dashboard />} />
@@ -25,6 +28,8 @@ function App() {
         <Route path="/conop" element={<SubmitConop />} />
       </Routes>
     </div>
+    </ContextProvider>
+    </>
   );
 }
 
