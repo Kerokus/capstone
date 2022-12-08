@@ -9,11 +9,9 @@ const ContextProvider = ({ children }) => {
   const [dashboard, setDashoard] = useState([]);
   const [singleMission, setSingleMission] = useState([]);
   const [singleTeam, setSingleTeam] = useState([]);
-  const [submitConop, setSubmitConop] = useState({});
+  const [submitConopForm, setSubmitConopForm] = useState({});
   const [query, setQuery] = useState([]);
   const [latLong, setLatLong] = useState([]);
-
-  //Submit Conop Contexts
 
   const ctx = {
     missions,
@@ -28,8 +26,8 @@ const ContextProvider = ({ children }) => {
     setSingleMission,
     singleTeam,
     setSingleTeam,
-    submitConop,
-    setSubmitConop,
+    submitConopForm,
+    setSubmitConopForm,
     query,
     setQuery,
     latLong,
