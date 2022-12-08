@@ -4,6 +4,7 @@ import { ContextProvider} from "../Context/GlobalContext";
 import { Routes, Route } from "react-router-dom";
 
 //import pages
+import Fetches from "../components/Fetches";
 import Dashboard from "./Dashboard";
 import Missions from "./Missions";
 import Personnel from "./Personnel";
@@ -16,8 +17,10 @@ function App() {
   return (
     <>
     <ContextProvider>
+      <Fetches/>
     <div className="app-container">
       <Routes>
+        
         <Route path="/" element={<Dashboard />} />
         <Route path="/missions" element={<Missions />} />
         <Route path="/missions/:missionid" element={<SingleMission />} />
