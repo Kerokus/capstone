@@ -23,7 +23,7 @@
         table.jsonb('risks', 250);
         table.string('decision_point', 250);
         table.boolean('is_archived').defaultTo(false)
-        table.integer('team_id');
+        table.integer('team_id').defaultTo(1);
         table.foreign('team_id').references('teams.id');
       });
 };
