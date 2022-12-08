@@ -8,7 +8,8 @@
 @import "singleteam.css";
 @import "teams.css";
 @import "submitconop.css";
-
+@import "navbar.css";
+@import "footer.css"
 .app-container {
   height: 100vh;
   background-color: rgb(42, 42, 42);
