@@ -11,6 +11,7 @@
       table.string('comms_status', 250);
       table.string('personnel_status', 250);
       table.string('equipment_status', 250);
+      table.boolean('is_archived').defaultTo(false)
     });
   };
   
