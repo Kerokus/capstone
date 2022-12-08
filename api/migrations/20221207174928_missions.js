@@ -7,9 +7,10 @@
         table.increments();
         table.date('start_date');
         table.date('end_date');
-        table.string('city_base', 250);
-        table.string('country', 250);
-        table.string('mgrs', 250);
+        table.jsonb('location', 250);
+        // table.string('city_base', 250);
+        // table.string('country', 250);
+        // table.string('mgrs', 250);
         table.string('name', 250);
         table.string('description', 500);
         table.string('status', 250);
@@ -17,13 +18,11 @@
         table.string('authority', 250);
         table.string('end_state', 500);
         table.string('transportation_methods', 250);
-        table.string('timeline', 250);
-        table.string('comms_p', 250);
-        table.string('comms_a', 250);
-        table.string('comms_c', 250);
-        table.string('comms_e', 250);
-        table.string('risks', 250);
+        table.jsonb('timeline', 250);
+        table.jsonb('pace', 250);
+        table.jsonb('risks', 250);
         table.string('decision_point', 250);
+        table.boolean('is_archived').defaultTo(false)
         table.integer('team_id');
         table.foreign('team_id').references('teams.id');
       });
