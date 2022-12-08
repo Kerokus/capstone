@@ -1,8 +1,10 @@
 //import components and styling
 import "../styling/app.css";
+import { ContextProvider} from "../Context/GlobalContext";
 import { Routes, Route } from "react-router-dom";
 
 //import pages
+import Fetches from "../components/Fetches";
 import Dashboard from "./Dashboard";
 import Missions from "./Missions";
 import Personnel from "./Personnel";
@@ -13,8 +15,12 @@ import SubmitConop from "./SubmitConop";
 
 function App() {
   return (
+    <>
+    <ContextProvider>
+      <Fetches/>
     <div className="app-container">
       <Routes>
+        
         <Route path="/" element={<Dashboard />} />
         <Route path="/missions" element={<Missions />} />
         <Route path="/missions/:missionid" element={<SingleMission />} />
@@ -25,6 +31,8 @@ function App() {
         <Route path="/conop" element={<SubmitConop />} />
       </Routes>
     </div>
+    </ContextProvider>
+    </>
   );
 }
 
