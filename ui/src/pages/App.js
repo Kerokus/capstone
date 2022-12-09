@@ -12,12 +12,15 @@ import Teams from "./Teams";
 import SingleMission from "./SingleMission";
 import SingleTeam from "./SingleTeam";
 import SubmitConop from "./SubmitConop";
+import NavbarComponent from "../components/NavbarComponent";
+import Footer from "./Footer";
 
 function App() {
   return (
     <>
     <ContextProvider>
       <Fetches/>
+     < NavbarComponent/>
     <div className="app-container">
       <Routes>
         
@@ -30,6 +33,7 @@ function App() {
         <Route path="/personnel/:personid" />
         <Route path="/conop" element={<SubmitConop />} />
       </Routes>
+      <Footer/>
     </div>
     </ContextProvider>
     </>
