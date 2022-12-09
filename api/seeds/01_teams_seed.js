@@ -10,7 +10,7 @@ exports.seed = async function(knex) {
   await knex('teams').del()
   await knex('teams').insert([
     {id: 1, team_name: 'Unassigned Team', location: {"city_base": "", "country": ""}, comms_status: '', personnel_status: '', equipment_status: '', is_archived: false},
-    {id: 2, team_name: 'CI Team 1', location: {"city_base": "Camp Arifjan", "country": "Kuwait"}, comms_status: 'yellow', personnel_status: 'green', equipment_status: 'green', is_archived: false},
+    {id: 2, team_name: 'CI Team 1', location: {"city_base": "Camp Arifjan", "country": "Kuwait"}, comms_status: 'yellow', personnel_status: 'green', equipment_status: 'green', is_archived: true},
     {id: 3, team_name: 'HUMINT Team 1', location: {"city_base": "Air Base Ali Al Salem", "country": "Kuwait"}, comms_status: 'green', personnel_status: 'red', equipment_status: 'green', is_archived: false},
     {id: 4, team_name: 'SIGINT Team 1', location: {"city_base": "Camp Partriot Army Base", "country": "Kuwait"}, comms_status: 'green', personnel_status: 'green', equipment_status: 'green', is_archived: false},
     {id: 5, team_name: 'CI Team Team 2', location: {"city_base": "H-4 Air Base", "country": "Kuwait"}, comms_status: 'green', personnel_status: 'green', equipment_status: 'green', is_archived: false},
