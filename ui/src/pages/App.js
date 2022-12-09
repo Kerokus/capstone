@@ -12,7 +12,7 @@ import Teams from "./Teams";
 import SingleMission from "./SingleMission";
 import SingleTeam from "./SingleTeam";
 import SubmitConop from "./SubmitConop";
-import NavbarComponent from "../components/NavbarComponent";
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
     <>
     <ContextProvider>
       <Fetches/>
-     < NavbarComponent/>
+     < Navbar/>
     <div className="app-container">
       <Routes>
         
