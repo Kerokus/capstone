@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <>
       <div className='footer'>
-        <p className='developers'>Developers: Justin King, Jeff Noland, Tyler Overholts, Riyaad Mohmamed, and Hill</p>
+        <p className='developers'>Developers: Justin King, Katrina Hill, Riyaad Mohmamed, and Jeff Noland</p>
         <p className='copyright'>Copyright 2022 Galvanize</p>
       </div>
     </>

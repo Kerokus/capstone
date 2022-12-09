@@ -5,6 +5,9 @@ import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import DatePicker from "react-datepicker";
+import CiTeamStatus from "./CiTeamStatus";
+import HumintTeamStatus from "./HumintTeamStatus";
+import SigintTeamStatus from "./SigintTeamStatus";
 
 const Dashboard = () => {
   const locales = {
@@ -66,13 +69,13 @@ const Dashboard = () => {
         <h3>Next 24/48 Hours</h3>
       </div>
       <div class="ci-team-status">
-        <h3>CI Team Red/Green Status</h3>
+        <CiTeamStatus />
       </div>
       <div class="humint-team-status">
-        <h3>HUMINT Team Red/Green Status</h3>
+        <HumintTeamStatus />
       </div>
       <div class="sigint-team-status">
-        <h3>SIGINT Team Red/Green Status</h3>
+      <SigintTeamStatus />
       </div>
     </div>
   );
