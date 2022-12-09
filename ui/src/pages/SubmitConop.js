@@ -13,11 +13,11 @@ const SubmitConop = () => {
   const ctx = useContext(GlobalContext);
 
   //DATA HANDLERS
-  const handleFormData = (event, nestedKey) => {
+  const handleFormData = (event, nestedObject) => {
     let newData = { ...ctx.submitConopForm };
-    if (nestedKey) {
-      newData[nestedKey] = {
-        ...newData[nestedKey],
+    if (nestedObject) {
+      newData[nestedObject] = {
+        ...newData[nestedObject],
         [event.target.id]: event.target.value,
       };
     } else {
@@ -34,6 +34,22 @@ const SubmitConop = () => {
       <Container>
         <Row>
           <Col>
+            <Form.Label>OP Name or Activity type</Form.Label>
+            <Form.Group as={Col} md="6">
+              <InputGroup hasValidation>
+                <Form.Control
+                  id="name"
+                  onChange={(e) => handleFormData(e)}
+                  value={ctx.submitConopForm.name || ""}
+                  type="text"
+                  placeholder="Name or Type of Activity"
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Enter an operation name or describe activity
+                </Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
             <Form.Group as={Col} md="5">
               <Form.Label>Mission Start Date</Form.Label>
               <Form.Control
@@ -48,7 +64,7 @@ const SubmitConop = () => {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group as={Col} md="5">
-              <Form.Label>Mission Start Date</Form.Label>
+              <Form.Label>Mission End Date</Form.Label>
               <Form.Control
                 id="end_date"
                 onChange={(e) => handleFormData(e)}
@@ -57,28 +73,59 @@ const SubmitConop = () => {
                 required
               />
               <Form.Control.Feedback type="invalid">
-                Enter Mission Start Date.
+                Enter Mission End Date.
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
           <Col>
             <h3>Location:</h3>
-            <Form.Group as={Col} md="3">
-              <Form.Label>MGRS</Form.Label>
+            <Form.Label>MGRS</Form.Label>
+            <Form.Group as={Col} md="5">
               <InputGroup hasValidation>
                 <Form.Control
                   id="mgrs"
                   onChange={(e) => handleFormData(e, "location")}
                   value={ctx.submitConopForm.location?.mgrs || ""}
-                  className="formMGRS"
                   type="text"
-                  minLength={"6"}
-                  maxLength={"12"}
+                  minLength={"13"}
+                  maxLength={"17"}
                   placeholder="MGRS"
                   required
                 />
                 <Form.Control.Feedback type="invalid">
-                  Enter a three-letter rank.
+                  Enter an 8 to 12 digit MGRS Grid
+                </Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
+            <Form.Label>Country</Form.Label>
+            <Form.Group as={Col} md="5">
+              <InputGroup hasValidation>
+                <Form.Control
+                  id="country"
+                  onChange={(e) => handleFormData(e, "location")}
+                  value={ctx.submitConopForm.location?.country || ""}
+                  type="text"
+                  placeholder="Enter Country Name"
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Enter a country name
+                </Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
+            <Form.Label>City / Base</Form.Label>
+            <Form.Group as={Col} md="5">
+              <InputGroup hasValidation>
+                <Form.Control
+                  id="city_base"
+                  onChange={(e) => handleFormData(e, "location")}
+                  value={ctx.submitConopForm.location?.city_base || ""}
+                  type="text"
+                  placeholder="City/Base"
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Enter a city or base location
                 </Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
