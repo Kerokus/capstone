@@ -23,7 +23,6 @@ function App() {
      < NavbarComponent/>
     <div className="app-container">
       <Routes>
-        
         <Route path="/" element={<Dashboard />} />
         <Route path="/missions" element={<Missions />} />
         <Route path="/missions/:missionid" element={<SingleMission />} />
