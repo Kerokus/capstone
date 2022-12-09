@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
 
 const CiTeamStatus = () => {
   const ctx = useContext(GlobalContext);
   
-
-  
-  
-  // pushes all teams with 'CI' in their name to the ciTeams array
+  /* iterates over the teams state variable, then pushes all teams with 'CI' in their name to the ciTeamsArray,
+  then sets the ciTeams state variable with that array. [fires whenever the teams state variable changes]. */
   useEffect(() => {
     let ciTeamsArray = [];
     for (let i = 0; i < ctx.teams.length; i++){
@@ -19,7 +17,11 @@ const CiTeamStatus = () => {
     }
   }, [ctx.teams.length])
 
-  // pushes all CI teams that have any non green statuses (comms, personnel, equipment) to the nonGreenTeams array
+  /* sorts teams into 1 of 3 arrays (greenCiTeams, yellowCiTeams, redCiTeams) depending on their 
+  comms, personnel, and equipment status. If a team has ANY red status they are pushed into the red array,
+  if a team has no red and some yellow they are pushed into the yellow array, and if a team has no red AND no yellow status
+  they are pushed into the green array. the corresponding state variables are then set using those arrays. 
+  [fires everytime the ciTeams state variable changes]. */
   useEffect(() => {
     let greenCiTeams = [];
     let yellowCiTeams = [];
@@ -41,22 +43,8 @@ const CiTeamStatus = () => {
       }
   }, [ctx.ciTeams])
 
-  
-
- 
-
-  
-  const test = (color) => {
-    if (color === 'red') {
-       ctx.redCiTeams.map((team, index) => {
-        console.log(`${team}`)
-       return <div className="index" key={index}>{team}</div>
-     })
-   } 
- } 
-
-
-
+  /* the return sets up 3 divs (red_teams, yellow_teams, green_teams), each div maps over the corresponding 
+  state variables (redCiTeams, yellowCiTeams, greenCiTeams) and returns the team names. */
   return (
     <>
       <h3 className="team-status-header">CI Teams Status:</h3>

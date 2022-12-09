@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
 
 const HumintTeamStatus = () => {
   const ctx = useContext(GlobalContext);
   
-  // pushes all teams with 'HUMINT' in their name to the Humint Teams array => sets humintTeams state variable with that array
+  /* iterates over the teams state variable, then pushes all teams with 'HUMINT' in their name to the humintTeamsArray,
+  then sets the humintTeams state variable with that array. [fires whenever the teams state variable changes]. */
   useEffect(() => {
     let humintTeamsArray = [];
     for (let i = 0; i < ctx.teams.length; i++){
@@ -16,7 +17,11 @@ const HumintTeamStatus = () => {
     }
   }, [ctx.teams.length])
 
-  // pushes all HUMINT teams that have any non green statuses (comms, personnel, equipment) to the nonGreenTeams array
+  /* sorts teams into 1 of 3 arrays (greenHumintTeams, yellowHumintTeams, redHumintTeams) depending on their 
+  comms, personnel, and equipment status. If a team has ANY red status they are pushed into the red array,
+  if a team has no red and some yellow they are pushed into the yellow array, and if a team has no red AND no yellow status
+  they are pushed into the green array. the corresponding state variables are then set using those arrays. 
+  [fires everytime the humintTeams state variable changes]. */
   useEffect(() => {
     let greenHumintTeams = [];
     let yellowHumintTeams = [];
@@ -38,6 +43,8 @@ const HumintTeamStatus = () => {
       }
   }, [ctx.humintTeams])
 
+  /* the return sets up 3 divs (red_teams, yellow_teams, green_teams), each div maps over the corresponding 
+  state variables (redHumintTeams, yellowHumintTeams, greenHumintTeams) and returns the team names. */
   return (
     <>
       <h3 className="team-status-header">HUMINT Teams Status:</h3>

@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
 
 const SigintTeamStatus = () => {
   const ctx = useContext(GlobalContext);
   
-  // pushes all teams with 'SIGINT' in their name to the Sigint Teams array => sets sigintTeams state variable with that array
+  /* iterates over the teams state variable, then pushes all teams with 'SIGINT' in their name to the sigintTeamsArray,
+  then sets the sigintTeams state variable with that array. [fires whenever the teams state variable changes]. */
   useEffect(() => {
     let sigintTeamsArray = [];
     for (let i = 0; i < ctx.teams.length; i++){
@@ -16,7 +17,11 @@ const SigintTeamStatus = () => {
     }
   }, [ctx.teams.length])
 
-  // pushes all SIGINT teams that have any non green statuses (comms, personnel, equipment) to the nonGreenTeams array
+  /* sorts teams into 1 of 3 arrays (greenSigintTeams, yellowSigintTeams, redSigintTeams) depending on their 
+  comms, personnel, and equipment status. If a team has ANY red status they are pushed into the red array,
+  if a team has no red and some yellow they are pushed into the yellow array, and if a team has no red AND no yellow status
+  they are pushed into the green array. the corresponding state variables are then set using those arrays. 
+  [fires everytime the sigintTeams state variable changes]. */
   useEffect(() => {
     let greenSigintTeams = [];
     let yellowSigintTeams = [];
@@ -38,6 +43,8 @@ const SigintTeamStatus = () => {
       }
   }, [ctx.sigintTeams])
 
+  /* the return sets up 3 divs (red_teams, yellow_teams, green_teams), each div maps over the corresponding 
+  state variables (redSigintTeams, yellowSigintTeams, greenSigintTeams) and returns the team names. */
   return (
     <>
       <h3 className="team-status-header">SIGINT Teams Status:</h3>
