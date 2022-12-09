@@ -10,6 +10,7 @@
 @import "submitconop.css";
 @import "navbar.css";
 @import "footer.css";
+@import "dashboardstatuses.css";
 
 .app-container {
   height: 100vh;

@@ -1,0 +1,34 @@
+.ci-team-status{
+    background: rgb(82, 80, 80);
+}
+
+.humint-team-status{
+    background: rgb(82, 80, 80);
+}
+
+.sigint-team-status{
+    background: rgb(82, 80, 80);
+}
+
+.ci_status_container{
+    
+}
+
+.team-status-header{
+    text-align: center;
+}
+
+.red_teams{
+color: rgb(167, 102, 102);
+font-size: larger;
+}
+
+.yellow_teams{
+color: rgb(162, 167, 102);
+font-size: larger;
+}
+
+.green_teams{
+color: rgb(102, 167, 132);
+font-size: larger;
+}
