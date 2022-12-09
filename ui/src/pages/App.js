@@ -14,6 +14,9 @@ import SingleTeam from "./SingleTeam";
 import SubmitConop from "./SubmitConop";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import MissionCss from "./MissionCss";
+import TeamsCss from "./TeamsCss";
+
 
 function App() {
   return (
@@ -32,6 +35,8 @@ function App() {
         <Route path="/personnel" element={<Personnel />} />
         <Route path="/personnel/:personid" />
         <Route path="/conop" element={<SubmitConop />} />
+        <Route path="/missionscss" element={<MissionCss />} />
+        <Route path="/teamscss" element={<TeamsCss />} />
       </Routes>
       <Footer/>
     </div>
