@@ -62,7 +62,6 @@ const Dashboard = () => {
       <div className="dashboard-upcoming">
         <h3>Next 24/48 Hours</h3>
       </div>
-<<<<<<< HEAD
       <div class="ci-team-status">
         <CiTeamStatus />
       </div>
@@ -71,16 +70,6 @@ const Dashboard = () => {
       </div>
       <div class="sigint-team-status">
       <SigintTeamStatus />
-=======
-      <div className="ci-team-status">
-        <h3>CI Team Red/Green Status</h3>
-      </div>
-      <div className="humint-team-status">
-        <h3>HUMINT Team Red/Green Status</h3>
-      </div>
-      <div className="sigint-team-status">
-        <h3>SIGINT Team Red/Green Status</h3>
->>>>>>> main
       </div>
     </div>
   );
