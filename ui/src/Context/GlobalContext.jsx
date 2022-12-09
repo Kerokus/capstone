@@ -19,6 +19,23 @@ const ContextProvider = ({ children }) => {
   // <- <- Dashboard
   const [dashboard, setDashoard] = useState([]);
 
+  // <- <- Dashboard - Team Statuses
+  // CI Teams State
+  const [ciTeams, setCiTeams] = useState([]);
+  const [greenCiTeams, setGreenCiTeams] = useState([]);
+  const [yellowCiTeams, setYellowCiTeams] = useState([]);
+  const [redCiTeams, setRedCiTeams] = useState([]);
+  // HUMINT Teams State
+  const [humintTeams, setHumintTeams] = useState([]);
+  const [greenHumintTeams, setGreenHumintTeams] = useState([]);
+  const [yellowHumintTeams, setYellowHumintTeams] = useState([]);
+  const [redHumintTeams, setRedHumintTeams] = useState([]);
+  // SIGINT Teams State
+  const [sigintTeams, setSigintTeams] = useState([]);
+  const [greenSigintTeams, setGreenSigintTeams] = useState([]);
+  const [yellowSigintTeams, setYellowSigintTeams] = useState([]);
+  const [redSigintTeams, setRedSigintTeams] = useState([]);
+
   // <- <- Missions
   const [missionData, setMissionData] = useState([]); //Missions; Teams
   const [missions, setMissions] = useState([]);

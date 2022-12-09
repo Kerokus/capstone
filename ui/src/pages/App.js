@@ -12,15 +12,15 @@ import Teams from "./Teams";
 import SingleMission from "./SingleMission";
 import SingleTeam from "./SingleTeam";
 import SubmitConop from "./SubmitConop";
-import NavbarComponent from "../components/NavbarComponent";
-import Footer from "./Footer";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function App() {
   return (
     <>
     <ContextProvider>
       <Fetches/>
-     < NavbarComponent/>
+     < Navbar/>
     <div className="app-container">
       <Routes>
         

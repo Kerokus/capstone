@@ -25,6 +25,9 @@ const NavbarComponent = () => {
             <Nav.Link className='personnel'as={Link} to="/personnel">
               Personnel
             </Nav.Link>
+            <Nav.Link className='personnel'as={Link} to="/conop">
+              Submit Conop
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
