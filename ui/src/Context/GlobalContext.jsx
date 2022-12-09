@@ -42,6 +42,7 @@ const ContextProvider = ({ children }) => {
 
   // <- <- Submit Conop Contexts
   const [submitConopForm, setSubmitConopForm] = useState({});
+  const [conopSubmitValidated, setConopSubmitValidated] = useState(false);
 
   const ctx = {
     searchTerm,
@@ -92,6 +93,8 @@ const ContextProvider = ({ children }) => {
     setSingleTeam,
     submitConopForm,
     setSubmitConopForm,
+    conopSubmitValidated,
+    setConopSubmitValidated,
   };
 
   return (

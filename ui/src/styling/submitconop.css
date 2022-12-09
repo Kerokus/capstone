@@ -18,3 +18,11 @@
 .col {
   margin: 1em;
 }
+
+.submit-buttons-container {
+  width: 80vw;
+}
+
+.conop-submit-button {
+  float: right;
+}
