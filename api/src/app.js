@@ -7,69 +7,110 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 
-//helper function (is called for GET requests)
-const getRequest = async (endpoint, res, id) => {
-  let data = null;
-  if(!id){
-    try{
-      data = await knex(`${endpoint}`)
-        .select('*')
-        .where('is_archived', false)
-    } catch (e) {
-      console.log(e);
-      res.status(400).send('There was an error processing your request.');
-    }
-  } else {
-    try{
-      data = await knex(`${endpoint}`)
-        .select('*')
-        .where('id', '=', id)
-        .where('is_archived', false)
-    } catch (e) {
-      console.log(e);
-      res.status(400).send('There was an error processing your request.');
-    }
-  }
-
-  if (!data || data.length === 0) {
-    res.status(404).send(`${endpoint} not found`);
-  } else {
-    res.status(200).send(data);
-  }
-}
-
 /////////////////////////////////////////////////////////////  GET  ////////////////////////////////////////////////////////////
-//missions endpoint
+
+// mission GET endpoint that includes the team name
 app.get('/missions', async (req, res) => {
-  const mission = await getRequest('missions', res);
+  try {
+    let data = await knex('missions')
+    .join('teams', 'missions.team_id', '=', 'teams.id')
+    .select('missions.id', 'missions.start_date', 'missions.end_date', 'missions.location', 'missions.name', 'missions.description', 
+    'missions.status', 'missions.purpose', 'missions.authority', 'missions.end_state', 'missions.transportation_methods',
+    'missions.timeline', 'missions.pace', 'missions.risks', 'missions.decision_point', 'missions.is_archived', 'missions.team_id' ,'team_name')
+    .where('missions.is_archived', false)
+    .orderBy('missions.start_date')
+    await (!data || data.length) ? res.status(200).send(data) : res.status(404).send(`Missions endpoint experiencing difficulties.`)
+  } catch (e) {
+    console.log(e);
+    res.status(400).send('There was an error processing your request.');
+  }
+
 })
 
-//personnel endpoint
+// personnel GET endpoint that includes the team name
 app.get('/personnel', async (req, res) => {
-  const mission = await getRequest('personnel', res);
+  try {
+    let data = await knex('personnel')
+    .join('teams', 'personnel.team_id', '=', 'teams.id')
+    .select('personnel.id', 'personnel.first_name', 'personnel.last_name', 'personnel.rank', 'personnel.mos', 'personnel.email', 
+            'personnel.status', 'personnel.location', 'personnel.deployment_start', 'personnel.deployment_end','personnel.is_archived', 
+            'personnel.team_id', 'team_name')
+    .where('personnel.is_archived', false)
+    .orderBy('personnel.last_name')
+    await (!data || data.length) ? res.status(200).send(data) : res.status(404).send(`Personnel endpoint experiencing difficulties.`)
+  } catch (e) {
+    console.log(e);
+    res.status(400).send('There was an error processing your request.');
+  }
+
 })
 
-//teams endpoint
+// teams GET endpoint
 app.get('/teams', async (req, res) => {
-  const mission = await getRequest('teams', res);
+  try {
+    let data = await knex('teams')
+    .select('*')
+    .where('teams.is_archived', false)
+    // .orderBy('')
+    await (!data || data.length) ? res.status(200).send(data) : res.status(404).send(`Teams endpoint experiencing difficulties.`)
+  } catch (e) {
+    console.log(e);
+    res.status(400).send('There was an error processing your request.');
+  }
 })
 
-//mission/:id endpoint
+// mission by id GET endpoint that includes the team name
 app.get('/missions/:id', async (req, res) => {
   const id = parseInt(req.params.id);
-  const mission = await getRequest('missions', res, id);
+  try {
+    let data = await knex('missions')
+    .join('teams', 'missions.team_id', '=', 'teams.id')
+    .select('missions.id', 'missions.start_date', 'missions.end_date', 'missions.location', 'missions.name', 'missions.description', 
+    'missions.status', 'missions.purpose', 'missions.authority', 'missions.end_state', 'missions.transportation_methods',
+    'missions.timeline', 'missions.pace', 'missions.risks', 'missions.decision_point', 'missions.is_archived', 'missions.team_id' ,'team_name')
+    .where('missions.id', id)
+    .where('missions.is_archived', false)
+    await (!data || data.length) ? res.status(200).send(data) : res.status(404).send(`Mission with Id "${id}" not found.`)
+  } catch (e) {
+    console.log(e);
+    res.status(400).send('There was an error processing your request.');
+  }
+
 })
 
-//personnel/:id endpoint
+// personnel by id GET endpoint that includes the team name
 app.get('/personnel/:id', async (req, res) => {
   const id = parseInt(req.params.id);
-  const mission = await getRequest('personnel', res, id);
+  try {
+    let data = await knex('personnel')
+    .join('teams', 'personnel.team_id', '=', 'teams.id')
+    .select('personnel.id', 'personnel.first_name', 'personnel.last_name', 'personnel.rank', 'personnel.mos', 'personnel.email', 
+            'personnel.status', 'personnel.location', 'personnel.deployment_start', 'personnel.deployment_end','personnel.is_archived', 
+            'personnel.team_id', 'team_name')
+    .where('personnel.id', id)
+    .where('personnel.is_archived', false)
+    await (!data || data.length) ? res.status(200).send(data) : res.status(404).send(`Personnel with Id "${id}" not found.`)
+  } catch (e) {
+    console.log(e);
+    res.status(400).send('There was an error processing your request.');
+  }
+
 })
 
-//teams/:id endpoint
+// team by id GET endpoint
 app.get('/teams/:id', async (req, res) => {
   const id = parseInt(req.params.id);
-  const mission = await getRequest('teams', res, id);
+  try {
+    let data = await knex('teams')
+    .select('*')
+    .where('teams.id', id)
+    .where('is_archived', false)
+    await (!data || data.length) ? res.status(200).send(data) : res.status(404).send(`Team with Id "${id}" not found.`)
+  } catch (e) {
+    console.log(e);
+    res.status(400).send('There was an error processing your request.');
+  }
+
 })
 
 /////////////////////////////////////////////////////////////  DELETE  ////////////////////////////////////////////////////////////
@@ -102,7 +143,7 @@ app.delete('/personnel/:id', async (req, res) => {
 })
 
 //delete team by id endpoint
-  // if a team is deleted("archived") => every mission and personnel with the corresponding team_id has their team_id updated to 1.
+  // if a team is deleted("archived") => every mission and personnel with that corresponding team_id has their team_id updated to 1.
 app.delete('/teams/:id', async (req, res) => {
   const team_id = parseInt(req.params.id);
   try{
@@ -127,7 +168,7 @@ app.delete('/teams/:id', async (req, res) => {
 })
 
 /////////////////////////////////////////////////////////////  POST  ////////////////////////////////////////////////////////////
-//post mission endpoint
+//mission post endpoint
 app.post('/missions', async (req, res) => {
   const maxIdQuery = await knex('missions').max('id as maxId').first();
   let num = maxIdQuery.maxId + 1;
@@ -159,7 +200,7 @@ app.post('/missions', async (req, res) => {
   }
 })
 
-//post personnel endpoint
+//personnel post endpoint
 app.post('/personnel', async (req, res) => {
   try {
     let newPersonnel = {
@@ -184,7 +225,7 @@ app.post('/personnel', async (req, res) => {
   }
 })
 
-//post team endpoint
+//team post endpoint
 app.post('/teams', async (req, res) => {
   const maxIdQuery = await knex('teams').max('id as maxId').first();
   let num = maxIdQuery.maxId + 1;
@@ -252,31 +293,35 @@ app.put('/personnel/:id', async (req, res) => {
       team_id: req.body.team_id,
     }
     await knex('personnel').where('id', id).update(updatedPersonnel);
-    res.status(201).send('Personnel successfully updated.')
+    res.status(201).send(`${updatedPersonnel.rank} ${updatedPersonnel.last_name} was successfully updated.`)
   } catch(e) {
     console.log(e);
-    res.status(400).send(`Update failed`);
+    res.status(400).send(`Failed to update ${updatedPersonnel.rank} ${updatedPersonnel.last_name}`);
   }
 })
 
 //teams update endpoint
 app.put('/teams/:id', async (req, res) => {
   const id = parseInt(req.params.id);
-  try {
-    let updatedTeams = {
-      name: req.body.name,
-      location: req.body.location,
-      comms_status: req.body.comms_status,
-      personnel_status: req.body.personnel_status,
-      equipment_status: req.body.equipment_status,
+  if (id !== 1) {
+    try {
+      let updatedTeam = {
+        team_name: req.body.name,
+        location: req.body.location,
+        comms_status: req.body.comms_status,
+        personnel_status: req.body.personnel_status,
+        equipment_status: req.body.equipment_status,
+      }
+      await knex('teams').where('id', id).update(updatedTeam);
+      res.status(201).send(`Team was successfully updated.`)
+    } catch(e) {
+      console.log(e);
+      res.status(400).send(`Update failed`);
     }
-    await knex('teams').where('id', id).update(updatedTeams);
-    res.status(201).send('Team successfully updated.')
-  } catch(e) {
-    console.log(e);
-    res.status(400).send(`Update failed`);
+  } else {
+    res.status(404).send('Team 1 cannot be updated')
   }
-})
 
+})
 
 module.exports = app;
