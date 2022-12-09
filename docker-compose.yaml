@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  db:
+    image: 'postgres:latest'
+    container_name: db
+    ports: 
+       - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: docker
+      POSTGRES_USER: postgres
+      POSTGRES_DB: capstone
+    volumes:
+      - $HOME/docker/data/db:/var/lib/postgresql/data
+    networks:
+      - app-network
+      
+  ui:
+    build: ./ui
+    container_name: ui
+    ports:
+      - "3000:3000"
+    depends_on: 
+      - api
+    networks:
+      - app-network
+    volumes:
+      - ./ui:/app
+
+  api:
+    build: ./api
+    container_name: api
+    ports:
+      - "8081:8081"
+    networks:
+      - app-network
+    environment:
+      DB_CONNECTION_STRING: postgres://postgres:docker@db:5432/capstone
+    depends_on:
+      - db
+    volumes:
+      - ./api:/app
+
+networks:
+  app-network:
+    driver: bridge
