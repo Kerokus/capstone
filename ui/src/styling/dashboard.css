@@ -9,7 +9,7 @@
     "ci-team-status humint-team-status sigint-team-status"
     "ci-team-status humint-team-status sigint-team-status";
   width: 90%;
-  height: 90%;
+  height: 90vh;
 }
 
 .dashboard-calendar {

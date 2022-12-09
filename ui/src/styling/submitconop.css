@@ -1,3 +1,28 @@
+.submit-conop-container {
+  margin-left: 3em;
+  margin-right: 3em;
+  height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .submit-conop-container > h1 {
   text-align: center;
+}
+
+.conop-timeline-group {
+  height: 35em;
+  overflow: auto;
+}
+
+.col {
+  margin: 1em;
+}
+
+.submit-buttons-container {
+  width: 80vw;
+}
+
+.conop-submit-button {
+  float: right;
 }

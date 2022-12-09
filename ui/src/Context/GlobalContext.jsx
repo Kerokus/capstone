@@ -58,7 +58,8 @@ const ContextProvider = ({ children }) => {
   //const { clickedTeam, setClickedTeam } = useContext(TeamContext) <- see line 8
 
   // <- <- Submit Conop Contexts
-  const [submitConop, setSubmitConop] = useState({});
+  const [submitConopForm, setSubmitConopForm] = useState({});
+  const [conopSubmitValidated, setConopSubmitValidated] = useState(false);
 
   const ctx = {
     searchTerm,
@@ -107,32 +108,10 @@ const ContextProvider = ({ children }) => {
     setTeamData,
     singleTeam,
     setSingleTeam,
-    submitConop,
-    setSubmitConop,
-    ciTeams,
-    setCiTeams,
-    greenCiTeams,
-    setGreenCiTeams,
-    yellowCiTeams,
-    setYellowCiTeams,
-    redCiTeams,
-    setRedCiTeams,
-    humintTeams,
-    setHumintTeams,
-    greenHumintTeams,
-    setGreenHumintTeams,
-    yellowHumintTeams,
-    setYellowHumintTeams,
-    redHumintTeams,
-    setRedHumintTeams,
-    sigintTeams,
-    setSigintTeams,
-    greenSigintTeams,
-    setGreenSigintTeams,
-    yellowSigintTeams,
-    setYellowSigintTeams,
-    redSigintTeams,
-    setRedSigintTeams
+    submitConopForm,
+    setSubmitConopForm,
+    conopSubmitValidated,
+    setConopSubmitValidated,
   };
 
   return (
