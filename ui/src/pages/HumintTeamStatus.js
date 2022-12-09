@@ -51,13 +51,13 @@ const HumintTeamStatus = () => {
 
     <div className="humint_status_container">
       <div className="red_teams">{ctx.redHumintTeams.map((team, index) => {
-        return <div key={index}>{team}</div>})} 
+        return <div key={index}>{team} 🟥</div>})} 
       </div>
       <div className="yellow_teams">{ctx.yellowHumintTeams.map((team, index) => {
-        return <div key={index}>{team}</div>})} 
+        return <div key={index}>{team} 🟨</div>})} 
       </div>
       <div className="green_teams">{ctx.greenHumintTeams.map((team, index) => {
-        return <div key={index}>{team}</div>})} 
+        return <div key={index}>{team} 🟩</div>})} 
       </div>
     </div>
     </>

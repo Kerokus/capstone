@@ -1,5 +1,5 @@
 .ci-team-status{
-    background: rgb(82, 80, 80);
+    background: rgb(104, 100, 100);
 }
 
 .humint-team-status{
@@ -15,20 +15,17 @@
 }
 
 .team-status-header{
-    text-align: center;
+text-align: center;
 }
 
 .red_teams{
-color: rgb(167, 102, 102);
-font-size: larger;
+    font-size:xx-large;
 }
 
 .yellow_teams{
-color: rgb(162, 167, 102);
-font-size: larger;
+font-size:xx-large;
 }
 
 .green_teams{
-color: rgb(102, 167, 132);
-font-size: larger;
+font-size:xx-large;
 }

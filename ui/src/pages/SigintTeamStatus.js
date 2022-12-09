@@ -51,13 +51,13 @@ const SigintTeamStatus = () => {
 
     <div className="sigint_status_container">
       <div className="red_teams">{ctx.redSigintTeams.map((team, index) => {
-        return <div key={index}>{team}</div>})} 
+        return <div key={index}>{team} 🟥</div>})} 
       </div>
       <div className="yellow_teams">{ctx.yellowSigintTeams.map((team, index) => {
-        return <div key={index}>{team}</div>})} 
+        return <div key={index}>{team} 🟨</div>})} 
       </div>
       <div className="green_teams">{ctx.greenSigintTeams.map((team, index) => {
-        return <div key={index}>{team}</div>})} 
+        return <div key={index}>{team} 🟩</div>})} 
       </div>
     </div>
     </>
