@@ -13,7 +13,7 @@ import SingleMission from "./SingleMission";
 import SingleTeam from "./SingleTeam";
 import SubmitConop from "./SubmitConop";
 import NavbarComponent from "../components/NavbarComponent";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 
 function App() {
   return (
