@@ -62,13 +62,13 @@ const Dashboard = () => {
       <div className="dashboard-upcoming">
         <h3>Next 24/48 Hours</h3>
       </div>
-      <div class="ci-team-status">
+      <div className="ci-team-status">
         <CiTeamStatus />
       </div>
-      <div class="humint-team-status">
+      <div className="humint-team-status">
         <HumintTeamStatus />
       </div>
-      <div class="sigint-team-status">
+      <div className="sigint-team-status">
       <SigintTeamStatus />
       </div>
     </div>
