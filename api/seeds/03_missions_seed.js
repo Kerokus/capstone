@@ -8,8 +8,8 @@ exports.seed = async function (knex) {
   await knex("missions").insert([
     {
       id: 1,
-      start_date: "2023-01-15",
-      end_date: "2022-06-01",
+      start_date: "2022-12-10",
+      end_date: "2022-12-13",
       location: {
         city_base: "Fort Bragg",
         country: "USA",
@@ -44,8 +44,8 @@ exports.seed = async function (knex) {
     },
     {
       id: 2,
-      start_date: "2023-03-01",
-      end_date: "2022-03-08",
+      start_date: "2022-12-24",
+      end_date: "2022-12-26",
       location: {
         city_base: "Camp Arifjan",
         country: "Kuwait",
@@ -80,8 +80,8 @@ exports.seed = async function (knex) {
     },
     {
       id: 3,
-      start_date: "2023-02-15",
-      end_date: "2022-03-15",
+      start_date: "2022-12-30",
+      end_date: "2022-01-05",
       location: {
         city_base: "Camp Arifjan",
         country: "Kuwait",
@@ -116,8 +116,8 @@ exports.seed = async function (knex) {
     },
     {
       id: 4,
-      start_date: "2023-01-20",
-      end_date: "2022-01-22",
+      start_date: "2022-12-08",
+      end_date: "2022-12-12",
       location: {
         city_base: "Camp Partriot Army Base",
         country: "Kuwait",
@@ -152,8 +152,8 @@ exports.seed = async function (knex) {
     },
     {
       id: 5,
-      start_date: "2023-01-30",
-      end_date: "2022-02-04",
+      start_date: "2022-12-14",
+      end_date: "2022-14-15",
       location: {
         city_base: "King Abdullah II Air Base",
         country: "Jordan",
@@ -188,8 +188,8 @@ exports.seed = async function (knex) {
     },
     {
       id: 6,
-      start_date: "2023-02-07",
-      end_date: "2022-03-01",
+      start_date: "2022-12-03",
+      end_date: "2022-12-05",
       location: {
         city_base: "Al-Udeid Air Base",
         country: "Qatar",
