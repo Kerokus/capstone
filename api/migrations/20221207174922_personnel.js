@@ -12,8 +12,8 @@
         table.string('email', 250);
         table.string('status', 250);
         table.jsonb('location', 250);
-        table.date('deployment_start');
-        table.date('deployment_end');
+        table.string('deployment_start');
+        table.string('deployment_end');
         table.boolean('is_archived').defaultTo(false)
         table.integer('team_id');
         table.foreign('team_id').references('teams.id');

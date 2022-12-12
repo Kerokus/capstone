@@ -5,8 +5,8 @@
  exports.up = function(knex) {
     return knex.schema.createTable('missions', table => {
         table.increments();
-        table.date('start_date');
-        table.date('end_date');
+        table.string('start_date');
+        table.string('end_date');
         table.jsonb('location', 250);
         table.string('name', 250);
         table.string('description', 500);
