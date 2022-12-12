@@ -5,12 +5,15 @@ import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import DatePicker from "react-datepicker";
+import CiTeamStatus from "./CiTeamStatus";
+import HumintTeamStatus from "./HumintTeamStatus";
+import SigintTeamStatus from "./SigintTeamStatus";
 
 const Dashboard = () => {
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
   };
-
+  //Luxon library - GO FIND IT
   const localizer = dateFnsLocalizer({
     format,
     parse,
@@ -41,38 +44,32 @@ const Dashboard = () => {
       end: new Date(2022, 11, 15),
     },
   ];
-  <Calendar
-    localizer={localizer}
-    events={events}
-    startAccessor="start"
-    endAccessor="end"
-    style={{ height: 500, width: 700 }}
-  />;
+
   return (
-    <div class="dashboard-container">
-      <div class="dashboard-calendar">
+    <div className="dashboard-container">
+      <div className="dashboard-calendar">
         <Calendar
           localizer={localizer}
           events={events}
           startAccessor="start"
           endAccessor="end"
-          style={{ height: 500, width: 700 }}
+          style={{ height: "1fr", width: "1fr" }}
         />
       </div>
-      <div class="dashboard-map">
+      <div className="dashboard-map">
         <h3>Map</h3>
       </div>
-      <div class="dashboard-upcoming">
+      <div className="dashboard-upcoming">
         <h3>Next 24/48 Hours</h3>
       </div>
-      <div class="ci-team-status">
-        <h3>CI Team Red/Green Status</h3>
+      <div className="ci-team-status">
+        <CiTeamStatus />
       </div>
-      <div class="humint-team-status">
-        <h3>HUMINT Team Red/Green Status</h3>
+      <div className="humint-team-status">
+        <HumintTeamStatus />
       </div>
-      <div class="sigint-team-status">
-        <h3>SIGINT Team Red/Green Status</h3>
+      <div className="sigint-team-status">
+      <SigintTeamStatus />
       </div>
     </div>
   );
