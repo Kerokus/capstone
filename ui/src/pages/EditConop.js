@@ -13,9 +13,18 @@ const SubmitConop = () => {
   const ctx = useContext(GlobalContext);
   const [validated, setValidated] = useState(false);
 
-  useEffect(() => {
-    localStorage.setItem("INPUT_FORM", JSON.stringify(ctx.submitConopForm));
-  }, [ctx.submitConopForm]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:8081/teams");
+  //       const data = await response.json();
+  //       setTeamData(data);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [refresh]);
 
   //DATA HANDLERS
   const handleFormData = (event, nestedObject) => {
@@ -29,6 +38,7 @@ const SubmitConop = () => {
       newData[event.target.id] = event.target.value;
     }
     ctx.setSubmitConopForm(newData);
+    console.log(ctx.submitConopForm);
   };
 
   //Clears the form data
@@ -64,7 +74,7 @@ const SubmitConop = () => {
   return (
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
       <div className="submit-conop-container">
-        <h1>Submit CONOP</h1>
+        <h1>Edit CONOP</h1>
         <div className="submit-buttons-container">
           <Button
             className="conop-clear-button"
