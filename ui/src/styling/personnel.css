@@ -1,0 +1,32 @@
+.formRank {
+    text-transform: uppercase;
+}
+
+.formMOS {
+    text-transform: uppercase;
+}
+
+.mainsearch{
+    margin: 1em;
+    margin-top: -0.7em;
+    margin-left: 2.3em;
+}
+
+.table-div{
+    margin:2.3em;
+    margin-top: 0em;
+    overflow: auto;
+    height: 50em;
+}
+
+.nav-buttons{
+    display:flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.homepage-button-personnel{
+    display:flex;
+    align-self: center;
+    margin-right: 2.3em;
+}
