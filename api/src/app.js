@@ -51,7 +51,7 @@ app.get('/teams', async (req, res) => {
     let data = await knex('teams')
     .select('*')
     .where('teams.is_archived', false)
-    // .orderBy('')
+    .orderBy('teams.location')
     await (!data || data.length) ? res.status(200).send(data) : res.status(404).send(`Teams endpoint experiencing difficulties.`)
   } catch (e) {
     console.log(e);
