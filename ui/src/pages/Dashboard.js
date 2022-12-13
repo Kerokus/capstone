@@ -6,7 +6,6 @@ import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
-import DatePicker from "react-datepicker";
 import CiTeamStatus from "./CiTeamStatus";
 import HumintTeamStatus from "./HumintTeamStatus";
 import SigintTeamStatus from "./SigintTeamStatus";
