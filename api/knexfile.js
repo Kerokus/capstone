@@ -5,9 +5,8 @@
  */
 module.exports = {
   development: {
-<<<<<<< HEAD
     client: "postgresql",
-    //connection: process.env.DB_CONNECTION_STRING,
+    //connection: process.env.DB_CONNECTION_STRING
     connection: {
       host: "127.0.0.1",
       password: "docker",
@@ -15,17 +14,6 @@ module.exports = {
       port: "5432",
       database: "capstone", // !! THIS WILL BE <your database name>
     },
-=======
-    client: 'postgresql',
-    connection: process.env.DB_CONNECTION_STRING
-    // connection: {
-    //   host: '127.0.0.1', 
-    //   password: 'docker', 
-    //   user: 'postgres', 
-    //   port: '5432', 
-    //   database: 'capstone' // !! THIS WILL BE <your database name>
-    // }
->>>>>>> main
   },
 
   staging: {

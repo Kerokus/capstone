@@ -18,6 +18,8 @@
     "react-bootstrap-table-next": "^4.0.3",
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
+    "react-live-clock": "^6.1.1",
+    "react-moment": "^1.1.2",
     "react-router-dom": "^6.4.4",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"

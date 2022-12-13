@@ -34,6 +34,7 @@ const SubmitConop = () => {
   //Clears the form data
   const handleClear = () => {
     ctx.setSubmitConopForm({});
+    setValidated(false);
   };
 
   //ADD new CONOP
