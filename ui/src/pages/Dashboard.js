@@ -15,25 +15,39 @@ import { toPoint } from "mgrs";
 const Dashboard = () => {
   const ctx = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
+  const [upcomingMissions, setUpcomingMissions] = useState([]);
+
+  let upcomingMissionsArray = [];
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
   };
 
   useEffect(() => {
+    console.log("use effect fire")
     missionsFetch();
   }, []);
 
+  useEffect(() => {
+    ctx.missions.forEach((mission, index) => {
+      if (mission.start_date === ctx.oneDayDate || mission.start_date === ctx.twoDayDate) {
+        upcomingMissionsArray.push(mission)
+      }
+      setUpcomingMissions(upcomingMissionsArray)
+    })
+  }, [ctx.oneDayDate, ctx.twoDayDate])
+
+  //next 24 hours
+  let oneDayDate = new Date();
+  oneDayDate.setTime(oneDayDate.getTime() + 86400000);
+  
+  //next 48 hours
+  let twoDayDate = new Date();
+  twoDayDate.setTime(oneDayDate.getTime() + 86400000);
+
   //grabbing calendar data from Missions table and formatting it
   const missionsFetch = async () => {
+    console.log("mission fetch fire")
     setLoading(true);
-
-    //next 24 hours
-    let oneDayDate = new Date();
-    oneDayDate.setTime(oneDayDate.getTime() + 86400000);
-
-    //next 48 hours
-    let twoDayDate = new Date();
-    twoDayDate.setTime(oneDayDate.getTime() + 86400000);
 
     let missionCalendarArray = [];
     await fetch(`http://localhost:8081/missions`)
@@ -55,10 +69,6 @@ const Dashboard = () => {
       .catch((err) => {
         console.log(err);
       });
-
-    // if (start_date === )
-    console.log("24 hours: " + formatDate(oneDayDate));
-    console.log("48 hours: " + formatDate(twoDayDate));
     ctx.setDashboard(missionCalendarArray);
     setLoading(false);
     console.log(missionCalendarArray);
@@ -77,6 +87,8 @@ const Dashboard = () => {
     };
   };
 
+
+
   const padTo2Digits = (num) => {
     return num.toString().padStart(2, "0");
   };
@@ -89,6 +101,11 @@ const Dashboard = () => {
     ].join("-");
   };
 
+  useEffect(() => {
+    ctx.setOneDayDate(formatDate(oneDayDate))
+    ctx.setTwoDayDate(formatDate(twoDayDate))
+  }, [])
+
   const localizer = dateFnsLocalizer({
     format,
     parse,
@@ -96,6 +113,13 @@ const Dashboard = () => {
     getDay,
     locales,
   });
+
+  /* renders upcoming missions assigned to the clicked team */
+const renderUpcomingMissions = (mission, index) => {
+  return (
+    <div className="team-missions" key={index}> {`${mission.start_date} / ${mission.name}`} </div>
+  )
+}
 
   return (
     <>
@@ -136,6 +160,7 @@ const Dashboard = () => {
       <div className="dashboard-container">
         {ctx.dashboard[0] && (
           <div className="dashboard-calendar">
+            {console.log("CALENDAR FIRE")}
             <Calendar
               localizer={localizer}
               events={ctx.dashboard}
@@ -148,9 +173,16 @@ const Dashboard = () => {
         <div className="dashboard-map">
           <h3>Map</h3>
         </div>
-        <div className="dashboard-upcoming">
-          <h3>Next 24/48 Hours</h3>
+
+        <div className="dashboard-upcoming"> 
+        {upcomingMissions.length > 0 ?
+        <div className="team-missions"> <h3 className="upcoming-header">Upcoming Missions:</h3>  {[...upcomingMissions].map(renderUpcomingMissions)}</div> :
+        <div>Upcoming Missions: 
+          <div className="team-missions" > {`None`} </div>
         </div>
+        }
+        </div>
+
         <div className="ci-team-status">
           <CiTeamStatus />
         </div>
