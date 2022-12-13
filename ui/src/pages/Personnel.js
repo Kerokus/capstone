@@ -36,6 +36,17 @@ const Personnel = () => {
       },
     },
     {
+      dataField: "id",
+      text: "DODID",
+      sort: true,
+      headerStyle: (column, colIndex) => {
+        return { backgroundColor: "#5A5A5A", color: "white" };
+      },
+      rowStyle: (row, rowIndex) => {
+        return { color: "white" };
+      },
+    },
+    {
       dataField: "rank",
       text: "Rank",
       sort: true,
@@ -141,9 +152,16 @@ const Personnel = () => {
   const handleShow = () => ctx.setShow(true);
 
   //ctx.set state for the "Add personnel" form
-  const handleFormData = (event) => {
+  const handleFormData = (event, nestedObject) => {
     let newData = { ...ctx.formData };
-    newData[event.target.id] = event.target.value;
+    if (nestedObject) {
+      newData[nestedObject] = {
+        ...newData[nestedObject],
+        [event.target.id]: event.target.value,
+      };
+    } else {
+      newData[event.target.id] = event.target.value;
+    }
     ctx.setFormData(newData);
   };
 
@@ -224,7 +242,7 @@ const Personnel = () => {
   const handleSubmit = async (event) => {
     try {
       const form = event.currentTarget;
-      if (ctx.form.checkValidity() === false || formValidate() === false) {
+      if (form.checkValidity() === false || formValidate() === false) {
         event.preventDefault();
         event.stopPropagation();
         ctx.setValidated(true);
@@ -317,8 +335,8 @@ const Personnel = () => {
   }, [ctx.searchTerm]);
 
   return (
-    <>
-      <h1 className="header-text">Deployed Personnel</h1>
+    <div className="personnel-page-container">
+      <h1 className="personnel-header-text">Deployed Personnel</h1>
       <div className="nav-buttons">
         <Button className="add-mission" variant="success" onClick={handleAdd}>
           Add Personnel
@@ -353,13 +371,28 @@ const Personnel = () => {
         </Modal.Header>
         <Modal.Body>
           <Form noValidate validated={ctx.validated} onSubmit={handleSubmit}>
+            <Row>
+              <Form.Group as={Col} md="4">
+                <Form.Label>DODID</Form.Label>
+                <Form.Control
+                  id="id"
+                  onChange={(e) => handleFormData(e)}
+                  value={ctx.formData.id || ""}
+                  required
+                  type="number"
+                  minLength={"10"}
+                  maxLength={"10"}
+                  placeholder="DODID"
+                />
+              </Form.Group>
+            </Row>
             <Row className="mb-3">
               <Form.Group as={Col} md="4">
                 <Form.Label>Last Name</Form.Label>
                 <Form.Control
                   id="last_name"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.last_name}
+                  value={ctx.formData.last_name || ""}
                   required
                   type="text"
                   placeholder="Last Name"
@@ -371,7 +404,7 @@ const Personnel = () => {
                 <Form.Control
                   id="first_name"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.first_name}
+                  value={ctx.formData.first_name || ""}
                   required
                   type="text"
                   placeholder="First Name"
@@ -384,7 +417,7 @@ const Personnel = () => {
                   <Form.Control
                     id="rank"
                     onChange={(e) => handleFormData(e)}
-                    value={ctx.formData.rank}
+                    value={ctx.formData.rank || ""}
                     className="formRank"
                     type="text"
                     minLength={"3"}
@@ -404,7 +437,7 @@ const Personnel = () => {
                 <Form.Control
                   id="mos"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.mos}
+                  value={ctx.formData.mos || ""}
                   className="formMOS"
                   type="text"
                   minLength={"3"}
@@ -422,13 +455,13 @@ const Personnel = () => {
                 <Form.Select
                   id="team_id"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.team_id}
+                  value={ctx.formData.team_id || ""}
                   aria-label="Default select example"
                 >
                   <option>Select</option>
                   {ctx.teamData.map((team) => {
                     return (
-                      <option value={team.id} key={team.id}>
+                      <option value={team.team_id} key={team.team_id}>
                         {team.name}
                       </option>
                     );
@@ -444,7 +477,7 @@ const Personnel = () => {
                 <Form.Control
                   id="contact"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.contact}
+                  value={ctx.formData.email || ""}
                   type="email"
                   placeholder="email@address"
                   required
@@ -454,12 +487,63 @@ const Personnel = () => {
                 </Form.Control.Feedback>
               </Form.Group>
 
+              <Form.Group as={Col} md="3">
+                <Form.Label>Status</Form.Label>
+                <Form.Select
+                  id="status"
+                  onChange={(e) => handleFormData(e)}
+                  value={ctx.formData.status || ""}
+                  aria-label="Default select example"
+                >
+                  <option>Select</option>
+                  <option>PDY</option>
+                  <option>TDY</option>
+                  <option>Leave</option>
+                  <option>Other</option>
+                </Form.Select>
+                <Form.Control.Feedback type="invalid">
+                  Please provide a team #
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group as={Col} md="4">
+                <Form.Label>City/Base</Form.Label>
+                <Form.Control
+                  id="city_base"
+                  onChange={(e) => handleFormData(e, "location")}
+                  value={ctx.formData.location?.city_base || ""}
+                  className="city-base"
+                  type="text"
+                  placeholder="City or Base"
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Enter City or Base
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group as={Col} md="4">
+                <Form.Label>Country</Form.Label>
+                <Form.Control
+                  id="country"
+                  onChange={(e) => handleFormData(e, "location")}
+                  value={ctx.formData.location?.country || ""}
+                  className="country"
+                  type="text"
+                  placeholder="Country"
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Enter a country.
+                </Form.Control.Feedback>
+              </Form.Group>
+
               <Form.Group as={Col} md="5">
                 <Form.Label>Deployment Start Date</Form.Label>
                 <Form.Control
-                  id="dep_start"
+                  id="deployment_start"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.dep_start}
+                  value={ctx.formData.deployment_start || ""}
                   type="date"
                   placeholder="YYYY-MM-DD"
                   required
@@ -472,9 +556,9 @@ const Personnel = () => {
               <Form.Group as={Col} md="5">
                 <Form.Label>Deployment End Date</Form.Label>
                 <Form.Control
-                  id="dep_end"
+                  id="deployment_end"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.dep_end}
+                  value={ctx.formData.deployment_end || ""}
                   type="date"
                   placeholder="YYYY-MM-DD"
                   required
@@ -528,7 +612,7 @@ const Personnel = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 };
 
