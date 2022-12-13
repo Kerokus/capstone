@@ -1,0 +1,58 @@
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1.5fr 0.4fr 1.1fr;
+  gap: 5px 5px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "dashboard-calendar dashboard-map dashboard-upcoming"
+    "ci-team-status humint-team-status sigint-team-status"
+    "ci-team-status humint-team-status sigint-team-status";
+  width: 90%;
+  height: 90vh;
+}
+
+.dashboard-calendar {
+  grid-area: dashboard-calendar;
+  color: black;
+  background-color: lightgrey;
+}
+
+.dashboard-map {
+  grid-area: dashboard-map;
+  color: black;
+  background-color: orange;
+}
+
+.dashboard-upcoming {
+  grid-area: dashboard-upcoming;
+  color: black;
+  background-color: yellow;
+}
+
+.ci-team-status {
+  grid-area: ci-team-status;
+  background-color: green;
+}
+
+.humint-team-status {
+  grid-area: humint-team-status;
+  background-color: blue;
+}
+
+.sigint-team-status {
+  grid-area: sigint-team-status;
+  background-color: indigo;
+}
+
+.clocks-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clocks-container > div {
+  align-items: center;
+  margin: 10px;
+  width: 100vh;
+}
