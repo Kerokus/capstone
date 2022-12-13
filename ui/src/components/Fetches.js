@@ -56,8 +56,13 @@ useEffect(() => {
         }
         return item;
       })
+<<<<<<< HEAD
     ctx.setPersonnelData(dataSlice);
     ctx.setFilteredData(dataSlice);
+=======
+      ctx.setPersonnelData(dataSlice);
+      ctx.setFilteredData(dataSlice);
+>>>>>>> main
     } catch (e) {
       console.log(e)
     }
@@ -65,10 +70,18 @@ useEffect(() => {
   fetchData()
 }, [ctx.refresh])
 
+<<<<<<< HEAD
   
+=======
+>>>>>>> main
   return <div></div>;
   
 };
+
+
+
+
+
 
 export default Fetches;
 

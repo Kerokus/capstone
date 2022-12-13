@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-live-clock": "^6.1.1",
+    "react-moment": "^1.1.2"
+  }
+}

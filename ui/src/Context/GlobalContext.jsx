@@ -14,10 +14,13 @@ const ContextProvider = ({ children }) => {
 
   // <- <- App
   const [clickedMission, setClickedMission] = useState(null); // Missions;
-  const [clickedTeam, setClickedTeam] = useState(null);
+  const [clickedTeam, setClickedTeam] = useState(null); // Teams;
+
 
   // <- <- Dashboard
-  const [dashboard, setDashoard] = useState([]);
+  const [dashboard, setDashboard] = useState([]);
+  const [oneDayDate, setOneDayDate] = useState("");
+  const [twoDayDate, setTwoDayDate] = useState("");
 
   // <- <- Dashboard - Team Statuses
   // CI Teams State
@@ -81,7 +84,7 @@ const ContextProvider = ({ children }) => {
     clickedTeam,
     setClickedTeam,
     dashboard,
-    setDashoard,
+    setDashboard,
     missionData,
     setMissionData,
     missions,
@@ -114,7 +117,7 @@ const ContextProvider = ({ children }) => {
     setConopSubmitValidated,
     ciTeams,
     setCiTeams,
-    greenCiTeams, 
+    greenCiTeams,
     setGreenCiTeams,
     yellowCiTeams,
     setYellowCiTeams,
@@ -135,7 +138,11 @@ const ContextProvider = ({ children }) => {
     yellowSigintTeams,
     setYellowSigintTeams,
     redSigintTeams,
-    setRedSigintTeams
+    setRedSigintTeams,
+    oneDayDate, 
+    setOneDayDate,
+    twoDayDate,
+    setTwoDayDate
   };
 
   return (

@@ -8,8 +8,8 @@ exports.seed = async function (knex) {
   await knex("missions").insert([
     {
       id: 1,
-      start_date: "2023-01-15",
-      end_date: "2022-06-01",
+      start_date: "2022-12-14",
+      end_date: "2022-12-15",
       location: {
         city_base: "Fort Bragg",
         country: "USA",
@@ -44,8 +44,8 @@ exports.seed = async function (knex) {
     },
     {
       id: 2,
-      start_date: "2023-03-01",
-      end_date: "2022-03-08",
+      start_date: "2022-12-15",
+      end_date: "2022-12-26",
       location: {
         city_base: "Camp Arifjan",
         country: "Kuwait",
@@ -76,12 +76,12 @@ exports.seed = async function (knex) {
       },
       decision_point: "2023-02-14",
       is_archived: false,
-      team_id: 2,
+      team_id: 17,
     },
     {
       id: 3,
-      start_date: "2023-02-15",
-      end_date: "2022-03-15",
+      start_date: "2022-12-30",
+      end_date: "2022-01-05",
       location: {
         city_base: "Camp Arifjan",
         country: "Kuwait",
@@ -116,8 +116,8 @@ exports.seed = async function (knex) {
     },
     {
       id: 4,
-      start_date: "2023-01-20",
-      end_date: "2022-01-22",
+      start_date: "2022-12-08",
+      end_date: "2022-12-12",
       location: {
         city_base: "Camp Partriot Army Base",
         country: "Kuwait",
@@ -152,8 +152,8 @@ exports.seed = async function (knex) {
     },
     {
       id: 5,
-      start_date: "2023-01-30",
-      end_date: "2022-02-04",
+      start_date: "2022-12-14",
+      end_date: "2022-12-15",
       location: {
         city_base: "King Abdullah II Air Base",
         country: "Jordan",
@@ -188,8 +188,8 @@ exports.seed = async function (knex) {
     },
     {
       id: 6,
-      start_date: "2023-02-07",
-      end_date: "2022-03-01",
+      start_date: "2022-12-03",
+      end_date: "2022-12-05",
       location: {
         city_base: "Al-Udeid Air Base",
         country: "Qatar",
@@ -219,6 +219,42 @@ exports.seed = async function (knex) {
         force: "Vehicle Accident, Wildlife",
       },
       decision_point: "2023-01-24",
+      is_archived: false,
+      team_id: 6,
+    },
+    {
+      id: 7,
+      start_date: "2022-12-15",
+      end_date: "2022-12-20",
+      location: {
+        city_base: "Kuwait City",
+        country: "Kuwait",
+        mgrs: "38RQT90775200",
+      },
+      name: "Operation Updog",
+      description: "Go forth and do a lot of things",
+      status: "active",
+      purpose: "Conduct meeting with source to gather information ...",
+      authority: "OPORD 007",
+      end_state: "mission accomplished",
+      transportation_methods: "NTV",
+      timeline: {
+        sp: "start location",
+        departure: "1200",
+        cp1: "checkpoint location",
+        destination_arrival: "1300",
+        destination_departure: "1500",
+        cp2: "checkpoint location",
+        rtb: "1600",
+        eom: "1630",
+        total_time: "4hrs 30min",
+      },
+      pace: { P: "Micro Yell", A: "Government Cell", C: "Signal", E: "Runner" },
+      risks: {
+        mission: "Weather, Vehicle Maintenence, VEO, VBIED",
+        force: "Vehicle Accident, Wildlife",
+      },
+      decision_point: "2022-12-10",
       is_archived: false,
       team_id: 6,
     },
