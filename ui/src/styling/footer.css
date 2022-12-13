@@ -6,11 +6,12 @@
   font-family: 'Quantico', sans-serif;
   position:fixed;
   padding: 5em, 5em, 5em, 5em;
-  background-color: #242424;
+  background-color: #1e1e1e;
   color: white;
-  height: 4em;
+  height: 30px;
   bottom: 0;
   width: 100%;
+  
 }
 
 .copyright {

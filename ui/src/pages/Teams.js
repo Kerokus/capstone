@@ -26,7 +26,7 @@ const Teams = () => {
               <u> Current Location: </u>
               <p>{`${team.location.country} - ${team.location.city_base}`}</p>
             </div>
-            <div classname='asd'>
+            <div className='asd'>
             </div>
           </div>
         <div className='buttons'>

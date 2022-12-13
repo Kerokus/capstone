@@ -107,8 +107,8 @@ const renderTeamStatuses = (status, index) => {
 
 
 return (
-<div class="single-team-container">
-  <div class="team-calendar">
+<div className="single-team-container">
+  <div className="team-calendar">
   <Calendar
     localizer={localizer}
     events={events}
@@ -117,7 +117,7 @@ return (
     style={{ height: "1fr", width: "1fr" }}
   />
   </div>
-  <div class="team-mapp">map</div>
+  <div className="team-mapp">map</div>
 
 
 
@@ -132,12 +132,12 @@ return (
 
 
 
-  <div class="upcoming-events-container">
-    <div class="upcoming-event">24/48 hour events</div>
+  <div className="upcoming-events-container">
+    <div className="upcoming-event">24/48 hour events</div>
   </div>
-  <div class="team-admin-container">
-    <div class="team-name">{ctx.clickedTeam.team_name}</div>
-    <div class="team-status-container">
+  <div className="team-admin-container">
+    <div className="team-name">{ctx.clickedTeam.team_name}</div>
+    <div className="team-status-container">
     
       {ctx.clickedTeam.personnel_status === 'green' ? 
       <div className="team-personnel-status">Personnel Status:  🟩</div>
@@ -167,7 +167,7 @@ return (
     </div>
   </div>
   
-  <div class="team-location">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</div>
+  <div className="team-location">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</div>
 </div>
 )};
 
