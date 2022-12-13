@@ -234,7 +234,6 @@ const Personnel = () => {
             return item;
           });
           ctx.setFormData(dataSlice[0]);
-          console.log(dataSlice[0])
         });
       handleShow();
       

@@ -8,12 +8,14 @@ import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import { Link } from 'react-router-dom';
+import { toPoint } from "mgrs";
 
 const SingleTeam = () => {
   const ctx = useContext(GlobalContext);
   const [members, setMembers] = useState([]);
   const [missions, setMissions] = useState([]);
   const [upcomingMissions, setUpcomingMissions] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   let teamName = ctx.clickedTeam.team_name;
   let teamPersonnelArray = [];
@@ -57,6 +59,52 @@ const SingleTeam = () => {
       end: new Date(2022, 11, 15),
     },
   ];
+
+    useEffect(() => {
+      missionsFetch();
+    }, []);
+
+  //grabbing calendar data from Missions table and formatting it
+  const missionsFetch = async () => {
+    setLoading(true);
+
+    let missionCalendarArray = [];
+    await fetch(`http://localhost:8081/missions`)
+      .then((res) => res.json())
+      .then((data) =>
+        data.map((event) => {
+          console.log(event)
+          if (event.team_id === ctx.clickedTeam.id) {
+            let startDate = calendarFormat(event.start_date);
+            let endDate = calendarFormat(event.end_date);
+            let missionCalendarObject = {
+              title: event.name,
+              start: new Date(startDate.year, startDate.month, startDate.day),
+              // the end date must be one day past the desired range as that is the day the event "stops"
+              end: new Date(endDate.year, endDate.month, endDate.day + 1),
+              coords: toPoint(event.location.mgrs),
+            };
+            missionCalendarArray.push(missionCalendarObject);
+          }
+        })
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+    ctx.setDashboard(missionCalendarArray);
+    setLoading(false);
+  };
+
+      // the database days are zero based, the Calendar object days are 1 based
+  const calendarFormat = (string) => {
+    let dateHandler = new Date(string);
+    return {
+      year: dateHandler.getFullYear(),
+      month: dateHandler.getMonth(),
+      // add one to the day to convert the format
+      day: dateHandler.getDate() + 1,
+    };
+  };
 
 /* iterates through the personnel state variable and pushes all personnel that are on the clicked team 
 to the teamPersonnel array. Then sets the members state variable with that array. Fires when the personnel state variable changes. */
@@ -114,7 +162,7 @@ useEffect(() => {
         }
         setUpcomingMissions(upcomingMissionsArray)
       })
-    }, [ctx.oneDayDate, ctx.twoDayDate])
+    }, [ctx.dashboard])
 
     console.log(upcomingMissions)
 
@@ -129,14 +177,14 @@ const renderTeamMembers = (member, index) => {
 /* renders all missions assigned to the clicked team */
 const renderTeamMissions = (mission, index) => {
   return (
-    <div className="team-missions" key={index}> {`${mission.name}`} </div>
+    <div className="team-missions" key={index}> {`${mission.start_date} | ${mission.name}`} </div>
   )
 }
 
 /* renders upcoming missions assigned to the clicked team */
 const renderUpcomingMissions = (mission, index) => {
   return (
-    <div className="team-missions" key={index}> {`${mission.start_date} / ${mission.name}`} </div>
+    <div className="team-missions" key={index}> {`${mission.start_date} | ${mission.name}`} </div>
   )
 }
 
@@ -177,7 +225,7 @@ return (
   <div className="team-calendar">
     <Calendar
       localizer={localizer}
-      events={events}
+      events={ctx.dashboard}
       startAccessor="start"
       endAccessor="end"
       style={{ height: "1fr", width: "1fr" }}
