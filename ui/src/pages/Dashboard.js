@@ -10,6 +10,7 @@ import DatePicker from "react-datepicker";
 import CiTeamStatus from "./CiTeamStatus";
 import HumintTeamStatus from "./HumintTeamStatus";
 import SigintTeamStatus from "./SigintTeamStatus";
+import { toPoint } from "mgrs";
 
 const Dashboard = () => {
   const ctx = useContext(GlobalContext);
@@ -53,18 +54,14 @@ const Dashboard = () => {
       .then((res) => res.json())
       .then((data) =>
         data.map((event) => {
+          let startDate = calendarFormat(event.start_date);
+          let endDate = calendarFormat(event.end_date);
           let missionCalendarObject = {
             title: event.name,
-            start: new Date(
-              calendarFormat(event.start_date)[0],
-              calendarFormat(event.start_date)[1],
-              calendarFormat(event.start_date)[2]
-            ),
-            end: new Date(
-              calendarFormat(event.end_date)[0],
-              calendarFormat(event.end_date)[1],
-              calendarFormat(event.end_date)[2]
-            ),
+            start: new Date(startDate.year, startDate.month, startDate.day),
+            // the end date must be one day past the desired range as that is the day the event "stops"
+            end: new Date(endDate.year, endDate.month, endDate.day + 1),
+            coords: toPoint(event.location.mgrs),
           };
           missionCalendarArray.push(missionCalendarObject);
         })
@@ -74,6 +71,20 @@ const Dashboard = () => {
       });
     ctx.setDashboard(missionCalendarArray);
     setLoading(false);
+    console.log(missionCalendarArray);
+  };
+
+  // Calendar object days: inclusive at the start / exclusive at the end
+
+  // the database days are zero based, the Calendar object days are 1 based
+  const calendarFormat = (string) => {
+    let dateHandler = new Date(string);
+    return {
+      year: dateHandler.getFullYear(),
+      month: dateHandler.getMonth(),
+      // add one to the day to convert the format
+      day: dateHandler.getDate() + 1,
+    };
   };
 
 
@@ -95,15 +106,6 @@ const Dashboard = () => {
     ctx.setTwoDayDate(formatDate(twoDayDate))
   }, [])
 
-  const calendarFormat = (string) => {
-    let dateHandler = new Date(string);
-    return [
-      dateHandler.getFullYear(),
-      dateHandler.getMonth(),
-      dateHandler.getDate(),
-    ];
-  };
-
   const localizer = dateFnsLocalizer({
     format,
     parse,
@@ -124,18 +126,29 @@ const renderUpcomingMissions = (mission, index) => {
       {loading && <div>Loading Data...</div>}
       <div className="clocks-container">
         <div className="clock-left">
-          <Clock format={"HH:mm:ss"} ticking={true} timezone={"US/Eastern"} />
+          <Clock
+            className="dashboard-clock"
+            format={"HH:mm:ss"}
+            ticking={true}
+            timezone={"US/Eastern"}
+          />
           <p>Ft. Gordon, GA</p>
         </div>
         <div className="clock-center">
           <div className="clock-left">
-            <Clock format={"HH:mm:ss"} ticking={true} timezone={"zulu"} />
+            <Clock
+              className="dashboard-clock"
+              format={"HH:mm:ss"}
+              ticking={true}
+              timezone={"zulu"}
+            />
             <p>Zulu</p>
           </div>
         </div>
         <div className="clock-right">
           <div className="clock-left">
             <Clock
+              className="dashboard-clock"
               format={"HH:mm:ss"}
               ticking={true}
               timezone={"Asia/Kuwait"}
