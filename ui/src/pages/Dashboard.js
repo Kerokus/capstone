@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import Clock from "react-live-clock";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
@@ -21,11 +22,18 @@ const Dashboard = () => {
     missionsFetch();
   }, []);
 
-  //let result = datetest.replace(/-/g, ',');
-
-  //grabs mission data and replaces dashes with commas for calendar
+  //grabbing calendar data from Missions table and formatting it
   const missionsFetch = async () => {
     setLoading(true);
+
+    //next 24 hours
+    let oneDayDate = new Date();
+    oneDayDate.setTime(oneDayDate.getTime() + 86400000);
+
+    //next 48 hours
+    let twoDayDate = new Date();
+    twoDayDate.setTime(oneDayDate.getTime() + 86400000);
+
     let missionCalendarArray = [];
     await fetch(`http://localhost:8081/missions`)
       .then((res) => res.json())
@@ -50,9 +58,22 @@ const Dashboard = () => {
       .catch((err) => {
         console.log(err);
       });
-    console.log(missionCalendarArray);
+    console.log("24 hours: " + formatDate(oneDayDate));
+    console.log("48 hours: " + formatDate(twoDayDate));
     ctx.setDashboard(missionCalendarArray);
     setLoading(false);
+  };
+
+  const padTo2Digits = (num) => {
+    return num.toString().padStart(2, "0");
+  };
+
+  const formatDate = (date) => {
+    return [
+      date.getFullYear(),
+      padTo2Digits(date.getMonth() + 1),
+      padTo2Digits(date.getDate()),
+    ].join("-");
   };
 
   const calendarFormat = (string) => {
@@ -72,32 +93,31 @@ const Dashboard = () => {
     locales,
   });
 
-  // const events = [
-  //   {
-  //     title: "Operation: Justinson",
-  //     start: new Date(2022, 11, 5),
-  //     end: new Date(2022, 11, 8),
-  //   },
-  //   {
-  //     title: "CIT 2 Liaison Meeting",
-  //     start: new Date(2022, 11, 6),
-  //     end: new Date(2022, 11, 6),
-  //   },
-  //   {
-  //     title: "HUMINT Team 2 Recruitment Meeting",
-  //     start: new Date(2022, 11, 15),
-  //     end: new Date(2022, 11, 18),
-  //   },
-  //   {
-  //     title: "CIT 1 CIVA",
-  //     start: new Date(2022, 11, 10),
-  //     end: new Date(2022, 11, 15),
-  //   },
-  // ];
-
   return (
     <>
       {loading && <div>Loading Data...</div>}
+      <div className="clocks-container">
+        <div className="clock-left">
+          <Clock format={"HH:mm:ss"} ticking={true} timezone={"US/Eastern"} />
+          <p>Ft. Gordon, GA</p>
+        </div>
+        <div className="clock-center">
+          <div className="clock-left">
+            <Clock format={"HH:mm:ss"} ticking={true} timezone={"zulu"} />
+            <p>Zulu</p>
+          </div>
+        </div>
+        <div className="clock-right">
+          <div className="clock-left">
+            <Clock
+              format={"HH:mm:ss"}
+              ticking={true}
+              timezone={"Asia/Kuwait"}
+            />
+            <p>Kuwait City</p>
+          </div>
+        </div>
+      </div>
       <div className="dashboard-container">
         {ctx.dashboard[0] && (
           <div className="dashboard-calendar">

@@ -44,3 +44,15 @@
   grid-area: sigint-team-status;
   background-color: indigo;
 }
+
+.clocks-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clocks-container > div {
+  align-items: center;
+  margin: 10px;
+  width: 100vh;
+}
