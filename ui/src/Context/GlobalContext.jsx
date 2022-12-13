@@ -19,6 +19,8 @@ const ContextProvider = ({ children }) => {
 
   // <- <- Dashboard
   const [dashboard, setDashboard] = useState([]);
+  const [oneDayDate, setOneDayDate] = useState("");
+  const [twoDayDate, setTwoDayDate] = useState("");
 
   // <- <- Dashboard - Team Statuses
   // CI Teams State
@@ -137,6 +139,10 @@ const ContextProvider = ({ children }) => {
     setYellowSigintTeams,
     redSigintTeams,
     setRedSigintTeams,
+    oneDayDate, 
+    setOneDayDate,
+    twoDayDate,
+    setTwoDayDate
   };
 
   return (
