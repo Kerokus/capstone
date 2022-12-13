@@ -10,10 +10,13 @@ import Teams from "./Teams";
 import SingleMission from "./SingleMission";
 import SingleTeam from "./SingleTeam";
 import SubmitConop from "./SubmitConop";
+import Navbar from "../components/NavbarComponent"
+import Places from "../components/Map"
 
 function App() {
   return (
     <div className="app-container">
+      <Navbar />
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/missions" element={<Missions />} />
@@ -23,6 +26,7 @@ function App() {
         <Route path="/personnel" element={<Personnel />} />
         <Route path="/personnel/:personid" />
         <Route path="/conop" element={<SubmitConop />} />
+        <Route path="/map" element={<Places />} />
       </Routes>
     </div>
   );
