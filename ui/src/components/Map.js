@@ -4,12 +4,13 @@ import usePlacesAutocomplete, {getGeocode, getLatLng} from "use-places-autocompl
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption} from "@reach/combobox"
 import "@reach/combobox/styles.css"
 import { toPoint } from "mgrs"
+import '../styling/map.css'
 
 
 const libraries = ["places"];
 const options = {
-  disableDefaultUI: false,
-  zoomControl: true,
+  disableDefaultUI: true,
+  zoomControl: false,
 };
 
 
@@ -20,8 +21,10 @@ export default function Places() {
   });
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
-  const center = useMemo(() => ({ lat: 28.871513, lng: 48.163907}), []);
+  // const center = useMemo(() => ({ lat: 28.871513, lng: 48.163907}), []);
   // const [choice, setChoice] = useState({center})
+  const [center, setCenter] = useState({lat: 28.871513, lng: 48.163907});
+
   
   // const countries = [
   //   { name: 'Saudi Arabia',
@@ -61,11 +64,12 @@ export default function Places() {
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
+    
   }, []);
 
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(10);
+    mapRef.current.setZoom(8);
   }, []);
 
   // const handleChoice = () => {
@@ -108,12 +112,12 @@ export default function Places() {
       <GoogleMap
         id="map"
         mapContainerClassName="map"
-        zoom={8}
+        zoom={7}
         center={center}
         options={options}
         onClick={onMapClick}
         onLoad={onMapLoad}
-        // draggable='true'
+        draggable='true'
       >
         {markers.map((marker) => (
           <Marker
@@ -134,8 +138,8 @@ export default function Places() {
                
             }}
           />
-        ),[console.log(markers)])}
-        <Marker/>
+        ),[console.log(markers)])} 
+         <Marker/>
 
         {selected ? (
           <InfoWindow
@@ -148,14 +152,14 @@ export default function Places() {
         ) : null}
       </GoogleMap>
     </div>
-    <div>Converter</div>
+    {/* <div>Converter</div>
     <Mgrs/>
     <div>Notes on how to use map: </div>
       <p>1. Autosearch location by typing at the input box where you want to search. It will zoom to that location.</p>
       <p>2. Drop markers on the map by clicking where you want to go.</p>
       <p>3. Remove markers by right-clicking on the marker.</p>
 
-    
+     */}
     </>
   );
 };
@@ -216,29 +220,29 @@ function Search({ panTo }) {
 }
 
 
-function Mgrs() {
+// function Mgrs() {
 
-        const [latLong, setLatLong] = useState({});
+//         const [latLong, setLatLong] = useState({});
       
-        useEffect(() => {
-          setLatLong(coordTest());
-        }, []);
+//         useEffect(() => {
+//           setLatLong(coordTest());
+//         }, []);
       
-        const coordTest = () => {
-          let inputString = "14SQH05239974";
-          return toPoint(inputString);
-        };
+//         const coordTest = () => {
+//           let inputString = "14SQH05239974";
+//           return toPoint(inputString);
+//         };
       
-        return (
-            <>
-                <div>MGRS Converter</div>
-                <input type="text" placeholder="Search" />
-                    <div>TO</div>
-                <div>
-                  <input type='text'/>
-                  </div>
-            </>
-      )};
+//         return (
+//             <>
+//                 <div>MGRS Converter</div>
+//                 <input type="text" placeholder="Search" />
+//                     <div>TO</div>
+//                 <div>
+//                   <input type='text'/>
+//                   </div>
+//             </>
+//       )};
 
 
 
