@@ -14,7 +14,8 @@ const ContextProvider = ({ children }) => {
 
   // <- <- App
   const [clickedMission, setClickedMission] = useState(null); // Missions;
-  const [clickedTeam, setClickedTeam] = useState(null);
+  const [clickedTeam, setClickedTeam] = useState(null); // Teams;
+
 
   // <- <- Dashboard
   const [dashboard, setDashoard] = useState([]);
