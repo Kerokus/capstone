@@ -8,8 +8,9 @@
     "dashboard-calendar dashboard-map dashboard-upcoming"
     "ci-team-status humint-team-status sigint-team-status"
     "ci-team-status humint-team-status sigint-team-status";
-  width: 90%;
+  width: 100%;
   height: 90vh;
+  padding: 2em;
 }
 
 .dashboard-calendar {
@@ -20,14 +21,12 @@
 
 .dashboard-map {
   grid-area: dashboard-map;
-  color: black;
-  background-color: orange;
+  border: solid lightgrey;
 }
 
 .dashboard-upcoming {
   grid-area: dashboard-upcoming;
-  color: black;
-  background-color: yellow;
+  border: solid lightgrey;
 }
 
 .ci-team-status {
@@ -53,6 +52,13 @@
 
 .clocks-container > div {
   align-items: center;
-  margin: 10px;
-  width: 100vh;
+  text-align: center;
+  margin: 5px;
+  width: 100%;
+}
+
+.dashboard-clock {
+  font-family: "Orbitron", sans-serif;
+  font-size: 20px;
+  color: rgb(152, 193, 217);
 }
