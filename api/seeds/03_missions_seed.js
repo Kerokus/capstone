@@ -8,8 +8,8 @@ exports.seed = async function (knex) {
   await knex("missions").insert([
     {
       id: 1,
-      start_date: "2022-12-10",
-      end_date: "2022-12-13",
+      start_date: "2022-12-14",
+      end_date: "2022-12-15",
       location: {
         city_base: "Fort Bragg",
         country: "USA",
@@ -44,7 +44,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 2,
-      start_date: "2022-12-24",
+      start_date: "2022-12-15",
       end_date: "2022-12-26",
       location: {
         city_base: "Camp Arifjan",
@@ -76,7 +76,7 @@ exports.seed = async function (knex) {
       },
       decision_point: "2023-02-14",
       is_archived: false,
-      team_id: 2,
+      team_id: 17,
     },
     {
       id: 3,
