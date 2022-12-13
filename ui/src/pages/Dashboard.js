@@ -22,7 +22,6 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    console.log("use effect fire")
     missionsFetch();
   }, []);
 
@@ -33,7 +32,7 @@ const Dashboard = () => {
       }
       setUpcomingMissions(upcomingMissionsArray)
     })
-  }, [ctx.oneDayDate, ctx.twoDayDate])
+  }, [ctx.missions])
 
   //next 24 hours
   let oneDayDate = new Date();
@@ -45,7 +44,6 @@ const Dashboard = () => {
 
   //grabbing calendar data from Missions table and formatting it
   const missionsFetch = async () => {
-    console.log("mission fetch fire")
     setLoading(true);
 
     let missionCalendarArray = [];
@@ -70,7 +68,6 @@ const Dashboard = () => {
       });
     ctx.setDashboard(missionCalendarArray);
     setLoading(false);
-    console.log(missionCalendarArray);
   };
 
   // Calendar object days: inclusive at the start / exclusive at the end
@@ -159,7 +156,6 @@ const renderUpcomingMissions = (mission, index) => {
       <div className="dashboard-container">
         {ctx.dashboard[0] && (
           <div className="dashboard-calendar">
-            {console.log("CALENDAR FIRE")}
             <Calendar
               localizer={localizer}
               events={ctx.dashboard}
