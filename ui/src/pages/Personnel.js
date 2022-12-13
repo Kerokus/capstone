@@ -10,6 +10,7 @@ import Row from "react-bootstrap/Row";
 import BootstrapTable from "react-bootstrap-table-next";
 import { Pen, Trash3 } from "react-bootstrap-icons";
 import {Link} from 'react-router-dom'
+import Csv from "../components/Csv";
 
 
 const Personnel = () => {
@@ -314,6 +315,7 @@ return (
   <>
     <h1 className='header-text'>Deployed Personnel</h1>
     <div className='nav-buttons'>
+
     <Button className='add-mission' variant="success" onClick={handleAdd}>
       Add Personnel
     </Button>
@@ -325,13 +327,17 @@ return (
     </div>
 
     <div className="mainsearch">
+  
         <input 
             className="text-search-bar" 
             type='text' 
             placeholder="Search Personnel" 
             onChange={(event) => {handleSearch(event)}}
             value={ctx.searchTerm}
-        />    
+            
+
+        />
+  <Csv/>  
     </div>
 
     <Modal

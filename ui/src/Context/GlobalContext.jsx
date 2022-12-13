@@ -5,7 +5,7 @@ const GlobalContext = React.createContext();
 const ContextProvider = ({ children }) => {
   // Search Functionality States:
   const [searchTerm, setSearchTerm] = useState(""); //Mission; Personnel; Teams
-  const [filteredData, setFilteredData] = useState([]); //Mission; Personnel; Teams
+  const [filteredData, setFilteredData] = useState([{id: "", name: "", first_name: "",last_name: "", rank: "", mos: "", email: "", status: "", team_name: ""} ]); //Mission; Personnel; Teams
   const [refresh, setRefresh] = useState(false); //Mission; Personnel; Teams
   const [show, setShow] = useState(false); //Mission; Personnel; Teams
   const [formData, setFormData] = useState({}); //Mission; Personnel; Teams
@@ -45,8 +45,8 @@ const ContextProvider = ({ children }) => {
 
   // <- <- Personnel
   const [showWarning, setShowWarning] = useState(false);
-  const [deleteValue, setDeleteValue] = useState("");
-  const [personnelData, setPersonnelData] = useState([]); //Teams;
+  const [deleteValue, setDeleteValue] = useState();
+  const [personnelData, setPersonnelData] = useState([{id: "", name: "", first_name: "",last_name: "", rank: "", mos: "", email: "", status: "", team_name: ""} ]); //Teams;
   const [isAdd, setIsAdd] = useState(false);
   const [teams, setTeams] = useState([]);
   const [personnel, setPersonnel] = useState([]);
