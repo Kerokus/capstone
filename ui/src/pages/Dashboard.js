@@ -19,11 +19,14 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
+    console.log("use effect fire")
     missionsFetch();
   }, []);
 
   //grabbing calendar data from Missions table and formatting it
+
   const missionsFetch = async () => {
+    console.log("mission fetch fire")
     setLoading(true);
 
     //next 24 hours
@@ -121,6 +124,7 @@ const Dashboard = () => {
       <div className="dashboard-container">
         {ctx.dashboard[0] && (
           <div className="dashboard-calendar">
+            {console.log("CALENDAR FIRE")}
             <Calendar
               localizer={localizer}
               events={ctx.dashboard}
