@@ -15,12 +15,10 @@ import SingleMission from "./SingleMission";
 import SingleTeam from "./SingleTeam";
 import SubmitConop from "./SubmitConop";
 import EditConop from "./EditConop";
-<<<<<<< HEAD
-import Header from "../components/Header";
-=======
-import Csv from "../components/Csv";
->>>>>>> a4085ea17dd1bf51ebf96aba3313f78b15dad5a4
 
+import Header from "../components/Header";
+
+import Csv from "../components/Csv";
 function App() {
   return (
     <>
@@ -45,6 +43,6 @@ function App() {
       </ContextProvider>
     </>
   );
-}
+  }
 
 export default App;
