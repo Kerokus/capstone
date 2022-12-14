@@ -10,6 +10,8 @@ import Row from "react-bootstrap/Row";
 import BootstrapTable from "react-bootstrap-table-next";
 import { Pen, Trash3 } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
+import Csv from "../components/Csv";
+import DownloadIcon from '@mui/icons-material/Download';
 
 const Personnel = () => {
   //Justin's Original Functionality States:
@@ -213,7 +215,6 @@ const Personnel = () => {
 
   //EDIT existing person within database
   const handleEditShow = async (fieldId) => {
-    
     ctx.setIsAdd(false);
     try {
       let response = await fetch(`http://localhost:8081/personnel/${fieldId}`)
@@ -234,10 +235,8 @@ const Personnel = () => {
             return item;
           });
           ctx.setFormData(dataSlice[0]);
-          console.log(dataSlice[0])
         });
       handleShow();
-      
     } catch (error) {}
   };
 
@@ -361,6 +360,7 @@ const Personnel = () => {
           }}
           value={ctx.searchTerm}
         />
+        <Csv/>
       </div>
 
       <Modal
@@ -454,24 +454,24 @@ const Personnel = () => {
               </Form.Group>
 
               <Form.Group as={Col} md="3">
-                <Form.Label>Team Name</Form.Label>
+                <Form.Label>Team #</Form.Label>
                 <Form.Select
-                  id="team_name"
+                  id="team_id"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.team_name || ""}
+                  value={ctx.formData.team_id || ""}
                   aria-label="Default select example"
                 >
                   <option>Select</option>
                   {ctx.teamData.map((team) => {
                     return (
-                      <option value={team.team_name} key={team.team_id}>
-                        {team.team_name}
+                      <option value={team.team_id} key={team.team_id}>
+                        {team.name}
                       </option>
                     );
                   })}
                 </Form.Select>
                 <Form.Control.Feedback type="invalid">
-                  Please provide a team name
+                  Please provide a team #
                 </Form.Control.Feedback>
               </Form.Group>
 

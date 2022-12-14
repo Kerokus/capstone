@@ -56,14 +56,16 @@ useEffect(() => {
         }
         return item;
       })
-      ctx.setPersonnelData(dataSlice);
-      ctx.setFilteredData(dataSlice);
+    ctx.setPersonnelData(dataSlice);
+    ctx.setFilteredData(dataSlice);
     } catch (e) {
       console.log(e)
     }
   }
   fetchData()
 }, [ctx.refresh])
+
+  
 
   return <div></div>;
   
@@ -75,3 +77,22 @@ useEffect(() => {
 
 
 export default Fetches;
+
+
+
+
+
+//Creates new "team_name" column in personnel table being rendered
+// useEffect(() => {
+//   let withTeamNames = ctx.personnelData.map(person => {
+//     ctx.teamData.forEach(team => {
+//       if (person.team_id === team.id) {
+//         person.team_name = team.name
+//       }
+//     })
+//     return person;
+//   })
+//   ctx.setFilteredData(withTeamNames)
+//   console.log(ctx.filteredData)
+// }, [ctx.personnelData, ctx.teamData])
+

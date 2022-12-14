@@ -47,9 +47,8 @@ const SigintTeamStatus = () => {
   state variables (redSigintTeams, yellowSigintTeams, greenSigintTeams) and returns the team names. */
   return (
     <>
+    <div className="sigint-team-status">
       <h3 className="team-status-header">SIGINT Teams Status:</h3>
-
-    <div className="sigint_status_container">
       <div className="red_teams">{ctx.redSigintTeams.map((team, index) => {
         return <div key={index}>{team} 🟥</div>})} 
       </div>
