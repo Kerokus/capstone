@@ -13,10 +13,6 @@ const SubmitConop = () => {
   const ctx = useContext(GlobalContext);
   const [validated, setValidated] = useState(false);
 
-  useEffect(() => {
-    localStorage.setItem("INPUT_FORM", JSON.stringify(ctx.submitConopForm));
-  }, [ctx.submitConopForm]);
-
   //DATA HANDLERS
   const handleFormData = (event, nestedObject) => {
     let newData = { ...ctx.submitConopForm };
@@ -83,6 +79,28 @@ const SubmitConop = () => {
         <Row>
           <Col>
             <h3>Admin Data</h3>
+            <Form.Group as={Col} md="3">
+              <Form.Label>Team Name</Form.Label>
+              <Form.Select
+                id="team_id"
+                onChange={(e) => handleFormData(e)}
+                value={ctx.submitConopForm.team_id || ""}
+                aria-label="Default select example"
+              >
+                <option>Select</option>
+                {ctx.teamData.map((team) => {
+                  return (
+                    <option value={team.id} key={team.id}>
+                      {team.team_name}
+                    </option>
+                  );
+                })}
+              </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                Please provide a team name
+              </Form.Control.Feedback>
+            </Form.Group>
+
             <Form.Label>OP Name or Activity type</Form.Label>
             <Form.Group as={Col} md="6">
               <InputGroup hasValidation>
