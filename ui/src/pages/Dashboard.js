@@ -125,39 +125,6 @@ const Dashboard = () => {
   return (
     <>
       {loading && <div>Loading Data...</div>}
-      <div className="clocks-container">
-        <div className="clock-left">
-          <Clock
-            className="dashboard-clock"
-            format={"HH:mm:ss"}
-            ticking={true}
-            timezone={"US/Eastern"}
-          />
-          <p>Ft. Gordon, GA</p>
-        </div>
-        <div className="clock-center">
-          <div className="clock-left">
-            <Clock
-              className="dashboard-clock"
-              format={"HH:mm:ss"}
-              ticking={true}
-              timezone={"zulu"}
-            />
-            <p>Zulu</p>
-          </div>
-        </div>
-        <div className="clock-right">
-          <div className="clock-left">
-            <Clock
-              className="dashboard-clock"
-              format={"HH:mm:ss"}
-              ticking={true}
-              timezone={"Asia/Kuwait"}
-            />
-            <p>Kuwait City</p>
-          </div>
-        </div>
-      </div>
       <div className="dashboard-container">
         {ctx.dashboard[0] && (
           <div className="dashboard-calendar">
@@ -189,15 +156,11 @@ const Dashboard = () => {
           )}
         </div>
 
-        
-          <CiTeamStatus />
-        
-        
-          <HumintTeamStatus />
-        
-        
-          <SigintTeamStatus />
-        
+        <CiTeamStatus />
+
+        <HumintTeamStatus />
+
+        <SigintTeamStatus />
       </div>
     </>
   );
