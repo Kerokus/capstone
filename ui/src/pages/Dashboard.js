@@ -178,15 +178,15 @@ const renderUpcomingMissions = (mission, index) => {
         }
         </div>
 
-        <div className="ci-team-status">
+        
           <CiTeamStatus />
-        </div>
-        <div className="humint-team-status">
+        
+        
           <HumintTeamStatus />
-        </div>
-        <div className="sigint-team-status">
+        
+        
           <SigintTeamStatus />
-        </div>
+        
       </div>
     </>
   );

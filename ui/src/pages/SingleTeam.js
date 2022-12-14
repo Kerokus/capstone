@@ -22,11 +22,12 @@ const SingleTeam = () => {
   let teamMissionsArray = [];
   let upcomingMissionsArray = [];
 
+  // scrolls screen to the top when the component is mounted
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-  /* calendar shit */
+  /* calendar tools */
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
   };
@@ -37,32 +38,11 @@ const SingleTeam = () => {
     getDay,
     locales,
   });
-  const events = [
-    {
-      title: "Operation: Justinson",
-      start: new Date(2022, 11, 5),
-      end: new Date(2022, 11, 8),
-    },
-    {
-      title: "CIT 2 Liaison Meeting",
-      start: new Date(2022, 11, 6),
-      end: new Date(2022, 11, 6),
-    },
-    {
-      title: "HUMINT Team 2 Recruitment Meeting",
-      start: new Date(2022, 11, 15),
-      end: new Date(2022, 11, 18),
-    },
-    {
-      title: "CIT 1 CIVA",
-      start: new Date(2022, 11, 10),
-      end: new Date(2022, 11, 15),
-    },
-  ];
 
-    useEffect(() => {
-      missionsFetch();
-    }, []);
+// calls Justin's mission fetch function
+  useEffect(() => {
+    missionsFetch();
+  }, []);
 
   //grabbing calendar data from Missions table and formatting it
   const missionsFetch = async () => {
@@ -73,7 +53,6 @@ const SingleTeam = () => {
       .then((res) => res.json())
       .then((data) =>
         data.map((event) => {
-          console.log(event)
           if (event.team_id === ctx.clickedTeam.id) {
             let startDate = calendarFormat(event.start_date);
             let endDate = calendarFormat(event.end_date);
@@ -95,7 +74,7 @@ const SingleTeam = () => {
     setLoading(false);
   };
 
-      // the database days are zero based, the Calendar object days are 1 based
+  // the database days are zero based, the Calendar object days are 1 based
   const calendarFormat = (string) => {
     let dateHandler = new Date(string);
     return {
@@ -133,7 +112,6 @@ useEffect(() => {
     //next 24 hours
     let oneDayDate = new Date();
     oneDayDate.setTime(oneDayDate.getTime() + 86400000);
-
     //next 48 hours
     let twoDayDate = new Date();
     twoDayDate.setTime(oneDayDate.getTime() + 86400000);
@@ -164,9 +142,6 @@ useEffect(() => {
       })
     }, [ctx.dashboard])
 
-    console.log(upcomingMissions)
-
-
 /* renders the personnel list of the members of the clicked team */
 const renderTeamMembers = (member, index) => {
   return (
@@ -188,12 +163,10 @@ const renderUpcomingMissions = (mission, index) => {
   )
 }
 
-
-
-
 return (
 
 <div className="single-team-container">
+
   <div className="team-admin-container">
     <div class="team-name">{ctx.clickedTeam.team_name}</div>
 
@@ -222,6 +195,7 @@ return (
       : <div>Loading...</div>
       }
   </div>
+
   <div className="team-calendar">
     <Calendar
       localizer={localizer}
@@ -232,63 +206,40 @@ return (
     />
   </div>
   
-  {/* <div className="team-upcoming-container">Upcoming Missions: </div> */}
   <div className="team-upcoming-container"> 
-  {members.length > 0 ?
-  <div className="team-missions">Upcoming Missions: {[...upcomingMissions].map(renderUpcomingMissions)}</div> :
-  <div>Loading...</div>
-  }
+    {upcomingMissions.length > 0 ?
+    <div className="team-missions">Upcoming Missions: {[...upcomingMissions].map(renderUpcomingMissions)}</div> :
+    <div className="team-missions">Upcoming Missions: <div>{`No Upcoming Missions`} </div></div>
+    }
   </div>
-
 
   <div className="team-all-missions-container"> 
-  {members.length > 0 ?
-  <div className="team-missions">All Missions: {[...missions].map(renderTeamMissions)}</div> :
-  <div>Loading...</div>
-  }
+    {missions.length > 0 ?
+    <div className="team-missions">All Missions: {[...missions].map(renderTeamMissions)}</div> :
+    <div className="team-missions">All Missions: <div>{`No Assigned Missions`} </div></div>
+    }
   </div>
-
 
   <div className="team-location">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</div>
 
   <iframe className="team-mapp" title="title" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1043662.1012423536!2d46.993846776877206!3d29.296531908146836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fc5363fbeea51a1%3A0x74726bcd92d8edd2!2sKuwait!5e0!3m2!1sen!2sus!4v1670945028777!5m2!1sen!2sus" 
-  width="800" height="450" loading="lazy">
+    width="800" height="450" loading="lazy">
   </iframe>
 
 
   <div className="team-personnel-container"> 
-  {members.length > 0 ?
-  <div className="team-members">Team Members: {[...members].map(renderTeamMembers)}</div> :
-  <div>Loading...</div>
-  }
+    {members.length > 0 ?
+    <div className="team-members">Team Members: {[...members].map(renderTeamMembers)}</div> :
+    <div>Loading...</div>
+    }
   </div>
+
 </div>
 
 )};
 
 export default SingleTeam;
 
-// //html
-
-// <div class="single-team-container">
-//   <div class="team-calendar">
-//   <Calendar
-//     localizer={localizer}
-//     events={events}
-//     startAccessor="start"
-//     endAccessor="end"
-//     style={{ height: "1fr", width: "1fr" }}
-//   />
-//   </div>
-//   <iframe className="team-mapp" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1043662.1012423536!2d46.993846776877206!3d29.296531908146836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fc5363fbeea51a1%3A0x74726bcd92d8edd2!2sKuwait!5e0!3m2!1sen!2sus!4v1670945028777!5m2!1sen!2sus" 
-//   width="600" height="450"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-
-
-//   {members.length > 0 ?
-//   <div className="team-members-container">Team Members: {[...members].map(renderTeamMembers)}</div> :
-//   <div>Loading...</div>
-//   }
 
 
 
@@ -296,43 +247,8 @@ export default SingleTeam;
 
 
 
-//   <div class="upcoming-events-container">
-//     <div class="upcoming-event">24/48 hour events</div>
-//   </div>
-//   <div class="team-admin-container">
-//     <div class="team-name">{ctx.clickedTeam.team_name}</div>
-//     <div class="team-status-container">
-    
-//       {ctx.clickedTeam.personnel_status === 'green' ? 
-//       <div className="team-personnel-status">Personnel Status:  🟩</div>
-//       : ctx.clickedTeam.personnel_status === 'yellow' ?
-//       <div className="team-personnel-status">Personnel Status:  🟨</div> 
-//       : ctx.clickedTeam.personnel_status === 'red' ?
-//       <div className="team-personnel-status">Personnel Status:  🟥</div> 
-//       : <div>Loading...</div>
-//       }
-//       {ctx.clickedTeam.equipment_status === 'green' ? 
-//       <div className="team-equipment-status">Equipment Status:  🟩</div>
-//       : ctx.clickedTeam.equipment_status === 'yellow' ?
-//       <div className="team-equipment-status">Equipment Status:  🟨</div> 
-//       : ctx.clickedTeam.equipment_status === 'red' ?
-//       <div className="team-equipment-status">Equipment Status:  🟥</div> 
-//       : <div>Loading...</div>
-//       }
-//       {ctx.clickedTeam.comms_status === 'green' ? 
-//       <div className="team-comms-status">Comms Status:  🟩</div>
-//       : ctx.clickedTeam.comms_status === 'yellow' ?
-//       <div className="team-comms-status">Comms Status:  🟨</div> 
-//       : ctx.clickedTeam.comms_status === 'red' ?
-//       <div className="team-comms-status">Comms Status:  🟥</div> 
-//       : <div>Loading...</div>
-//       }
 
-//     </div>
-//   </div>
-  
-//   <div class="team-location">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</div>
-// </div>
+
 
 
 
