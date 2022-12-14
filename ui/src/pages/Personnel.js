@@ -16,11 +16,11 @@ import DownloadIcon from "@mui/icons-material/Download";
 const Personnel = () => {
   //Justin's Original Functionality States:
   const ctx = useContext(GlobalContext);
- 
-  // 
+
+  //
   useEffect(() => {
-    ctx.setShow(false)
-  }, [])
+    ctx.setShow(false);
+  }, []);
 
   //TABLE HEADERS
   const columns = [
@@ -95,7 +95,7 @@ const Personnel = () => {
       },
     },
     {
-      dataField: "location.city_base",
+      dataField: "city_base",
       text: "City",
       sort: true,
       headerStyle: (column, colIndex) => {
@@ -104,7 +104,7 @@ const Personnel = () => {
     },
 
     {
-      dataField: "location.country",
+      dataField: "country",
       text: "Country",
       sort: true,
       headerStyle: (column, colIndex) => {
@@ -485,8 +485,8 @@ const Personnel = () => {
                 <Form.Label>City/Base</Form.Label>
                 <Form.Control
                   id="city_base"
-                  onChange={(e) => handleFormData(e, "location")}
-                  value={ctx.formData.location?.city_base || ""}
+                  onChange={(e) => handleFormData(e)}
+                  value={ctx.formData.city_base || ""}
                   className="city-base"
                   type="text"
                   placeholder="City or Base"
@@ -501,8 +501,8 @@ const Personnel = () => {
                 <Form.Label>Country</Form.Label>
                 <Form.Control
                   id="country"
-                  onChange={(e) => handleFormData(e, "location")}
-                  value={ctx.formData.location?.country || ""}
+                  onChange={(e) => handleFormData(e)}
+                  value={ctx.formData.country || ""}
                   className="country"
                   type="text"
                   placeholder="Country"
@@ -587,8 +587,7 @@ const Personnel = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      </div>
-    
+    </div>
   );
 };
 

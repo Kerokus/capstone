@@ -37,14 +37,17 @@ const Csv = () => {
 
   const [columnDefs, setColumnDefs] = useState([
     { field: "id" },
-    { field: "first_name" },
     { field: "last_name" },
+    { field: "first_name" },
     { field: "rank" },
     { field: "mos" },
     { field: "email" },
     { field: "status" },
     { field: "team_name" },
-    { field: "location" },
+    { field: "city_base" },
+    { field: "country" },
+    { field: "deployment_start" },
+    { field: "deployment_end" },
   ]);
 
   const onBtnExport = useCallback(() => {
