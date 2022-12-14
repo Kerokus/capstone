@@ -16,9 +16,10 @@ const ContextProvider = ({ children }) => {
   const [clickedMission, setClickedMission] = useState(null); // Missions;
   const [clickedTeam, setClickedTeam] = useState(null); // Teams;
 
-
   // <- <- Dashboard
   const [dashboard, setDashboard] = useState([]);
+  const [oneDayDate, setOneDayDate] = useState("");
+  const [twoDayDate, setTwoDayDate] = useState("");
 
   // <- <- Dashboard - Team Statuses
   // CI Teams State
@@ -46,8 +47,23 @@ const ContextProvider = ({ children }) => {
 
   // <- <- Personnel
   const [showWarning, setShowWarning] = useState(false);
-  const [deleteValue, setDeleteValue] = useState("");
-  const [personnelData, setPersonnelData] = useState([]); //Teams;
+  const [deleteValue, setDeleteValue] = useState();
+  const [personnelData, setPersonnelData] = useState([
+    {
+      id: "",
+      first_name: "",
+      last_name: "",
+      rank: "",
+      mos: "",
+      email: "",
+      status: "",
+      team_name: "",
+      city_base: "",
+      country: "",
+      deployment_start: "",
+      deployment_end: "",
+    },
+  ]); //Teams;
   const [isAdd, setIsAdd] = useState(false);
   const [teams, setTeams] = useState([]);
   const [personnel, setPersonnel] = useState([]);
@@ -141,6 +157,10 @@ const ContextProvider = ({ children }) => {
     setYellowSigintTeams,
     redSigintTeams,
     setRedSigintTeams,
+    oneDayDate,
+    setOneDayDate,
+    twoDayDate,
+    setTwoDayDate,
     center,
     setCenter,
   };

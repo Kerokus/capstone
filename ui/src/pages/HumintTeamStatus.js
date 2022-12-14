@@ -47,9 +47,8 @@ const HumintTeamStatus = () => {
   state variables (redHumintTeams, yellowHumintTeams, greenHumintTeams) and returns the team names. */
   return (
     <>
+    <div className="humint-team-status">
       <h3 className="team-status-header">HUMINT Teams Status:</h3>
-
-    <div className="humint_status_container">
       <div className="red_teams">{ctx.redHumintTeams.map((team, index) => {
         return <div key={index}>{team} 🟥</div>})} 
       </div>

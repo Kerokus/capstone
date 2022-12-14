@@ -15,7 +15,7 @@ const options = {
 };
 
 
-export default function Places() {
+export default function Places({coordinates}) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
     libraries,
@@ -24,7 +24,7 @@ export default function Places() {
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   // const [center, setCenter] = useState({lat: 28.871513, lng: 48.163907});
-  
+  console.log("this:", coordinates)
   useEffect(() => {
     ctx.teams.forEach((place) => {
       console.log(place)
@@ -36,7 +36,7 @@ export default function Places() {
       } else if (place.location.country === 'USA'){
         ctx.setCenter({lat:33.4302, lng:-82.1261})
       } else{
-        ctx.setCenter({lat:48.8566, lng:2.3522})
+        // ctx.setCenter({lat:48.8566, lng:2.3522})
       }console.log(ctx.teams)
       }
      )
@@ -115,8 +115,8 @@ export default function Places() {
       <GoogleMap
         id="map"
         mapContainerClassName="map"
-        zoom={7}
-        center={(ctx.center)}
+        zoom={6}
+        center={coordinates}
         options={options}
         onClick={onMapClick}
         onLoad={onMapLoad}
