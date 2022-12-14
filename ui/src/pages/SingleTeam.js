@@ -73,7 +73,7 @@ const SingleTeam = () => {
     ctx.setDashboard(missionCalendarArray);
     setLoading(false);
   };
-
+}
   // the database days are zero based, the Calendar object days are 1 based
   const calendarFormat = (string) => {
     let dateHandler = new Date(string);
@@ -163,7 +163,8 @@ const renderUpcomingMissions = (mission, index) => {
   )
 }
 
-return (
+return(
+  <>
 <div className="single-team-container">
   <div className="team-calendar">
   <Calendar
@@ -225,7 +226,11 @@ return (
   
   <div className="team-location">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</div>
 </div>
-)};
+</div>
+</div>
+</>
+)
+;
 
 export default SingleTeam;
 
@@ -235,7 +240,7 @@ export default SingleTeam;
 
 
 
-{/* <div className="single-team-container">
+/* <div className="single-team-container">
 <div className="team-name">{ctx.clickedTeam.team_name}</div>
 
 <div className="team-map">
@@ -292,16 +297,4 @@ export default SingleTeam;
 
 export default SingleTeam;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+*/
