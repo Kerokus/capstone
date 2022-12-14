@@ -56,7 +56,7 @@ const Csv = () => {
       gridRef.current.api.getDataAsCsv();
   }, []);
 
-  //console.log("search term", ctx.searchTerm)
+  console.log("search term", ctx.searchTerm);
 
   return (
     <div>
