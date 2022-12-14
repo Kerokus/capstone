@@ -15,14 +15,16 @@ import SingleMission from "./SingleMission";
 import SingleTeam from "./SingleTeam";
 import SubmitConop from "./SubmitConop";
 import EditConop from "./EditConop";
+import Header from "../components/Header";
 
 function App() {
   return (
     <>
       <ContextProvider>
         <Fetches />
-        <Navbar />
         <div className="app-container">
+        <Header/>
+        <Navbar />
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/missions" element={<Missions />} />
