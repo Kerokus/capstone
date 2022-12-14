@@ -24,7 +24,7 @@ const Fetches = () => {
       .then((data) => ctx.setTeams(data))
       .catch((err) => console.error(err));
 
-  }, []);
+  }, [ctx.refresh]);
 
 
 
