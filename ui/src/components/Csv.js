@@ -56,7 +56,7 @@ const Csv = () => {
     ).value = gridRef.current.api.getDataAsCsv();
   }, []);
 
-  console.log("search term", ctx.searchTerm)
+
 
 
   return (
@@ -84,8 +84,8 @@ const Csv = () => {
           </div>
 
         </div>
-       </div>
-     </div>
+      </div>
+    </div>
   );
 }
 
@@ -111,93 +111,93 @@ export default Csv
 
 
 
-// // https://www.youtube.com/watch?v=iTsgvzsgtek&t=443s
-//   // console.log(ctx.personnel)
-// //   const exportCsv = () =>{
-// //     const row = []
-// //     const data = [["id","last_name", "first_name", " rank", "mos", "email",]]
-// //     let mapdata= ctx.personnel.map((person,i)=>{
-// //       row.push([person])
-// //       let mapdata2 = mapdata.map((per,i)=>{
-// //         row.push([per].join(','))
-// //       })
-// //     })
-// //  console.log(row)
-// //   }
-// //   exportCsv()
+// https://www.youtube.com/watch?v=iTsgvzsgtek&t=443s
+  // console.log(ctx.personnel)
+//   const exportCsv = () =>{
+//     const row = []
+//     const data = [["id","last_name", "first_name", " rank", "mos", "email",]]
+//     let mapdata= ctx.personnel.map((person,i)=>{
+//       row.push([person])
+//       let mapdata2 = mapdata.map((per,i)=>{
+//         row.push([per].join(','))
+//       })
+//     })
+//  console.log(row)
+//   }
+//   exportCsv()
 
-// {/* <div className="csv">
+{/* <div className="csv">
       
-// <button onClick={handleClick}><csvlink {...csvReport}>Export to CSV</csvlink></button>
-// </div>
+<button onClick={handleClick}><csvlink {...csvReport}>Export to CSV</csvlink></button>
+</div>
 
-// const headers = [
-//   { label: "Last Name", key: "firstName" },
-//   { label: "First Name", key: "lastName" },
-//   { label: "Rank", key: "email" },
-//   { label: "MOS", key: "age" },
-//   { label: "Email Address", key: "age" },
-//   { label: "Team", key: "age" },
-//   { label: "City", key: "age" },
-//   { label: "Country", key: "age" },
-// ];
+const headers = [
+  { label: "Last Name", key: "firstName" },
+  { label: "First Name", key: "lastName" },
+  { label: "Rank", key: "email" },
+  { label: "MOS", key: "age" },
+  { label: "Email Address", key: "age" },
+  { label: "Team", key: "age" },
+  { label: "City", key: "age" },
+  { label: "Country", key: "age" },
+];
 
-// const handleClick= () => {
+const handleClick= () => {
 
-// };
+};
 
-// const data = [ctx.personnelData]
+const data = [ctx.personnelData]
 
-// const csvReport = {
-//   data: data,
-//   headers: headers,
-//   filename: 'DPSA.csv'
-// };
-// console.log(data) */}
+const csvReport = {
+  data: data,
+  headers: headers,
+  filename: 'DPSA.csv'
+};
+console.log(data) */}
 
 
-// // console.log(ctx.personnel)
-// // const exportCsv = () =>{
-// //       const row = []
+// console.log(ctx.personnel)
+// const exportCsv = () =>{
+//       const row = []
 
-// //       const data = [["id","last_name", "first_name", " rank", "mos", "email"]]
-// //       const personnel= ctx.personnel.map(person=>{
-// //           row.push(person)
-// //         })
+//       const data = [["id","last_name", "first_name", " rank", "mos", "email"]]
+//       const personnel= ctx.personnel.map(person=>{
+//           row.push(person)
+//         })
 
-// //         const combined= row.map(ro=>{
-// //           data.push(ro)
-// //         })
+//         const combined= row.map(ro=>{
+//           data.push(ro)
+//         })
 
-// //   console.log(data)
-// //    console.log(row)
-// //     }
-// //     exportCsv()
+//   console.log(data)
+//    console.log(row)
+//     }
+//     exportCsv()
 
-// //https://www.ag-grid.com/react-data-grid/csv-export/#example-csv-export-column-separator
+//https://www.ag-grid.com/react-data-grid/csv-export/#example-csv-export-column-separator
 
-// // const addpersonnel=()=>{
-// //   let result = []
+// const addpersonnel=()=>{
+//   let result = []
    
-// //   const personnel= ctx.personnelData.map(person =>{
-// //     // console.log(person)
-// //     return result.push(person)
+//   const personnel= ctx.personnelData.map(person =>{
+//     // console.log(person)
+//     return result.push(person)
 
-// //  })
-// //   //  console.log("result:",result)
-// // }
-// //   // console.log("result:",result)
-// // addpersonnel()
-// // // console.log(addpersonnel())
+//  })
+//   //  console.log("result:",result)
+// }
+//   // console.log("result:",result)
+// addpersonnel()
+// // console.log(addpersonnel())
 
-//   // const [columnDefs, setColumnDefs] = useState([
-//   //   { field: 'id' },
-//   //   { field: 'first_name' },
-//   //   { field: 'last_name' },
-//   //   { field: 'rank' },
-//   //   { field: 'mos' },
-//   //   { field: 'email' },
-//   //   { field: 'status' },
-//   //   { field:  "team_name"},
-//   //   { field:  "location"},
-//   // ]);
+  // const [columnDefs, setColumnDefs] = useState([
+  //   { field: 'id' },
+  //   { field: 'first_name' },
+  //   { field: 'last_name' },
+  //   { field: 'rank' },
+  //   { field: 'mos' },
+  //   { field: 'email' },
+  //   { field: 'status' },
+  //   { field:  "team_name"},
+  //   { field:  "location"},
+  // ]);
