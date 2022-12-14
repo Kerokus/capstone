@@ -9,22 +9,9 @@ import InputGroup from "react-bootstrap/InputGroup";
 
 //submitConopForm, setSubmitConopForm
 
-const SubmitConop = () => {
+const EditConop = () => {
   const ctx = useContext(GlobalContext);
   const [validated, setValidated] = useState(false);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch("http://localhost:8081/teams");
-  //       const data = await response.json();
-  //       setTeamData(data);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [refresh]);
 
   //DATA HANDLERS
   const handleFormData = (event, nestedObject) => {
@@ -38,12 +25,12 @@ const SubmitConop = () => {
       newData[event.target.id] = event.target.value;
     }
     ctx.setSubmitConopForm(newData);
-    console.log(ctx.submitConopForm);
   };
 
   //Clears the form data
   const handleClear = () => {
     ctx.setSubmitConopForm({});
+    setValidated(false);
   };
 
   //ADD new CONOP
@@ -57,7 +44,7 @@ const SubmitConop = () => {
       setValidated(true);
       event.preventDefault();
       let response = await fetch("http://localhost:8081/missions", {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -92,6 +79,28 @@ const SubmitConop = () => {
         <Row>
           <Col>
             <h3>Admin Data</h3>
+            <Form.Group as={Col} md="3">
+              <Form.Label>Team Name</Form.Label>
+              <Form.Select
+                id="team_id"
+                onChange={(e) => handleFormData(e)}
+                value={ctx.submitConopForm.team_id || ""}
+                aria-label="Default select example"
+              >
+                <option>Select</option>
+                {ctx.teamData.map((team) => {
+                  return (
+                    <option value={team.id} key={team.id}>
+                      {team.team_name}
+                    </option>
+                  );
+                })}
+              </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                Please provide a team name
+              </Form.Control.Feedback>
+            </Form.Group>
+
             <Form.Label>OP Name or Activity type</Form.Label>
             <Form.Group as={Col} md="6">
               <InputGroup hasValidation>
@@ -534,4 +543,4 @@ const SubmitConop = () => {
   );
 };
 
-export default SubmitConop;
+export default EditConop;

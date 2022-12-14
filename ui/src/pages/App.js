@@ -19,8 +19,6 @@ import EditConop from "./EditConop";
 import Header from "../components/Header";
 
 import Csv from "../components/Csv";
-
-
 function App() {
   return (
     <>
@@ -45,6 +43,6 @@ function App() {
       </ContextProvider>
     </>
   );
-}
+  }
 
 export default App;

@@ -70,18 +70,18 @@
 //           <div>
 //             <div>
               
-//               <AgGridReact
-//                 ref={gridRef}
-//                 // rowData={rowData}
-//                 // rowData={ctx.personnelData}
-//                 rowData ={ctx.searchTerm}
-//                 defaultColDef={defaultColDef}
-//                 suppressExcelExport={true}
-//                 popupParent={popupParent}
-//                 columnDefs={columnDefs}
-//               ></AgGridReact>
-//             </div>
-//           </div>
+              <AgGridReact
+                ref={gridRef}
+                // rowData={rowData}
+                rowData={ctx.personnelData}
+                // rowData ={ctx.searchTerm}
+                defaultColDef={defaultColDef}
+                suppressExcelExport={true}
+                popupParent={popupParent}
+                columnDefs={columnDefs}
+              ></AgGridReact>
+            </div>
+          </div>
 
 //         </div>
 //       </div>

@@ -27,17 +27,20 @@ const Dashboard = () => {
 
   useEffect(() => {
     ctx.missions.forEach((mission, index) => {
-      if (mission.start_date === ctx.oneDayDate || mission.start_date === ctx.twoDayDate) {
-        upcomingMissionsArray.push(mission)
+      if (
+        mission.start_date === ctx.oneDayDate ||
+        mission.start_date === ctx.twoDayDate
+      ) {
+        upcomingMissionsArray.push(mission);
       }
-      setUpcomingMissions(upcomingMissionsArray)
-    })
-  }, [ctx.missions])
+      setUpcomingMissions(upcomingMissionsArray);
+    });
+  }, [ctx.missions]);
 
   //next 24 hours
   let oneDayDate = new Date();
   oneDayDate.setTime(oneDayDate.getTime() + 86400000);
-  
+
   //next 48 hours
   let twoDayDate = new Date();
   twoDayDate.setTime(oneDayDate.getTime() + 86400000);
@@ -54,6 +57,8 @@ const Dashboard = () => {
           let startDate = calendarFormat(event.start_date);
           let endDate = calendarFormat(event.end_date);
           let missionCalendarObject = {
+            id: event.id,
+            team_id: event.team_id,
             title: event.name,
             start: new Date(startDate.year, startDate.month, startDate.day),
             // the end date must be one day past the desired range as that is the day the event "stops"
@@ -83,8 +88,6 @@ const Dashboard = () => {
     };
   };
 
-
-
   const padTo2Digits = (num) => {
     return num.toString().padStart(2, "0");
   };
@@ -98,9 +101,9 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    ctx.setOneDayDate(formatDate(oneDayDate))
-    ctx.setTwoDayDate(formatDate(twoDayDate))
-  }, [])
+    ctx.setOneDayDate(formatDate(oneDayDate));
+    ctx.setTwoDayDate(formatDate(twoDayDate));
+  }, []);
 
   const localizer = dateFnsLocalizer({
     format,
@@ -111,48 +114,17 @@ const Dashboard = () => {
   });
 
   /* renders upcoming missions assigned to the clicked team */
-const renderUpcomingMissions = (mission, index) => {
-  return (
-    <div className="team-missions" key={index}> {`${mission.start_date} / ${mission.name}`} </div>
-  )
-}
+  const renderUpcomingMissions = (mission, index) => {
+    return (
+      <li className="dashboard-team-list" key={index}>
+        <span>{`${mission.start_date} - ${mission.name}`}</span>
+      </li>
+    );
+  };
 
   return (
     <>
       {loading && <div>Loading Data...</div>}
-      <div className="clocks-container">
-        <div className="clock-left">
-          <Clock
-            className="dashboard-clock"
-            format={"HH:mm:ss"}
-            ticking={true}
-            timezone={"US/Eastern"}
-          />
-          <p>Ft. Gordon, GA</p>
-        </div>
-        <div className="clock-center">
-          <div className="clock-left">
-            <Clock
-              className="dashboard-clock"
-              format={"HH:mm:ss"}
-              ticking={true}
-              timezone={"zulu"}
-            />
-            <p>Zulu</p>
-          </div>
-        </div>
-        <div className="clock-right">
-          <div className="clock-left">
-            <Clock
-              className="dashboard-clock"
-              format={"HH:mm:ss"}
-              ticking={true}
-              timezone={"Asia/Kuwait"}
-            />
-            <p>Kuwait City</p>
-          </div>
-        </div>
-      </div>
       <div className="dashboard-container">
         {ctx.dashboard[0] && (
           <div className="dashboard-calendar">
@@ -169,24 +141,26 @@ const renderUpcomingMissions = (mission, index) => {
           <h3>Map</h3>
         </div>
 
-        <div className="dashboard-upcoming"> 
-        {upcomingMissions.length > 0 ?
-        <div className="team-missions"> <h3 className="upcoming-header">Upcoming Missions:</h3>  {[...upcomingMissions].map(renderUpcomingMissions)}</div> :
-        <div>Upcoming Missions: 
-          <div className="team-missions" > {`None`} </div>
-        </div>
-        }
+        <div className="dashboard-upcoming">
+          <h3 className="upcoming-header">Next 48 hours</h3>{" "}
+          {upcomingMissions.length > 0 ? (
+            <div className="team-missions">
+              {" "}
+              <ul>{[...upcomingMissions].map(renderUpcomingMissions)}</ul>
+            </div>
+          ) : (
+            <div>
+              Next 48 hours:
+              <div className="team-missions"> {`None`} </div>
+            </div>
+          )}
         </div>
 
-        
-          <CiTeamStatus />
-        
-        
-          <HumintTeamStatus />
-        
-        
-          <SigintTeamStatus />
-        
+        <CiTeamStatus />
+
+        <HumintTeamStatus />
+
+        <SigintTeamStatus />
       </div>
     </>
   );
