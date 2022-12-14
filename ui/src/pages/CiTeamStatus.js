@@ -47,25 +47,20 @@ const CiTeamStatus = () => {
   state variables (redCiTeams, yellowCiTeams, greenCiTeams) and returns the team names. */
   return (
     <>
+    <div className="ci-team-status">
       <h3 className="team-status-header">CI Teams Status:</h3>
-
-      <div className="team-status-container">
-        {ctx.redCiTeams.map((team, index) => {
-          return <div className="red-teams" key={index}>{team}</div>
-        })}
-        {ctx.yellowCiTeams.map((team, index) => {
-          return <div className="yellow-teams" key={index}>{team}</div>
-        })}
-        {ctx.greenCiTeams.map((team, index) => {
-          return <div className="green-teams" key={index}>{team}</div>
-        })}
-        <div className="team-name"></div>
-        <div className="team-status"></div>
-        <div className="red-teams"></div>
-        <div className="yellow-teams"></div>
-        <div className="green-teams"></div>
+      <div className="red_teams">{ctx.redCiTeams.map((team, index) => {
+        return <div key={index}>{team} 🟥</div>})} 
       </div>
+      <div className="yellow_teams">{ctx.yellowCiTeams.map((team, index) => {
+        return <div key={index}>{team} 🟨</div>})} 
+      </div>
+      <div className="green_teams">{ctx.greenCiTeams.map((team, index) => {
+        return <div key={index}>{team} 🟩</div>})} 
+      </div>
+    </div>
     </>
+
   )
 };
 
@@ -73,19 +68,24 @@ export default CiTeamStatus;
 
 
 
-
 {/* <>
 <h3 className="team-status-header">CI Teams Status:</h3>
 
-<div className="team-status-container">
-<div className="red_teams">{ctx.redCiTeams.map((team, index) => {
-  return (<div key={index}>{team} 🟥</div>)})} 
-</div>
-<div className="yellow_teams">{ctx.yellowCiTeams.map((team, index) => {
-  return (<div key={index}>{team} 🟨</div>)})} 
-</div>
-<div className="green_teams">{ctx.greenCiTeams.map((team, index) => {
-  return (<div key={index}>{team} 🟩</div>)})} 
-</div>
-</div>
+  <div className="red-teams">
+    {ctx.redCiTeams.map((team, index) => {
+      return <div className="red" key={index}> <div className="team-name" >{team}</div> <div className="team-status" >🟥</div> </div>
+    })}
+  </div>
+
+  <div className="yellow-teams">
+    {ctx.yellowCiTeams.map((team, index) => {
+      return <div className="yellow" key={index}><div className="team-name" >{team}</div> <div className="team-status" >🟨</div> </div>
+    })}
+  </div>
+
+  <div className="green-teams">
+    {ctx.greenCiTeams.map((team, index) => {
+      return <div className="green" key={index}><div className="team-name" >{team}</div> <div className="team-status" >🟩</div> </div>
+    })}
+  </div>
 </> */}
