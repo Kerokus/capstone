@@ -6,6 +6,9 @@ import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import Clock from "react-live-clock";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import DigitalClock from "./DigitalClock";
+import ArchiveIcon from '@mui/icons-material/Archive';
+
 
 const NavbarComponent = () => {
   const ctx = useContext(GlobalContext);
@@ -15,6 +18,7 @@ const NavbarComponent = () => {
     <>
       <Navbar className="nav" bg="dark" variant="dark">
         <Container className="navbar">
+
           <Navbar.Brand className="webpage-title" as={Link} to="/">
             Theater Operations Management System
           </Navbar.Brand>
@@ -31,43 +35,14 @@ const NavbarComponent = () => {
             <Nav.Link className="personnel" as={Link} to="/conop">
               Submit Conop
             </Nav.Link>
+          <Nav.Link className="personnel" as={Link} to="/conop">
+            </Nav.Link>
+          <Nav.Link className="personnel" as={Link} to="/conop"><ArchiveIcon></ArchiveIcon>
+            </Nav.Link>
           </Nav>
+            
         </Container>
-        <div className ="header-clock">      
-      {loading && <div>Loading Data...</div>}
-    <div className="clocks-container">
-      <div className="clock-left">
-        <Clock
-          className="dashboard-clock"
-          format={"HH:mm:ss"}
-          ticking={true}
-          timezone={"US/Eastern"}
-        />
-        <p>Ft. Gordon, GA</p>
-      </div>
-      <div className="clock-center">
-        <div className="clock-left">
-          <Clock
-            className="dashboard-clock"
-            format={"HH:mm:ss"}
-            ticking={true}
-            timezone={"zulu"}
-          />
-          <p>Zulu</p>
-        </div>
-      </div>
-      <div className="clock-right">
-        <div className="clock-left">
-          <Clock
-            className="dashboard-clock"
-            format={"HH:mm:ss"}
-            ticking={true}
-            timezone={"Asia/Kuwait"}
-          />
-          <p>Kuwait City</p>
-        </div>
-      </div>
-    </div></div>
+
       </Navbar>
 
     </>

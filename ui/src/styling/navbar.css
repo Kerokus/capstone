@@ -2,6 +2,7 @@
 
 .navbar {
   --bs-nav-brand-color: white;
+  
 }
 .navbar-nav {
   --bs-nav-link-hover-color: lightgray;
@@ -20,6 +21,7 @@
   display: flex;
   justify-content: space-between;
   flex: 12;
+
 }
 .personnel {
   color: white;

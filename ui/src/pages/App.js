@@ -16,7 +16,7 @@ import SingleTeam from "./SingleTeam";
 import SubmitConop from "./SubmitConop";
 import EditConop from "./EditConop";
 
-import Header from "../components/Header";
+import DigitalClock from "../components/DigitalClock";
 
 import Csv from "../components/Csv";
 function App() {
@@ -25,8 +25,8 @@ function App() {
       <ContextProvider>
         <Fetches />
         <div className="app-container">
-        <Header/>
         <Navbar />
+        <DigitalClock />
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/missions" element={<Missions />} />
