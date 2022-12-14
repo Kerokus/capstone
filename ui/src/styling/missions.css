@@ -21,6 +21,7 @@
   margin-top: 20px;
   color: white;
   
+  
 }
 
 .mission-card-container{
@@ -32,3 +33,18 @@
   /* min-height: 85vh; */
   padding-bottom: 3em;
 }
+
+.submit-conop-link{
+  display: flex;
+  align-self: center;
+  /* margin-right: 2.3em; */
+  text-decoration: none;
+}
+
+.homepage-link{
+  display: flex;
+  align-self: center;
+  margin-right: 2.3em;
+  text-decoration: none;
+}
+

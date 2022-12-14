@@ -27,7 +27,6 @@ const Missions = () => {
   // ctx.sets the "Search Term" on change of the search text box (default is "")
   const handleSearch = (event) => {
     setMissionSearchTerm(event.target.value);
-    console.log(missionSearchTerm)
   };
 
   //Filters the data without having to select a "Search By" Category
@@ -50,15 +49,40 @@ const Missions = () => {
     });
   }, [missionSearchTerm]);
 
-  // add mission 
-  const handleAdd = () => {
-    ctx.setIsAdd(true);
-    ctx.setValidated(false);
-    handleShow();
-  };
+    //DELETE person from database
+    const handleDelete = async () => {
+      try {
+        let response = await fetch(
+          `http://localhost:8081/missions/${ctx.clickedMission.id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        handleCloseWarning();
+        toggleRefresh();
+        if (response.status !== 202) {
+          throw new Error();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  //Open "Mission" form
-  const handleShow = () => ctx.setShow(true);
+    const toggleRefresh = () => {
+      ctx.setRefresh((current) => !current);
+    };
+
+  //DELETE Confirmation Warnings
+    const handleCloseWarning = () => {
+      ctx.setShowWarning(false);
+    };
+
+    const handleShowWarning = () => {
+      ctx.setShowWarning(true);
+    };
 
   const renderMissionCard = (mission, index) => {
     return (
@@ -83,21 +107,26 @@ const Missions = () => {
         </Button>
         </Link>
         <Button variant="danger" onClick={() => {
-          // setClickedTeam(team)
-          // handleDeleteShow()
+          ctx.setClickedMission(mission)
+          handleShowWarning()
         }}>Delete Mission</Button>
         </div>
       </Card.Body>
     </Card>
     )
   }
+
+
  
   return (
+    <>
     <div className="missions-page-container">
     <div className='nav-buttons'>
-    <Button className='add-mission' variant="success" onClick={handleAdd}>
-      Add Mission
+    <Link className='submit-conop-link' to='/conop'>
+    <Button className='add-mission' variant="success">
+    Submit CONOP
     </Button>
+    </Link>
 
     <div className="mission-search">
         <input 
@@ -109,7 +138,7 @@ const Missions = () => {
         />    
     </div>
 
-    <Link className='homepage-button-personnel' to='/'>
+    <Link className='homepage-link' to='/'>
     <Button variant='primary' className='homepage-button'>
       Back to Home
     </Button>
@@ -120,6 +149,34 @@ const Missions = () => {
         {[...filteredMissionData].map(renderMissionCard)}
     </div>
     </div>
+
+    <Modal
+        show={ctx.showWarning}
+        onHide={handleCloseWarning}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header>
+          <Modal.Title>CONFIRM</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you wish to delete this entry?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseWarning}>
+            Close
+          </Button>
+          <Button
+            variant="warning"
+            onClick={() => {
+              handleDelete();
+              ctx.setSearchTerm("");
+              toggleRefresh()
+            }}
+          >
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+</>
   )
 };
 
