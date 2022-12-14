@@ -1,0 +1,128 @@
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1.5fr 0.4fr 1.1fr;
+  gap: 5px 5px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "dashboard-calendar dashboard-map dashboard-upcoming"
+    "ci-team-status humint-team-status sigint-team-status"
+    "ci-team-status humint-team-status sigint-team-status";
+  width: 100%;
+  height: 90vh;
+  padding: 2em;
+}
+
+.dashboard-calendar {
+  grid-area: dashboard-calendar;
+  color: black;
+  background-color: lightgrey;
+  overflow-y: scroll;
+}
+
+.dashboard-map {
+  grid-area: dashboard-map;
+  border: solid lightgrey;
+}
+
+.dashboard-upcoming {
+  grid-area: dashboard-upcoming;
+  color: white;
+  border-style: solid;
+  padding-left: 5px;
+}
+
+.upcoming-header {
+  text-align: center;
+}
+
+.upcoming-header {
+  text-decoration: underline;
+}
+
+.team-missions {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+}
+
+.list {
+  position: relative;
+}
+
+.list ul {
+  position: relative;
+}
+
+.dashboard-team-list {
+  position: relative;
+  left: 0;
+  color: #999;
+  list-style: none;
+  margin: 4px;
+  border-left: 2px solid #24ff0b;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.dashboard-team-list::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #24ff0b;
+  transform: scaleX(0);
+  transition: 0.5s;
+}
+
+.dashboard-team-list:hover::before {
+  transform: scaleX(1);
+}
+
+.dashboard-team-list:hover {
+  left: 10px;
+}
+
+.dashboard-team-list span {
+  position: relative;
+  padding: 8px;
+  display: inline-block;
+  z-index: 1;
+  transition: 0.5s;
+}
+
+.ci-team-status {
+  grid-area: ci-team-status;
+  
+}
+
+.humint-team-status {
+  grid-area: humint-team-status;
+
+}
+
+.sigint-team-status {
+  grid-area: sigint-team-status;
+
+}
+
+.clocks-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clocks-container > div {
+  align-items: center;
+  text-align: center;
+  margin: 5px;
+  width: 100%;
+}
+
+.dashboard-clock {
+  font-family: "Orbitron", sans-serif;
+  font-size: 20px;
+  color: rgb(152, 193, 217);
+}
