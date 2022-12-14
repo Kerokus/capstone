@@ -12,7 +12,9 @@ const Header = () => {
 
 
   return (
-    <div className ="header-clock">      
+
+    <div>
+          {/* <div className ="header-clock">      
       {loading && <div>Loading Data...</div>}
     <div className="clocks-container">
       <div className="clock-left">
@@ -45,9 +47,10 @@ const Header = () => {
           />
           <p>Kuwait City</p>
         </div>
-      </div>
-    </div></div>
+      </div> */}
+    </div>
   )
 }
 
-export default Header
+export default Header    
+
