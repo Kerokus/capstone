@@ -1,0 +1,6 @@
+# Step 1: Create the .dockerignore file in your docker build context directory:
+
+# Step 2: Add the files you want docker to ignore to the .dockerignore,
+# for instance:
+node_modules
+mySecretAPIToken.token
