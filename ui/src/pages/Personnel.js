@@ -620,7 +620,7 @@ const Personnel = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      </>
+      </div>
     
   );
 };
