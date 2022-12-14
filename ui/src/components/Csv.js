@@ -73,8 +73,8 @@ const Csv = () => {
               <AgGridReact
                 ref={gridRef}
                 // rowData={rowData}
-                // rowData={ctx.personnelData}
-                rowData ={ctx.searchTerm}
+                rowData={ctx.personnelData}
+                // rowData ={ctx.searchTerm}
                 defaultColDef={defaultColDef}
                 suppressExcelExport={true}
                 popupParent={popupParent}
