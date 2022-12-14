@@ -24,7 +24,11 @@ npm install react-live-clock --legacy-peer-deps
 npm install react-moment --legacy-peer-deps
 npm i ag-grid-community --force
 npm i ag-grid-react --force   
-
+npm i ag-grid-community --force
+npm i @react-google-maps/api --force
+npm i use-places-autocomplete --force
+npm i @reach/combobox --force
+npm i dotenv --force
 
 maps
 npm i @reach/combobox --force

@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
+import Places from "../components/Map"
 
 const Missions = () => {
   const ctx = useContext(GlobalContext)
@@ -90,7 +91,7 @@ const Missions = () => {
       <Card.Header> {`${mission.name} - ${mission.status.toUpperCase()}`} </Card.Header>
       <Card.Body className='card-body'>
           <div className="test" key={index}>
-            <div className="missions-map">Map</div>
+            <div className="missions-map"><Places /></div>
             <div className="mission-data"> 
               <u> Location: </u>
               <p>{`${mission.location.country} - ${mission.location.city_base}`}</p>

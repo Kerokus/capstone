@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
-import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import React, { useContext, useEffect, useState} from "react";
+import { GlobalContext } from "../Context/GlobalContext";
 import Card from 'react-bootstrap/Card';
 
 
@@ -54,18 +54,27 @@ const Teams = () => {
   }, [teamSearchTerm]);
 
   const renderTeamCard = (team, index) => {
+    var coordinates = {}
+//console.log("flag:",team)
+    if (team.location.country === 'Kuwait'){
+      coordinates = {lat: 28.871513, lng: 48.163907}
+    } else if (team.location.country === 'Jordan'){
+      coordinates = {lat:31.967195, lng:35.910519}
+    } else if (team.location.country === 'USA'){
+      coordinates = {lat:33.4302, lng:-82.1261}
+    }else{
+      coordinates = {lat:48.8566, lng:2.3522}
+    }
+// console.log("other:", coordinates)
     return (
-    <Card border='light' style={{ width: '18rem' }} key={index} bg='dark' text='white'className="mission-card">
+    <Card border='light' style={{ width: '18rem' }} key={index} bg='dark' text='white' className="mission-card">
       <Card.Header> {team.team_name} </Card.Header>
       <Card.Body className='card-body'>
 
 
 
           <div className="test" key={index}>
-<<<<<<< HEAD
-=======
-            <div className="team-map"> <Places/></div>
->>>>>>> main
+            <div className="team-map"> <Places coordinates={coordinates}/></div>
             <div className="team-location-data"> 
               <u> Current Location: </u>
               <p>{`${team.location.country} - ${team.location.city_base}`}</p>

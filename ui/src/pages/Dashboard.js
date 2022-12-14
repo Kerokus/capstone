@@ -10,6 +10,7 @@ import CiTeamStatus from "./CiTeamStatus";
 import HumintTeamStatus from "./HumintTeamStatus";
 import SigintTeamStatus from "./SigintTeamStatus";
 import { toPoint } from "mgrs";
+import Places from '../components/Map'
 
 const Dashboard = () => {
   const ctx = useContext(GlobalContext);
@@ -138,7 +139,7 @@ const Dashboard = () => {
           </div>
         )}
         <div className="dashboard-map">
-          <h3>Map</h3>
+          <h3><Places/></h3>
         </div>
 
         <div className="dashboard-upcoming">
