@@ -11,6 +11,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
+import Places from "../components/Map"
 
 const Teams = () => {
   const ctx = useContext(GlobalContext) 
@@ -61,11 +62,15 @@ const Teams = () => {
 
 
           <div className="test" key={index}>
+<<<<<<< HEAD
+=======
+            <div className="team-map"> <Places/></div>
+>>>>>>> main
             <div className="team-location-data"> 
               <u> Current Location: </u>
               <p>{`${team.location.country} - ${team.location.city_base}`}</p>
             </div>
-            <div classname='asd'>
+            <div className='asd'>
             </div>
           </div>
 

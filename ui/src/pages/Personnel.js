@@ -11,16 +11,16 @@ import BootstrapTable from "react-bootstrap-table-next";
 import { Pen, Trash3 } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import Csv from "../components/Csv";
-import DownloadIcon from '@mui/icons-material/Download';
+import DownloadIcon from "@mui/icons-material/Download";
 
 const Personnel = () => {
   //Justin's Original Functionality States:
   const ctx = useContext(GlobalContext);
- 
-  // 
+
+  //
   useEffect(() => {
-    ctx.setShow(false)
-  }, [])
+    ctx.setShow(false);
+  }, []);
 
   //TABLE HEADERS
   const columns = [
@@ -95,7 +95,7 @@ const Personnel = () => {
       },
     },
     {
-      dataField: "location.city_base",
+      dataField: "city_base",
       text: "City",
       sort: true,
       headerStyle: (column, colIndex) => {
@@ -104,7 +104,7 @@ const Personnel = () => {
     },
 
     {
-      dataField: "location.country",
+      dataField: "country",
       text: "Country",
       sort: true,
       headerStyle: (column, colIndex) => {
@@ -186,38 +186,6 @@ const Personnel = () => {
     handleShow();
   };
 
-  const formValidate = () => {
-    if (Object.keys(ctx.formData).length === 0) {
-      return false;
-    }
-    if (!ctx.formData.first_name || ctx.formData.first_name === "") {
-      return false;
-    }
-    if (!ctx.formData.last_name || ctx.formData.last_name === "") {
-      return false;
-    }
-    if (!ctx.formData.rank || ctx.formData.rank.length !== 3) {
-      return false;
-    }
-    if (
-      !ctx.formData.mos ||
-      ctx.formData.mos.length < 3 ||
-      ctx.formData.mos.length > 4
-    ) {
-      return false;
-    }
-    if (!ctx.formData.dep_start) {
-      return false;
-    }
-    if (!ctx.formData.dep_end) {
-      return false;
-    }
-    if (!ctx.formData.contact) {
-      return false;
-    }
-    return true;
-  };
-
   //EDIT existing person within database
   const handleEditShow = async (fieldId) => {
     ctx.setIsAdd(false);
@@ -249,7 +217,7 @@ const Personnel = () => {
   const handleSubmit = async (event) => {
     try {
       const form = event.currentTarget;
-      if (form.checkValidity() === false || formValidate() === false) {
+      if (form.checkValidity() === false) {
         event.preventDefault();
         event.stopPropagation();
         ctx.setValidated(true);
@@ -269,7 +237,6 @@ const Personnel = () => {
           }
         );
         ctx.setFormData({});
-        console.log("FILTER: " + ctx.filteredData);
         handleClose();
         toggleRefresh();
         if (response.status !== 201) {
@@ -365,7 +332,7 @@ const Personnel = () => {
           }}
           value={ctx.searchTerm}
         />
-        <Csv/>
+        <Csv />
       </div>
 
       <Modal
@@ -469,8 +436,8 @@ const Personnel = () => {
                   <option>Select</option>
                   {ctx.teamData.map((team) => {
                     return (
-                      <option value={team.team_id} key={team.team_id}>
-                        {team.name}
+                      <option value={team.id} key={team.team_id}>
+                        {team.team_name}
                       </option>
                     );
                   })}
@@ -483,7 +450,7 @@ const Personnel = () => {
               <Form.Group as={Col} md="5">
                 <Form.Label>Email Address</Form.Label>
                 <Form.Control
-                  id="contact"
+                  id="email"
                   onChange={(e) => handleFormData(e)}
                   value={ctx.formData.email || ""}
                   type="email"
@@ -518,8 +485,8 @@ const Personnel = () => {
                 <Form.Label>City/Base</Form.Label>
                 <Form.Control
                   id="city_base"
-                  onChange={(e) => handleFormData(e, "location")}
-                  value={ctx.formData.location?.city_base || ""}
+                  onChange={(e) => handleFormData(e)}
+                  value={ctx.formData.city_base || ""}
                   className="city-base"
                   type="text"
                   placeholder="City or Base"
@@ -534,8 +501,8 @@ const Personnel = () => {
                 <Form.Label>Country</Form.Label>
                 <Form.Control
                   id="country"
-                  onChange={(e) => handleFormData(e, "location")}
-                  value={ctx.formData.location?.country || ""}
+                  onChange={(e) => handleFormData(e)}
+                  value={ctx.formData.country || ""}
                   className="country"
                   type="text"
                   placeholder="Country"
@@ -620,79 +587,8 @@ const Personnel = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      </div>
-    
+    </div>
   );
 };
 
 export default Personnel;
-
-// {
-//   dataField: "email",
-//   text: "Email",
-//   formatter: (cell, row, rowIndex, extraData) => (
-//     <div className='link-to' key={rowIndex} >
-//       <Link to={`/teams/${row['team_id']}`} onClick={() =>
-//       ctx.teamData.forEach(team => {
-//         if (row['team_id'] === team.id) {
-//           ctx.setClickedTeam(team)
-//         }
-//       })}>
-//         {row.team_name}  </Link>
-//     </div>
-//       ),
-//   sort: true,
-//   headerStyle: (column, colIndex) => {
-//     return { width: "100px", backgroundColor: '#5A5A5A', color:'white' };
-//   }
-// },
-
-// // async FETCH TEAM TABLE DATA (needed to render team names)
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try{
-//       const response = await fetch("http://localhost:8081/teams")
-//       const data = await response.json()
-//       ctx.setTeamData(data)
-//     } catch (e) {
-//       console.log(e)
-//     }
-//   }
-//   fetchData()
-// }, [ctx.refresh])
-
-// // async FETCH PERSONNEL TABLE DATA
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       const response = await fetch("http://localhost:8081/personnel")
-//       const data = await response.json()
-//       let dataSlice = data.map(item => {
-//         if (item.dep_start) {
-//           item.dep_start = item.dep_start.slice(0, 10);
-//         } if (item.dep_end) {
-//           item.dep_end = item.dep_end.slice(0, 10);
-//         }
-//         return item;
-//       })
-//       ctx.setPersonnelData(dataSlice);
-//       // ctx.setFilteredData(dataSlice);
-//     } catch (e) {
-//       console.log(e)
-//     }
-//   }
-//   fetchData()
-// }, [ctx.refresh])
-
-// //Creates new "team_name" column in personnel table being rendered
-// useEffect(() => {
-//   let withTeamNames = ctx.personnelData.map(person => {
-//     ctx.teamData.forEach(team => {
-//       if (person.team_id === team.id) {
-//         person.team_name = team.name
-//       }
-//     })
-//     return person;
-//   })
-//   ctx.setFilteredData(withTeamNames)
-// }, [ctx.personnelData])

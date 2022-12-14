@@ -164,13 +164,40 @@ const renderUpcomingMissions = (mission, index) => {
 }
 
 return (
+<div className="single-team-container">
+  <div className="team-calendar">
+  <Calendar
+    localizer={localizer}
+    events={events}
+    startAccessor="start"
+    endAccessor="end"
+    style={{ height: "1fr", width: "1fr" }}
+  />
+  </div>
+  <div className="team-mapp">map</div>
 
 <div className="single-team-container">
 
-  <div className="team-admin-container">
-    <div class="team-name">{ctx.clickedTeam.team_name}</div>
 
-          {ctx.clickedTeam.personnel_status === 'green' ? 
+  {members.length > 0 ?
+  <div className="team-members-container">Team Members: {[...members].map(renderTeamMembers)}</div> :
+  <div>Loading...</div>
+}
+
+
+
+
+
+
+
+  <div className="upcoming-events-container">
+    <div className="upcoming-event">24/48 hour events</div>
+  </div>
+  <div className="team-admin-container">
+    <div className="team-name">{ctx.clickedTeam.team_name}</div>
+    <div className="team-status-container">
+    
+      {ctx.clickedTeam.personnel_status === 'green' ? 
       <div className="team-personnel-status">Personnel Status:  🟩</div>
       : ctx.clickedTeam.personnel_status === 'yellow' ?
       <div className="team-personnel-status">Personnel Status:  🟨</div> 
@@ -195,23 +222,48 @@ return (
       : <div>Loading...</div>
       }
   </div>
-
-  <div className="team-calendar">
-    <Calendar
-      localizer={localizer}
-      events={ctx.dashboard}
-      startAccessor="start"
-      endAccessor="end"
-      style={{ height: "1fr", width: "1fr" }}
-    />
-  </div>
   
-  <div className="team-upcoming-container"> 
-    {upcomingMissions.length > 0 ?
-    <div className="team-missions">Upcoming Missions: {[...upcomingMissions].map(renderUpcomingMissions)}</div> :
-    <div className="team-missions">Upcoming Missions: <div>{`No Upcoming Missions`} </div></div>
-    }
-  </div>
+  <div className="team-location">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</div>
+</div>
+)};
+
+export default SingleTeam;
+
+//html
+
+
+
+
+
+{/* <div className="single-team-container">
+<div className="team-name">{ctx.clickedTeam.team_name}</div>
+
+<div className="team-map">
+
+<iframe title='title' className="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1085370.7065123466!2d47.563124648987184!3d29.421493229527936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fc5363fbeea51a1%3A0x74726bcd92d8edd2!2sKuwait!5e0!3m2!1sen!2sus!4v1670895869909!5m2!1sen!2sus" 
+  width="600" height="300"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+
+  
+<div className="team-location">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</div>
+
+</div>
+
+<div className="team-calendar">
+ <Calendar
+    localizer={localizer}
+    events={events}
+    startAccessor="start"
+    endAccessor="end"
+    style={{ height: "1fr", width: "1fr" }}
+  />
+</div>
+<div className="team-upcoming">team upcoming</div>
+
+{members.length > 0 ?
+  <div className="team-members-container">Team Members: {[...members].map(renderTeamMembers)}</div> :
+  <div>Loading...</div>
+}
 
   <div className="team-all-missions-container"> 
     {missions.length > 0 ?
