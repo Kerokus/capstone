@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import { GlobalContext } from "../Context/GlobalContext";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -8,6 +8,7 @@ import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import { Link } from 'react-router-dom';
+import Places from '../components/Map'
 
 const SingleTeam = () => {
   const ctx = useContext(GlobalContext);
@@ -117,7 +118,7 @@ return (
     style={{ height: "1fr", width: "1fr" }}
   />
   </div>
-  <div className="team-mapp">map</div>
+  <div className="team-mapp"><Places /></div>
 
 
 

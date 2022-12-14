@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import { GlobalContext } from "../Context/GlobalContext";
 import Card from 'react-bootstrap/Card';
 
 
@@ -22,7 +22,7 @@ const Teams = () => {
       <Card.Header> {team.team_name} </Card.Header>
       <Card.Body className='card-body'>
           <div className="test" key={index}>
-            <div className="team-map"> <Places/></div>
+            <div className="team-map"> <Places /></div>
             <div className="team-location-data"> 
               <u> Current Location: </u>
               <p>{`${team.location.country} - ${team.location.city_base}`}</p>

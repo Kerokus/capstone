@@ -1,10 +1,11 @@
-import React, {useState, useMemo, useRef, useCallback, useEffect} from 'react'
+import React, {useState, useMemo, useRef, useCallback, useEffect, useContext} from 'react'
 import { GoogleMap, useLoadScript, Marker, InfoWindow, DirectionsService } from "@react-google-maps/api";
 import usePlacesAutocomplete, {getGeocode, getLatLng} from "use-places-autocomplete"
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption} from "@reach/combobox"
 import "@reach/combobox/styles.css"
 import { toPoint } from "mgrs"
 import '../styling/map.css'
+import { GlobalContext } from "../Context/GlobalContext";
 
 
 const libraries = ["places"];
@@ -19,12 +20,27 @@ export default function Places() {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
     libraries,
   });
+  const ctx = useContext(GlobalContext);
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
-  // const center = useMemo(() => ({ lat: 28.871513, lng: 48.163907}), []);
-  // const [choice, setChoice] = useState({center})
-  const [center, setCenter] = useState({lat: 28.871513, lng: 48.163907});
-
+  // const [center, setCenter] = useState({lat: 28.871513, lng: 48.163907});
+  
+  useEffect(() => {
+    ctx.teams.forEach((place) => {
+      console.log(place)
+      if (place.location.country === 'Kuwait'){
+        ctx.setCenter({lat: 28.871513, lng: 48.163907})
+      } else 
+      if (place.location.country === 'Jordan'){
+        ctx.setCenter({lat:31.967195, lng:35.910519})
+      } else if (place.location.country === 'USA'){
+        ctx.setCenter({lat:33.4302, lng:-82.1261})
+      } else{
+        ctx.setCenter({lat:48.8566, lng:2.3522})
+      }console.log(ctx.teams)
+      }
+     )
+  },[])
   
   // const countries = [
   //   { name: 'Saudi Arabia',
@@ -93,27 +109,14 @@ export default function Places() {
   return (
     <>
     <div>
-      
-        {/* <select className="drop-down">
-        <option>Choose a Country</option>
-        <option value={choice} >Saudi Arabia</option>
-        <option>Kuwait</option>
-        <option>Iraq</option>
-        <option>Jordan</option>
-        <option>Bahrain</option>
-        <option>United Arab Emirates</option>
-        <option>Qatar</option>
-        </select> */}
-      
-
-      
+         
       <Search panTo={panTo} />
 
       <GoogleMap
         id="map"
         mapContainerClassName="map"
         zoom={7}
-        center={center}
+        center={(ctx.center)}
         options={options}
         onClick={onMapClick}
         onLoad={onMapLoad}
@@ -174,7 +177,7 @@ function Search({ panTo }) {
     clearSuggestions,
   } = usePlacesAutocomplete({
     requestOptions: {
-      location: { lat: () => 33.4302, lng: () => -82.1261 },
+      location: { lat: () => 28.871513, lng: () => 48.163907 },
       radius: 100 * 1000,
     },
   });
