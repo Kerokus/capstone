@@ -9,7 +9,8 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import BootstrapTable from "react-bootstrap-table-next";
 import { Pen, Trash3 } from "react-bootstrap-icons";
-import { Link } from "react-router-dom";
+import {Link} from 'react-router-dom'
+import Csv from "../components/Csv";
 
 const Personnel = () => {
   //Justin's Original Functionality States:
@@ -337,31 +338,29 @@ const Personnel = () => {
     });
   }, [ctx.searchTerm]);
 
-  return (
-    <div className="personnel-page-container">
-      <h1 className="personnel-header-text">Deployed Personnel</h1>
-      <div className="nav-buttons">
-        <Button className="add-mission" variant="success" onClick={handleAdd}>
-          Add Personnel
-        </Button>
-        <Link className="homepage-button-personnel" to="/">
-          <Button variant="primary" className="homepage-button">
-            Back to Home
-          </Button>
-        </Link>
-      </div>
+return (
+  <>
+    <h1 className='header-text'>Deployed Personnel</h1>
+    <div className='nav-buttons'>
+    <Button className='add-mission' variant="success" onClick={handleAdd}>
+      Add Personnel
+    </Button>
+    <Link className='homepage-button-personnel' to='/'>
+    <Button variant='primary' className='homepage-button'>
+      Back to Home
+    </Button>
+    </Link>
+    </div>
 
-      <div className="mainsearch">
-        <input
-          className="text-search-bar"
-          type="text"
-          placeholder="Search Personnel"
-          onChange={(event) => {
-            handleSearch(event);
-          }}
-          value={ctx.searchTerm}
-        />
-      </div>
+    <div className="mainsearch">
+        <input 
+            className="text-search-bar" 
+            type='text' 
+            placeholder="Search Personnel" 
+            onChange={(event) => {handleSearch(event)}}
+            value={ctx.searchTerm}
+        />    
+    </div>
 
       <Modal
         show={ctx.show}
