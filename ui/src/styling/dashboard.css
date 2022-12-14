@@ -37,17 +37,17 @@
 
 .ci-team-status {
   grid-area: ci-team-status;
-  background-color: green;
+  
 }
 
 .humint-team-status {
   grid-area: humint-team-status;
-  background-color: blue;
+
 }
 
 .sigint-team-status {
   grid-area: sigint-team-status;
-  background-color: indigo;
+
 }
 
 .clocks-container {
