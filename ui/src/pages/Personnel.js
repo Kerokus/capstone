@@ -16,6 +16,11 @@ import DownloadIcon from '@mui/icons-material/Download';
 const Personnel = () => {
   //Justin's Original Functionality States:
   const ctx = useContext(GlobalContext);
+ 
+  // 
+  useEffect(() => {
+    ctx.setShow(false)
+  }, [])
 
   //TABLE HEADERS
   const columns = [
@@ -615,7 +620,8 @@ const Personnel = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+      </div>
+    
   );
 };
 
