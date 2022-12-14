@@ -10,10 +10,17 @@ import Row from "react-bootstrap/Row";
 import BootstrapTable from "react-bootstrap-table-next";
 import { Pen, Trash3 } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
+import Csv from "../components/Csv";
+import DownloadIcon from "@mui/icons-material/Download";
 
 const Personnel = () => {
   //Justin's Original Functionality States:
   const ctx = useContext(GlobalContext);
+
+  //
+  useEffect(() => {
+    ctx.setShow(false);
+  }, []);
 
   //TABLE HEADERS
   const columns = [
@@ -33,6 +40,17 @@ const Personnel = () => {
       text: "First Name",
       headerStyle: (column, colIndex) => {
         return { backgroundColor: "#5A5A5A", color: "white" };
+      },
+    },
+    {
+      dataField: "id",
+      text: "DODID",
+      sort: true,
+      headerStyle: (column, colIndex) => {
+        return { backgroundColor: "#5A5A5A", color: "white" };
+      },
+      rowStyle: (row, rowIndex) => {
+        return { color: "white" };
       },
     },
     {
@@ -77,7 +95,7 @@ const Personnel = () => {
       },
     },
     {
-      dataField: "location.city_base",
+      dataField: "city_base",
       text: "City",
       sort: true,
       headerStyle: (column, colIndex) => {
@@ -86,7 +104,7 @@ const Personnel = () => {
     },
 
     {
-      dataField: "location.country",
+      dataField: "country",
       text: "Country",
       sort: true,
       headerStyle: (column, colIndex) => {
@@ -141,9 +159,16 @@ const Personnel = () => {
   const handleShow = () => ctx.setShow(true);
 
   //ctx.set state for the "Add personnel" form
-  const handleFormData = (event) => {
+  const handleFormData = (event, nestedObject) => {
     let newData = { ...ctx.formData };
-    newData[event.target.id] = event.target.value;
+    if (nestedObject) {
+      newData[nestedObject] = {
+        ...newData[nestedObject],
+        [event.target.id]: event.target.value,
+      };
+    } else {
+      newData[event.target.id] = event.target.value;
+    }
     ctx.setFormData(newData);
   };
 
@@ -159,38 +184,6 @@ const Personnel = () => {
     ctx.setIsAdd(true);
     ctx.setValidated(false);
     handleShow();
-  };
-
-  const formValidate = () => {
-    if (Object.keys(ctx.formData).length === 0) {
-      return false;
-    }
-    if (!ctx.formData.first_name || ctx.formData.first_name === "") {
-      return false;
-    }
-    if (!ctx.formData.last_name || ctx.formData.last_name === "") {
-      return false;
-    }
-    if (!ctx.formData.rank || ctx.formData.rank.length !== 3) {
-      return false;
-    }
-    if (
-      !ctx.formData.mos ||
-      ctx.formData.mos.length < 3 ||
-      ctx.formData.mos.length > 4
-    ) {
-      return false;
-    }
-    if (!ctx.formData.dep_start) {
-      return false;
-    }
-    if (!ctx.formData.dep_end) {
-      return false;
-    }
-    if (!ctx.formData.contact) {
-      return false;
-    }
-    return true;
   };
 
   //EDIT existing person within database
@@ -224,7 +217,7 @@ const Personnel = () => {
   const handleSubmit = async (event) => {
     try {
       const form = event.currentTarget;
-      if (ctx.form.checkValidity() === false || formValidate() === false) {
+      if (form.checkValidity() === false) {
         event.preventDefault();
         event.stopPropagation();
         ctx.setValidated(true);
@@ -244,7 +237,6 @@ const Personnel = () => {
           }
         );
         ctx.setFormData({});
-        console.log("FILTER: " + ctx.filteredData);
         handleClose();
         toggleRefresh();
         if (response.status !== 201) {
@@ -317,8 +309,8 @@ const Personnel = () => {
   }, [ctx.searchTerm]);
 
   return (
-    <>
-      <h1 className="header-text">Deployed Personnel</h1>
+    <div className="personnel-page-container">
+      <h1 className="personnel-header-text">Deployed Personnel</h1>
       <div className="nav-buttons">
         <Button className="add-mission" variant="success" onClick={handleAdd}>
           Add Personnel
@@ -340,6 +332,7 @@ const Personnel = () => {
           }}
           value={ctx.searchTerm}
         />
+        <Csv />
       </div>
 
       <Modal
@@ -353,13 +346,28 @@ const Personnel = () => {
         </Modal.Header>
         <Modal.Body>
           <Form noValidate validated={ctx.validated} onSubmit={handleSubmit}>
+            <Row>
+              <Form.Group as={Col} md="4">
+                <Form.Label>DODID</Form.Label>
+                <Form.Control
+                  id="id"
+                  onChange={(e) => handleFormData(e)}
+                  value={ctx.formData.id || ""}
+                  required
+                  type="number"
+                  minLength={"10"}
+                  maxLength={"10"}
+                  placeholder="DODID"
+                />
+              </Form.Group>
+            </Row>
             <Row className="mb-3">
               <Form.Group as={Col} md="4">
                 <Form.Label>Last Name</Form.Label>
                 <Form.Control
                   id="last_name"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.last_name}
+                  value={ctx.formData.last_name || ""}
                   required
                   type="text"
                   placeholder="Last Name"
@@ -371,7 +379,7 @@ const Personnel = () => {
                 <Form.Control
                   id="first_name"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.first_name}
+                  value={ctx.formData.first_name || ""}
                   required
                   type="text"
                   placeholder="First Name"
@@ -384,7 +392,7 @@ const Personnel = () => {
                   <Form.Control
                     id="rank"
                     onChange={(e) => handleFormData(e)}
-                    value={ctx.formData.rank}
+                    value={ctx.formData.rank || ""}
                     className="formRank"
                     type="text"
                     minLength={"3"}
@@ -404,7 +412,7 @@ const Personnel = () => {
                 <Form.Control
                   id="mos"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.mos}
+                  value={ctx.formData.mos || ""}
                   className="formMOS"
                   type="text"
                   minLength={"3"}
@@ -422,14 +430,14 @@ const Personnel = () => {
                 <Form.Select
                   id="team_id"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.team_id}
+                  value={ctx.formData.team_id || ""}
                   aria-label="Default select example"
                 >
                   <option>Select</option>
                   {ctx.teamData.map((team) => {
                     return (
-                      <option value={team.id} key={team.id}>
-                        {team.name}
+                      <option value={team.id} key={team.team_id}>
+                        {team.team_name}
                       </option>
                     );
                   })}
@@ -442,9 +450,9 @@ const Personnel = () => {
               <Form.Group as={Col} md="5">
                 <Form.Label>Email Address</Form.Label>
                 <Form.Control
-                  id="contact"
+                  id="email"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.contact}
+                  value={ctx.formData.email || ""}
                   type="email"
                   placeholder="email@address"
                   required
@@ -454,12 +462,63 @@ const Personnel = () => {
                 </Form.Control.Feedback>
               </Form.Group>
 
+              <Form.Group as={Col} md="3">
+                <Form.Label>Status</Form.Label>
+                <Form.Select
+                  id="status"
+                  onChange={(e) => handleFormData(e)}
+                  value={ctx.formData.status || ""}
+                  aria-label="Default select example"
+                >
+                  <option>Select</option>
+                  <option>PDY</option>
+                  <option>TDY</option>
+                  <option>Leave</option>
+                  <option>Other</option>
+                </Form.Select>
+                <Form.Control.Feedback type="invalid">
+                  Please provide a team #
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group as={Col} md="4">
+                <Form.Label>City/Base</Form.Label>
+                <Form.Control
+                  id="city_base"
+                  onChange={(e) => handleFormData(e)}
+                  value={ctx.formData.city_base || ""}
+                  className="city-base"
+                  type="text"
+                  placeholder="City or Base"
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Enter City or Base
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group as={Col} md="4">
+                <Form.Label>Country</Form.Label>
+                <Form.Control
+                  id="country"
+                  onChange={(e) => handleFormData(e)}
+                  value={ctx.formData.country || ""}
+                  className="country"
+                  type="text"
+                  placeholder="Country"
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Enter a country.
+                </Form.Control.Feedback>
+              </Form.Group>
+
               <Form.Group as={Col} md="5">
                 <Form.Label>Deployment Start Date</Form.Label>
                 <Form.Control
-                  id="dep_start"
+                  id="deployment_start"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.dep_start}
+                  value={ctx.formData.deployment_start || ""}
                   type="date"
                   placeholder="YYYY-MM-DD"
                   required
@@ -472,9 +531,9 @@ const Personnel = () => {
               <Form.Group as={Col} md="5">
                 <Form.Label>Deployment End Date</Form.Label>
                 <Form.Control
-                  id="dep_end"
+                  id="deployment_end"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.dep_end}
+                  value={ctx.formData.deployment_end || ""}
                   type="date"
                   placeholder="YYYY-MM-DD"
                   required
@@ -528,78 +587,8 @@ const Personnel = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 };
 
 export default Personnel;
-
-// {
-//   dataField: "email",
-//   text: "Email",
-//   formatter: (cell, row, rowIndex, extraData) => (
-//     <div className='link-to' key={rowIndex} >
-//       <Link to={`/teams/${row['team_id']}`} onClick={() =>
-//       ctx.teamData.forEach(team => {
-//         if (row['team_id'] === team.id) {
-//           ctx.setClickedTeam(team)
-//         }
-//       })}>
-//         {row.team_name}  </Link>
-//     </div>
-//       ),
-//   sort: true,
-//   headerStyle: (column, colIndex) => {
-//     return { width: "100px", backgroundColor: '#5A5A5A', color:'white' };
-//   }
-// },
-
-// // async FETCH TEAM TABLE DATA (needed to render team names)
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try{
-//       const response = await fetch("http://localhost:8081/teams")
-//       const data = await response.json()
-//       ctx.setTeamData(data)
-//     } catch (e) {
-//       console.log(e)
-//     }
-//   }
-//   fetchData()
-// }, [ctx.refresh])
-
-// // async FETCH PERSONNEL TABLE DATA
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       const response = await fetch("http://localhost:8081/personnel")
-//       const data = await response.json()
-//       let dataSlice = data.map(item => {
-//         if (item.dep_start) {
-//           item.dep_start = item.dep_start.slice(0, 10);
-//         } if (item.dep_end) {
-//           item.dep_end = item.dep_end.slice(0, 10);
-//         }
-//         return item;
-//       })
-//       ctx.setPersonnelData(dataSlice);
-//       // ctx.setFilteredData(dataSlice);
-//     } catch (e) {
-//       console.log(e)
-//     }
-//   }
-//   fetchData()
-// }, [ctx.refresh])
-
-// //Creates new "team_name" column in personnel table being rendered
-// useEffect(() => {
-//   let withTeamNames = ctx.personnelData.map(person => {
-//     ctx.teamData.forEach(team => {
-//       if (person.team_id === team.id) {
-//         person.team_name = team.name
-//       }
-//     })
-//     return person;
-//   })
-//   ctx.setFilteredData(withTeamNames)
-// }, [ctx.personnelData])

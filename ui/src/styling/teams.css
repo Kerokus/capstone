@@ -1,56 +1,4 @@
-/* grid.layoutit.com?id=14Ku9hs */
 
-/* .teamsoverview-container {  
-  display: grid;
-  grid-template-columns: 0.1fr 1.5fr 0.1fr 1.5fr 0.1fr 1.5fr 0.1fr 1.5fr 0.1fr 1.5fr 0.1fr;
-  grid-template-rows: 0.4fr 2fr 1.5fr .4fr 1.5fr 1fr;
-  grid-auto-columns: 1fr;
-  grid-auto-flow: row;
-  grid-template-areas:
-    ". . . . . . . . . . ."
-    ". teams-map-1 . teams-map-2 . teams-map-3 . teams-map-4 . teams-map-5 ."
-    ". teams-map-1-team . teams-map-2-team . teams-map-3-team . teams-map-4-team . teams-map-5-team ."
-    ". . . . . . . . . . ."
-    ". . . unassigned-teams unassigned-teams unassigned-teams unassigned-teams unassigned-teams . . ."
-    ". . . . . . . . . . .";
-    width: 100%;
-    height:90%;
-}
-.unassigned-teams  {
-  background-color: yellow;
-  grid-area: unassigned-teams; 
-  }
-.teams-map-1 {
-  background-color: red;
-  grid-area: teams-map-1; }
-.teams-map-2 {
-  background-color: blue;
-  grid-area: teams-map-2; }
-.teams-map-3 {
-  background-color: green;
-  grid-area: teams-map-3; }
-.teams-map-4 {
-  background-color: orange;
-  grid-area: teams-map-4; }
-.teams-map-5 {
-  background-color:purple;
-  grid-area: teams-map-5; }
-.teams-map-1-team {
-  background-color: lightseagreen;
-  grid-area: teams-map-1-team; }
-.teams-map-2-team {
-  background-color: darkgoldenrod;
-  grid-area: teams-map-2-team; }
-.teams-map-3-team {
-  background-color: dimgray;
-  grid-area: teams-map-3-team; }
-.teams-map-4-team {
-  background-color: orangered;
-  grid-area: teams-map-4-team; }
-.teams-map-5-team {
-  background-color: rgb(84, 70, 84);
-  grid-area: teams-map-5-team; } */
-  /* grid.layoutit.com?id=14Ku9hs */
 
 .card-header{
   align-content: center;
@@ -90,14 +38,14 @@
     display:flex;
     flex: 2 1 auto;
   }
-  .card-body{
+  /* .card-body{
     display:flex;
     flex-direction:column;
     align-content: stretch;
     margin: 0 auto;
     flex: 3 1 auto;
     padding: 1em;
-  }
+  } */
   .header-text {
     color:white;
     margin: 0.5em;
@@ -118,14 +66,13 @@
     color: black;
     text-align: center;
     align-content: center;
-    margin-bottom: 30px;
-    
+    margin-bottom: 15px;
+    padding-bottom: 200px;
   }
 
   .team-location-data{
-    background-color: azure;
-    color: black;
-    padding-left: 5px;
-    padding-right: 5px;
+
   }
 
+
+  

@@ -6,7 +6,6 @@ import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
-import DatePicker from "react-datepicker";
 import CiTeamStatus from "./CiTeamStatus";
 import HumintTeamStatus from "./HumintTeamStatus";
 import SigintTeamStatus from "./SigintTeamStatus";
@@ -15,6 +14,9 @@ import { toPoint } from "mgrs";
 const Dashboard = () => {
   const ctx = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
+  const [upcomingMissions, setUpcomingMissions] = useState([]);
+
+  let upcomingMissionsArray = [];
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
   };
@@ -23,17 +25,29 @@ const Dashboard = () => {
     missionsFetch();
   }, []);
 
+  useEffect(() => {
+    ctx.missions.forEach((mission, index) => {
+      if (
+        mission.start_date === ctx.oneDayDate ||
+        mission.start_date === ctx.twoDayDate
+      ) {
+        upcomingMissionsArray.push(mission);
+      }
+      setUpcomingMissions(upcomingMissionsArray);
+    });
+  }, [ctx.missions]);
+
+  //next 24 hours
+  let oneDayDate = new Date();
+  oneDayDate.setTime(oneDayDate.getTime() + 86400000);
+
+  //next 48 hours
+  let twoDayDate = new Date();
+  twoDayDate.setTime(oneDayDate.getTime() + 86400000);
+
   //grabbing calendar data from Missions table and formatting it
   const missionsFetch = async () => {
     setLoading(true);
-
-    //next 24 hours
-    let oneDayDate = new Date();
-    oneDayDate.setTime(oneDayDate.getTime() + 86400000);
-
-    //next 48 hours
-    let twoDayDate = new Date();
-    twoDayDate.setTime(oneDayDate.getTime() + 86400000);
 
     let missionCalendarArray = [];
     await fetch(`http://localhost:8081/missions`)
@@ -43,6 +57,8 @@ const Dashboard = () => {
           let startDate = calendarFormat(event.start_date);
           let endDate = calendarFormat(event.end_date);
           let missionCalendarObject = {
+            id: event.id,
+            team_id: event.team_id,
             title: event.name,
             start: new Date(startDate.year, startDate.month, startDate.day),
             // the end date must be one day past the desired range as that is the day the event "stops"
@@ -55,13 +71,8 @@ const Dashboard = () => {
       .catch((err) => {
         console.log(err);
       });
-
-    // if (start_date === )
-    console.log("24 hours: " + formatDate(oneDayDate));
-    console.log("48 hours: " + formatDate(twoDayDate));
     ctx.setDashboard(missionCalendarArray);
     setLoading(false);
-    console.log(missionCalendarArray);
   };
 
   // Calendar object days: inclusive at the start / exclusive at the end
@@ -89,6 +100,11 @@ const Dashboard = () => {
     ].join("-");
   };
 
+  useEffect(() => {
+    ctx.setOneDayDate(formatDate(oneDayDate));
+    ctx.setTwoDayDate(formatDate(twoDayDate));
+  }, []);
+
   const localizer = dateFnsLocalizer({
     format,
     parse,
@@ -97,42 +113,18 @@ const Dashboard = () => {
     locales,
   });
 
+  /* renders upcoming missions assigned to the clicked team */
+  const renderUpcomingMissions = (mission, index) => {
+    return (
+      <li className="dashboard-team-list" key={index}>
+        <span>{`${mission.start_date} - ${mission.name}`}</span>
+      </li>
+    );
+  };
+
   return (
     <>
       {loading && <div>Loading Data...</div>}
-      <div className="clocks-container">
-        <div className="clock-left">
-          <Clock
-            className="dashboard-clock"
-            format={"HH:mm:ss"}
-            ticking={true}
-            timezone={"US/Eastern"}
-          />
-          <p>Ft. Gordon, GA</p>
-        </div>
-        <div className="clock-center">
-          <div className="clock-left">
-            <Clock
-              className="dashboard-clock"
-              format={"HH:mm:ss"}
-              ticking={true}
-              timezone={"zulu"}
-            />
-            <p>Zulu</p>
-          </div>
-        </div>
-        <div className="clock-right">
-          <div className="clock-left">
-            <Clock
-              className="dashboard-clock"
-              format={"HH:mm:ss"}
-              ticking={true}
-              timezone={"Asia/Kuwait"}
-            />
-            <p>Kuwait City</p>
-          </div>
-        </div>
-      </div>
       <div className="dashboard-container">
         {ctx.dashboard[0] && (
           <div className="dashboard-calendar">
@@ -148,18 +140,27 @@ const Dashboard = () => {
         <div className="dashboard-map">
           <h3>Map</h3>
         </div>
+
         <div className="dashboard-upcoming">
-          <h3>Next 24/48 Hours</h3>
+          <h3 className="upcoming-header">Next 48 hours</h3>{" "}
+          {upcomingMissions.length > 0 ? (
+            <div className="team-missions">
+              {" "}
+              <ul>{[...upcomingMissions].map(renderUpcomingMissions)}</ul>
+            </div>
+          ) : (
+            <div>
+              Next 48 hours:
+              <div className="team-missions"> {`None`} </div>
+            </div>
+          )}
         </div>
-        <div className="ci-team-status">
-          <CiTeamStatus />
-        </div>
-        <div className="humint-team-status">
-          <HumintTeamStatus />
-        </div>
-        <div className="sigint-team-status">
-          <SigintTeamStatus />
-        </div>
+
+        <CiTeamStatus />
+
+        <HumintTeamStatus />
+
+        <SigintTeamStatus />
       </div>
     </>
   );

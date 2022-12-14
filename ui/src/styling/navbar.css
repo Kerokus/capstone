@@ -1,44 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Quantico&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=Quantico&display=swap');
-
-.navbar{
-    --bs-nav-brand-color: white;
-}   
-.navbar-nav{
-    --bs-nav-link-hover-color:lightgray;
-    --bs-nav-link-disabled-color:white;
-}   
-    
-.missions{
-    color:white;
-    transition: ease-in-out 0.3s;
+.navbar {
+  --bs-nav-brand-color: white;
+}
+.navbar-nav {
+  --bs-nav-link-hover-color: lightgray;
+  --bs-nav-link-disabled-color: white;
 }
 
-.navbar.container{
-    font-family: 'Quantico', sans-serif;
-    width: 100%;
-    height: 100%;
-    display:flex;
-    justify-content: space-between;
-    flex: 12;
+.missions {
+  color: white;
+  transition: ease-in-out 0.3s;
 }
-.personnel{
-    color:white;
+
+.navbar.container {
+  font-family: "Quantico", sans-serif;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex: 12;
 }
-.teams{
-    color:white;
+.personnel {
+  color: white;
+}
+.teams {
+  color: white;
 }
 .webpage-title {
-    display:flex;
-    color:white;
-    opacity: 100%;
-    transition: ease-in-out 0.3s;
+  display: flex;
+  color: white;
+  opacity: 100%;
+  transition: ease-in-out 0.3s;
 }
 
-.webpage-title:hover{
-    color: lightgray; 
+.webpage-title:hover {
+  color: lightgray;
 }
 
-.webpage-title:focus{
-    color: white;
+.webpage-title:focus {
+  color: white;
 }

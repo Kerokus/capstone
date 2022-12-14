@@ -1,115 +1,92 @@
 .single-team-container {  display: grid;
-    grid-template-columns: 0.1fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.3fr 1.2fr 1.2fr 0.1fr;
-    grid-template-rows: 0.4fr 1.1fr 1.2fr 1.2fr 1.1fr 1fr 1fr 1fr 1.6fr 0.4fr 1fr;
-    grid-auto-columns: 1fr;
-    gap: 10px 7px;
-    grid-auto-flow: row dense;
-    grid-template-areas:
-      ". team-admin-container team-admin-container team-admin-container team-admin-container team-admin-container team-admin-container team-admin-container team-admin-container ."
-      "team-calendar team-calendar team-calendar team-calendar team-calendar upcoming-events-container upcoming-events-container team-members-container team-members-container ."
-      "team-calendar team-calendar team-calendar team-calendar team-calendar upcoming-events-container upcoming-events-container team-members-container team-members-container ."
-      "team-calendar team-calendar team-calendar team-calendar team-calendar upcoming-events-container upcoming-events-container team-members-container team-members-container ."
-      "team-calendar team-calendar team-calendar team-calendar team-calendar upcoming-events-container upcoming-events-container team-members-container team-members-container ."
-      ". . . team-mapp team-mapp team-mapp team-mapp . . ."
-      ". . . team-mapp team-mapp team-mapp team-mapp . . ."
-      ". . . team-mapp team-mapp team-mapp team-mapp . . ."
-      ". . . team-mapp team-mapp team-mapp team-mapp . . ."
-      ". team-location team-location team-location team-location team-location team-location team-location team-location ."
-      ". team-location team-location team-location team-location team-location team-location team-location team-location .";
-      width: 100%;
-      height: 90vh;
-  }
-  
-  .team-calendar { 
-    grid-area: team-calendar; 
-    background-color: rgb(85, 80, 80);
-    border-style: solid;
+  grid-template-columns: 0.3fr 1.2fr 1.2fr 1.2fr 1.1fr 1.1fr 1.2fr 1.2fr 1.2fr 0.3fr;
+  grid-template-rows: 0.2fr 1fr 1.1fr 1.1fr 1.4fr 0.9fr 0.3fr 1.8fr 1.4fr 0.8fr 0.8fr;
+  grid-auto-columns: 1fr;
+  gap: 10px 5px;
+  grid-auto-flow: row dense;
+  grid-template-areas:
+    ". team-admin-container team-admin-container team-admin-container team-admin-container team-admin-container team-admin-container team-admin-container team-admin-container ."
+    ". team-calendar team-calendar team-calendar team-calendar team-upcoming-container team-upcoming-container team-all-missions-container team-all-missions-container ."
+    ". team-calendar team-calendar team-calendar team-calendar team-upcoming-container team-upcoming-container team-all-missions-container team-all-missions-container ."
+    ". team-calendar team-calendar team-calendar team-calendar team-upcoming-container team-upcoming-container team-all-missions-container team-all-missions-container ."
+    ". team-calendar team-calendar team-calendar team-calendar . . . . ."
+    ". . . . . . . . . ."
+    ". . . . team-location team-location team-location team-location team-location ."
+    ". team-personnel-container team-personnel-container . team-mapp team-mapp team-mapp team-mapp team-mapp ."
+    ". team-personnel-container team-personnel-container . team-mapp team-mapp team-mapp team-mapp team-mapp ."
+    ". team-personnel-container team-personnel-container . team-mapp team-mapp team-mapp team-mapp team-mapp ."
+    ". . . . . . . . . .";
 }
-  
-  .team-mapp { 
-    grid-area: team-mapp; 
-    background-color: rgb(255, 255, 255);
-    border-style: solid;
-}
-  
-  .team-members-container {  display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: .3fr .2fr .2fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-      "team-member"
-      "."
-      ".";
-    grid-area: team-members-container;
-    border-style: solid;
-    text-align: center;
-  }
-  
-  .team-member { grid-area: team-member;}
-  
-  .upcoming-events-container {  display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-      "upcoming-event"
-      "."
-      ".";
-    grid-area: upcoming-events-container;
-    border-style: solid;
-  }
-  
-  .upcoming-event { grid-area: upcoming-event; }
-  
-  .team-admin-container {  display: grid;
-    grid-template-columns: 0.5fr 1.5fr;
-    grid-template-rows: 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-      "team-name team-status-container";
-    grid-area: team-admin-container;
-    border-style: solid;
-  }
-  
-  .team-name { 
-    grid-area: team-name; 
-    
-}
-  
-  .team-status-container {  display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-      "team-personnel-status team-equipment-status team-comms-status";
-    grid-area: team-status-container;
-    
-  }
-  
-  .team-personnel-status { 
-    grid-area: team-personnel-status;
 
+.team-admin-container {  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "team-name team-personnel-status team-equipment-status team-comms-status";
+  grid-area: team-admin-container;
+  border-style: solid;
+  padding: 5px;
 }
-  
-  .team-equipment-status { 
-    grid-area: team-equipment-status;
 
-}
-  
-  .team-comms-status { 
-    grid-area: team-comms-status;
+.team-name { 
+  grid-area: team-name;
 
-}
-  
+ }
 
+.team-personnel-status { 
+  grid-area: team-personnel-status;
   
-  .team-location { 
-    grid-area: team-location;
-    text-align: center;
-    font-size:x-large;
-}
-  
+ }
+
+.team-equipment-status { 
+  grid-area: team-equipment-status;
+ }
+
+.team-comms-status { 
+  grid-area: team-comms-status;
+ }
+
+.team-calendar { 
+  grid-area: team-calendar;
+  border-style: solid;
+ }
+
+.team-upcoming-container { 
+  grid-area: team-upcoming-container;
+  border-style: solid;
+ }
+
+.team-all-missions-container { 
+  grid-area: team-all-missions-container;
+  border-style: solid;
+ }
+
+ .team-missions { 
+  grid-area: team-personnel-container;
+  padding-top: 5px;
+ }
+
+.team-location { 
+  grid-area: team-location;
+  border-style: solid;
+  text-align: center;
+ }
+
+.team-mapp { 
+  grid-area: team-mapp;
+  border-style: solid;
+ }
+
+.team-personnel-container { 
+  grid-area: team-personnel-container;
+  border-style: solid;
+  text-align: center;
+ }
+
+ .team-members { 
+  grid-area: team-personnel-container;
+  text-align: center;
+  padding-top: 5px;
+ }
