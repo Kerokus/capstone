@@ -33,7 +33,7 @@ app.get('/personnel', async (req, res) => {
     let data = await knex('personnel')
     .join('teams', 'personnel.team_id', '=', 'teams.id')
     .select('personnel.id', 'personnel.first_name', 'personnel.last_name', 'personnel.rank', 'personnel.mos', 'personnel.email', 
-            'personnel.status', 'personnel.location', 'personnel.deployment_start', 'personnel.deployment_end','personnel.is_archived', 
+            'personnel.status', 'personnel.city_base', 'personnel.country', 'personnel.deployment_start', 'personnel.deployment_end','personnel.is_archived', 
             'personnel.team_id', 'team_name')
     .where('personnel.is_archived', false)
     .orderBy('personnel.last_name')
@@ -85,7 +85,7 @@ app.get('/personnel/:id', async (req, res) => {
     let data = await knex('personnel')
     .join('teams', 'personnel.team_id', '=', 'teams.id')
     .select('personnel.id', 'personnel.first_name', 'personnel.last_name', 'personnel.rank', 'personnel.mos', 'personnel.email', 
-            'personnel.status', 'personnel.location', 'personnel.deployment_start', 'personnel.deployment_end','personnel.is_archived', 
+            'personnel.status', 'personnel.city_base', 'personnel.country', 'personnel.deployment_start', 'personnel.deployment_end','personnel.is_archived', 
             'personnel.team_id', 'team_name')
     .where('personnel.id', id)
     .where('personnel.is_archived', false)
@@ -211,7 +211,8 @@ app.post('/personnel', async (req, res) => {
       mos: req.body.mos,
       email: req.body.email,
       status: req.body.status,
-      location: req.body.location,
+      city_base: req.body.city_base,
+      country: req.body.country,
       deployment_start: req.body.deployment_start,
       deployment_end: req.body.deployment_end,
       is_archived: false,
@@ -287,7 +288,8 @@ app.put('/personnel/:id', async (req, res) => {
       mos: req.body.mos,
       email: req.body.email,
       status: req.body.status,
-      location: req.body.location,
+      city_base: req.body.city_base,
+      country: req.body.country,
       deployment_start: req.body.deployment_start,
       deployment_end: req.body.deployment_end,
       team_id: req.body.team_id,

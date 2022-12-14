@@ -20,6 +20,9 @@ const Teams = () => {
     <Card border='light' style={{ width: '18rem' }} key={index} bg='dark' text='white'className="mission-card">
       <Card.Header> {team.team_name} </Card.Header>
       <Card.Body className='card-body'>
+
+
+
           <div className="test" key={index}>
             <div className="team-map">Map</div>
             <div className="team-location-data"> 
@@ -29,6 +32,8 @@ const Teams = () => {
             <div classname='asd'>
             </div>
           </div>
+
+
         <div className='buttons'>
         <Link to={`/teams/${team.id}`} style={{color: 'white', textDecoration: 'none'}}>
         <Button variant="secondary" onClick={() => ctx.setClickedTeam(team)}>
@@ -47,7 +52,17 @@ const Teams = () => {
  
   return (
     <>
-    <div>Teams</div>
+    
+    <div className='nav-buttons'>
+    <Button className='add-mission' variant="success" onClick={console.log('clicked')}>
+      Add Team
+    </Button>
+    <Link className='homepage-button-personnel' to='/'>
+    <Button variant='primary' className='homepage-button'>
+      Back to Home
+    </Button>
+    </Link>
+    </div>
 
     <div className="mission-card-container">
         {[...ctx.teams].map(renderTeamCard)}
