@@ -57,7 +57,7 @@ export default function TeamMap({ coordinates, zoom }) {
   //     }
   //   });
   // }, []);
-  console.log({zoom}.zoom)
+  //console.log({zoom}.zoom)
   // const countries = [
   //   { name: 'Saudi Arabia',
   //   location: {lat:24.689868, lng:46.735424}},
@@ -85,7 +85,6 @@ export default function TeamMap({ coordinates, zoom }) {
   //     },
   //   ]);
   // }, []);
-
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -144,7 +143,6 @@ export default function TeamMap({ coordinates, zoom }) {
                   anchor: new window.google.maps.Point(15, 15),
                   scaledSize: new window.google.maps.Size(30, 30),
                 }}
-
               />
             ),
             []

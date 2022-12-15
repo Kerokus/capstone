@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
 import Places from "../components/Map";
 import Card from "react-bootstrap/Card";
-import TeamMap from "../components/TeamMap"
-
+import TeamMap from "../components/TeamMap";
 
 import "../styling/missions.css";
 import Button from "react-bootstrap/Button";
@@ -19,10 +18,12 @@ const Teams = () => {
   const ctx = useContext(GlobalContext);
   const [teamSearchTerm, setTeamSearchTerm] = useState("");
   const [filteredTeamData, setFilteredTeamData] = useState("");
+  const [validated, setValidated] = useState(false);
 
   useEffect(() => {
     ctx.setShow(false);
     ctx.setShowWarning(false);
+    ctx.setFormData({});
     ctx.setTeamMarkers([]);
   }, []);
 
@@ -93,44 +94,36 @@ const Teams = () => {
 
   //Close "Add personnel" form
   const handleClose = () => {
-    ctx.setValidated(false);
+    setValidated(false);
     ctx.setShow(false);
     ctx.setFormData({});
   };
 
   //ADD new personnel / EDIT existing personnel
   const handleSubmit = async (event) => {
-    // try {
-    //   const form = event.currentTarget;
-    //   if (form.checkValidity() === false) {
-    //     event.preventDefault();
-    //     event.stopPropagation();
-    //     ctx.setValidated(true);
-    //   } else {
-    //     ctx.setValidated(true);
-    //     event.preventDefault();
-    //     let response = await fetch(
-    //       ctx.isAdd
-    //         ? "http://localhost:8081/personnel"
-    //         : `http://localhost:8081/personnel/${ctx.formData.id}`,
-    //       {
-    //         method: ctx.isAdd ? "POST" : "PUT",
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(ctx.formData),
-    //       }
-    //     );
-    //     ctx.setFormData({});
-    //     handleClose();
-    //     toggleRefresh();
-    //     if (response.status !== 201) {
-    //       throw new Error();
-    //     }
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      setValidated(true);
+    } else {
+      setValidated(true);
+      event.preventDefault();
+      let response = await fetch("http://localhost:8081/teams", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(ctx.formData),
+      });
+      ctx.setFormData({});
+      setValidated(false);
+      handleClose();
+      toggleRefresh();
+      if (response.status !== 201) {
+        throw new Error();
+      }
+    }
   };
 
   //ctx.set state for the "Add personnel" form
@@ -145,11 +138,11 @@ const Teams = () => {
       newData[event.target.id] = event.target.value;
     }
     ctx.setFormData(newData);
+    console.log(ctx.formData);
   };
 
   const handleAdd = () => {
-    ctx.setIsAdd(true);
-    ctx.setValidated(false);
+    setValidated(false);
     handleShow();
   };
 
@@ -162,18 +155,18 @@ const Teams = () => {
     //console.log("flag:",team)
     if (team.location.country === "Kuwait") {
       coordinates = { lat: 29.34852700252181, lng: 47.46561436349371 };
-      zoom = 7
+      zoom = 7;
     } else if (team.location.country === "Jordan") {
       coordinates = { lat: 31.261837409143272, lng: 36.740018930765636 };
-      zoom = 6
+      zoom = 6;
     } else if (team.location.country === "USA") {
       coordinates = { lat: 35.14193183877861, lng: -78.99943678131243 };
-      zoom = 9
+      zoom = 9;
     } else {
       coordinates = { lat: 33.42643305816639, lng: -82.0571350866326 };
-      zoom = 9
+      zoom = 9;
     }
-    
+
     return (
       <Card
         border="light"
@@ -288,89 +281,114 @@ const Teams = () => {
         keyboard={false}
       >
         <Modal.Header>
-          <Modal.Title>Add/Edit Team</Modal.Title>
+          <Modal.Title>Add Team</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form noValidate validated={ctx.validated} onSubmit={handleSubmit}>
+          <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Row>
-              <Form.Group as={Col} md="3">
+              <Form.Group as={Col} md="5">
                 <Form.Label>Team Name</Form.Label>
-                <Form.Control
-                  id="name"
-                  onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.id || ""}
-                  required
-                  type="number"
-                  minLength={"10"}
-                  maxLength={"10"}
-                  placeholder="Team Name"
-                />
-              </Form.Group>
-            </Row>
-            <Row className="mb-3">
-              <Form.Group as={Col} md="3">
-                <Form.Label>Location</Form.Label>
-                <Form.Control
-                  id="last_name"
-                  onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.last_name || ""}
-                  required
-                  type="text"
-                  placeholder="Location"
-                />
-              </Form.Group>
-
-              <Form.Group as={Col} md="3">
-                <Form.Label>Comms Status</Form.Label>
-                <Form.Control
-                  id="first_name"
-                  onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.first_name || ""}
-                  required
-                  type="text"
-                  placeholder="Comms Status"
-                />
-              </Form.Group>
-
-              <Form.Group as={Col} md="3">
-                <Form.Label>Personnel Status</Form.Label>
                 <InputGroup hasValidation>
                   <Form.Control
-                    id="rank"
+                    id="team_name"
                     onChange={(e) => handleFormData(e)}
-                    value={ctx.formData.rank || ""}
-                    className="formRank"
-                    type="text"
-                    minLength={"3"}
-                    maxLength={"3"}
-                    placeholder="Personnel Status"
+                    value={ctx.formData.team_name || ""}
                     required
+                    type="text"
+                    placeholder="Team Name"
                   />
                   <Form.Control.Feedback type="invalid">
-                    Enter a three-letter rank.
+                    Enter Team Name
                   </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
             </Row>
             <Row className="mb-3">
+              <Form.Group as={Col} md="5">
+                <Form.Label>Country</Form.Label>
+                <InputGroup hasValidation>
+                  <Form.Control
+                    id="country"
+                    onChange={(e) => handleFormData(e, "location")}
+                    value={ctx.formData.location?.country || ""}
+                    required
+                    type="text"
+                    placeholder="Country Location"
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Enter country location
+                  </Form.Control.Feedback>
+                </InputGroup>
+              </Form.Group>
+
+              <Row className="mb-3">
+                <Form.Group as={Col} md="5">
+                  <Form.Label>City/Base</Form.Label>
+                  <InputGroup hasValidation>
+                    <Form.Control
+                      id="city_base"
+                      onChange={(e) => handleFormData(e, "location")}
+                      value={ctx.formData.location?.city_base || ""}
+                      required
+                      type="text"
+                      placeholder="City or Base"
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Enter city or base location
+                    </Form.Control.Feedback>
+                  </InputGroup>
+                </Form.Group>
+              </Row>
+
+              <Form.Group as={Col} md="3">
+                <Form.Label>Comms Status</Form.Label>
+                <Form.Select
+                  id="comms_status"
+                  onChange={(e) => handleFormData(e)}
+                  value={ctx.formData.comms_status || ""}
+                  required
+                  aria-label="Default select example"
+                >
+                  <option></option>
+                  <option>Green</option>
+                  <option>Yellow</option>
+                  <option>Red</option>
+                </Form.Select>
+              </Form.Group>
+
+              <Form.Group as={Col} md="3">
+                <Form.Label>Personnel Status</Form.Label>
+                <Form.Select
+                  id="personnel_status"
+                  onChange={(e) => handleFormData(e)}
+                  value={ctx.formData.personnel_status || ""}
+                  required
+                  aria-label="Default select example"
+                >
+                  <option></option>
+                  <option>Green</option>
+                  <option>Yellow</option>
+                  <option>Red</option>
+                </Form.Select>
+              </Form.Group>
+
               <Form.Group as={Col} md="3">
                 <Form.Label>Equipment Status</Form.Label>
-                <Form.Control
-                  id="mos"
+                <Form.Select
+                  id="equipment_status"
                   onChange={(e) => handleFormData(e)}
-                  value={ctx.formData.mos || ""}
-                  className="formMOS"
-                  type="text"
-                  minLength={"3"}
-                  maxLength={"4"}
-                  placeholder="MOS"
+                  value={ctx.formData.equipment_status || ""}
                   required
-                />
-                <Form.Control.Feedback type="invalid">
-                  Enter an MOS.
-                </Form.Control.Feedback>
+                  aria-label="Default select example"
+                >
+                  <option></option>
+                  <option>Green</option>
+                  <option>Yellow</option>
+                  <option>Red</option>
+                </Form.Select>
               </Form.Group>
             </Row>
+            <Row className="mb-3"></Row>
             <Button variant="secondary" onClick={handleClose}>
               Cancel
             </Button>

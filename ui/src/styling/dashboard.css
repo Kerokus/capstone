@@ -13,6 +13,10 @@
   padding: 2em;
 }
 
+.map.map {
+  height: 1fr;
+}
+
 .dashboard-calendar {
   grid-area: dashboard-calendar;
   color: black;
@@ -33,7 +37,6 @@
   color: white;
   border: solid lightgray;
   border-radius: 10px;
-  
 }
 
 .upcoming-header {
@@ -46,7 +49,7 @@
 
 .team-missions {
   margin: 0;
-  
+
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   font-size: 20px;
