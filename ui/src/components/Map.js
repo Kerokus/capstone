@@ -76,7 +76,7 @@ export default function Places({ coordinates }) {
   // ]
 
   const onMapClick = useCallback((e) => {
-    setMarkers((current) => [
+    ctx.setMarkers((current) => [
       ...current,
       {
         id: current.length + 1,
@@ -88,7 +88,7 @@ export default function Places({ coordinates }) {
 
   const removeMarker = (e) => {
     let position = e.lat;
-    setMarkers(markers.filter((e) => e.lat !== position));
+    ctx.setMarkers(markers.filter((e) => e.lat !== position));
   };
 
   const mapRef = useRef();

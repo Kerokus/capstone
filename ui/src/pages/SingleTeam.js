@@ -45,7 +45,7 @@ const SingleTeam = () => {
   }, []);
 
   let coordinates = {};
-  //console.log("flag:",team)
+
   if (ctx.clickedTeam.location.country === "Kuwait") {
     coordinates = { lat: 29.34562355852184, lng: 47.67637238617149 };
   } else if (ctx.clickedTeam.location.country === "Jordan") {
@@ -66,20 +66,21 @@ const SingleTeam = () => {
   }, []);
 
   useEffect(() => {
+    let testArray = []
     ctx.dashboard.forEach((mission) => {
-      console.log(mission.coords);
       if (mission.team === ctx.clickedTeam.id) {
-        setMarkers(() => [
-          {
-            id: mission.title,
-            lat: mission.coords[1],
-            lng: mission.coords[0],
-          },
-        ]);
+        testArray.push({
+          id: mission.title,
+          lat: mission.coords[1],
+          lng: mission.coords[0],
+        })
       }
-    });
+    },
+    ctx.setGlobalMarkers(testArray)
+    );
   }, [ctx.dashboard]);
 
+  console.log(ctx.globalMarkers)
   /* calendar tools */
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
