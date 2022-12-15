@@ -158,6 +158,30 @@ Then sets the missions state variable with that array. Fires when the missions s
       </div>
     );
   };
+
+  const handleStatusChange = async (event) => {
+    let newData = { ...ctx.clickedTeam };
+    newData[event.target.id] = event.target.value;
+    ctx.setClickedTeam(newData);
+    try {
+      let response = await fetch(
+        `http://localhost:8081/teams/${ctx.clickedTeam.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newData),
+        }
+      );
+      if (response.status !== 201) {
+        throw new Error();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="single-team-container">
       <div className="team-admin-container">

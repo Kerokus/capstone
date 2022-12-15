@@ -1,5 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import Places from "../components/Map";
 import Card from "react-bootstrap/Card";
 
 import "../styling/missions.css";
