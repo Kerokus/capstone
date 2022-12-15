@@ -11,8 +11,8 @@
 
 .ci-teams-status {
   display: grid;
-  padding: 15px;
-  grid-template-columns: 250px auto;
+  padding: 5%;
+  grid-template-columns: 55% auto;
 }
 
 .ci-team-status {
@@ -25,16 +25,17 @@
 
 .humint-teams-status {
   display: grid;
-  padding: 15px;
-  grid-template-columns: 300px auto;
+  padding: 5%;
+  grid-template-columns: 70% auto;
 }
 
 .sigint-team-status {
   font-size: 30px;
+  overflow-y: hidden;
 }
 
 .sigint-teams-status {
   display: grid;
-  padding: 15px;
-  grid-template-columns: 250px auto;
+  padding: 5%;
+  grid-template-columns: 70% auto;
 }
