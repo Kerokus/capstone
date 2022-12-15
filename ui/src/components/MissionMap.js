@@ -35,7 +35,7 @@ import React, {
     zoomControl: false,
   };
   
-  export default function TeamMap({ coordinates, zoom }) {
+  export default function MissionMap({ coordinates, zoom }) {
     const { isLoaded, loadError } = useLoadScript({
       googleMapsApiKey: "AIzaSyBRK58z-C-6RfjetZE-TA3eNq777nWc2WA",
       //libraries,
