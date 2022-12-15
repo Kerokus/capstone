@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useRef,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import Card from "react-bootstrap/Card";
@@ -11,6 +17,15 @@ import { Link } from "react-router-dom";
 import { toPoint } from "mgrs";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
+import Places from "../components/Map";
+import MissionMap from "../components/MissionMap";
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+  DirectionsService,
+} from "@react-google-maps/api";
 
 const SingleTeam = () => {
   const ctx = useContext(GlobalContext);
@@ -18,6 +33,8 @@ const SingleTeam = () => {
   const [missions, setMissions] = useState([]);
   const [upcomingMissions, setUpcomingMissions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [markers, setMarkers] = useState([]);
+
   let teamName = ctx.clickedTeam.team_name;
   let teamPersonnelArray = [];
   let teamMissionsArray = [];
@@ -26,6 +43,43 @@ const SingleTeam = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  let coordinates = {};
+  //console.log("flag:",team)
+  if (ctx.clickedTeam.location.country === "Kuwait") {
+    coordinates = { lat: 29.34562355852184, lng: 47.67637238617149 };
+  } else if (ctx.clickedTeam.location.country === "Jordan") {
+    coordinates = { lat: 31.00994216931093, lng: 36.6326645727253 };
+  } else if (ctx.clickedTeam.location.country === "USA") {
+    coordinates = { lat: 33.4302, lng: -82.1261 };
+  } else if (ctx.clickedTeam.location.country === "Qatar") {
+    coordinates = { lat: 25.27628, lng: 51.525105 };
+  } else if (ctx.clickedTeam.location.country === "Iraq") {
+    coordinates = { lat: 36.230501, lng: 43.956688 };
+  } else {
+    coordinates = { lat: 48.8566, lng: 2.3522 };
+  }
+
+  const mapRef = useRef();
+  const onMapLoad = useCallback((map) => {
+    mapRef.current = map;
+  }, []);
+
+  useEffect(() => {
+    ctx.dashboard.forEach((mission) => {
+      console.log(mission.coords);
+      if (mission.team === ctx.clickedTeam.id) {
+        setMarkers(() => [
+          {
+            id: mission.title,
+            lat: mission.coords[1],
+            lng: mission.coords[0],
+          },
+        ]);
+      }
+    });
+  }, [ctx.dashboard]);
+
   /* calendar tools */
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
@@ -58,6 +112,7 @@ const SingleTeam = () => {
               // the end date must be one day past the desired range as that is the day the event "stops"
               end: new Date(endDate.year, endDate.month, endDate.day + 1),
               coords: toPoint(event.location.mgrs),
+              team: event.team_id,
             };
             missionCalendarArray.push(missionCalendarObject);
           }
@@ -276,14 +331,9 @@ Then sets the missions state variable with that array. Fires when the missions s
 
       <div className="team-location">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</div>
 
-      <iframe
-        className="team-mapp"
-        title="title"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1043662.1012423536!2d46.993846776877206!3d29.296531908146836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fc5363fbeea51a1%3A0x74726bcd92d8edd2!2sKuwait!5e0!3m2!1sen!2sus!4v1670945028777!5m2!1sen!2sus"
-        width="800"
-        height="450"
-        loading="lazy"
-      ></iframe>
+      <div className="team-mapp">
+        <MissionMap coordinates={coordinates} />
+      </div>
 
       <div className="team-personnel-container">
         {members.length > 0 ? (
