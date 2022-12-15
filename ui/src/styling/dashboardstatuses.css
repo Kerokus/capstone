@@ -1,4 +1,4 @@
-.team-status-header { 
+.team-status-header {
   grid-area: team-status-header;
   text-align: center;
   font-size: x-large;
@@ -9,19 +9,32 @@
   border-style: solid;
 }
 
+.ci-teams-status {
+  display: grid;
+  padding: 15px;
+  grid-template-columns: 250px auto;
+}
+
 .ci-team-status {
-  /* border-style: solid; */
+  font-size: 30px;
 }
 
 .humint-team-status {
-  /* border-style: solid; */
+  font-size: 30px;
+}
+
+.humint-teams-status {
+  display: grid;
+  padding: 15px;
+  grid-template-columns: 300px auto;
 }
 
 .sigint-team-status {
-  /* border-style: solid; */
+  font-size: 30px;
 }
 
-
-
-
-
+.sigint-teams-status {
+  display: grid;
+  padding: 15px;
+  grid-template-columns: 250px auto;
+}

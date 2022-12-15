@@ -14,14 +14,13 @@ import { toPoint } from "mgrs";
 import DashboardMap from "../components/DashboardMap";
 import Places from "../components/Map";
 
-
 const Dashboard = () => {
   const ctx = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
   const [upcomingMissions, setUpcomingMissions] = useState([]);
   const [statusLoad, setStatusLoad] = useState(false);
-  let coordinates = { lat: 32.313793143601366, lng: 55.194812819979404 }
- 
+  let coordinates = { lat: 32.313793143601366, lng: 55.194812819979404 };
+
   let upcomingMissionsArray = [];
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
@@ -34,7 +33,7 @@ const Dashboard = () => {
   useEffect(() => {
     missionsFetch();
     statusFetch();
-    toggleRefresh()
+    toggleRefresh();
   }, []);
 
   useEffect(() => {
@@ -101,7 +100,7 @@ const Dashboard = () => {
   };
 
   // Calendar object days: inclusive at the start / exclusive at the end
-  console.log(ctx.dashboard)
+  console.log(ctx.dashboard);
   // the database days are zero based, the Calendar object days are 1 based
   const calendarFormat = (string) => {
     let dateHandler = new Date(string);
@@ -153,12 +152,11 @@ const Dashboard = () => {
   };
 
   const renderMap = () => {
-     return <DashboardMap coordinates={coordinates}/>
-    
-  }
+    return <DashboardMap coordinates={coordinates} />;
+  };
 
   useEffect(() => {
-    let dashboardMarkersArray = []
+    let dashboardMarkersArray = [];
     upcomingMissions.forEach((mission) => {
       ctx.dashboard.forEach((otherMission) => {
         if (mission.id === otherMission.id) {
@@ -166,12 +164,10 @@ const Dashboard = () => {
             id: otherMission.title,
             lat: otherMission.coords[1],
             lng: otherMission.coords[0],
-          })
+          });
         }
-      })
-    },
-    ctx.setDashboardMarkers(dashboardMarkersArray)
-    );
+      });
+    }, ctx.setDashboardMarkers(dashboardMarkersArray));
   }, [ctx.dashboard, ctx.refresh]);
 
   return (
@@ -191,7 +187,7 @@ const Dashboard = () => {
         )}
 
         <div className="dashboard-map">
-          {ctx.dashboard[0] ? renderMap() : 'Loading...'}
+          {ctx.dashboard[0] ? renderMap() : "Loading..."}
         </div>
 
         <div className="dashboard-upcoming">
@@ -203,8 +199,10 @@ const Dashboard = () => {
             </div>
           ) : (
             <div>
-              Next 48 hours:
-              <div className="team-missions"> {`None`} </div>
+              <div className="team-missions" style={{ padding: 10 }}>
+                {" "}
+                {`None`}{" "}
+              </div>
             </div>
           )}
         </div>
