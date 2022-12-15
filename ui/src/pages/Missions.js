@@ -10,6 +10,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import Places from "../components/Map";
+import MissionMap from "../components/MissionMap"
 
 
 const Missions = () => {
@@ -19,7 +20,8 @@ const Missions = () => {
 
   useEffect(() => {
     ctx.setShow(false);
-    console.log(ctx.dashboard);
+    ctx.setTeamMarkers([]);
+    ctx.setMissionMarkers([]);
   }, []);
 
   useEffect(() => {
@@ -91,19 +93,26 @@ console.log("dashboard", ctx.dashboard)
 
   const renderMissionCard = (mission, index) => {
     var coordinates = {};
+    let zoom;
     //console.log("flag:",team)
     if (mission.location.country === "Kuwait") {
-      coordinates = { lat: 28.871513, lng: 48.163907 };
+      coordinates = { lat: 29.34852700252181, lng: 47.46561436349371 };
+      zoom = 7
     } else if (mission.location.country === "Jordan") {
-      coordinates = { lat: 31.967195, lng: 35.910519 };
+      coordinates = { lat: 31.261837409143272, lng: 36.740018930765636 };
+      zoom = 6
     } else if (mission.location.country === "USA") {
-      coordinates = { lat: 33.4302, lng: -82.1261 };
+      coordinates = { lat: 35.14193183877861, lng: -78.99943678131243 };
+      zoom = 11
     } else if (mission.location.country === "Qatar") {
-      coordinates = { lat: 25.27628, lng: 51.525105 };
+      coordinates = { lat: 25.253654783876964, lng: 51.2066182649342 };
+      zoom = 8
     } else if (mission.location.country === "Iraq") {
       coordinates = { lat: 36.230501, lng: 43.956688 };
+      zoom = 6
     } else {
-      coordinates = { lat: 48.8566, lng: 2.3522 };
+      coordinates = { lat: 32.69215511648702, lng: 43.645439965585325 };
+      zoom = 3
     }
 
     // const countries = [
@@ -142,7 +151,7 @@ console.log("dashboard", ctx.dashboard)
         <Card.Body className="card-body">
           <div className="test" key={index}>
             <div className="missions-map">
-              <Places coordinates={coordinates} />
+              <MissionMap coordinates={coordinates} zoom={zoom} />
             </div>
             <div className="mission-data">
               <u> Location: </u>

@@ -29,28 +29,36 @@ import React, {
   import "../styling/map.css";
   import { GlobalContext } from "../Context/GlobalContext";
   
-  const libraries = ["places"];
+  //const libraries = ["places"];
   const options = {
     disableDefaultUI: true,
     zoomControl: false,
     gestureHandling: 'cooperative'
   };
-
-  export default function DashboardMap({ coordinates }) {
+  
+  export default function MissionMap({ coordinates, zoom }) {
     const { isLoaded, loadError } = useLoadScript({
       googleMapsApiKey: "AIzaSyBRK58z-C-6RfjetZE-TA3eNq777nWc2WA",
-      libraries,
+      //libraries,
     });
     const ctx = useContext(GlobalContext);
     const [markers, setMarkers] = useState([]);
     const [selected, setSelected] = useState(null);
     // const [center, setCenter] = useState({lat: 28.871513, lng: 48.163907});
-    useEffect(() => {
-
- ctx.setCenter({lat: 28.871513, lng: 48.163907})
-
-    }, []);
-  
+    // useEffect(() => {
+    //   ctx.teams.forEach((place) => {
+    //     if (place.location.country === "Kuwait") {
+    //       ctx.setCenter({ lat: 28.871513, lng: 48.163907 });
+    //     } else if (place.location.country === "Jordan") {
+    //       ctx.setCenter({ lat: 31.967195, lng: 35.910519 });
+    //     } else if (place.location.country === "USA") {
+    //       ctx.setCenter({ lat: 33.4302, lng: -82.1261 });
+    //     } else {
+    //       // ctx.setCenter({lat:48.8566, lng:2.3522})
+    //     }
+    //   });
+    // }, []);
+ 
     // const countries = [
     //   { name: 'Saudi Arabia',
     //   location: {lat:24.689868, lng:46.735424}},
@@ -110,21 +118,19 @@ import React, {
     return (
       <>
         <div>
-
-          <Search panTo={panTo} />
-          
+          {/* <Search panTo={panTo} /> */}
   
           <GoogleMap
             id="map"
             mapContainerClassName="map"
-            zoom={3}
+            zoom={zoom}
             center={coordinates}
             options={options}
             // onClick={onMapClick}
             onLoad={onMapLoad}
             draggable="true"
           >
-            {ctx.dashboardMarkers.map(
+            {ctx.teamMarkers.map(
               (marker) => (
                 <Marker
                   key={`${marker.lat}-${marker.lng}`}
@@ -157,7 +163,6 @@ import React, {
                   <p>
                     {selected.lat}, {selected.lng}
                   </p>
-                  <p></p>
                 </div>
               </InfoWindow>
             ) : null}
@@ -208,8 +213,8 @@ import React, {
   
     return (
       <div className="search">
-        <Combobox className="fuck" onSelect={handleSelect}>
-          <ComboboxInput className="search-box"
+        <Combobox onSelect={handleSelect}>
+          <ComboboxInput
             value={value}
             onChange={handleInput}
             disabled={!ready}

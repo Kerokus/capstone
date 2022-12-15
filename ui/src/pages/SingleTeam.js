@@ -33,7 +33,6 @@ const SingleTeam = () => {
   const [missions, setMissions] = useState([]);
   const [upcomingMissions, setUpcomingMissions] = useState([]);
   const [loading, setLoading] = useState(false);
- 
 
   let teamName = ctx.clickedTeam.team_name;
   let teamPersonnelArray = [];
@@ -49,22 +48,22 @@ const SingleTeam = () => {
 
   if (ctx.clickedTeam.location.country === "Kuwait") {
     coordinates = { lat: 29.34562355852184, lng: 47.67637238617149 };
-    zoom = 8
+    zoom = 8;
   } else if (ctx.clickedTeam.location.country === "Jordan") {
     coordinates = { lat: 31.00994216931093, lng: 36.6326645727253 };
-    zoom = 7
+    zoom = 7;
   } else if (ctx.clickedTeam.location.country === "USA") {
     coordinates = { lat: 33.4302, lng: -82.1261 };
-    zoom = 9
+    zoom = 9;
   } else if (ctx.clickedTeam.location.country === "Qatar") {
     coordinates = { lat: 25.27628, lng: 51.525105 };
-    zoom = 6
+    zoom = 6;
   } else if (ctx.clickedTeam.location.country === "Iraq") {
     coordinates = { lat: 36.230501, lng: 43.956688 };
-    zoom = 6
+    zoom = 6;
   } else {
     coordinates = { lat: 48.8566, lng: 2.3522 };
-    zoom = 9
+    zoom = 9;
   }
 
   const mapRef = useRef();
@@ -73,20 +72,17 @@ const SingleTeam = () => {
   }, []);
 
   useEffect(() => {
-    let teamMarkersArray = []
+    let teamMarkersArray = [];
     ctx.dashboard.forEach((mission) => {
       if (mission.team === ctx.clickedTeam.id) {
         teamMarkersArray.push({
           id: mission.title,
           lat: mission.coords[1],
           lng: mission.coords[0],
-        })
+        });
       }
-    },
-    ctx.setTeamMarkers(teamMarkersArray)
-    );
+    }, ctx.setTeamMarkers(teamMarkersArray));
   }, [ctx.dashboard]);
-
 
   /* calendar tools */
   const locales = {
@@ -206,19 +202,19 @@ Then sets the missions state variable with that array. Fires when the missions s
   /* renders all missions assigned to the clicked team */
   const renderTeamMissions = (mission, index) => {
     return (
-      <div className="team-missions" key={index}>
+      <li className="team-missions" key={index}>
         {" "}
         {`${mission.start_date} | ${mission.name}`}{" "}
-      </div>
+      </li>
     );
   };
   /* renders upcoming missions assigned to the clicked team */
   const renderUpcomingMissions = (mission, index) => {
     return (
-      <div className="team-missions" key={index}>
+      <li className="team-missions" key={index}>
         {" "}
         {`${mission.start_date} | ${mission.name}`}{" "}
-      </div>
+      </li>
     );
   };
 
@@ -312,44 +308,45 @@ Then sets the missions state variable with that array. Fires when the missions s
         />
       </div>
 
+      <div className="team-mapp">
+        <b>{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</b>
+        <TeamMap coordinates={coordinates} zoom={zoom} />
+      </div>
+
+      <div className="team-personnel-container">
+        <h3>Team Personnel</h3>
+        {members.length > 0 ? (
+          <div className="team-members">
+            {[...members].map(renderTeamMembers)}
+          </div>
+        ) : (
+          <div>Loading...</div>
+        )}
+      </div>
+
       <div className="team-upcoming-container">
+        <h3>Next 48 hours</h3>
         {upcomingMissions.length > 0 ? (
           <div className="team-missions">
-            Upcoming Missions:{" "}
-            {[...upcomingMissions].map(renderUpcomingMissions)}
+            <ul>{[...upcomingMissions].map(renderUpcomingMissions)}</ul>
           </div>
         ) : (
           <div className="team-missions">
-            Upcoming Missions: <div>{`No Upcoming Missions`} </div>
+            <div>{`None`} </div>
           </div>
         )}
       </div>
 
       <div className="team-all-missions-container">
+        <h3>All pending activities</h3>
         {missions.length > 0 ? (
           <div className="team-missions">
-            All Missions: {[...missions].map(renderTeamMissions)}
+            <ul>{[...missions].map(renderTeamMissions)}</ul>
           </div>
         ) : (
           <div className="team-missions">
-            All Missions: <div>{`No Assigned Missions`} </div>
+            <div>{`None`} </div>
           </div>
-        )}
-      </div>
-
-      <div className="team-location">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</div>
-
-      <div className="team-mapp">
-        <TeamMap coordinates={coordinates} zoom={zoom} />
-      </div>
-
-      <div className="team-personnel-container">
-        {members.length > 0 ? (
-          <div className="team-members">
-            Team Members: {[...members].map(renderTeamMembers)}
-          </div>
-        ) : (
-          <div>Loading...</div>
         )}
       </div>
     </div>
