@@ -2,59 +2,84 @@
   display: grid;
   grid-template-columns: 1fr 0.7fr 1.3fr;
   grid-template-rows: 1.3fr 1.1fr 0.6fr;
-  gap: 0px 0px;
+  gap: 5px 5px;
+  padding: 1em;
   grid-template-areas:
     "mission-admin-data mission-admin-data mission-map"
     "mission-risks mission-timeline mission-map"
     "mission-risks mission-pace mission-signatures";
-  /* width: 90vw;
-  height: 90vh; */
   padding: 2em;
 }
 
 .mission-admin-data {
   grid-area: mission-admin-data;
-  background-color: red;
-  color: black;
-  border: solid black;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 1em;
+  
 }
 
+.mission-admin-data h3 {
+  text-align: center;
+  text-decoration: underline;
+}
 .mission-map {
   grid-area: mission-map;
-  background-color: orange;
-  color: black;
-  border: solid black;
-
 }
 .single-mission-map {
   grid-area: mission-map;
-background-color: aquamarine;
-height: 100vh;
-width: 100%;
+  height: 100vh;
+  width: 100%;
+  border-style: solid;
+  border-radius: 10px;
+  
 }
 
 
 .mission-risks {
   grid-area: mission-risks;
-  background-color: yellow;
-  color: black;
-  border: solid black;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.mission-risks h3 {
+  text-align: center;
+  text-decoration: underline;
 }
 
 .mission-timeline {
   grid-area: mission-timeline;
-  background-color: green;
-  border: solid black;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.mission-timeline h3 {
+  text-align: center;
+  text-decoration: underline;
 }
 
 .mission-pace {
   grid-area: mission-pace;
-  background-color: blue;
-  border: solid black;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.mission-pace h3 {
+  text-align: center;
+  text-decoration: underline;
 }
 
 .mission-signatures {
   grid-area: mission-signatures;
-  background-color: indigo;
-  border: solid black;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.mission-signatures h3 {
+  text-align: center;
+  text-decoration: underline;
 }

@@ -33,6 +33,7 @@ import React, {
   const options = {
     disableDefaultUI: true,
     zoomControl: false,
+    gestureHandling: 'cooperative'
   };
 
   export default function DashboardMap({ coordinates }) {
