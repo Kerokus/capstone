@@ -120,7 +120,7 @@ export default function Places({ coordinates, zoom }) {
 
   return (
     <>
-      <div>
+      <div className="google-container">
         <Search panTo={panTo} />
 
         <GoogleMap

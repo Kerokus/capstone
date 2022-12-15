@@ -1,176 +1,173 @@
 import React, {
-    useState,
-    useMemo,
-    useRef,
-    useCallback,
-    useEffect,
-    useContext,
-  } from "react";
-  import {
-    GoogleMap,
-    useLoadScript,
-    Marker,
-    InfoWindow,
-    DirectionsService,
-  } from "@react-google-maps/api";
-  import usePlacesAutocomplete, {
-    getGeocode,
-    getLatLng,
-  } from "use-places-autocomplete";
-  import {
-    Combobox,
-    ComboboxInput,
-    ComboboxPopover,
-    ComboboxList,
-    ComboboxOption,
-  } from "@reach/combobox";
-  import "@reach/combobox/styles.css";
-  import { toPoint } from "mgrs";
-  import "../styling/map.css";
-  import { GlobalContext } from "../Context/GlobalContext";
-  
-  //const libraries = ["places"];
-  const options = {
-    disableDefaultUI: true,
-    zoomControl: false,
-    gestureHandling: 'cooperative'
-  };
-  
-  export default function MissionMap({ coordinates, zoom }) {
-    const { isLoaded, loadError } = useLoadScript({
-      googleMapsApiKey: "AIzaSyBRK58z-C-6RfjetZE-TA3eNq777nWc2WA",
-      //libraries,
-    });
-    const ctx = useContext(GlobalContext);
-    const [markers, setMarkers] = useState([]);
-    const [selected, setSelected] = useState(null);
-    // const [center, setCenter] = useState({lat: 28.871513, lng: 48.163907});
-    // useEffect(() => {
-    //   ctx.teams.forEach((place) => {
-    //     if (place.location.country === "Kuwait") {
-    //       ctx.setCenter({ lat: 28.871513, lng: 48.163907 });
-    //     } else if (place.location.country === "Jordan") {
-    //       ctx.setCenter({ lat: 31.967195, lng: 35.910519 });
-    //     } else if (place.location.country === "USA") {
-    //       ctx.setCenter({ lat: 33.4302, lng: -82.1261 });
-    //     } else {
-    //       // ctx.setCenter({lat:48.8566, lng:2.3522})
-    //     }
-    //   });
-    // }, []);
- 
-    // const countries = [
-    //   { name: 'Saudi Arabia',
-    //   location: {lat:24.689868, lng:46.735424}},
-    //   { name: 'Kuwait',
-    //   location: {lat:28.871513, lng:48.163907}},
-    //   { name: 'Jordan',
-    //   location: {lat:31.967195, lng:35.910519}},
-    //   { name: 'Iraq',
-    //   location: {lat:36.230501, lng:43.956688}},
-    //   { name: 'Bahrain',
-    //   location: {lat:26.267288, lng:50.632467}},
-    //   { name: 'United Arab Emirates',
-    //   location: {lat:24.441709, lng:54.377948}},
-    //   { name: 'Qatar',
-    //   location: {lat:25.276280, lng:51.525105}},
-    // ]
-  
-    // const onMapClick = useCallback((e) => {
-    //   ctx.setGlobalMarkers((current) => [
-    //     ...current,
-    //     {
-    //       id: current.length + 1,
-    //       lat: e.latLng.lat(),
-    //       lng: e.latLng.lng(),
-    //     },
-    //   ]);
-    // }, []);
-  
-  
-    const mapRef = useRef();
-    const onMapLoad = useCallback((map) => {
-      mapRef.current = map;
-    }, []);
-  
-    const panTo = useCallback(({ lat, lng }) => {
-      mapRef.current.panTo({ lat, lng });
-      mapRef.current.setZoom(8);
-    }, []);
-  
-    // const handleChoice = () => {
-    //   if (countries.name === 'Saudi Arabia'){
-    //     setChoice(panTo({lat:24.689868, lng:46.735424}))
-    //     console.log(choice)
-    //   } else {
-    //     console.log('Shit is fucked')
-    //   }
-  
-    // }
-  
-    // const getDirections = () => {
-  
-    // }
-  
-    if (loadError) return "Error";
-    if (!isLoaded) return "Loading...";
-  
-    return (
-      <>
-        <div>
-          {/* <Search panTo={panTo} /> */}
-  
-          <GoogleMap
-            id="map"
-            mapContainerClassName="map"
-            zoom={zoom}
-            center={coordinates}
-            options={options}
-            // onClick={onMapClick}
-            onLoad={onMapLoad}
-            draggable="true"
-          >
-            {ctx.teamMarkers.map(
-              (marker) => (
-                <Marker
-                  key={`${marker.lat}-${marker.lng}`}
-                  position={{ lat: marker.lat, lng: marker.lng }}
-                  draggable={false}
-                  onClick={() => {
-                    setSelected(marker);
-                  }}
-                  icon={{
-                    url: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png",
-                    origin: new window.google.maps.Point(0, 0),
-                    anchor: new window.google.maps.Point(15, 15),
-                    scaledSize: new window.google.maps.Size(30, 30),
-                  }}
-  
-                />
-              ),
-              []
-            )}
-            <Marker />
-  
-            {selected ? (
-              <InfoWindow
-                position={{ lat: selected.lat, lng: selected.lng }}
-                onCloseClick={() => {
-                  setSelected(null);
+  useState,
+  useMemo,
+  useRef,
+  useCallback,
+  useEffect,
+  useContext,
+} from "react";
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+  DirectionsService,
+} from "@react-google-maps/api";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
+import "@reach/combobox/styles.css";
+import { toPoint } from "mgrs";
+import "../styling/map.css";
+import { GlobalContext } from "../Context/GlobalContext";
+
+//const libraries = ["places"];
+const options = {
+  disableDefaultUI: true,
+  zoomControl: false,
+  gestureHandling: "cooperative",
+};
+
+export default function MissionMap({ coordinates, zoom }) {
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: "AIzaSyBRK58z-C-6RfjetZE-TA3eNq777nWc2WA",
+    //libraries,
+  });
+  const ctx = useContext(GlobalContext);
+  const [markers, setMarkers] = useState([]);
+  const [selected, setSelected] = useState(null);
+  // const [center, setCenter] = useState({lat: 28.871513, lng: 48.163907});
+  // useEffect(() => {
+  //   ctx.teams.forEach((place) => {
+  //     if (place.location.country === "Kuwait") {
+  //       ctx.setCenter({ lat: 28.871513, lng: 48.163907 });
+  //     } else if (place.location.country === "Jordan") {
+  //       ctx.setCenter({ lat: 31.967195, lng: 35.910519 });
+  //     } else if (place.location.country === "USA") {
+  //       ctx.setCenter({ lat: 33.4302, lng: -82.1261 });
+  //     } else {
+  //       // ctx.setCenter({lat:48.8566, lng:2.3522})
+  //     }
+  //   });
+  // }, []);
+
+  // const countries = [
+  //   { name: 'Saudi Arabia',
+  //   location: {lat:24.689868, lng:46.735424}},
+  //   { name: 'Kuwait',
+  //   location: {lat:28.871513, lng:48.163907}},
+  //   { name: 'Jordan',
+  //   location: {lat:31.967195, lng:35.910519}},
+  //   { name: 'Iraq',
+  //   location: {lat:36.230501, lng:43.956688}},
+  //   { name: 'Bahrain',
+  //   location: {lat:26.267288, lng:50.632467}},
+  //   { name: 'United Arab Emirates',
+  //   location: {lat:24.441709, lng:54.377948}},
+  //   { name: 'Qatar',
+  //   location: {lat:25.276280, lng:51.525105}},
+  // ]
+
+  // const onMapClick = useCallback((e) => {
+  //   ctx.setGlobalMarkers((current) => [
+  //     ...current,
+  //     {
+  //       id: current.length + 1,
+  //       lat: e.latLng.lat(),
+  //       lng: e.latLng.lng(),
+  //     },
+  //   ]);
+  // }, []);
+
+  const mapRef = useRef();
+  const onMapLoad = useCallback((map) => {
+    mapRef.current = map;
+  }, []);
+
+  const panTo = useCallback(({ lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(8);
+  }, []);
+
+  // const handleChoice = () => {
+  //   if (countries.name === 'Saudi Arabia'){
+  //     setChoice(panTo({lat:24.689868, lng:46.735424}))
+  //     console.log(choice)
+  //   } else {
+  //     console.log('Shit is fucked')
+  //   }
+
+  // }
+
+  // const getDirections = () => {
+
+  // }
+
+  if (loadError) return "Error";
+  if (!isLoaded) return "Loading...";
+
+  return (
+    <>
+      <div className="google-container">
+        {/* <Search panTo={panTo} /> */}
+
+        <GoogleMap
+          id="map"
+          mapContainerClassName="missions-map"
+          zoom={zoom}
+          center={coordinates}
+          options={options}
+          // onClick={onMapClick}
+          onLoad={onMapLoad}
+          draggable="true"
+        >
+          {ctx.teamMarkers.map(
+            (marker) => (
+              <Marker
+                key={`${marker.lat}-${marker.lng}`}
+                position={{ lat: marker.lat, lng: marker.lng }}
+                draggable={false}
+                onClick={() => {
+                  setSelected(marker);
                 }}
-              >
-                <div>
+                icon={{
+                  url: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png",
+                  origin: new window.google.maps.Point(0, 0),
+                  anchor: new window.google.maps.Point(15, 15),
+                  scaledSize: new window.google.maps.Size(30, 30),
+                }}
+              />
+            ),
+            []
+          )}
+          <Marker />
+
+          {selected ? (
+            <InfoWindow
+              position={{ lat: selected.lat, lng: selected.lng }}
+              onCloseClick={() => {
+                setSelected(null);
+              }}
+            >
+              <div>
+                <p>{selected.id}</p>
                 <p>
-                  {selected.id}</p>
-                  <p>
-                    lat:{selected.lat}, long:{selected.lng}
-                  </p>
-                </div>
-              </InfoWindow>
-            ) : null}
-          </GoogleMap>
-        </div>
-        {/* <div>Converter</div>
+                  lat:{selected.lat}, long:{selected.lng}
+                </p>
+              </div>
+            </InfoWindow>
+          ) : null}
+        </GoogleMap>
+      </div>
+      {/* <div>Converter</div>
       <Mgrs/>
       <div>Notes on how to use map: </div>
         <p>1. Autosearch location by typing at the input box where you want to search. It will zoom to that location.</p>
