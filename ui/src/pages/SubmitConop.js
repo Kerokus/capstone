@@ -185,7 +185,7 @@ const SubmitConop = () => {
                   value={ctx.submitConopForm.location?.mgrs || ""}
                   type="text"
                   minLength={"13"}
-                  maxLength={"17"}
+                  maxLength={"18"}
                   placeholder="MGRS"
                   required
                 />
