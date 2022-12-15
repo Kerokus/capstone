@@ -23,6 +23,7 @@ const Teams = () => {
   useEffect(() => {
     ctx.setShow(false);
     ctx.setShowWarning(false);
+    ctx.setTeamMarkers([]);
   }, []);
 
   useEffect(() => {

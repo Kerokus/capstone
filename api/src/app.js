@@ -233,7 +233,7 @@ app.post('/teams', async (req, res) => {
   try {
     let newTeam = {
       id: num,
-      name: req.body.name,
+      team_name: req.body.team_name,
       location: req.body.location,
       comms_status: req.body.comms_status,
       personnel_status: req.body.personnel_status,
@@ -256,7 +256,7 @@ app.put('/missions/:id', async (req, res) => {
       start_date: req.body.start_date,
       end_date: req.body.end_date,
       location: req.body.location,
-      name: req.body.name,
+      team_name: req.body.name,
       description: req.body.description,
       status: "pending",
       purpose: req.body.purpose,

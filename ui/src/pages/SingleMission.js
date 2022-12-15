@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import SingleMissionMap from "../components/SingleMissionMap"
+import { toPoint } from "mgrs";
+
 
 const SingleMission = () => {
   const ctx = useContext(GlobalContext);
@@ -7,11 +10,77 @@ const SingleMission = () => {
 
   useEffect(() => {
     missionFetch();
+    missionsFetch();
   }, []);
 
+  const calendarFormat = (string) => {
+    let dateHandler = new Date(string);
+    return {
+      year: dateHandler.getFullYear(),
+      month: dateHandler.getMonth(),
+      // add one to the day to convert the format
+      day: dateHandler.getDate() + 1,
+    };
+  };
+
+  //grabbing calendar data from Missions table and formatting it
+  const missionsFetch = async () => {
+    setLoading(true);
+
+    let missionCalendarArray = [];
+    await fetch(`http://localhost:8081/missions`)
+      .then((res) => res.json())
+      .then((data) =>
+        data.map((event) => {
+          let startDate = calendarFormat(event.start_date);
+          let endDate = calendarFormat(event.end_date);
+          let missionCalendarObject = {
+            id: event.id,
+            team_id: event.team_id,
+            title: event.name,
+            start: new Date(startDate.year, startDate.month, startDate.day),
+            // the end date must be one day past the desired range as that is the day the event "stops"
+            end: new Date(endDate.year, endDate.month, endDate.day + 1),
+            coords: toPoint(event.location.mgrs),
+          };
+          missionCalendarArray.push(missionCalendarObject);
+        })
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+    ctx.setDashboard(missionCalendarArray);
+    setLoading(false);
+  };
+
+ 
+  let coordinates = {};
+  let zoom;
+
+  if (ctx.clickedMission.location.country === "Kuwait") {
+    coordinates = { lat: 29.34562355852184, lng: 47.67637238617149 };
+    zoom = 8
+  } else if (ctx.clickedMission.location.country === "Jordan") {
+    coordinates = { lat: 31.00994216931093, lng: 36.6326645727253 };
+    zoom = 7
+  } else if (ctx.clickedMission.location.country === "USA") {
+    console.log(ctx.clickedMission)
+    coordinates = { lat: 35.14147146711656, lng: -79.00823128996466 };;
+    zoom = 12
+  } else if (ctx.clickedMission.location.country === "Qatar") {
+    coordinates = { lat: 25.27628, lng: 51.525105 };
+    zoom = 6
+  } else if (ctx.clickedMission.location.country === "Iraq") {
+    coordinates = { lat: 36.230501, lng: 43.956688 };
+    zoom = 6
+  } else {
+    coordinates = { lat: 32.313793143601366, lng: 55.194812819979404 };
+    zoom = 9
+  }
+  
   const missionFetch = async () => {
     setLoading(true);
-    await fetch(`http://localhost:8081/missions/2`)
+    await fetch(`http://localhost:8081/missions/${ctx.clickedMission.id}`)
       .then((res) => res.json())
       .then((data) => ctx.setSingleMission(data))
       .catch((err) => {
@@ -20,14 +89,40 @@ const SingleMission = () => {
     setLoading(false);
   };
 
+
+  console.log('dashboard mission:', ctx.dashboard)
+  console.log('single mission:', ctx.singleMission)
+
+  useEffect(() => {
+    
+    let missionMarkersArray = []
+    ctx.dashboard.forEach((mission) => {
+      
+      
+      if (mission.id === ctx.clickedMission.id) {
+        missionMarkersArray.push({
+          id: mission.title,
+          lat: mission.coords[1],
+          lng: mission.coords[0],
+        })
+      }
+    },
+    ctx.setMissionMarkers(missionMarkersArray)
+    );
+  }, [ctx.dashboard]);
+
   return (
     <>
       {loading && <div>Loading Data...</div>}
       {ctx.singleMission[0] && (
         <div className="mission-container">
-          <div className="mission-map">
-            <h3>MAP GOES HERE</h3>
+
+          <div className="single-mission-map">
+          <SingleMissionMap  coordinates={coordinates} zoom={zoom} />
           </div>
+            
+            
+
           <div className="mission-admin-data">
             <h3>ADMIN DATA</h3>
             <p>

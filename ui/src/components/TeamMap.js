@@ -117,7 +117,7 @@ export default function TeamMap({ coordinates, zoom }) {
   return (
     <>
       <div>
-        <Search panTo={panTo} />
+        {/* <Search panTo={panTo} /> */}
 
         <GoogleMap
           id="map"
