@@ -134,6 +134,10 @@
   font-size: 20px;
 }
 
+.google-container {
+  height: 100%;
+}
+
 /* .clocks-container {
   display: flex;
   align-items: center;
