@@ -10,8 +10,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import Places from "../components/Map";
-import MissionMap from "../components/MissionMap"
-
+import MissionMap from "../components/MissionMap";
 
 const Missions = () => {
   const ctx = useContext(GlobalContext);
@@ -97,22 +96,22 @@ const Missions = () => {
     //console.log("flag:",team)
     if (mission.location.country === "Kuwait") {
       coordinates = { lat: 29.34852700252181, lng: 47.46561436349371 };
-      zoom = 7
+      zoom = 7;
     } else if (mission.location.country === "Jordan") {
       coordinates = { lat: 31.261837409143272, lng: 36.740018930765636 };
-      zoom = 6
+      zoom = 6;
     } else if (mission.location.country === "USA") {
       coordinates = { lat: 35.14193183877861, lng: -78.99943678131243 };
-      zoom = 11
+      zoom = 11;
     } else if (mission.location.country === "Qatar") {
       coordinates = { lat: 25.253654783876964, lng: 51.2066182649342 };
-      zoom = 8
+      zoom = 8;
     } else if (mission.location.country === "Iraq") {
       coordinates = { lat: 36.230501, lng: 43.956688 };
-      zoom = 6
+      zoom = 6;
     } else {
       coordinates = { lat: 32.69215511648702, lng: 43.645439965585325 };
-      zoom = 3
+      zoom = 3;
     }
 
     // const countries = [
@@ -159,7 +158,7 @@ const Missions = () => {
               <u> Decision Point: </u>
               <p>{`${mission.decision_point}`}</p>
             </div>
-            <div classname="asd"></div>
+            <div className="asd"></div>
           </div>
           <div className="buttons">
             <Link

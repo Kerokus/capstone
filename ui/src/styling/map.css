@@ -1,5 +1,11 @@
-.map {
+.dashboard-map {
   border-radius: 10px;
   height: calc(100% - 31px);
   width: 100%;
+}
+
+.teams-map {
+  height: calc(100% - 24px);
+  width: 100%;
+  border-radius: 10px;
 }
