@@ -158,8 +158,10 @@ export default function TeamMap({ coordinates, zoom }) {
               }}
             >
               <div>
+              <p>
+                  {selected.id}</p>
                 <p>
-                  {selected.lat}, {selected.lng}
+                  lat:{selected.lat}, long:{selected.lng}
                 </p>
               </div>
             </InfoWindow>

@@ -33,6 +33,7 @@ import React, {
   const options = {
     disableDefaultUI: true,
     zoomControl: false,
+    gestureHandling: 'cooperative'
   };
   
   export default function SingleMissionMap({ coordinates, zoom }) {
@@ -110,7 +111,7 @@ import React, {
     // const getDirections = () => {
   
     // }
-  
+  console.log("check",ctx.singleMission.map)
     if (loadError) return "Error";
     if (!isLoaded) return "Loading...";
   
@@ -159,9 +160,13 @@ import React, {
                 }}
               >
                 <div>
+                  
                   <p>
-                    {selected.lat}, {selected.lng}
+                  {selected.id}</p>
+                  <p>
+                  lat:{selected.lat}, lng:{selected.lng}
                   </p>
+                  
                 </div>
               </InfoWindow>
             ) : null}
