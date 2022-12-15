@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
 import Clock from "react-live-clock";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+import { Link } from "react-router-dom";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
@@ -16,6 +17,7 @@ const Dashboard = () => {
   const ctx = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
   const [upcomingMissions, setUpcomingMissions] = useState([]);
+  const [statusLoad, setStatusLoad] = useState(false);
 
   let upcomingMissionsArray = [];
   const locales = {
@@ -24,6 +26,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     missionsFetch();
+    statusFetch();
   }, []);
 
   useEffect(() => {
@@ -45,6 +48,19 @@ const Dashboard = () => {
   //next 48 hours
   let twoDayDate = new Date();
   twoDayDate.setTime(oneDayDate.getTime() + 86400000);
+
+  //updating Team status
+
+  const statusFetch = async () => {
+    setStatusLoad(true);
+    await fetch("http://localhost:8081/teams")
+      .then((res) => res.json())
+      .then((data) => ctx.setTeams(data))
+      .catch((err) => {
+        console.log(err);
+      });
+    setStatusLoad(false);
+  };
 
   //grabbing calendar data from Missions table and formatting it
   const missionsFetch = async () => {
@@ -118,7 +134,12 @@ const Dashboard = () => {
   const renderUpcomingMissions = (mission, index) => {
     return (
       <li className="dashboard-team-list" key={index}>
-        <span>{`${mission.start_date} - ${mission.name}`}</span>
+        <span>
+          <Link
+            className="dashboard-mission-link"
+            to={`/missions/${mission.id}`}
+          >{`${mission.start_date} - ${mission.name}`}</Link>
+        </span>
       </li>
     );
   };

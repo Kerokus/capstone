@@ -53,11 +53,16 @@
   display: flex;
 }
 
+.dashboard-mission-link {
+  color: lightgray;
+  text-decoration: none;
+}
+
 .list {
   position: relative;
 }
 
-.list ul {
+.list ul li {
   position: relative;
 }
 
@@ -88,6 +93,7 @@
 
 .dashboard-team-list:hover {
   left: 10px;
+  color: black;
 }
 
 .dashboard-team-list span {
