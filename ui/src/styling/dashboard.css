@@ -26,7 +26,7 @@
   border-radius: 10px;
 }
 
-.dashboard-map {
+.dashboard-mapp {
   grid-area: dashboard-map;
   border: solid lightgrey;
   border-radius: 10px;
@@ -132,6 +132,10 @@
   border-radius: 10px;
   font-family: "Poppins", sans-serif;
   font-size: 20px;
+}
+
+.google-container {
+  height: 100%;
 }
 
 /* .clocks-container {

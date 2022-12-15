@@ -176,154 +176,153 @@ import React, {
         <p>3. Remove markers by right-clicking on the marker.</p>
   
        */}
-      </>
-    );
-  }
-  
-  function Search({ panTo }) {
-    const {
-      ready,
-      value,
-      suggestions: { status, data },
-      setValue,
-      clearSuggestions,
-    } = usePlacesAutocomplete({
-      requestOptions: {
-        location: { lat: () => 28.871513, lng: () => 48.163907 },
-        radius: 100 * 1000,
-      },
-    });
-  
-    const handleInput = (e) => {
-      setValue(e.target.value);
-    };
-  
-    const handleSelect = async (address) => {
-      setValue(address, false);
-      clearSuggestions();
-  
-      try {
-        const results = await getGeocode({ address });
-        const { lat, lng } = await getLatLng(results[0]);
-        panTo({ lat, lng });
-      } catch (err) {
-        console.log("Error: ", err);
-      }
-    };
-  
-    return (
-      <div className="search">
-        <Combobox onSelect={handleSelect}>
-          <ComboboxInput
-            value={value}
-            onChange={handleInput}
-            disabled={!ready}
-            placeholder="Search your location"
-          />
-          <ComboboxPopover>
-            <ComboboxList>
-              {status === "OK" &&
-                data.map(({ id, description }) => (
-                  <ComboboxOption key={id} value={description} />
-                ))}
-            </ComboboxList>
-          </ComboboxPopover>
-        </Combobox>
-      </div>
-    );
-  }
-  
-  // function Mgrs() {
-  
-  //         const [latLong, setLatLong] = useState({});
-  
-  //         useEffect(() => {
-  //           setLatLong(coordTest());
-  //         }, []);
-  
-  //         const coordTest = () => {
-  //           let inputString = "14SQH05239974";
-  //           return toPoint(inputString);
-  //         };
-  
-  //         return (
-  //             <>
-  //                 <div>MGRS Converter</div>
-  //                 <input type="text" placeholder="Search" />
-  //                     <div>TO</div>
-  //                 <div>
-  //                   <input type='text'/>
-  //                   </div>
-  //             </>
-  //       )};
-  
-  // export default function Places() {
-  //     const { isLoaded } = useLoadScript({
-  //       googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
-  //       libraries: ["places"],
-  //     });
-  
-  //     if (!isLoaded) return <div>Loading...</div>;
-  
-  //     return <Mapped />;
-  //   }
-  
-  //   function Mapped() {
-  //     const center = useMemo(() => ({ lat: 33.4302, lng: -82.1261}), []);
-  //     const [selected, setSelected] = useState(null);
-  
-  //     return (
-  //       <>
-  //         <div className="places-container">
-  //           <PlacesAutocomplete setSelected={setSelected} />
-  //         </div>
-  
-  //         <GoogleMap zoom={8} center={center} mapContainerClassName="map-container">
-  //           {selected && <Marker position={selected} />}
-  //         </GoogleMap>
-  //       </>
-  //     );
-  //   }
-  
-  //   const PlacesAutocomplete = ({ setSelected }) => {
-  //     const {ready, value,  setValue,  suggestions: { status, data },  clearSuggestions,} = usePlacesAutocomplete({
-  //         requestOptions: {
-  //           location: { lat: () => 33.4302, lng: () => -82.1261 },
-  //           radius: 100 * 1000,
-  //         },
-  //       });
-  
-  //     const handleSelect = async (address) => {
-  //       setValue(address, false);
-  //       clearSuggestions();
-  
-  //       const results = await getGeocode({ address });
-  //       const { lat, lng } = await getLatLng(results[0]);
-  
-  //       setSelected({ lat, lng });
-  //     };
-  
-  //     return (
-  //       <Combobox onSelect={handleSelect}>
-  //         <ComboboxInput value={value} onChange={(e) => setValue(e.target.value)} disabled={!ready} className="combobox-input" placeholder="Search..."/>
-  //         <ComboboxPopover>
-  //           <ComboboxList>
-  //             {status === "OK" && data.map(({ id, description }) => (
-  //                 <ComboboxOption key={id} value={description} />
-  //               ))}
-  //           </ComboboxList>
-  //         </ComboboxPopover>
-  //       </Combobox>
-  //     );
-  //   };
-  
-  // <div style={{width: "80vw", height: "80vh"}}>
-  //     <WrappedMap
-  //     googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
-  //     loadingElement={<div styles={{height: "100%"}}/>}
-  //     containerElement={<div style={{height: "100%"}}/>}
-  //     mapElement= {<div style={{height: "100%"}}/>}>
-  
-  //     </WrappedMap>
-  // </div>
-  
+    </>
+  );
+}
+
+function Search({ panTo }) {
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      location: { lat: () => 28.871513, lng: () => 48.163907 },
+      radius: 100 * 1000,
+    },
+  });
+
+  const handleInput = (e) => {
+    setValue(e.target.value);
+  };
+
+  const handleSelect = async (address) => {
+    setValue(address, false);
+    clearSuggestions();
+
+    try {
+      const results = await getGeocode({ address });
+      const { lat, lng } = await getLatLng(results[0]);
+      panTo({ lat, lng });
+    } catch (err) {
+      console.log("Error: ", err);
+    }
+  };
+
+  return (
+    <div className="search">
+      <Combobox onSelect={handleSelect}>
+        <ComboboxInput
+          value={value}
+          onChange={handleInput}
+          disabled={!ready}
+          placeholder="Search your location"
+        />
+        <ComboboxPopover>
+          <ComboboxList>
+            {status === "OK" &&
+              data.map(({ id, description }) => (
+                <ComboboxOption key={id} value={description} />
+              ))}
+          </ComboboxList>
+        </ComboboxPopover>
+      </Combobox>
+    </div>
+  );
+}
+
+// function Mgrs() {
+
+//         const [latLong, setLatLong] = useState({});
+
+//         useEffect(() => {
+//           setLatLong(coordTest());
+//         }, []);
+
+//         const coordTest = () => {
+//           let inputString = "14SQH05239974";
+//           return toPoint(inputString);
+//         };
+
+//         return (
+//             <>
+//                 <div>MGRS Converter</div>
+//                 <input type="text" placeholder="Search" />
+//                     <div>TO</div>
+//                 <div>
+//                   <input type='text'/>
+//                   </div>
+//             </>
+//       )};
+
+// export default function Places() {
+//     const { isLoaded } = useLoadScript({
+//       googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
+//       libraries: ["places"],
+//     });
+
+//     if (!isLoaded) return <div>Loading...</div>;
+
+//     return <Mapped />;
+//   }
+
+//   function Mapped() {
+//     const center = useMemo(() => ({ lat: 33.4302, lng: -82.1261}), []);
+//     const [selected, setSelected] = useState(null);
+
+//     return (
+//       <>
+//         <div className="places-container">
+//           <PlacesAutocomplete setSelected={setSelected} />
+//         </div>
+
+//         <GoogleMap zoom={8} center={center} mapContainerClassName="map-container">
+//           {selected && <Marker position={selected} />}
+//         </GoogleMap>
+//       </>
+//     );
+//   }
+
+//   const PlacesAutocomplete = ({ setSelected }) => {
+//     const {ready, value,  setValue,  suggestions: { status, data },  clearSuggestions,} = usePlacesAutocomplete({
+//         requestOptions: {
+//           location: { lat: () => 33.4302, lng: () => -82.1261 },
+//           radius: 100 * 1000,
+//         },
+//       });
+
+//     const handleSelect = async (address) => {
+//       setValue(address, false);
+//       clearSuggestions();
+
+//       const results = await getGeocode({ address });
+//       const { lat, lng } = await getLatLng(results[0]);
+
+//       setSelected({ lat, lng });
+//     };
+
+//     return (
+//       <Combobox onSelect={handleSelect}>
+//         <ComboboxInput value={value} onChange={(e) => setValue(e.target.value)} disabled={!ready} className="combobox-input" placeholder="Search..."/>
+//         <ComboboxPopover>
+//           <ComboboxList>
+//             {status === "OK" && data.map(({ id, description }) => (
+//                 <ComboboxOption key={id} value={description} />
+//               ))}
+//           </ComboboxList>
+//         </ComboboxPopover>
+//       </Combobox>
+//     );
+//   };
+
+// <div style={{width: "80vw", height: "80vh"}}>
+//     <WrappedMap
+//     googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
+//     loadingElement={<div styles={{height: "100%"}}/>}
+//     containerElement={<div style={{height: "100%"}}/>}
+//     mapElement= {<div style={{height: "100%"}}/>}>
+
+//     </WrappedMap>
+// </div>

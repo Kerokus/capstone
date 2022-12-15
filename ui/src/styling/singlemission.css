@@ -11,6 +11,11 @@
   padding: 2em;
 }
 
+.mission-container h3 {
+  text-align: center;
+  text-decoration: underline;
+}
+
 .mission-admin-data {
   grid-area: mission-admin-data;
   border-style: solid;
