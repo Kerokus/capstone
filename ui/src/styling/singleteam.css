@@ -1,4 +1,5 @@
-.single-team-container {  display: grid;
+.single-team-container {
+  display: grid;
   grid-template-columns: 0.3fr 1.2fr 1.2fr 1.2fr 1.1fr 1.1fr 1.2fr 1.2fr 1.2fr 0.3fr;
   grid-template-rows: 0.2fr 1fr 1.1fr 1.1fr 1.4fr 0.9fr 0.3fr 1.8fr 1.4fr 0.8fr 0.8fr;
   grid-auto-columns: 1fr;
@@ -18,75 +19,75 @@
     ". . . . . . . . . .";
 }
 
-.team-admin-container {  display: grid;
+.team-admin-container {
+  display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
-  grid-template-areas:
-    "team-name team-personnel-status team-equipment-status team-comms-status";
+  grid-template-areas: "team-name team-personnel-status team-equipment-status team-comms-status";
   grid-area: team-admin-container;
   border-style: solid;
   padding: 5px;
 }
 
-.team-name { 
+.team-name {
   grid-area: team-name;
+}
 
- }
-
-.team-personnel-status { 
+.team-personnel-status {
   grid-area: team-personnel-status;
-  
- }
+}
 
-.team-equipment-status { 
+.team-equipment-status {
   grid-area: team-equipment-status;
- }
+}
 
-.team-comms-status { 
+.team-comms-status {
   grid-area: team-comms-status;
- }
+}
 
-.team-calendar { 
+.team-calendar {
   grid-area: team-calendar;
+  background-color: lightgrey;
+  color: black;
   border-style: solid;
- }
+}
 
-.team-upcoming-container { 
+.team-upcoming-container {
   grid-area: team-upcoming-container;
   border-style: solid;
- }
+}
 
-.team-all-missions-container { 
+.team-all-missions-container {
   grid-area: team-all-missions-container;
   border-style: solid;
- }
+}
 
- .team-missions { 
+.team-missions {
   grid-area: team-personnel-container;
   padding-top: 5px;
- }
+}
 
-.team-location { 
+.team-location {
   grid-area: team-location;
   border-style: solid;
   text-align: center;
- }
+}
 
-.team-mapp { 
+.team-mapp {
   grid-area: team-mapp;
   border-style: solid;
- }
+}
 
-.team-personnel-container { 
+.team-personnel-container {
   grid-area: team-personnel-container;
   border-style: solid;
   text-align: center;
- }
+}
 
- .team-members { 
+.team-members {
   grid-area: team-personnel-container;
   text-align: center;
   padding-top: 5px;
- }
+}
