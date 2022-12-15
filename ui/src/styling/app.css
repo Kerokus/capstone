@@ -12,6 +12,7 @@
 @import "navbar.css";
 @import "footer.css";
 @import "dashboardstatuses.css";
+@import "digitalclock.css";
 
 .app-container {
   height: 100%;

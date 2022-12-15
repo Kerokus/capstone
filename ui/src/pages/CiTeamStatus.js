@@ -4,6 +4,15 @@ import { GlobalContext } from "../Context/GlobalContext";
 const CiTeamStatus = () => {
   const ctx = useContext(GlobalContext);
 
+  const toggleRefresh = () => {
+    ctx.setRefresh((current) => !current);
+  };
+  
+  useEffect(() => {
+    toggleRefresh()
+  }, []);
+
+
   /* iterates over the teams state variable, then pushes all teams with 'CI' in their name to the ciTeamsArray,
   then sets the ciTeams state variable with that array. [fires whenever the teams state variable changes]. */
   useEffect(() => {
@@ -49,7 +58,7 @@ const CiTeamStatus = () => {
         ctx.setGreenCiTeams(greenCiTeams);
       }
     }
-  }, [ctx.ciTeams]);
+  }, [ctx.ciTeams, ctx.refresh]);
 
   /* the return sets up 3 divs (red_teams, yellow_teams, green_teams), each div maps over the corresponding 
   state variables (redCiTeams, yellowCiTeams, greenCiTeams) and returns the team names. */

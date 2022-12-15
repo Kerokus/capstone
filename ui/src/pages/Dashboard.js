@@ -12,6 +12,7 @@ import HumintTeamStatus from "./HumintTeamStatus";
 import SigintTeamStatus from "./SigintTeamStatus";
 import { toPoint } from "mgrs";
 import DashboardMap from "../components/DashboardMap";
+import Places from "../components/Map";
 
 const Dashboard = () => {
   const ctx = useContext(GlobalContext);
@@ -99,7 +100,7 @@ const Dashboard = () => {
   };
 
   // Calendar object days: inclusive at the start / exclusive at the end
-
+  console.log(ctx.dashboard);
   // the database days are zero based, the Calendar object days are 1 based
   const calendarFormat = (string) => {
     let dateHandler = new Date(string);

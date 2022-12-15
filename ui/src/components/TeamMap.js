@@ -33,6 +33,7 @@ import { GlobalContext } from "../Context/GlobalContext";
 const options = {
   disableDefaultUI: true,
   zoomControl: false,
+  gestureHandling: 'cooperative'
 };
 
 export default function TeamMap({ coordinates, zoom }) {
@@ -116,7 +117,7 @@ export default function TeamMap({ coordinates, zoom }) {
   return (
     <>
       <div>
-        <Search panTo={panTo} />
+        {/* <Search panTo={panTo} /> */}
 
         <GoogleMap
           id="map"

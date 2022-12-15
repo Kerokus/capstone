@@ -1,15 +1,24 @@
 import "../styling/navbar.css";
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
+import Clock from "react-live-clock";
+import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import DigitalClock from "./DigitalClock";
+import ArchiveIcon from '@mui/icons-material/Archive';
+
 
 const NavbarComponent = () => {
+  const ctx = useContext(GlobalContext);
+  const [loading, setLoading] = useState(false);
+
   return (
     <>
-      <Navbar className="nav" bg="dark" variant="dark">
-        <Container className="navbar">
+      <Navbar className="nav" bg="dark" variant="dark" >
+        <Container className="navbar" position= "absolute">
+
           <Navbar.Brand className="webpage-title" as={Link} to="/">
             Theater Operations Management System
           </Navbar.Brand>
@@ -26,9 +35,17 @@ const NavbarComponent = () => {
             <Nav.Link className="personnel" as={Link} to="/conop">
               Submit Conop
             </Nav.Link>
+          <Nav.Link className="personnel" as={Link} to="/conop">
+            </Nav.Link>
+          <Nav.Link className="personnel" as={Link} to="/conop"><ArchiveIcon></ArchiveIcon>
+            </Nav.Link>
           </Nav>
+            
+{/* <Nav className="me-bottom"><DigitalClock/></Nav> */}
         </Container>
+
       </Navbar>
+
     </>
   );
 };

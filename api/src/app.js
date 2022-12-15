@@ -322,7 +322,7 @@ app.put("/missions/:id", async (req, res) => {
       start_date: req.body.start_date,
       end_date: req.body.end_date,
       location: req.body.location,
-      name: req.body.name,
+      team_name: req.body.name,
       description: req.body.description,
       status: "pending",
       purpose: req.body.purpose,
