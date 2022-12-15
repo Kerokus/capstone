@@ -1,7 +1,7 @@
 .single-team-container {
   display: grid;
   grid-template-columns: 1.4fr 0.8fr 0.8fr;
-  grid-template-rows: 0.2fr 1.3fr 1.4fr 1.1fr;
+  grid-template-rows: 0.2fr 2fr 1fr 1.1fr;
   gap: 5px 5px;
   padding: 1em;
   grid-template-areas:
@@ -9,6 +9,7 @@
     "team-calendar team-mapp team-mapp"
     "team-personnel-container team-upcoming-container team-all-missions-container"
     ". . .";
+  height: 85vh;
 }
 .single-team-container h3 {
   text-align: center;
