@@ -24,6 +24,7 @@ const Teams = () => {
     ctx.setShow(false);
     ctx.setShowWarning(false);
     ctx.setFormData({});
+    ctx.setTeamMarkers([]);
   }, []);
 
   useEffect(() => {

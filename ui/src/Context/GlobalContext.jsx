@@ -25,6 +25,7 @@ const ContextProvider = ({ children }) => {
   // <- <- Map Markers
   const [dashboardMarkers, setDashboardMarkers] = useState([]);
   const [teamMarkers, setTeamMarkers] = useState([]);
+  const [missionMarkers, setMissionMarkers] = useState([]);
 
   // <- <- Dashboard - Team Statuses
   // CI Teams State
@@ -171,7 +172,9 @@ const ContextProvider = ({ children }) => {
     teamMarkers,
     setTeamMarkers, 
     dashboardMarkers,
-    setDashboardMarkers
+    setDashboardMarkers, 
+    missionMarkers,
+    setMissionMarkers
   };
 
   return (
