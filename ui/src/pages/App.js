@@ -25,8 +25,7 @@ function App() {
       <ContextProvider>
         <Fetches />
         <div className="app-container">
-        <Navbar />
-        <DigitalClock />
+          <Navbar />
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/missions" element={<Missions />} />
@@ -43,6 +42,6 @@ function App() {
       </ContextProvider>
     </>
   );
-  }
+}
 
 export default App;

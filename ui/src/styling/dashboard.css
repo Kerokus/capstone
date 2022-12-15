@@ -30,6 +30,7 @@
   grid-area: dashboard-map;
   border: solid lightgrey;
   border-radius: 10px;
+  height: 100%;
 }
 
 .dashboard-upcoming {
@@ -157,8 +158,6 @@
   color: rgb(152, 193, 217);
 
 } */
-
-
 
 /* .fuck{
   align-content: center;
