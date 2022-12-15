@@ -29,7 +29,7 @@ import { toPoint } from "mgrs";
 import "../styling/map.css";
 import { GlobalContext } from "../Context/GlobalContext";
 
-const libraries = ["places"];
+//const libraries = ["places"];
 const options = {
   disableDefaultUI: true,
   zoomControl: false,
@@ -38,24 +38,24 @@ const options = {
 export default function MissionMap({ coordinates }) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyBRK58z-C-6RfjetZE-TA3eNq777nWc2WA",
-    libraries,
+    //libraries,
   });
   const ctx = useContext(GlobalContext);
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   // const [center, setCenter] = useState({lat: 28.871513, lng: 48.163907});
   useEffect(() => {
-    // ctx.teams.forEach((place) => {
-    //   if (place.location.country === "Kuwait") {
-    //     ctx.setCenter({ lat: 28.871513, lng: 48.163907 });
-    //   } else if (place.location.country === "Jordan") {
-    //     ctx.setCenter({ lat: 31.967195, lng: 35.910519 });
-    //   } else if (place.location.country === "USA") {
-    //     ctx.setCenter({ lat: 33.4302, lng: -82.1261 });
-    //   } else {
-    //     // ctx.setCenter({lat:48.8566, lng:2.3522})
-    //   }
-    // });
+    ctx.teams.forEach((place) => {
+      if (place.location.country === "Kuwait") {
+        ctx.setCenter({ lat: 28.871513, lng: 48.163907 });
+      } else if (place.location.country === "Jordan") {
+        ctx.setCenter({ lat: 31.967195, lng: 35.910519 });
+      } else if (place.location.country === "USA") {
+        ctx.setCenter({ lat: 33.4302, lng: -82.1261 });
+      } else {
+        // ctx.setCenter({lat:48.8566, lng:2.3522})
+      }
+    });
   }, []);
 
   // const countries = [
@@ -75,21 +75,17 @@ export default function MissionMap({ coordinates }) {
   //   location: {lat:25.276280, lng:51.525105}},
   // ]
 
-  const onMapClick = useCallback((e) => {
-    setMarkers((current) => [
-      ...current,
-      {
-        id: current.length + 1,
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-      },
-    ]);
-  }, []);
+  // const onMapClick = useCallback((e) => {
+  //   ctx.setGlobalMarkers((current) => [
+  //     ...current,
+  //     {
+  //       id: current.length + 1,
+  //       lat: e.latLng.lat(),
+  //       lng: e.latLng.lng(),
+  //     },
+  //   ]);
+  // }, []);
 
-  const removeMarker = (e) => {
-    let position = e.lat;
-    setMarkers(markers.filter((e) => e.lat !== position));
-  };
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -126,14 +122,14 @@ export default function MissionMap({ coordinates }) {
         <GoogleMap
           id="map"
           mapContainerClassName="map"
-          zoom={7.5}
+          zoom={8}
           center={coordinates}
           options={options}
-          onClick={onMapClick}
+          // onClick={onMapClick}
           onLoad={onMapLoad}
           draggable="true"
         >
-          {markers.map(
+          {ctx.globalMarkers.map(
             (marker) => (
               <Marker
                 key={`${marker.lat}-${marker.lng}`}
@@ -148,9 +144,7 @@ export default function MissionMap({ coordinates }) {
                   anchor: new window.google.maps.Point(15, 15),
                   scaledSize: new window.google.maps.Size(30, 30),
                 }}
-                onRightClick={() => {
-                  removeMarker(marker);
-                }}
+
               />
             ),
             []
@@ -174,13 +168,13 @@ export default function MissionMap({ coordinates }) {
         </GoogleMap>
       </div>
       {/* <div>Converter</div>
-      <Mgrs/>
-      <div>Notes on how to use map: </div>
-        <p>1. Autosearch location by typing at the input box where you want to search. It will zoom to that location.</p>
-        <p>2. Drop markers on the map by clicking where you want to go.</p>
-        <p>3. Remove markers by right-clicking on the marker.</p>
-  
-       */}
+    <Mgrs/>
+    <div>Notes on how to use map: </div>
+      <p>1. Autosearch location by typing at the input box where you want to search. It will zoom to that location.</p>
+      <p>2. Drop markers on the map by clicking where you want to go.</p>
+      <p>3. Remove markers by right-clicking on the marker.</p>
+
+     */}
     </>
   );
 }

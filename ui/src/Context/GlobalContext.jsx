@@ -15,6 +15,7 @@ const ContextProvider = ({ children }) => {
   // <- <- App
   const [clickedMission, setClickedMission] = useState(null); // Missions;
   const [clickedTeam, setClickedTeam] = useState(null); // Teams;
+  const [globalMarkers, setGlobalMarkers] = useState([]);
 
   // <- <- Dashboard
   const [dashboard, setDashboard] = useState([]);
@@ -163,6 +164,8 @@ const ContextProvider = ({ children }) => {
     setTwoDayDate,
     center,
     setCenter,
+    globalMarkers,
+    setGlobalMarkers
   };
 
   return (
