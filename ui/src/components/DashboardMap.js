@@ -154,8 +154,11 @@ import React, {
                 }}
               >
                 <div>
+                <p>
+                  {selected.id}</p>
                   <p>
-                    {selected.lat}, {selected.lng}
+                    lat:{selected.lat}, long:{selected.lng}
+            
                   </p>
                   <p></p>
                 </div>

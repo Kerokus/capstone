@@ -161,7 +161,7 @@ import React, {
               >
                 <div>
                   <p>
-                    {selected.lat}, {selected.lng}
+                    lat:{selected.lat}, long:{selected.lng}
                   </p>
                 </div>
               </InfoWindow>

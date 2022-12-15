@@ -90,8 +90,8 @@ const SingleMission = () => {
   };
 
 
-  console.log('dashboard mission:', ctx.dashboard)
-  console.log('single mission:', ctx.singleMission)
+  //console.log('dashboard mission:', ctx.dashboard)
+  //console.log('single mission:', ctx.singleMission)
 
   useEffect(() => {
     
