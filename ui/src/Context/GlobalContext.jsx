@@ -15,11 +15,17 @@ const ContextProvider = ({ children }) => {
   // <- <- App
   const [clickedMission, setClickedMission] = useState(null); // Missions;
   const [clickedTeam, setClickedTeam] = useState(null); // Teams;
+  
 
   // <- <- Dashboard
   const [dashboard, setDashboard] = useState([]);
   const [oneDayDate, setOneDayDate] = useState("");
   const [twoDayDate, setTwoDayDate] = useState("");
+
+  // <- <- Map Markers
+  const [dashboardMarkers, setDashboardMarkers] = useState([]);
+  const [teamMarkers, setTeamMarkers] = useState([]);
+  const [missionMarkers, setMissionMarkers] = useState([]);
 
   // <- <- Dashboard - Team Statuses
   // CI Teams State
@@ -77,6 +83,10 @@ const ContextProvider = ({ children }) => {
   // <- <- Submit Conop Contexts
   const [submitConopForm, setSubmitConopForm] = useState({});
   const [conopSubmitValidated, setConopSubmitValidated] = useState(false);
+
+  // <- <- Map Contexts
+  const [center, setCenter] = useState({lat: 28.871513, lng: 48.163907});
+
 
   const ctx = {
     searchTerm,
@@ -157,6 +167,14 @@ const ContextProvider = ({ children }) => {
     setOneDayDate,
     twoDayDate,
     setTwoDayDate,
+    center,
+    setCenter,
+    teamMarkers,
+    setTeamMarkers, 
+    dashboardMarkers,
+    setDashboardMarkers, 
+    missionMarkers,
+    setMissionMarkers
   };
 
   return (
