@@ -10,7 +10,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import Places from "../components/Map";
-import MissionMap from "../components/MissionMap";
+
 
 const Missions = () => {
   const ctx = useContext(GlobalContext);
