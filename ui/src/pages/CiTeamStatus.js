@@ -59,17 +59,29 @@ const CiTeamStatus = () => {
         <h3 className="team-status-header">CI Teams Status:</h3>
         <div className="red_teams">
           {ctx.redCiTeams.map((team, index) => {
-            return <div key={index}>{team} 🟥</div>;
+            return (
+              <div className="ci-teams-status" key={index}>
+                <span>{team}</span> <span>🟥</span>
+              </div>
+            );
           })}
         </div>
         <div className="yellow_teams">
           {ctx.yellowCiTeams.map((team, index) => {
-            return <div key={index}>{team} 🟨</div>;
+            return (
+              <div className="ci-teams-status" key={index}>
+                <span>{team}</span> <span>🟨</span>
+              </div>
+            );
           })}
         </div>
         <div className="green_teams">
           {ctx.greenCiTeams.map((team, index) => {
-            return <div key={index}>{team} 🟩</div>;
+            return (
+              <div className="ci-teams-status" key={index}>
+                <span>{team}</span> <span>🟩</span>
+              </div>
+            );
           })}
         </div>
       </div>

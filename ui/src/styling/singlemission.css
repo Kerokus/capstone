@@ -11,6 +11,11 @@
   height: 90vh;
 }
 
+.mission-container h3 {
+  text-align: center;
+  text-decoration: underline;
+}
+
 .mission-admin-data {
   grid-area: mission-admin-data;
   background-color: red;
