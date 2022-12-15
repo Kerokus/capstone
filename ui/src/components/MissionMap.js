@@ -160,6 +160,8 @@ import React, {
                 }}
               >
                 <div>
+                <p>
+                  {selected.id}</p>
                   <p>
                     lat:{selected.lat}, long:{selected.lng}
                   </p>
