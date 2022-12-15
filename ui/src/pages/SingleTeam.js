@@ -18,17 +18,14 @@ const SingleTeam = () => {
   const [missions, setMissions] = useState([]);
   const [upcomingMissions, setUpcomingMissions] = useState([]);
   const [loading, setLoading] = useState(false);
-
   let teamName = ctx.clickedTeam.team_name;
   let teamPersonnelArray = [];
   let teamMissionsArray = [];
   let upcomingMissionsArray = [];
-
   // scrolls screen to the top when the component is mounted
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
   /* calendar tools */
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
@@ -40,16 +37,13 @@ const SingleTeam = () => {
     getDay,
     locales,
   });
-
   // calls Justin's mission fetch function
   useEffect(() => {
     missionsFetch();
   }, []);
-
   //grabbing calendar data from Missions table and formatting it
   const missionsFetch = async () => {
     setLoading(true);
-
     let missionCalendarArray = [];
     await fetch(`http://localhost:8081/missions`)
       .then((res) => res.json())
@@ -75,7 +69,6 @@ const SingleTeam = () => {
     ctx.setDashboard(missionCalendarArray);
     setLoading(false);
   };
-
   // the database days are zero based, the Calendar object days are 1 based
   const calendarFormat = (string) => {
     let dateHandler = new Date(string);
@@ -86,8 +79,7 @@ const SingleTeam = () => {
       day: dateHandler.getDate() + 1,
     };
   };
-
-  /* iterates through the personnel state variable and pushes all personnel that are on the clicked team 
+  /* iterates through the personnel state variable and pushes all personnel that are on the clicked team
 to the teamPersonnel array. Then sets the members state variable with that array. Fires when the personnel state variable changes. */
   useEffect(() => {
     ctx.personnel.forEach((person) => {
@@ -97,7 +89,6 @@ to the teamPersonnel array. Then sets the members state variable with that array
       setMembers(teamPersonnelArray);
     });
   }, [ctx.personnel]);
-
   /* iterates over the missions state variable and pushes missions with the team_id of the clicked team to the teamMissionArray.
 Then sets the missions state variable with that array. Fires when the missions state variable changes. */
   useEffect(() => {
@@ -108,7 +99,6 @@ Then sets the missions state variable with that array. Fires when the missions s
       setMissions(teamMissionsArray);
     });
   }, [ctx.missions]);
-
   // all this is for the upcoming missions data
   //next 24 hours
   let oneDayDate = new Date();
@@ -116,11 +106,9 @@ Then sets the missions state variable with that array. Fires when the missions s
   //next 48 hours
   let twoDayDate = new Date();
   twoDayDate.setTime(oneDayDate.getTime() + 86400000);
-
   const padTo2Digits = (num) => {
     return num.toString().padStart(2, "0");
   };
-
   const formatDate = (date) => {
     return [
       date.getFullYear(),
@@ -128,12 +116,10 @@ Then sets the missions state variable with that array. Fires when the missions s
       padTo2Digits(date.getDate()),
     ].join("-");
   };
-
   useEffect(() => {
     ctx.setOneDayDate(formatDate(oneDayDate));
     ctx.setTwoDayDate(formatDate(twoDayDate));
   }, []);
-
   useEffect(() => {
     missions.forEach((mission, index) => {
       if (
@@ -145,7 +131,6 @@ Then sets the missions state variable with that array. Fires when the missions s
       setUpcomingMissions(upcomingMissionsArray);
     });
   }, [ctx.dashboard]);
-
   /* renders the personnel list of the members of the clicked team */
   const renderTeamMembers = (member, index) => {
     return (
@@ -155,7 +140,6 @@ Then sets the missions state variable with that array. Fires when the missions s
       </div>
     );
   };
-
   /* renders all missions assigned to the clicked team */
   const renderTeamMissions = (mission, index) => {
     return (
@@ -165,7 +149,6 @@ Then sets the missions state variable with that array. Fires when the missions s
       </div>
     );
   };
-
   /* renders upcoming missions assigned to the clicked team */
   const renderUpcomingMissions = (mission, index) => {
     return (
@@ -175,39 +158,6 @@ Then sets the missions state variable with that array. Fires when the missions s
       </div>
     );
   };
-
-  //DATA HANDLERS
-
-  const toggleRefresh = () => {
-    ctx.setRefresh((current) => !current);
-  };
-
-  const handleStatusChange = async (event) => {
-    let newData = { ...ctx.clickedTeam };
-    newData[event.target.id] = event.target.value;
-    await ctx.setClickedTeam(newData);
-    console.log(ctx.clickedTeam);
-
-    try {
-      let response = await fetch(
-        `http://localhost:8081/teams/${ctx.clickedTeam.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newData),
-        }
-      );
-      if (response.status !== 201) {
-        throw new Error();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    toggleRefresh();
-  };
-
   return (
     <div className="single-team-container">
       <div className="team-admin-container">

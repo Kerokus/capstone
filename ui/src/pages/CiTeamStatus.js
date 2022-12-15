@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import { GlobalContext } from "../Context/GlobalContext";
 
 const CiTeamStatus = () => {
   const ctx = useContext(GlobalContext);
