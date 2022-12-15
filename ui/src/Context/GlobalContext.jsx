@@ -78,6 +78,10 @@ const ContextProvider = ({ children }) => {
   const [submitConopForm, setSubmitConopForm] = useState({});
   const [conopSubmitValidated, setConopSubmitValidated] = useState(false);
 
+  // <- <- Map Contexts
+  const [center, setCenter] = useState({lat: 28.871513, lng: 48.163907});
+
+
   const ctx = {
     searchTerm,
     setSearchTerm,
@@ -157,6 +161,8 @@ const ContextProvider = ({ children }) => {
     setOneDayDate,
     twoDayDate,
     setTwoDayDate,
+    center,
+    setCenter,
   };
 
   return (
