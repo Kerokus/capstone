@@ -1,44 +1,40 @@
-
-
-.card-header{
+.card-header {
   align-content: center;
   align-items: center;
   align-self: baseline;
   text-align: center;
 }
 
+.back-to-home {
+  margin: 1em;
+  margin-left: 2.3em;
+}
 
-  .back-to-home {
-    margin: 1em;
-    margin-left: 2.3em;
-  }
-  
-  .mission-card.card{
-    margin: 1em;
-  }
-  
-  .teams-header {
-    color:white;
-    text-align: center;
-    margin-top:0.5em;
-  }
+.mission-card.card {
+  margin: 1em;
+}
 
-  .add-mission{
-    margin:1em;
-    margin-left:2.3em;
-  }
-  
-  .buttons{
-    display:flex;
-    justify-content: space-between;
-  
-  }
-  
-  .card-text {
-    display:flex;
-    flex: 2 1 auto;
-  }
-  /* .card-body{
+.teams-header {
+  color: white;
+  text-align: center;
+  margin-top: 0.5em;
+}
+
+.add-mission {
+  margin: 1em;
+  margin-left: 2.3em;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-text {
+  display: flex;
+  flex: 2 1 auto;
+}
+/* .card-body{
     display:flex;
     flex-direction:column;
     align-content: stretch;
@@ -46,33 +42,29 @@
     flex: 3 1 auto;
     padding: 1em;
   } */
-  .header-text {
-    color:white;
-    margin: 0.5em;
-    text-align: center;
-  }
-  .mission-card-container{
-    display:flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
-  
-  .mission-card{
-    margin: 0.5em;
-  }
+.header-text {
+  color: white;
+  margin: 0.5em;
+  text-align: center;
+}
+.mission-card-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
 
-  .team-map{
-    background-color: azure;
-    color: black;
-    text-align: center;
-    align-content: center;
-    margin-bottom: 15px;
-    
-  }
+.mission-card {
+  margin: 0.5em;
+}
 
-  .team-location-data{
+.team-map {
+  background-color: azure;
+  color: black;
+  text-align: center;
+  align-content: center;
+  margin-bottom: 15px;
+  height: 20em;
+}
 
-  }
-
-
-  
+.team-location-data {
+}

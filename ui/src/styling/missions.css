@@ -1,8 +1,8 @@
-.mission-data{
+.mission-data {
   /* text-align: center; */
 }
 
-.missions-map{
+.missions-map {
   background-color: azure;
   color: black;
   text-align: center;
@@ -15,35 +15,35 @@
   
 } */
 
-.mission-search-bar{
+.mission-search-bar {
   background-color: rgb(42, 42, 42);
   margin-top: 20px;
   color: white;
-  
-  
 }
 
-.mission-card-container{
-  
+.mission-card-container {
   background-color: rgb(42, 42, 42);
 }
 
-.missions-page-container{
+.missions-page-container {
   /* min-height: 85vh; */
   padding-bottom: 3em;
 }
 
-.submit-conop-link{
+.missions-map {
+  height: 20em;
+}
+
+.submit-conop-link {
   display: flex;
   align-self: center;
   /* margin-right: 2.3em; */
   text-decoration: none;
 }
 
-.homepage-link{
+.homepage-link {
   display: flex;
   align-self: center;
   margin-right: 2.3em;
   text-decoration: none;
 }
-

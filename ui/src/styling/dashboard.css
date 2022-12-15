@@ -26,7 +26,7 @@
   border-radius: 10px;
 }
 
-.dashboard-map {
+.dashboard-mapp {
   grid-area: dashboard-map;
   border: solid lightgrey;
   border-radius: 10px;
@@ -134,6 +134,10 @@
   font-size: 20px;
 }
 
+.google-container {
+  height: 100%;
+}
+
 /* .clocks-container {
   display: flex;
   align-items: center;
@@ -153,8 +157,6 @@
   color: rgb(152, 193, 217);
 
 } */
-
-
 
 /* .fuck{
   align-content: center;
