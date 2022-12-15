@@ -33,6 +33,7 @@ import { GlobalContext } from "../Context/GlobalContext";
 const options = {
   disableDefaultUI: true,
   zoomControl: false,
+  gestureHandling: 'cooperative'
 };
 
 export default function TeamMap({ coordinates, zoom }) {

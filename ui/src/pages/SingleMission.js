@@ -75,7 +75,7 @@ const SingleMission = () => {
     zoom = 6
   } else {
     coordinates = { lat: 32.313793143601366, lng: 55.194812819979404 };
-    zoom = 9
+    zoom = 4
   }
   
   const missionFetch = async () => {
