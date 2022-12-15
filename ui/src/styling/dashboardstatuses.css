@@ -16,11 +16,13 @@
 }
 
 .ci-team-status {
-  font-size: 30px;
+  font-size: 20px;
+  overflow-y: auto;
 }
 
 .humint-team-status {
-  font-size: 30px;
+  font-size: 20px;
+  overflow-y: auto;
 }
 
 .humint-teams-status {
@@ -30,8 +32,8 @@
 }
 
 .sigint-team-status {
-  font-size: 30px;
-  overflow-y: hidden;
+  font-size: 20px;
+  overflow-y: auto;
 }
 
 .sigint-teams-status {

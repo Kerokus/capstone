@@ -186,7 +186,7 @@ const Dashboard = () => {
           </div>
         )}
 
-        <div className="dashboard-map">
+        <div className="dashboard-mapp">
           {ctx.dashboard[0] ? renderMap() : "Loading..."}
         </div>
 
