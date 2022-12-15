@@ -16,8 +16,8 @@ const NavbarComponent = () => {
 
   return (
     <>
-      <Navbar className="nav" bg="dark" variant="dark">
-        <Container className="navbar">
+      <Navbar className="nav" bg="dark" variant="dark" >
+        <Container className="navbar" position= "absolute">
 
           <Navbar.Brand className="webpage-title" as={Link} to="/">
             Theater Operations Management System
@@ -41,6 +41,7 @@ const NavbarComponent = () => {
             </Nav.Link>
           </Nav>
             
+{/* <Nav className="me-bottom"><DigitalClock/></Nav> */}
         </Container>
 
       </Navbar>

@@ -11,7 +11,8 @@
         table.string('mos', 250);
         table.string('email', 250);
         table.string('status', 250);
-        table.jsonb('location', 250);
+        table.string('city_base', 250);
+        table.string('country', 250);
         table.string('deployment_start');
         table.string('deployment_end');
         table.boolean('is_archived').defaultTo(false)

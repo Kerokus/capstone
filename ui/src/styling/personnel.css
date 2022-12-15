@@ -37,3 +37,7 @@
   align-self: center;
   margin-right: 2.3em;
 }
+
+.download-button {
+  cursor: pointer;
+}

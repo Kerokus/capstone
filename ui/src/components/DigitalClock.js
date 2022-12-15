@@ -16,8 +16,8 @@ const DigitalClock = () => {
 
   return (
     <>
-    <Navbar className="digital-container-clock" bg="dark" variant="dark">
-    <Container className="digital-clock" >
+    <Navbar className="digital-container-clock" bg="dark" variant="dark" position= "absolute">
+    <Container className="digital-clock" position= "absolute">
     <Nav className ="header-clock" >      
       {loading && <div>Loading Data...</div>}
     <div className="clocks-container">
