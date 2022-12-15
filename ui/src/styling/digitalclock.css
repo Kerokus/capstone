@@ -1,0 +1,70 @@
+
+
+.digital-container-clock{
+
+}
+
+.digital-clock{
+
+}
+.clocks-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.clocks-container > div {
+  text-align: center;
+  align-items: center;
+  text-align: center;
+  margin: 5px;
+  justify-content: space-evenly;
+  padding: 1em
+
+}
+
+.dashboard-clock {
+  font-family: "Orbitron", sans-serif;
+  font-size: 20px;
+  text-align: center;
+  justify-content: space-between;
+  color: rgb(152, 193, 217);
+  /* padding: 5em; */
+  justify-content: space-evenly;
+}
+
+
+
+
+
+
+
+
+.clocks-container1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  /* justify-content: space-evenly; */
+  
+}
+
+.clocks-container1 > div {
+  align-items: center;
+  text-align: center;
+  margin: 5px;
+  width: 100%;
+  /* justify-content: space-evenly; */
+  
+}
+
+.dashboard-clock1 {
+  justify-content: space-evenly;
+  font-family: "Orbitron", sans-serif;
+  font-size: 20px;
+  color: rgb(152, 193, 217);
+
+}
+
+
