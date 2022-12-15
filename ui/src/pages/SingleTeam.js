@@ -1,29 +1,93 @@
-
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useRef,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { toPoint } from "mgrs";
+import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
+import Places from "../components/Map";
+import TeamMap from "../components/TeamMap";
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+  DirectionsService,
+} from "@react-google-maps/api";
+
 const SingleTeam = () => {
   const ctx = useContext(GlobalContext);
   const [members, setMembers] = useState([]);
   const [missions, setMissions] = useState([]);
   const [upcomingMissions, setUpcomingMissions] = useState([]);
   const [loading, setLoading] = useState(false);
+ 
+
   let teamName = ctx.clickedTeam.team_name;
   let teamPersonnelArray = [];
   let teamMissionsArray = [];
   let upcomingMissionsArray = [];
   // scrolls screen to the top when the component is mounted
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
+
+  let coordinates = {};
+  let zoom;
+
+  if (ctx.clickedTeam.location.country === "Kuwait") {
+    coordinates = { lat: 29.34562355852184, lng: 47.67637238617149 };
+    zoom = 8
+  } else if (ctx.clickedTeam.location.country === "Jordan") {
+    coordinates = { lat: 31.00994216931093, lng: 36.6326645727253 };
+    zoom = 7
+  } else if (ctx.clickedTeam.location.country === "USA") {
+    coordinates = { lat: 33.4302, lng: -82.1261 };
+    zoom = 9
+  } else if (ctx.clickedTeam.location.country === "Qatar") {
+    coordinates = { lat: 25.27628, lng: 51.525105 };
+    zoom = 6
+  } else if (ctx.clickedTeam.location.country === "Iraq") {
+    coordinates = { lat: 36.230501, lng: 43.956688 };
+    zoom = 6
+  } else {
+    coordinates = { lat: 48.8566, lng: 2.3522 };
+    zoom = 9
+  }
+
+  const mapRef = useRef();
+  const onMapLoad = useCallback((map) => {
+    mapRef.current = map;
+  }, []);
+
+  useEffect(() => {
+    let teamMarkersArray = []
+    ctx.dashboard.forEach((mission) => {
+      if (mission.team === ctx.clickedTeam.id) {
+        teamMarkersArray.push({
+          id: mission.title,
+          lat: mission.coords[1],
+          lng: mission.coords[0],
+        })
+      }
+    },
+    ctx.setTeamMarkers(teamMarkersArray)
+    );
+  }, [ctx.dashboard]);
+
+
   /* calendar tools */
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
@@ -35,7 +99,7 @@ const SingleTeam = () => {
     getDay,
     locales,
   });
-// calls Justin's mission fetch function
+  // calls Justin's mission fetch function
   useEffect(() => {
     missionsFetch();
   }, []);
@@ -56,6 +120,7 @@ const SingleTeam = () => {
               // the end date must be one day past the desired range as that is the day the event "stops"
               end: new Date(endDate.year, endDate.month, endDate.day + 1),
               coords: toPoint(event.location.mgrs),
+              team: event.team_id,
             };
             missionCalendarArray.push(missionCalendarObject);
           }
@@ -77,133 +142,218 @@ const SingleTeam = () => {
       day: dateHandler.getDate() + 1,
     };
   };
-/* iterates through the personnel state variable and pushes all personnel that are on the clicked team
+  /* iterates through the personnel state variable and pushes all personnel that are on the clicked team
 to the teamPersonnel array. Then sets the members state variable with that array. Fires when the personnel state variable changes. */
   useEffect(() => {
     ctx.personnel.forEach((person) => {
       if (person.team_name === teamName) {
-        teamPersonnelArray.push(person)
+        teamPersonnelArray.push(person);
       }
-      setMembers(teamPersonnelArray)
-    })
-  },[ctx.personnel])
-/* iterates over the missions state variable and pushes missions with the team_id of the clicked team to the teamMissionArray.
+      setMembers(teamPersonnelArray);
+    });
+  }, [ctx.personnel]);
+  /* iterates over the missions state variable and pushes missions with the team_id of the clicked team to the teamMissionArray.
 Then sets the missions state variable with that array. Fires when the missions state variable changes. */
-useEffect(() => {
-  ctx.missions.forEach((mission, index) => {
-    if (mission.team_id === ctx.clickedTeam.id) {
-      teamMissionsArray.push(mission)
-    }
-    setMissions(teamMissionsArray)
-  })
-}, [ctx.missions])
-// all this is for the upcoming missions data
-    //next 24 hours
-    let oneDayDate = new Date();
-    oneDayDate.setTime(oneDayDate.getTime() + 86400000);
-    //next 48 hours
-    let twoDayDate = new Date();
-    twoDayDate.setTime(oneDayDate.getTime() + 86400000);
-    const padTo2Digits = (num) => {
-      return num.toString().padStart(2, "0");
-    };
-    const formatDate = (date) => {
-      return [
-        date.getFullYear(),
-        padTo2Digits(date.getMonth() + 1),
-        padTo2Digits(date.getDate()),
-      ].join("-");
-    };
-    useEffect(() => {
-      ctx.setOneDayDate(formatDate(oneDayDate))
-      ctx.setTwoDayDate(formatDate(twoDayDate))
-    }, [])
-    useEffect(() => {
-      missions.forEach((mission, index) => {
-        if (mission.start_date === ctx.oneDayDate || mission.start_date === ctx.twoDayDate) {
-          upcomingMissionsArray.push(mission)
+  useEffect(() => {
+    ctx.missions.forEach((mission, index) => {
+      if (mission.team_id === ctx.clickedTeam.id) {
+        teamMissionsArray.push(mission);
+      }
+      setMissions(teamMissionsArray);
+    });
+  }, [ctx.missions]);
+  // all this is for the upcoming missions data
+  //next 24 hours
+  let oneDayDate = new Date();
+  oneDayDate.setTime(oneDayDate.getTime() + 86400000);
+  //next 48 hours
+  let twoDayDate = new Date();
+  twoDayDate.setTime(oneDayDate.getTime() + 86400000);
+  const padTo2Digits = (num) => {
+    return num.toString().padStart(2, "0");
+  };
+  const formatDate = (date) => {
+    return [
+      date.getFullYear(),
+      padTo2Digits(date.getMonth() + 1),
+      padTo2Digits(date.getDate()),
+    ].join("-");
+  };
+  useEffect(() => {
+    ctx.setOneDayDate(formatDate(oneDayDate));
+    ctx.setTwoDayDate(formatDate(twoDayDate));
+  }, []);
+  useEffect(() => {
+    missions.forEach((mission, index) => {
+      if (
+        mission.start_date === ctx.oneDayDate ||
+        mission.start_date === ctx.twoDayDate
+      ) {
+        upcomingMissionsArray.push(mission);
+      }
+      setUpcomingMissions(upcomingMissionsArray);
+    });
+  }, [ctx.dashboard]);
+  /* renders the personnel list of the members of the clicked team */
+  const renderTeamMembers = (member, index) => {
+    return (
+      <div className="team-members" key={index}>
+        {" "}
+        {`${member.rank} ${member.last_name}, ${member.first_name} (${member.mos})`}{" "}
+      </div>
+    );
+  };
+  /* renders all missions assigned to the clicked team */
+  const renderTeamMissions = (mission, index) => {
+    return (
+      <div className="team-missions" key={index}>
+        {" "}
+        {`${mission.start_date} | ${mission.name}`}{" "}
+      </div>
+    );
+  };
+  /* renders upcoming missions assigned to the clicked team */
+  const renderUpcomingMissions = (mission, index) => {
+    return (
+      <div className="team-missions" key={index}>
+        {" "}
+        {`${mission.start_date} | ${mission.name}`}{" "}
+      </div>
+    );
+  };
+
+  const handleStatusChange = async (event) => {
+    let newData = { ...ctx.clickedTeam };
+    newData[event.target.id] = event.target.value;
+    ctx.setClickedTeam(newData);
+    try {
+      let response = await fetch(
+        `http://localhost:8081/teams/${ctx.clickedTeam.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newData),
         }
-        setUpcomingMissions(upcomingMissionsArray)
-      })
-    }, [ctx.dashboard])
-/* renders the personnel list of the members of the clicked team */
-const renderTeamMembers = (member, index) => {
-  return (
-    <div className="team-members" key={index}> {`${member.rank} ${member.last_name}, ${member.first_name} (${member.mos})`} </div>
-  )
-}
-/* renders all missions assigned to the clicked team */
-const renderTeamMissions = (mission, index) => {
-  return (
-    <div className="team-missions" key={index}> {`${mission.start_date} | ${mission.name}`} </div>
-  )
-}
-/* renders upcoming missions assigned to the clicked team */
-const renderUpcomingMissions = (mission, index) => {
-  return (
-    <div className="team-missions" key={index}> {`${mission.start_date} | ${mission.name}`} </div>
-  )
-}
-return (
-<div className="single-team-container">
-  <div className="team-admin-container">
-    <div class="team-name">{ctx.clickedTeam.team_name}</div>
-          {ctx.clickedTeam.personnel_status === 'green' ?
-      <div className="team-personnel-status">Personnel Status:  :large_green_square:</div>
-      : ctx.clickedTeam.personnel_status === 'yellow' ?
-      <div className="team-personnel-status">Personnel Status:  :large_yellow_square:</div>
-      : ctx.clickedTeam.personnel_status === 'red' ?
-      <div className="team-personnel-status">Personnel Status:  :large_red_square:</div>
-      : <div>Loading...</div>
+      );
+      if (response.status !== 201) {
+        throw new Error();
       }
-      {ctx.clickedTeam.equipment_status === 'green' ?
-      <div className="team-equipment-status">Equipment Status:  :large_green_square:</div>
-      : ctx.clickedTeam.equipment_status === 'yellow' ?
-      <div className="team-equipment-status">Equipment Status:  :large_yellow_square:</div>
-      : ctx.clickedTeam.equipment_status === 'red' ?
-      <div className="team-equipment-status">Equipment Status:  :large_red_square:</div>
-      : <div>Loading...</div>
-      }
-      {ctx.clickedTeam.comms_status === 'green' ?
-      <div className="team-comms-status">Comms Status:  :large_green_square:</div>
-      : ctx.clickedTeam.comms_status === 'yellow' ?
-      <div className="team-comms-status">Comms Status:  :large_yellow_square:</div>
-      : ctx.clickedTeam.comms_status === 'red' ?
-      <div className="team-comms-status">Comms Status:  :large_red_square:</div>
-      : <div>Loading...</div>
-      }
-  </div>
-  <div className="team-calendar">
-    <Calendar
-      localizer={localizer}
-      events={ctx.dashboard}
-      startAccessor="start"
-      endAccessor="end"
-      style={{ height: "1fr", width: "1fr" }}
-    />
-  </div>
-  <div className="team-upcoming-container">
-    {upcomingMissions.length > 0 ?
-    <div className="team-missions">Upcoming Missions: {[...upcomingMissions].map(renderUpcomingMissions)}</div> :
-    <div className="team-missions">Upcoming Missions: <div>{`No Upcoming Missions`} </div></div>
+    } catch (error) {
+      console.log(error);
     }
-  </div>
-  <div className="team-all-missions-container">
-    {missions.length > 0 ?
-    <div className="team-missions">All Missions: {[...missions].map(renderTeamMissions)}</div> :
-    <div className="team-missions">All Missions: <div>{`No Assigned Missions`} </div></div>
-    }
-  </div>
-  <div className="team-location">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</div>
-  <iframe className="team-mapp" title="title" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1043662.1012423536!2d46.993846776877206!3d29.296531908146836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fc5363fbeea51a1%3A0x74726bcd92d8edd2!2sKuwait!5e0!3m2!1sen!2sus!4v1670945028777!5m2!1sen!2sus"
-    width="800" height="450" loading="lazy">
-  </iframe>
-  <div className="team-personnel-container">
-    {members.length > 0 ?
-    <div className="team-members">Team Members: {[...members].map(renderTeamMembers)}</div> :
-    <div>Loading...</div>
-    }
-  </div>
-</div>
-)};
+  };
+
+  return (
+    <div className="single-team-container">
+      <div className="team-admin-container">
+        <div className="team-name">{ctx.clickedTeam.team_name}</div>
+
+        <div className="team-personnel-status">
+          Personnel Status:{" "}
+          <Form.Group as={Col} md="4">
+            <Form.Select
+              md="3"
+              id="personnel_status"
+              onChange={(e) => handleStatusChange(e)}
+              value={ctx.clickedTeam.personnel_status}
+              aria-label="Default select example"
+            >
+              <option>Green</option>
+              <option>Yellow</option>
+              <option>Red</option>
+            </Form.Select>
+          </Form.Group>
+        </div>
+
+        <div className="team-equipment-status">
+          Equipment Status:
+          <Form.Group as={Col} md="4">
+            <Form.Select
+              md="3"
+              id="equipment_status"
+              onChange={(e) => handleStatusChange(e)}
+              value={ctx.clickedTeam.equipment_status || ""}
+              aria-label="Default select example"
+            >
+              <option>Green</option>
+              <option>Yellow</option>
+              <option>Red</option>
+            </Form.Select>
+          </Form.Group>
+        </div>
+
+        <div className="team-comms-status">
+          Comms Status:
+          <Form.Group as={Col} md="4">
+            <Form.Select
+              md="3"
+              id="comms_status"
+              onChange={(e) => handleStatusChange(e)}
+              value={ctx.clickedTeam.comms_status || ""}
+              aria-label="Default select example"
+            >
+              <option>Green</option>
+              <option>Yellow</option>
+              <option>Red</option>
+            </Form.Select>
+          </Form.Group>
+        </div>
+      </div>
+
+      <div className="team-calendar">
+        <Calendar
+          localizer={localizer}
+          events={ctx.dashboard}
+          startAccessor="start"
+          endAccessor="end"
+          style={{ height: "1fr", width: "1fr" }}
+        />
+      </div>
+
+      <div className="team-upcoming-container">
+        {upcomingMissions.length > 0 ? (
+          <div className="team-missions">
+            Upcoming Missions:{" "}
+            {[...upcomingMissions].map(renderUpcomingMissions)}
+          </div>
+        ) : (
+          <div className="team-missions">
+            Upcoming Missions: <div>{`No Upcoming Missions`} </div>
+          </div>
+        )}
+      </div>
+
+      <div className="team-all-missions-container">
+        {missions.length > 0 ? (
+          <div className="team-missions">
+            All Missions: {[...missions].map(renderTeamMissions)}
+          </div>
+        ) : (
+          <div className="team-missions">
+            All Missions: <div>{`No Assigned Missions`} </div>
+          </div>
+        )}
+      </div>
+
+      <div className="team-location">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</div>
+
+      <div className="team-mapp">
+        <TeamMap coordinates={coordinates} zoom={zoom} />
+      </div>
+
+      <div className="team-personnel-container">
+        {members.length > 0 ? (
+          <div className="team-members">
+            Team Members: {[...members].map(renderTeamMembers)}
+          </div>
+        ) : (
+          <div>Loading...</div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export default SingleTeam;

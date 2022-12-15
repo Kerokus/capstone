@@ -1,28 +1,30 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
-import Card from 'react-bootstrap/Card';
-import '../styling/missions.css';
-import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
-import Modal from 'react-bootstrap/Modal';
+import Card from "react-bootstrap/Card";
+import "../styling/missions.css";
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
+import Modal from "react-bootstrap/Modal";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
-import Places from "../components/Map"
+import Places from "../components/Map";
+
 
 const Missions = () => {
-  const ctx = useContext(GlobalContext)
-  const [missionSearchTerm, setMissionSearchTerm] = useState(''); 
-  const [filteredMissionData, setFilteredMissionData] = useState('');
-  
-  useEffect(() => {
-    ctx.setShow(false)
-  }, [])
+  const ctx = useContext(GlobalContext);
+  const [missionSearchTerm, setMissionSearchTerm] = useState("");
+  const [filteredMissionData, setFilteredMissionData] = useState("");
 
   useEffect(() => {
-    setFilteredMissionData(ctx.missions)
-  }, [ctx.missions])
+    ctx.setShow(false);
+    console.log(ctx.dashboard);
+  }, []);
+
+  useEffect(() => {
+    setFilteredMissionData(ctx.missions);
+  }, [ctx.missions]);
 
   //// Search Functions////
   // ctx.sets the "Search Term" on change of the search text box (default is "")
@@ -36,7 +38,9 @@ console.log("dashboard", ctx.dashboard)
     ctx.missions.forEach((mission) => {
       let missionDataString = JSON.stringify(mission);
       if (
-        missionDataString.toLowerCase().includes(missionSearchTerm.toLowerCase())
+        missionDataString
+          .toLowerCase()
+          .includes(missionSearchTerm.toLowerCase())
       ) {
         if (
           searchArray.filter((item) => {
@@ -50,49 +54,97 @@ console.log("dashboard", ctx.dashboard)
     });
   }, [missionSearchTerm]);
 
-    //DELETE person from database
-    const handleDelete = async () => {
-      try {
-        let response = await fetch(
-          `http://localhost:8081/missions/${ctx.clickedMission.id}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        handleCloseWarning();
-        toggleRefresh();
-        if (response.status !== 202) {
-          throw new Error();
+  //DELETE mission from database
+  const handleDelete = async () => {
+    try {
+      let response = await fetch(
+        `http://localhost:8081/missions/${ctx.clickedMission.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      } catch (error) {
-        console.log(error);
+      );
+      handleCloseWarning();
+      toggleRefresh();
+      if (response.status !== 202) {
+        throw new Error();
       }
-    };
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    const toggleRefresh = () => {
-      ctx.setRefresh((current) => !current);
-    };
+  const toggleRefresh = () => {
+    ctx.setRefresh((current) => !current);
+  };
 
   //DELETE Confirmation Warnings
-    const handleCloseWarning = () => {
-      ctx.setShowWarning(false);
-    };
+  const handleCloseWarning = () => {
+    ctx.setShowWarning(false);
+  };
 
-    const handleShowWarning = () => {
-      ctx.setShowWarning(true);
-    };
+  const handleShowWarning = () => {
+    ctx.setShowWarning(true);
+  };
 
   const renderMissionCard = (mission, index) => {
+    var coordinates = {};
+    //console.log("flag:",team)
+    if (mission.location.country === "Kuwait") {
+      coordinates = { lat: 28.871513, lng: 48.163907 };
+    } else if (mission.location.country === "Jordan") {
+      coordinates = { lat: 31.967195, lng: 35.910519 };
+    } else if (mission.location.country === "USA") {
+      coordinates = { lat: 33.4302, lng: -82.1261 };
+    } else if (mission.location.country === "Qatar") {
+      coordinates = { lat: 25.27628, lng: 51.525105 };
+    } else if (mission.location.country === "Iraq") {
+      coordinates = { lat: 36.230501, lng: 43.956688 };
+    } else {
+      coordinates = { lat: 48.8566, lng: 2.3522 };
+    }
+
+    // const countries = [
+    //   { name: 'Saudi Arabia',
+    //   location: {lat:24.689868, lng:46.735424}},
+    //   { name: 'Kuwait',
+    //   location: {lat:28.871513, lng:48.163907}},
+    //   { name: 'Jordan',
+    //   location: {lat:31.967195, lng:35.910519}},
+    //   { name: 'Iraq',
+    //   location: {lat:36.230501, lng:43.956688}},
+    //   { name: 'Bahrain',
+    //   location: {lat:26.267288, lng:50.632467}},
+    //   { name: 'United Arab Emirates',
+    //   location: {lat:24.441709, lng:54.377948}},
+    //   { name: 'Qatar',
+    //   location: {lat:25.276280, lng:51.525105}},
+    // ]
+
+    // //else {
+    //   coordinates = { lat: 48.8566, lng: 2.3522 };
+    // }
     return (
-    <Card border='light' style={{ width: '18rem' }} key={index} bg='dark' text='white'className="mission-card">
-      <Card.Header> {`${mission.name} - ${mission.status.toUpperCase()}`} </Card.Header>
-      <Card.Body className='card-body'>
+      <Card
+        border="light"
+        style={{ width: "18rem" }}
+        key={index}
+        bg="dark"
+        text="white"
+        className="mission-card"
+      >
+        <Card.Header>
+          {" "}
+          {`${mission.name} - ${mission.status.toUpperCase()}`}{" "}
+        </Card.Header>
+        <Card.Body className="card-body">
           <div className="test" key={index}>
-            <div className="missions-map"><Places /></div>
-            <div className="mission-data"> 
+            <div className="missions-map">
+              <Places coordinates={coordinates} />
+            </div>
+            <div className="mission-data">
               <u> Location: </u>
               <p>{`${mission.location.country} - ${mission.location.city_base}`}</p>
               <u> Decision Point: </u>
@@ -101,57 +153,68 @@ console.log("dashboard", ctx.dashboard)
             <div className='asd'>
             </div>
           </div>
-        <div className='buttons'>
-        <Link to={`/missions/${mission.id}`} style={{color: 'white', textDecoration: 'none'}}>
-        <Button variant="secondary" onClick={() => ctx.setClickedMission(mission)}>
-          Mission Info
-        </Button>
-        </Link>
-        <Button variant="danger" onClick={() => {
-          ctx.setClickedMission(mission)
-          handleShowWarning()
-        }}>Delete Mission</Button>
-        </div>
-      </Card.Body>
-    </Card>
-    )
-  }
+          <div className="buttons">
+            <Link
+              to={`/missions/${mission.id}`}
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              <Button
+                variant="secondary"
+                onClick={() => ctx.setClickedMission(mission)}
+              >
+                Mission Info
+              </Button>
+            </Link>
+            <Button
+              variant="danger"
+              onClick={() => {
+                ctx.setClickedMission(mission);
+                handleShowWarning();
+              }}
+            >
+              Delete Mission
+            </Button>
+          </div>
+        </Card.Body>
+      </Card>
+    );
+  };
 
-
- 
   return (
     <>
-    <div className="missions-page-container">
-    <div className='nav-buttons'>
-    <Link className='submit-conop-link' to='/conop'>
-    <Button className='add-mission' variant="success">
-    Submit CONOP
-    </Button>
-    </Link>
+      <div className="missions-page-container">
+        <div className="nav-buttons">
+          <Link className="submit-conop-link" to="/conop">
+            <Button className="add-mission" variant="success">
+              Submit CONOP
+            </Button>
+          </Link>
 
-    <div className="mission-search">
-        <input 
-            className="mission-search-bar" 
-            type='text' 
-            placeholder="Search Missions" 
-            onChange={(event) => {handleSearch(event)}}
-            value={missionSearchTerm}
-        />    
-    </div>
+          <div className="mission-search">
+            <input
+              className="mission-search-bar"
+              type="text"
+              placeholder="Search Missions"
+              onChange={(event) => {
+                handleSearch(event);
+              }}
+              value={missionSearchTerm}
+            />
+          </div>
 
-    <Link className='homepage-link' to='/'>
-    <Button variant='primary' className='homepage-button'>
-      Back to Home
-    </Button>
-    </Link>
-    </div>
+          <Link className="homepage-link" to="/">
+            <Button variant="primary" className="homepage-button">
+              Back to Home
+            </Button>
+          </Link>
+        </div>
 
-    <div className="mission-card-container">
-        {[...filteredMissionData].map(renderMissionCard)}
-    </div>
-    </div>
+        <div className="mission-card-container">
+          {[...filteredMissionData].map(renderMissionCard)}
+        </div>
+      </div>
 
-    <Modal
+      <Modal
         show={ctx.showWarning}
         onHide={handleCloseWarning}
         backdrop="static"
@@ -170,15 +233,15 @@ console.log("dashboard", ctx.dashboard)
             onClick={() => {
               handleDelete();
               ctx.setSearchTerm("");
-              toggleRefresh()
+              toggleRefresh();
             }}
           >
             Delete
           </Button>
         </Modal.Footer>
       </Modal>
-</>
-  )
+    </>
+  );
 };
 
 export default Missions;

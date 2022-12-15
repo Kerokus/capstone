@@ -35,7 +35,7 @@ const options = {
   zoomControl: false,
 };
 
-export default function Places({ coordinates, zoom }) {
+export default function TeamMap({ coordinates, zoom }) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyBRK58z-C-6RfjetZE-TA3eNq777nWc2WA",
     //libraries,
@@ -47,7 +47,7 @@ export default function Places({ coordinates, zoom }) {
   // useEffect(() => {
   //   ctx.teams.forEach((place) => {
   //     if (place.location.country === "Kuwait") {
-  //       ctx.setCenter({ lat: 30.341739912595923, lng: 46.0499325222093 });
+  //       ctx.setCenter({ lat: 28.871513, lng: 48.163907 });
   //     } else if (place.location.country === "Jordan") {
   //       ctx.setCenter({ lat: 31.967195, lng: 35.910519 });
   //     } else if (place.location.country === "USA") {
@@ -57,7 +57,7 @@ export default function Places({ coordinates, zoom }) {
   //     }
   //   });
   // }, []);
-
+  console.log({zoom}.zoom)
   // const countries = [
   //   { name: 'Saudi Arabia',
   //   location: {lat:24.689868, lng:46.735424}},
@@ -75,21 +75,17 @@ export default function Places({ coordinates, zoom }) {
   //   location: {lat:25.276280, lng:51.525105}},
   // ]
 
-  const onMapClick = useCallback((e) => {
-    ctx.setMarkers((current) => [
-      ...current,
-      {
-        id: current.length + 1,
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-      },
-    ]);
-  }, []);
+  // const onMapClick = useCallback((e) => {
+  //   ctx.setGlobalMarkers((current) => [
+  //     ...current,
+  //     {
+  //       id: current.length + 1,
+  //       lat: e.latLng.lat(),
+  //       lng: e.latLng.lng(),
+  //     },
+  //   ]);
+  // }, []);
 
-  const removeMarker = (e) => {
-    let position = e.lat;
-    ctx.setMarkers(markers.filter((e) => e.lat !== position));
-  };
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -129,11 +125,11 @@ export default function Places({ coordinates, zoom }) {
           zoom={zoom}
           center={coordinates}
           options={options}
-          onClick={onMapClick}
+          // onClick={onMapClick}
           onLoad={onMapLoad}
           draggable="true"
         >
-          {markers.map(
+          {ctx.teamMarkers.map(
             (marker) => (
               <Marker
                 key={`${marker.lat}-${marker.lng}`}
@@ -148,9 +144,7 @@ export default function Places({ coordinates, zoom }) {
                   anchor: new window.google.maps.Point(15, 15),
                   scaledSize: new window.google.maps.Size(30, 30),
                 }}
-                onRightClick={() => {
-                  removeMarker(marker);
-                }}
+
               />
             ),
             []

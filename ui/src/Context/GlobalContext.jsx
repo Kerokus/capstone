@@ -15,11 +15,16 @@ const ContextProvider = ({ children }) => {
   // <- <- App
   const [clickedMission, setClickedMission] = useState(null); // Missions;
   const [clickedTeam, setClickedTeam] = useState(null); // Teams;
+  
 
   // <- <- Dashboard
   const [dashboard, setDashboard] = useState([]);
   const [oneDayDate, setOneDayDate] = useState("");
   const [twoDayDate, setTwoDayDate] = useState("");
+
+  // <- <- Map Markers
+  const [dashboardMarkers, setDashboardMarkers] = useState([]);
+  const [teamMarkers, setTeamMarkers] = useState([]);
 
   // <- <- Dashboard - Team Statuses
   // CI Teams State
@@ -163,6 +168,10 @@ const ContextProvider = ({ children }) => {
     setTwoDayDate,
     center,
     setCenter,
+    teamMarkers,
+    setTeamMarkers, 
+    dashboardMarkers,
+    setDashboardMarkers
   };
 
   return (

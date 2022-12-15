@@ -33,7 +33,7 @@
   color: white;
   border: solid lightgray;
   border-radius: 10px;
-  padding-left: 5px;
+  
 }
 
 .upcoming-header {
@@ -46,18 +46,23 @@
 
 .team-missions {
   margin: 0;
-  padding: 0;
+  
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   font-size: 20px;
   display: flex;
 }
 
+.dashboard-mission-link {
+  color: lightgray;
+  text-decoration: none;
+}
+
 .list {
   position: relative;
 }
 
-.list ul {
+.list ul li {
   position: relative;
 }
 
@@ -88,6 +93,7 @@
 
 .dashboard-team-list:hover {
   left: 10px;
+  color: black;
 }
 
 .dashboard-team-list span {
