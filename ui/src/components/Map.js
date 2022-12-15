@@ -35,7 +35,7 @@ const options = {
   zoomControl: false,
 };
 
-export default function Places({ coordinates }) {
+export default function Places({ coordinates, zoom }) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyBRK58z-C-6RfjetZE-TA3eNq777nWc2WA",
     //libraries,
@@ -44,19 +44,19 @@ export default function Places({ coordinates }) {
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   // const [center, setCenter] = useState({lat: 28.871513, lng: 48.163907});
-  useEffect(() => {
-    ctx.teams.forEach((place) => {
-      if (place.location.country === "Kuwait") {
-        ctx.setCenter({ lat: 28.871513, lng: 48.163907 });
-      } else if (place.location.country === "Jordan") {
-        ctx.setCenter({ lat: 31.967195, lng: 35.910519 });
-      } else if (place.location.country === "USA") {
-        ctx.setCenter({ lat: 33.4302, lng: -82.1261 });
-      } else {
-        // ctx.setCenter({lat:48.8566, lng:2.3522})
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   ctx.teams.forEach((place) => {
+  //     if (place.location.country === "Kuwait") {
+  //       ctx.setCenter({ lat: 30.341739912595923, lng: 46.0499325222093 });
+  //     } else if (place.location.country === "Jordan") {
+  //       ctx.setCenter({ lat: 31.967195, lng: 35.910519 });
+  //     } else if (place.location.country === "USA") {
+  //       ctx.setCenter({ lat: 33.4302, lng: -82.1261 });
+  //     } else {
+  //       // ctx.setCenter({lat:48.8566, lng:2.3522})
+  //     }
+  //   });
+  // }, []);
 
   // const countries = [
   //   { name: 'Saudi Arabia',
@@ -126,7 +126,7 @@ export default function Places({ coordinates }) {
         <GoogleMap
           id="map"
           mapContainerClassName="map"
-          zoom={6}
+          zoom={zoom}
           center={coordinates}
           options={options}
           onClick={onMapClick}

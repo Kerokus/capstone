@@ -18,7 +18,7 @@ import { toPoint } from "mgrs";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Places from "../components/Map";
-import MissionMap from "../components/MissionMap";
+import TeamMap from "../components/TeamMap";
 import {
   GoogleMap,
   useLoadScript,
@@ -33,7 +33,7 @@ const SingleTeam = () => {
   const [missions, setMissions] = useState([]);
   const [upcomingMissions, setUpcomingMissions] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [markers, setMarkers] = useState([]);
+ 
 
   let teamName = ctx.clickedTeam.team_name;
   let teamPersonnelArray = [];
@@ -45,19 +45,26 @@ const SingleTeam = () => {
   }, []);
 
   let coordinates = {};
+  let zoom;
 
   if (ctx.clickedTeam.location.country === "Kuwait") {
     coordinates = { lat: 29.34562355852184, lng: 47.67637238617149 };
+    zoom = 8
   } else if (ctx.clickedTeam.location.country === "Jordan") {
     coordinates = { lat: 31.00994216931093, lng: 36.6326645727253 };
+    zoom = 7
   } else if (ctx.clickedTeam.location.country === "USA") {
     coordinates = { lat: 33.4302, lng: -82.1261 };
+    zoom = 9
   } else if (ctx.clickedTeam.location.country === "Qatar") {
     coordinates = { lat: 25.27628, lng: 51.525105 };
+    zoom = 6
   } else if (ctx.clickedTeam.location.country === "Iraq") {
     coordinates = { lat: 36.230501, lng: 43.956688 };
+    zoom = 6
   } else {
     coordinates = { lat: 48.8566, lng: 2.3522 };
+    zoom = 9
   }
 
   const mapRef = useRef();
@@ -66,21 +73,21 @@ const SingleTeam = () => {
   }, []);
 
   useEffect(() => {
-    let testArray = []
+    let teamMarkersArray = []
     ctx.dashboard.forEach((mission) => {
       if (mission.team === ctx.clickedTeam.id) {
-        testArray.push({
+        teamMarkersArray.push({
           id: mission.title,
           lat: mission.coords[1],
           lng: mission.coords[0],
         })
       }
     },
-    ctx.setGlobalMarkers(testArray)
+    ctx.setTeamMarkers(teamMarkersArray)
     );
   }, [ctx.dashboard]);
 
-  console.log(ctx.globalMarkers)
+
   /* calendar tools */
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
@@ -333,7 +340,7 @@ Then sets the missions state variable with that array. Fires when the missions s
       <div className="team-location">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</div>
 
       <div className="team-mapp">
-        <MissionMap coordinates={coordinates} />
+        <TeamMap coordinates={coordinates} zoom={zoom} />
       </div>
 
       <div className="team-personnel-container">

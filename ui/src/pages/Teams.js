@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
 import Places from "../components/Map";
 import Card from "react-bootstrap/Card";
+import TeamMap from "../components/TeamMap"
 
 
 import "../styling/missions.css";
@@ -156,17 +157,22 @@ const Teams = () => {
 
   const renderTeamCard = (team, index) => {
     var coordinates = {};
+    var zoom;
     //console.log("flag:",team)
     if (team.location.country === "Kuwait") {
-      coordinates = { lat: 28.871513, lng: 48.163907 };
+      coordinates = { lat: 29.34852700252181, lng: 47.46561436349371 };
+      zoom = 7
     } else if (team.location.country === "Jordan") {
-      coordinates = { lat: 31.967195, lng: 35.910519 };
+      coordinates = { lat: 31.261837409143272, lng: 36.740018930765636 };
+      zoom = 6
     } else if (team.location.country === "USA") {
-      coordinates = { lat: 33.4302, lng: -82.1261 };
+      coordinates = { lat: 35.14193183877861, lng: -78.99943678131243 };
+      zoom = 9
     } else {
-      coordinates = { lat: 48.8566, lng: 2.3522 };
+      coordinates = { lat: 33.42643305816639, lng: -82.0571350866326 };
+      zoom = 9
     }
-    // console.log("other:", coordinates)
+    
     return (
       <Card
         border="light"
@@ -181,7 +187,7 @@ const Teams = () => {
           <div className="test" key={index}>
             <div className="team-map">
               {" "}
-              <Places coordinates={coordinates} />
+              <TeamMap coordinates={coordinates} zoom={zoom} />
             </div>
             <div className="team-location-data">
               <u> Current Location: </u>

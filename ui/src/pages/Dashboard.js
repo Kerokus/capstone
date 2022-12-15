@@ -11,22 +11,29 @@ import CiTeamStatus from "./CiTeamStatus";
 import HumintTeamStatus from "./HumintTeamStatus";
 import SigintTeamStatus from "./SigintTeamStatus";
 import { toPoint } from "mgrs";
-import Places from '../components/Map'
+import DashboardMap from "../components/DashboardMap";
+
 
 const Dashboard = () => {
   const ctx = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
   const [upcomingMissions, setUpcomingMissions] = useState([]);
   const [statusLoad, setStatusLoad] = useState(false);
-
+  let coordinates = { lat: 32.313793143601366, lng: 55.194812819979404 }
+ 
   let upcomingMissionsArray = [];
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
   };
 
+  const toggleRefresh = () => {
+    ctx.setRefresh((current) => !current);
+  };
+
   useEffect(() => {
     missionsFetch();
     statusFetch();
+    toggleRefresh()
   }, []);
 
   useEffect(() => {
@@ -39,7 +46,7 @@ const Dashboard = () => {
       }
       setUpcomingMissions(upcomingMissionsArray);
     });
-  }, [ctx.missions]);
+  }, [ctx.missions, ctx.refresh]);
 
   //next 24 hours
   let oneDayDate = new Date();
@@ -120,7 +127,7 @@ const Dashboard = () => {
   useEffect(() => {
     ctx.setOneDayDate(formatDate(oneDayDate));
     ctx.setTwoDayDate(formatDate(twoDayDate));
-  }, []);
+  }, [ctx.refresh]);
 
   const localizer = dateFnsLocalizer({
     format,
@@ -144,6 +151,27 @@ const Dashboard = () => {
     );
   };
 
+  const renderMap = () => {
+     return <DashboardMap coordinates={coordinates}/>
+  }
+
+  useEffect(() => {
+    let dashboardMarkersArray = []
+    upcomingMissions.forEach((mission) => {
+      ctx.dashboard.forEach((otherMission) => {
+        if (mission.id === otherMission.id) {
+          dashboardMarkersArray.push({
+            id: otherMission.title,
+            lat: otherMission.coords[1],
+            lng: otherMission.coords[0],
+          })
+        }
+      })
+    },
+    ctx.setDashboardMarkers(dashboardMarkersArray)
+    );
+  }, [ctx.dashboard, ctx.refresh]);
+
   return (
     <>
       {loading && <div>Loading Data...</div>}
@@ -159,8 +187,9 @@ const Dashboard = () => {
             />
           </div>
         )}
+
         <div className="dashboard-map">
-          <h3><Places/></h3>
+          {ctx.dashboard[0] ? renderMap() : 'Loading...'}
         </div>
 
         <div className="dashboard-upcoming">
