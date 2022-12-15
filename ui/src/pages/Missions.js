@@ -49,7 +49,7 @@ const Missions = () => {
     });
   }, [missionSearchTerm]);
 
-    //DELETE person from database
+    //DELETE mission from database
     const handleDelete = async () => {
       try {
         let response = await fetch(
