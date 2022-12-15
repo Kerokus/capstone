@@ -154,6 +154,8 @@ const options = {
                 }}
               >
                 <div>
+                <p>
+                  {selected.id}</p>
                   <p>
                     {selected.lat}, {selected.lng}
                   </p>
