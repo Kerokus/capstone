@@ -29,7 +29,7 @@ const Missions = () => {
   const handleSearch = (event) => {
     setMissionSearchTerm(event.target.value);
   };
-
+console.log("dashboard", ctx.dashboard)
   //Filters the data without having to select a "Search By" Category
   useEffect(() => {
     let searchArray = [];
@@ -98,7 +98,7 @@ const Missions = () => {
               <u> Decision Point: </u>
               <p>{`${mission.decision_point}`}</p>
             </div>
-            <div classname='asd'>
+            <div className='asd'>
             </div>
           </div>
         <div className='buttons'>

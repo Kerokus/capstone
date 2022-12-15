@@ -24,23 +24,23 @@ export default function Places({coordinates}) {
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
   // const [center, setCenter] = useState({lat: 28.871513, lng: 48.163907});
-  console.log("this:", coordinates)
-  useEffect(() => {
-    ctx.teams.forEach((place) => {
-      console.log(place)
-      if (place.location.country === 'Kuwait'){
-        ctx.setCenter({lat: 28.871513, lng: 48.163907})
-      } else 
-      if (place.location.country === 'Jordan'){
-        ctx.setCenter({lat:31.967195, lng:35.910519})
-      } else if (place.location.country === 'USA'){
-        ctx.setCenter({lat:33.4302, lng:-82.1261})
-      } else{
-        // ctx.setCenter({lat:48.8566, lng:2.3522})
-      }console.log(ctx.teams)
-      }
-     )
-  },[])
+  // console.log("this:", coordinates)
+  // useEffect(() => {
+  //   ctx.teams.forEach((place) => {
+  //     console.log(place)
+  //     if (place.location.country === 'Kuwait'){
+  //       ctx.setCenter({lat: 28.871513, lng: 48.163907})
+  //     } else 
+  //     if (place.location.country === 'Jordan'){
+  //       ctx.setCenter({lat:31.967195, lng:35.910519})
+  //     } else if (place.location.country === 'USA'){
+  //       ctx.setCenter({lat:33.4302, lng:-82.1261})
+  //     } else{
+  //       // ctx.setCenter({lat:48.8566, lng:2.3522})
+  //     }console.log(ctx.teams)
+  //     }
+  //    )
+  // },[])
   
   // const countries = [
   //   { name: 'Saudi Arabia',
