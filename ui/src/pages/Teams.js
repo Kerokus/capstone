@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
-import Places from "../components/Map";
+import { GlobalContext } from "../Context/GlobalContext";
 import Card from "react-bootstrap/Card";
 import TeamMap from "../components/TeamMap";
 
@@ -12,7 +11,6 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
-import BootstrapTable from "react-bootstrap-table-next";
 
 const Teams = () => {
   const ctx = useContext(GlobalContext);
@@ -176,9 +174,10 @@ const Teams = () => {
         text="white"
         className="mission-card"
       >
-        <div className="teams-headers">
-        <Card.Header> {team.team_name} </Card.Header>
-        </div>
+        <Card.Header className="team-render-title">
+          {" "}
+          {team.team_name}{" "}
+        </Card.Header>
         <Card.Body className="card-body">
           <div className="test" key={index}>
             <div className="team-map">
@@ -220,7 +219,7 @@ const Teams = () => {
   };
 
   return (
-    <>
+    <div className="teams-container">
       <div className="nav-buttons">
         <Button className="add-mission" variant="success" onClick={handleAdd}>
           Add Team
@@ -426,7 +425,7 @@ const Teams = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 };
 

@@ -5,27 +5,16 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import { GlobalContext } from "../Context/GlobalContext";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
-import { Link } from "react-router-dom";
 import { toPoint } from "mgrs";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
-import Places from "../components/Map";
 import TeamMap from "../components/TeamMap";
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-  InfoWindow,
-  DirectionsService,
-} from "@react-google-maps/api";
 
 const SingleTeam = () => {
   const ctx = useContext(GlobalContext);
@@ -239,6 +228,11 @@ Then sets the missions state variable with that array. Fires when the missions s
     } catch (error) {
       console.log(error);
     }
+    toggleRefresh();
+  };
+
+  const toggleRefresh = () => {
+    ctx.setRefresh((current) => !current);
   };
 
   return (

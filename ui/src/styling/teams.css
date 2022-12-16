@@ -1,3 +1,7 @@
+.teams-container {
+  height: 95vh;
+}
+
 .card-header {
   display: inline-block;
   justify-content: center;
@@ -53,7 +57,7 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  height: 95vh;
+  height: 90vh;
 }
 
 .mission-card {
@@ -67,14 +71,4 @@
   align-content: center;
   /* margin-bottom: 15px; */
   height: 20em;
-}
-
-.teams-headers {
-  display:grid;
-  align-items: center;
-  justify-content: center;
-}
-
-.teams-map {
-  height: calc(100% - 18px)
 }
