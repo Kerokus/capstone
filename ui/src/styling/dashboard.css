@@ -9,7 +9,7 @@
     "ci-team-status humint-team-status sigint-team-status"
     "ci-team-status humint-team-status sigint-team-status";
   width: 100%;
-  height: 85vh;
+  height: 82.55vh;
   padding: 2em;
 }
 
@@ -21,7 +21,7 @@
   grid-area: dashboard-calendar;
   color: black;
   background-color: lightgrey;
-  overflow-y: scroll;
+  overflow-y: auto;
   border: solid lightgrey;
   border-radius: 10px;
 }

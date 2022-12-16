@@ -77,7 +77,7 @@ const NavbarComponent = () => {
               ticking={true}
               timezone={"Asia/Kuwait"}
             />
-            <p>Ft. Gordon, GA</p>
+            <p>Kuwait City</p>
           </div>
         </Col>
       </Row>

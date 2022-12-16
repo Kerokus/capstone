@@ -61,7 +61,7 @@ const HumintTeamStatus = () => {
           {ctx.redHumintTeams.map((team, index) => {
             return (
               <div className="humint-teams-status" key={index}>
-                <span>{team}</span> <span>🟥</span>
+                <span className="team-name-box">{team}</span> <span>🟥</span>
               </div>
             );
           })}
@@ -70,7 +70,7 @@ const HumintTeamStatus = () => {
           {ctx.yellowHumintTeams.map((team, index) => {
             return (
               <div className="humint-teams-status" key={index}>
-                <span>{team}</span> <span>🟨</span>
+                <span className="team-name-box">{team}</span> <span>🟨</span>
               </div>
             );
           })}
@@ -79,7 +79,7 @@ const HumintTeamStatus = () => {
           {ctx.greenHumintTeams.map((team, index) => {
             return (
               <div className="humint-teams-status" key={index}>
-                <span>{team}</span> <span>🟩</span>
+                <span className="team-name-box">{team}</span> <span>🟩</span>
               </div>
             );
           })}
