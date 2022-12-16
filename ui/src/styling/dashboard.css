@@ -9,7 +9,7 @@
     "ci-team-status humint-team-status sigint-team-status"
     "ci-team-status humint-team-status sigint-team-status";
   width: 100%;
-  height: 85vh;
+  height: 90vh;
   padding: 2em;
   
 }
@@ -22,7 +22,7 @@
   grid-area: dashboard-calendar;
   color: black;
   background-color: lightgrey;
-  overflow-y: scroll;
+  overflow-y: auto;
   border: solid lightgrey;
   border-radius: 10px;
 }
@@ -31,7 +31,7 @@
   grid-area: dashboard-map;
   border: solid lightgrey;
   border-radius: 10px;
-  height: 100%;
+  height: calc(100% );
   background-color: #212529;
 }
 
@@ -73,7 +73,7 @@
 }
 
 /* all the team statuses fuckery */
-.dashboard-team-link{
+.dashboard-team-link {
   color: lightgray;
   text-decoration: none;
 }
@@ -115,7 +115,7 @@
   z-index: 1;
   transition: 0.5s;
 }
-.ci-teams-status-red a:hover{
+.ci-teams-status-red a:hover {
   color: black;
 }
 /* ci yellow */
@@ -154,7 +154,7 @@
   z-index: 1;
   transition: 0.5s;
 }
-.ci-teams-status-yellow a:hover{
+.ci-teams-status-yellow a:hover {
   color: black;
 }
 /* ci green */
@@ -193,7 +193,7 @@
   z-index: 1;
   transition: 0.5s;
 }
-.ci-teams-status-green a:hover{
+.ci-teams-status-green a:hover {
   color: black;
 }
 
@@ -234,7 +234,7 @@
   z-index: 1;
   transition: 0.5s;
 }
-.humint-teams-status-red a:hover{
+.humint-teams-status-red a:hover {
   color: black;
 }
 /* humint yellow */
@@ -273,7 +273,7 @@
   z-index: 1;
   transition: 0.5s;
 }
-.humint-teams-status-yellow a:hover{
+.humint-teams-status-yellow a:hover {
   color: black;
 }
 /* humint green */
@@ -312,7 +312,7 @@
   z-index: 1;
   transition: 0.5s;
 }
-.humint-teams-status-green a:hover{
+.humint-teams-status-green a:hover {
   color: black;
 }
 
@@ -353,7 +353,7 @@
   z-index: 1;
   transition: 0.5s;
 }
-.sigint-teams-status-red a:hover{
+.sigint-teams-status-red a:hover {
   color: black;
 }
 /* sigint yellow */
@@ -392,7 +392,7 @@
   z-index: 1;
   transition: 0.5s;
 }
-.sigint-teams-status-yellow a:hover{
+.sigint-teams-status-yellow a:hover {
   color: black;
 }
 /* sigint green */
@@ -431,14 +431,9 @@
   z-index: 1;
   transition: 0.5s;
 }
-.sigint-teams-status-green a:hover{
+.sigint-teams-status-green a:hover {
   color: black;
 }
-
-
-
-
-
 
 /* humint teams statuses */
 /* .humint-teams-status-red {
@@ -479,7 +474,6 @@
   border-left: 2px solid #24ff0b;
 } */
 /* =================================== */
-
 
 .dashboard-team-list {
   position: relative;
@@ -524,7 +518,7 @@
   color: black;
 }
 
-.dashboard-team-list a:hover{
+.dashboard-team-list a:hover {
   color: black;
 }
 
@@ -558,7 +552,15 @@
   background-color: #212529;
 }
 
+.google-container {
+  height: calc(100% - 18px);
+}
 
+.search {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
 
 /* .clocks-container {
   display: flex;

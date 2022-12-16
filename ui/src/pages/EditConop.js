@@ -25,6 +25,7 @@ const EditConop = () => {
       newData[event.target.id] = event.target.value;
     }
     ctx.setSubmitConopForm(newData);
+    console.log(newData);
   };
 
   //Clears the form data
@@ -43,13 +44,16 @@ const EditConop = () => {
     } else {
       setValidated(true);
       event.preventDefault();
-      let response = await fetch("http://localhost:8081/missions", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(ctx.submitConopForm),
-      });
+      let response = await fetch(
+        `http://localhost:8081/missions/${ctx.submitConopForm.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(ctx.submitConopForm),
+        }
+      );
       ctx.setSubmitConopForm({});
       setValidated(false);
       if (response.status !== 201) {
@@ -79,7 +83,7 @@ const EditConop = () => {
         <Row>
           <Col>
             <h3>Admin Data</h3>
-            <Form.Group as={Col} md="3">
+            <Form.Group as={Col} md="4">
               <Form.Label>Team Name</Form.Label>
               <Form.Select
                 id="team_id"
@@ -185,7 +189,7 @@ const EditConop = () => {
                   value={ctx.submitConopForm.location?.mgrs || ""}
                   type="text"
                   minLength={"13"}
-                  maxLength={"17"}
+                  maxLength={"18"}
                   placeholder="MGRS"
                   required
                 />

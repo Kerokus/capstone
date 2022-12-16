@@ -1,5 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Quantico&display=swap");
 
+.nav-position {
+  top: 0;
+  /* position: fixed; */
+  width: 100vw;
+  height: 150px;
+  z-index: 1;
+}
 .navbar {
   --bs-nav-brand-color: white;
 }

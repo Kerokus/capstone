@@ -20,5 +20,13 @@
   color: lightgray;
   margin-bottom: 30px;
   overflow-x: hidden;
+}
+
+.app-styling-div {
+  height: calc(100vh - 150px);
   overflow-y: auto;
+}
+
+body {
+  overflow-y: hidden;
 }

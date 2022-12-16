@@ -59,8 +59,8 @@ const SubmitConop = () => {
   };
 
   return (
-    <Form noValidate validated={validated} onSubmit={handleSubmit}>
-      <div className="submit-conop-container">
+    <div className="submit-conop-container">
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <h1>Submit CONOP</h1>
         <div className="submit-buttons-container">
           <Button
@@ -538,8 +538,8 @@ const SubmitConop = () => {
             </Form.Group>
           </Col>
         </Row>
-      </div>
-    </Form>
+      </Form>
+    </div>
   );
 };
 
