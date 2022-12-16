@@ -1,7 +1,7 @@
 .single-team-container {
   display: grid;
   grid-template-columns: 1.4fr 0.8fr 0.8fr;
-  grid-template-rows: 0.2fr 2fr 1fr 1.1fr;
+  grid-template-rows: 0.2fr 4.0fr 1fr 0.35fr;
   gap: 5px 5px;
   padding: 1em;
   grid-template-areas:
@@ -14,6 +14,7 @@
 .single-team-container h3 {
   text-align: center;
   text-decoration: underline;
+  background-color: #212529;
 }
 
 .team-admin-container {
@@ -27,22 +28,27 @@
   border-style: solid;
   padding: 5px;
   border-radius: 10px;
+  background-color: #212529;
 }
 
 .team-name {
   grid-area: team-name;
+  background-color: #212529;
 }
 
 .team-personnel-status {
   grid-area: team-personnel-status;
+  background-color: #212529;
 }
 
 .team-equipment-status {
   grid-area: team-equipment-status;
+  background-color: #212529;
 }
 
 .team-comms-status {
   grid-area: team-comms-status;
+  background-color: #212529;
 }
 
 .team-calendar {
@@ -58,6 +64,7 @@
   border-style: solid;
   border-radius: 10px;
   padding: 5px;
+  background-color: #212529;
 }
 
 .team-all-missions-container {
@@ -65,18 +72,22 @@
   border-style: solid;
   border-radius: 10px;
   padding: 5px;
+  background-color: #212529;
 }
 
 .team-missions {
   grid-area: team-personnel-container;
   padding-top: 5px;
   border-radius: 10px;
+  background-color: #212529;
 }
 
 .team-mapp {
   grid-area: team-mapp;
   border-style: solid;
   border-radius: 10px;
+  text-align: center;
+  background-color: #212529;
 }
 
 .team-personnel-container {
@@ -85,6 +96,7 @@
   text-align: center;
   border-radius: 10px;
   padding: 5px;
+  background-color: #212529;
 }
 
 .team-members {
@@ -92,4 +104,5 @@
   text-align: center;
   padding-top: 5px;
   border-radius: 10px;
+  background-color: #212529;
 }
