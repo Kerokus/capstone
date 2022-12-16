@@ -60,8 +60,8 @@ const SubmitConop = () => {
 
   return (
     <div className="submit-conop-container">
+      <h1>Submit CONOP</h1>
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <h1>Submit CONOP</h1>
         <div className="submit-buttons-container">
           <Button
             className="conop-clear-button"
