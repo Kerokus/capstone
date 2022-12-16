@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { GlobalContext } from "../Context/GlobalContext";
+import { Link } from "react-router-dom";
 
 const CiTeamStatus = () => {
   const ctx = useContext(GlobalContext);
@@ -44,17 +45,17 @@ const CiTeamStatus = () => {
         personnel_status === "RED" ||
         equipment_status === "RED"
       ) {
-        redCiTeams.push(ctx.ciTeams[i].team_name);
+        redCiTeams.push(ctx.ciTeams[i]);
         ctx.setRedCiTeams(redCiTeams);
       } else if (
         comms_status === "YELLOW" ||
         personnel_status === "YELLOW" ||
         equipment_status === "YELLOW"
       ) {
-        yellowCiTeams.push(ctx.ciTeams[i].team_name);
+        yellowCiTeams.push(ctx.ciTeams[i]);
         ctx.setYellowCiTeams(yellowCiTeams);
       } else {
-        greenCiTeams.push(ctx.ciTeams[i].team_name);
+        greenCiTeams.push(ctx.ciTeams[i]);
         ctx.setGreenCiTeams(greenCiTeams);
       }
     }
@@ -69,17 +70,30 @@ const CiTeamStatus = () => {
         <div className="red_teams">
           {ctx.redCiTeams.map((team, index) => {
             return (
-              <div className="ci-teams-status" key={index}>
-                <span>{team}</span> <span>🟥</span>
-              </div>
+
+            <div className="ci-teams-status-red" key={index}>
+              <Link
+              onClick={() => {ctx.setClickedTeam(team)}}
+              className="dashboard-team-link"
+              to={`/teams/${team.id}`}>
+                <span>{team.team_name}</span> 
+              </Link>
+              {/* <span>🟥</span> */}
+            </div>
             );
           })}
         </div>
         <div className="yellow_teams">
           {ctx.yellowCiTeams.map((team, index) => {
             return (
-              <div className="ci-teams-status" key={index}>
-                <span>{team}</span> <span>🟨</span>
+              <div className="ci-teams-status-yellow" key={index}>
+                <Link
+                onClick={() => {ctx.setClickedTeam(team)}}
+                className="dashboard-team-link"
+                to={`/teams/${team.id}`}>
+                  <span>{team.team_name}</span> 
+                </Link>
+                {/* <span>🟨</span> */}
               </div>
             );
           })}
@@ -87,8 +101,14 @@ const CiTeamStatus = () => {
         <div className="green_teams">
           {ctx.greenCiTeams.map((team, index) => {
             return (
-              <div className="ci-teams-status" key={index}>
-                <span>{team}</span> <span>🟩</span>
+              <div className="ci-teams-status-green" key={index}>
+                <Link
+                onClick={() => {ctx.setClickedTeam(team)}}
+                className="dashboard-team-link"
+                to={`/teams/${team.id}`}>
+                  <span>{team.team_name}</span> 
+                </Link>
+                {/* <span>🟩</span> */}
               </div>
             );
           })}
@@ -97,6 +117,9 @@ const CiTeamStatus = () => {
     </>
   );
 };
+
+
+
 
 export default CiTeamStatus;
 

@@ -10,6 +10,8 @@
   border-radius: 10px;
 }
 
-.miss-map {
-  height:100%;
+.info-window{
+  color: black;
+  font-size: 14px;
+  font-weight: 400;
 }

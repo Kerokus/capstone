@@ -9,7 +9,7 @@
     "ci-team-status humint-team-status sigint-team-status"
     "ci-team-status humint-team-status sigint-team-status";
   width: 100%;
-  height: 85vh;
+  height: 82.55vh;
   padding: 2em;
 }
 
@@ -21,7 +21,7 @@
   grid-area: dashboard-calendar;
   color: black;
   background-color: lightgrey;
-  overflow-y: scroll;
+  overflow-y: auto;
   border: solid lightgrey;
   border-radius: 10px;
 }
@@ -30,6 +30,8 @@
   grid-area: dashboard-map;
   border: solid lightgrey;
   border-radius: 10px;
+  height: 100%;
+  background-color: #212529;
 }
 
 .dashboard-upcoming {
@@ -37,6 +39,7 @@
   color: white;
   border: solid lightgray;
   border-radius: 10px;
+  background-color: #212529;
 }
 
 .upcoming-header {
@@ -49,7 +52,6 @@
 
 .team-missions {
   margin: 0;
-
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   font-size: 20px;
@@ -68,6 +70,415 @@
 .list ul li {
   position: relative;
 }
+
+/* all the team statuses fuckery */
+.dashboard-team-link{
+  color: lightgray;
+  text-decoration: none;
+}
+
+/* ci teams statuses */
+/* ci red */
+.ci-teams-status-red {
+  position: relative;
+  display: grid;
+  grid-template-columns: 55% auto;
+  left: 0;
+  color: #999;
+  list-style: none;
+  margin: 4px;
+  border-left: 8px solid #ff440b;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.ci-teams-status-red:hover {
+  left: 10px;
+  color: black;
+}
+.ci-teams-status-red a::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ff440b;
+  transform: scaleX(0);
+  transition: 0.5s;
+}
+.ci-teams-status-red a:hover::before {
+  transform: scaleX(1);
+}
+.ci-teams-status-red span {
+  position: relative;
+  padding: 8px;
+  display: inline-block;
+  z-index: 1;
+  transition: 0.5s;
+}
+.ci-teams-status-red a:hover{
+  color: black;
+}
+/* ci yellow */
+.ci-teams-status-yellow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 55% auto;
+  left: 0;
+  color: #999;
+  list-style: none;
+  margin: 4px;
+  border-left: 8px solid #ffeb0b;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.ci-teams-status-yellow:hover {
+  left: 10px;
+  color: black;
+}
+.ci-teams-status-yellow a::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ffeb0b;
+  transform: scaleX(0);
+  transition: 0.5s;
+}
+.ci-teams-status-yellow a:hover::before {
+  transform: scaleX(1);
+}
+.ci-teams-status-yellow span {
+  position: relative;
+  padding: 8px;
+  display: inline-block;
+  z-index: 1;
+  transition: 0.5s;
+}
+.ci-teams-status-yellow a:hover{
+  color: black;
+}
+/* ci green */
+.ci-teams-status-green {
+  position: relative;
+  display: grid;
+  grid-template-columns: 55% auto;
+  left: 0;
+  color: #999;
+  list-style: none;
+  margin: 4px;
+  border-left: 8px solid #24ff0b;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.ci-teams-status-green:hover {
+  left: 10px;
+  color: black;
+}
+.ci-teams-status-green a::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #24ff0b;
+  transform: scaleX(0);
+  transition: 0.5s;
+}
+.ci-teams-status-green a:hover::before {
+  transform: scaleX(1);
+}
+.ci-teams-status-green span {
+  position: relative;
+  padding: 8px;
+  display: inline-block;
+  z-index: 1;
+  transition: 0.5s;
+}
+.ci-teams-status-green a:hover{
+  color: black;
+}
+
+/* humint teams statuses */
+/* humint red */
+.humint-teams-status-red {
+  position: relative;
+  display: grid;
+  grid-template-columns: 70% auto;
+  left: 0;
+  color: #999;
+  list-style: none;
+  margin: 4px;
+  border-left: 8px solid #ff440b;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.humint-teams-status-red:hover {
+  left: 10px;
+  color: black;
+}
+.humint-teams-status-red a::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ff440b;
+  transform: scaleX(0);
+  transition: 0.5s;
+}
+.humint-teams-status-red a:hover::before {
+  transform: scaleX(1);
+}
+.humint-teams-status-red span {
+  position: relative;
+  padding: 8px;
+  display: inline-block;
+  z-index: 1;
+  transition: 0.5s;
+}
+.humint-teams-status-red a:hover{
+  color: black;
+}
+/* humint yellow */
+.humint-teams-status-yellow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 70% auto;
+  left: 0;
+  color: #999;
+  list-style: none;
+  margin: 4px;
+  border-left: 8px solid #ffeb0b;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.humint-teams-status-yellow:hover {
+  left: 10px;
+  color: black;
+}
+.humint-teams-status-yellow a::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ffeb0b;
+  transform: scaleX(0);
+  transition: 0.5s;
+}
+.humint-teams-status-yellow a:hover::before {
+  transform: scaleX(1);
+}
+.humint-teams-status-yellow span {
+  position: relative;
+  padding: 8px;
+  display: inline-block;
+  z-index: 1;
+  transition: 0.5s;
+}
+.humint-teams-status-yellow a:hover{
+  color: black;
+}
+/* humint green */
+.humint-teams-status-green {
+  position: relative;
+  display: grid;
+  grid-template-columns: 70% auto;
+  left: 0;
+  color: #999;
+  list-style: none;
+  margin: 4px;
+  border-left: 8px solid #24ff0b;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.humint-teams-status-green:hover {
+  left: 10px;
+  color: black;
+}
+.humint-teams-status-green a::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #24ff0b;
+  transform: scaleX(0);
+  transition: 0.5s;
+}
+.humint-teams-status-green a:hover::before {
+  transform: scaleX(1);
+}
+.humint-teams-status-green span {
+  position: relative;
+  padding: 8px;
+  display: inline-block;
+  z-index: 1;
+  transition: 0.5s;
+}
+.humint-teams-status-green a:hover{
+  color: black;
+}
+
+/* sigint teams statuses */
+/* sigint red */
+.sigint-teams-status-red {
+  position: relative;
+  display: grid;
+  grid-template-columns: 70% auto;
+  left: 0;
+  color: #999;
+  list-style: none;
+  margin: 4px;
+  border-left: 8px solid #ff440b;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.sigint-teams-status-red:hover {
+  left: 10px;
+  color: black;
+}
+.sigint-teams-status-red a::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ff440b;
+  transform: scaleX(0);
+  transition: 0.5s;
+}
+.sigint-teams-status-red a:hover::before {
+  transform: scaleX(1);
+}
+.sigint-teams-status-red span {
+  position: relative;
+  padding: 8px;
+  display: inline-block;
+  z-index: 1;
+  transition: 0.5s;
+}
+.sigint-teams-status-red a:hover{
+  color: black;
+}
+/* sigint yellow */
+.sigint-teams-status-yellow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 70% auto;
+  left: 0;
+  color: #999;
+  list-style: none;
+  margin: 4px;
+  border-left: 8px solid #ffeb0b;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.sigint-teams-status-yellow:hover {
+  left: 10px;
+  color: black;
+}
+.sigint-teams-status-yellow a::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ffeb0b;
+  transform: scaleX(0);
+  transition: 0.5s;
+}
+.sigint-teams-status-yellow a:hover::before {
+  transform: scaleX(1);
+}
+.sigint-teams-status-yellow span {
+  position: relative;
+  padding: 8px;
+  display: inline-block;
+  z-index: 1;
+  transition: 0.5s;
+}
+.sigint-teams-status-yellow a:hover{
+  color: black;
+}
+/* sigint green */
+.sigint-teams-status-green {
+  position: relative;
+  display: grid;
+  grid-template-columns: 70% auto;
+  left: 0;
+  color: #999;
+  list-style: none;
+  margin: 4px;
+  border-left: 8px solid #24ff0b;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.sigint-teams-status-green:hover {
+  left: 10px;
+  color: black;
+}
+.sigint-teams-status-green a::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #24ff0b;
+  transform: scaleX(0);
+  transition: 0.5s;
+}
+.sigint-teams-status-green a:hover::before {
+  transform: scaleX(1);
+}
+.sigint-teams-status-green span {
+  position: relative;
+  padding: 8px;
+  display: inline-block;
+  z-index: 1;
+  transition: 0.5s;
+}
+.sigint-teams-status-green a:hover{
+  color: black;
+}
+
+
+
+
+
+
+/* humint teams statuses */
+/* .humint-teams-status-red {
+  display: grid;
+  padding: 5%;
+  grid-template-columns: 70% auto;
+  border-left: 2px solid #ff440b;
+}
+.humint-teams-status-yellow {
+  display: grid;
+  padding: 5%;
+  grid-template-columns: 70% auto;
+  border-left: 2px solid #fff30b;
+}
+.humint-teams-status-green {
+  display: grid;
+  padding: 5%;
+  grid-template-columns: 70% auto;
+  border-left: 2px solid #24ff0b;
+} */
+/* sigint teams statuses */
+/* .sigint-teams-status-red {
+  display: grid;
+  padding: 5%;
+  grid-template-columns: 70% auto;
+  border-left: 2px solid #ff440b;
+}
+.sigint-teams-status-yellow {
+  display: grid;
+  padding: 5%;
+  grid-template-columns: 70% auto;
+  border-left: 2px solid #fff30b;
+}
+.sigint-teams-status-green {
+  display: grid;
+  padding: 5%;
+  grid-template-columns: 70% auto;
+  border-left: 2px solid #24ff0b;
+} */
+/* =================================== */
+
 
 .dashboard-team-list {
   position: relative;
@@ -92,6 +503,7 @@
 
 .dashboard-team-list:hover::before {
   transform: scaleX(1);
+  color: black;
 }
 
 .dashboard-team-list:hover {
@@ -107,6 +519,14 @@
   transition: 0.5s;
 }
 
+.dashboard-team-list:hover {
+  color: black;
+}
+
+.dashboard-team-list a:hover{
+  color: black;
+}
+
 .ci-team-status {
   grid-area: ci-team-status;
   padding: 10px;
@@ -114,6 +534,7 @@
   border-radius: 10px;
   font-family: "Poppins", sans-serif;
   font-size: 20px;
+  background-color: #212529;
 }
 
 .humint-team-status {
@@ -123,6 +544,7 @@
   border-radius: 10px;
   font-family: "Poppins", sans-serif;
   font-size: 20px;
+  background-color: #212529;
 }
 
 .sigint-team-status {
@@ -132,6 +554,7 @@
   border-radius: 10px;
   font-family: "Poppins", sans-serif;
   font-size: 20px;
+  background-color: #212529;
 }
 
 .google-container {
@@ -157,8 +580,6 @@
   color: rgb(152, 193, 217);
 
 } */
-
-
 
 /* .fuck{
   align-content: center;

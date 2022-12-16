@@ -44,7 +44,7 @@ const EditConop = () => {
       setValidated(true);
       event.preventDefault();
       let response = await fetch("http://localhost:8081/missions", {
-        method: "PUT",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -61,7 +61,7 @@ const EditConop = () => {
   return (
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
       <div className="submit-conop-container">
-        <h1>Edit CONOP</h1>
+        <h1>Submit CONOP</h1>
         <div className="submit-buttons-container">
           <Button
             className="conop-clear-button"
@@ -185,7 +185,7 @@ const EditConop = () => {
                   value={ctx.submitConopForm.location?.mgrs || ""}
                   type="text"
                   minLength={"13"}
-                  maxLength={"17"}
+                  maxLength={"18"}
                   placeholder="MGRS"
                   required
                 />

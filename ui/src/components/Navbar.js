@@ -5,6 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Clock from "react-live-clock";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
 import DigitalClock from "./DigitalClock";
@@ -49,6 +50,41 @@ const NavbarComponent = () => {
             {/* <Nav className="me-bottom"><DigitalClock/></Nav> */}
           </Container>
         </Navbar>
+      </Row>
+      <Row>
+        <Col style={{ textAlign: "center" }}>
+          <div className="clock-left">
+            <Clock
+              className="dashboard-clock"
+              format={"HH:mm:ss"}
+              ticking={true}
+              timezone={"US/Eastern"}
+            />
+            <p>Ft. Gordon, GA</p>
+          </div>
+        </Col>
+        <Col style={{ textAlign: "center" }}>
+          <div className="clock-center">
+            <Clock
+              className="dashboard-clock"
+              format={"HH:mm:ss"}
+              ticking={true}
+              timezone={"zulu"}
+            />
+            <p>Zulu</p>
+          </div>
+        </Col>
+        <Col style={{ textAlign: "center" }}>
+          <div className="clock-right">
+            <Clock
+              className="dashboard-clock"
+              format={"HH:mm:ss"}
+              ticking={true}
+              timezone={"Asia/Kuwait"}
+            />
+            <p>Kuwait City</p>
+          </div>
+        </Col>
       </Row>
     </>
   );

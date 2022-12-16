@@ -44,8 +44,8 @@ exports.seed = async function (knex) {
     },
     {
       id: 2,
-      start_date: "2022-12-17",
-      end_date: "2022-12-26",
+      start_date: "2022-12-16",
+      end_date: "2022-12-15",
       location: {
         city_base: "Camp Arifjan",
         country: "Kuwait",

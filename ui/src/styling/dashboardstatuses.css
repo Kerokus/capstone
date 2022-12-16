@@ -9,11 +9,11 @@
   border-style: solid;
 }
 
-.ci-teams-status {
+/* .ci-teams-status {
   display: grid;
   padding: 5%;
   grid-template-columns: 55% auto;
-}
+} */
 
 .ci-team-status {
   font-size: 20px;
@@ -25,19 +25,21 @@
   overflow-y: auto;
 }
 
-.humint-teams-status {
+/* .humint-teams-status {
   display: grid;
   padding: 5%;
   grid-template-columns: 70% auto;
-}
+} */
 
 .sigint-team-status {
   font-size: 20px;
   overflow-y: auto;
 }
 
-.sigint-teams-status {
+/* .sigint-teams-status {
   display: grid;
   padding: 5%;
   grid-template-columns: 70% auto;
-}
+} */
+
+

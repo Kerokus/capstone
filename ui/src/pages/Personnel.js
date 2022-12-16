@@ -29,7 +29,7 @@ const Personnel = () => {
       text: "Last Name",
       sort: true,
       headerStyle: (column, colIndex) => {
-        return { backgroundColor: "#5A5A5A", color: "white" };
+        return { backgroundColor: "#212529", color: "white" };
       },
       rowStyle: (row, rowIndex) => {
         return { color: "white" };
@@ -39,7 +39,7 @@ const Personnel = () => {
       dataField: "first_name",
       text: "First Name",
       headerStyle: (column, colIndex) => {
-        return { backgroundColor: "#5A5A5A", color: "white" };
+        return { backgroundColor: "#212529", color: "white" };
       },
     },
     {
@@ -47,7 +47,7 @@ const Personnel = () => {
       text: "DODID",
       sort: true,
       headerStyle: (column, colIndex) => {
-        return { backgroundColor: "#5A5A5A", color: "white" };
+        return { backgroundColor: "#212529", color: "white" };
       },
       rowStyle: (row, rowIndex) => {
         return { color: "white" };
@@ -58,7 +58,7 @@ const Personnel = () => {
       text: "Rank",
       sort: true,
       headerStyle: (column, colIndex) => {
-        return { width: "5%", backgroundColor: "#5A5A5A", color: "white" };
+        return { width: "5%", backgroundColor: "#212529", color: "white" };
       },
     },
     {
@@ -66,7 +66,7 @@ const Personnel = () => {
       text: "MOS",
       sort: true,
       headerStyle: (column, colIndex) => {
-        return { width: "70px", backgroundColor: "#5A5A5A", color: "white" };
+        return { width: "70px", backgroundColor: "#212529", color: "white" };
       },
     },
 
@@ -75,7 +75,7 @@ const Personnel = () => {
       text: "Email address",
       sort: true,
       headerStyle: (column, colIndex) => {
-        return { width: "300px", backgroundColor: "#5A5A5A", color: "white" };
+        return { width: "300px", backgroundColor: "#212529", color: "white" };
       },
     },
     {
@@ -83,7 +83,7 @@ const Personnel = () => {
       text: "Status",
       sort: true,
       headerStyle: (column, colIndex) => {
-        return { width: "100px", backgroundColor: "#5A5A5A", color: "white" };
+        return { width: "100px", backgroundColor: "#212529", color: "white" };
       },
     },
     {
@@ -91,7 +91,7 @@ const Personnel = () => {
       text: "Team",
       sort: true,
       headerStyle: (column, colIndex) => {
-        return { width: "100px", backgroundColor: "#5A5A5A", color: "white" };
+        return { width: "100px", backgroundColor: "#212529", color: "white" };
       },
     },
     {
@@ -99,7 +99,7 @@ const Personnel = () => {
       text: "City",
       sort: true,
       headerStyle: (column, colIndex) => {
-        return { width: "120px", backgroundColor: "#5A5A5A", color: "white" };
+        return { width: "120px", backgroundColor: "#212529", color: "white" };
       },
     },
 
@@ -108,7 +108,7 @@ const Personnel = () => {
       text: "Country",
       sort: true,
       headerStyle: (column, colIndex) => {
-        return { width: "120px", backgroundColor: "#5A5A5A", color: "white" };
+        return { width: "120px", backgroundColor: "#212529", color: "white" };
       },
     },
     {
@@ -116,7 +116,7 @@ const Personnel = () => {
       text: "Deployment Start",
       sort: true,
       headerStyle: (column, colIndex) => {
-        return { width: "120px", backgroundColor: "#5A5A5A", color: "white" };
+        return { width: "120px", backgroundColor: "#212529", color: "white" };
       },
     },
     {
@@ -124,7 +124,7 @@ const Personnel = () => {
       text: "Deployment End",
       sort: true,
       headerStyle: (column, colIndex) => {
-        return { width: "120px", backgroundColor: "#5A5A5A", color: "white" };
+        return { width: "120px", backgroundColor: "#212529", color: "white" };
       },
     },
     {
@@ -143,7 +143,7 @@ const Personnel = () => {
         );
       },
       headerStyle: (column, colIndex) => {
-        return { width: "120px", backgroundColor: "#5A5A5A", color: "white" };
+        return { width: "120px", backgroundColor: "#212529", color: "white" };
       },
     },
   ];
@@ -307,22 +307,16 @@ const Personnel = () => {
       ctx.setFilteredData(searchArray);
     });
   }, [ctx.searchTerm]);
-
+  // background-color: #212529;
   return (
     <div className="personnel-page-container">
-      <h1 className="personnel-header-text">Deployed Personnel</h1>
+      
       <div className="nav-buttons">
         <Button className="add-mission" variant="success" onClick={handleAdd}>
           Add Personnel
         </Button>
-        <Link className="homepage-button-personnel" to="/">
-          <Button variant="primary" className="homepage-button">
-            Back to Home
-          </Button>
-        </Link>
-      </div>
 
-      <div className="mainsearch">
+        <div className="mainsearch">
         <input
           className="text-search-bar"
           type="text"
@@ -332,9 +326,19 @@ const Personnel = () => {
           }}
           value={ctx.searchTerm}
         />
-        <Csv />
       </div>
 
+        <Link className="homepage-button-personnel" to="/">
+          <Button variant="primary" className="homepage-button">
+            Back to Home
+          </Button>
+        </Link>
+      </div>
+
+
+
+      
+      
       <Modal
         show={ctx.show}
         onHide={handleClose}
@@ -553,7 +557,17 @@ const Personnel = () => {
         </Modal.Body>
       </Modal>
 
+
+      
+      
+      {/* <div className="personnel-header-text"> <Csv/> Deployed Personnel <Csv/> </div> */}
+        <div className="header-and-csv">
+            <div className="personnel-header-text"> Deployed Personnel </div>
+            <Csv/>
+        </div>
+      
       <div className="table-div">
+      
         <BootstrapTable
           keyField="id"
           data={ctx.filteredData}

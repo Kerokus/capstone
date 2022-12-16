@@ -159,15 +159,11 @@ import React, {
                   setSelected(null);
                 }}
               >
-                <div>
-                  
-                  <p>
-                  {selected.id}</p>
-                  <p>
-                  lat:{selected.lat}, lng:{selected.lng}
-                  </p>
-                  
-                </div>
+              <div className="info-window">
+                <p>{selected.id}</p>
+                <div>{`lat: ${selected.lat}`}</div>
+                <div>{`long: ${selected.lng}`}</div>
+              </div>
               </InfoWindow>
             ) : null}
           </GoogleMap>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
-import Clock from "react-live-clock";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import { Link } from "react-router-dom";
 import format from "date-fns/format";
@@ -12,7 +11,6 @@ import HumintTeamStatus from "./HumintTeamStatus";
 import SigintTeamStatus from "./SigintTeamStatus";
 import { toPoint } from "mgrs";
 import DashboardMap from "../components/DashboardMap";
-import Places from "../components/Map";
 
 const Dashboard = () => {
   const ctx = useContext(GlobalContext);
@@ -34,6 +32,7 @@ const Dashboard = () => {
     missionsFetch();
     statusFetch();
     toggleRefresh();
+    ctx.setClickedMission();
   }, []);
 
   useEffect(() => {
@@ -143,9 +142,13 @@ const Dashboard = () => {
       <li className="dashboard-team-list" key={index}>
         <span>
           <Link
+          onClick={() => {ctx.setClickedMission(mission)}}
             className="dashboard-mission-link"
+            onClick={ctx.setClickedMission(mission)}
             to={`/missions/${mission.id}`}
+            
           >{`${mission.start_date} - ${mission.name}`}</Link>
+          
         </span>
       </li>
     );
