@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
-import SingleMissionMap from "../components/SingleMissionMap"
+import SingleMissionMap from "../components/SingleMissionMap";
 import { toPoint } from "mgrs";
-
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/esm/Row";
+import { Link } from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 
 const SingleMission = () => {
   const ctx = useContext(GlobalContext);
@@ -53,31 +58,30 @@ const SingleMission = () => {
     setLoading(false);
   };
 
- 
   let coordinates = {};
   let zoom;
 
   if (ctx.clickedMission.location.country === "Kuwait") {
     coordinates = { lat: 29.34562355852184, lng: 47.67637238617149 };
-    zoom = 8
+    zoom = 8;
   } else if (ctx.clickedMission.location.country === "Jordan") {
     coordinates = { lat: 31.00994216931093, lng: 36.6326645727253 };
-    zoom = 7
+    zoom = 7;
   } else if (ctx.clickedMission.location.country === "USA") {
-    console.log(ctx.clickedMission)
-    coordinates = { lat: 35.14147146711656, lng: -79.00823128996466 };;
-    zoom = 12
+    console.log(ctx.clickedMission);
+    coordinates = { lat: 35.14147146711656, lng: -79.00823128996466 };
+    zoom = 12;
   } else if (ctx.clickedMission.location.country === "Qatar") {
     coordinates = { lat: 25.27628, lng: 51.525105 };
-    zoom = 6
+    zoom = 6;
   } else if (ctx.clickedMission.location.country === "Iraq") {
     coordinates = { lat: 36.230501, lng: 43.956688 };
-    zoom = 6
+    zoom = 6;
   } else {
     coordinates = { lat: 32.313793143601366, lng: 55.194812819979404 };
-    zoom = 4
+    zoom = 4;
   }
-  
+
   const missionFetch = async () => {
     setLoading(true);
     await fetch(`http://localhost:8081/missions/${ctx.clickedMission.id}`)
@@ -89,41 +93,88 @@ const SingleMission = () => {
     setLoading(false);
   };
 
-
   //console.log('dashboard mission:', ctx.dashboard)
   //console.log('single mission:', ctx.singleMission)
 
   useEffect(() => {
-    
-    let missionMarkersArray = []
+    let missionMarkersArray = [];
     ctx.dashboard.forEach((mission) => {
-      
-      
       if (mission.id === ctx.clickedMission.id) {
         missionMarkersArray.push({
           id: mission.title,
           lat: mission.coords[1],
           lng: mission.coords[0],
-        })
+        });
       }
-    },
-    ctx.setMissionMarkers(missionMarkersArray)
-    );
+    }, ctx.setMissionMarkers(missionMarkersArray));
   }, [ctx.dashboard]);
+
+  const toggleRefresh = () => {
+    ctx.setRefresh((current) => !current);
+  };
+
+  const handleStatusChange = async (event) => {
+    let newData = { ...ctx.singleMission[0] };
+    newData[event.target.id] = event.target.value;
+    ctx.setSingleMission([newData]);
+    try {
+      let response = await fetch(
+        `http://localhost:8081/missions/${ctx.singleMission[0].id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newData),
+        }
+      );
+      if (response.status !== 201) {
+        throw new Error();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    toggleRefresh();
+  };
 
   return (
     <>
       {loading && <div>Loading Data...</div>}
       {ctx.singleMission[0] && (
         <div className="mission-container">
-
           <div className="single-mission-map">
-          <SingleMissionMap  coordinates={coordinates} zoom={zoom} />
+            <SingleMissionMap coordinates={coordinates} zoom={zoom} />
           </div>
-            
-            
 
           <div className="mission-admin-data">
+            <Link
+              to={`/missions/${ctx.singleMission[0].id}/edit`}
+              style={{ color: "white", textDecoration: "none" }}
+              onClick={() => {
+                ctx.setSubmitConopForm(ctx.singleMission[0]);
+              }}
+            >
+              <Button>Edit CONOP</Button>
+            </Link>
+
+            <div className="single-mission-status">
+              Activity Status:{" "}
+              <Form.Group as={Col} md="4">
+                <Form.Select
+                  md="3"
+                  id="status"
+                  onChange={(e) => handleStatusChange(e)}
+                  value={ctx.singleMission[0].status}
+                  aria-label="Default select example"
+                >
+                  <option>Pending</option>
+                  <option>Active</option>
+                  <option>Complete</option>
+                  <option>Cancelled</option>
+                </Form.Select>
+              </Form.Group>
+            </div>
+
             <h3>ADMIN DATA</h3>
             <p>
               <b>Team:</b> {ctx.singleMission[0].team_name}

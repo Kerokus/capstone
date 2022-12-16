@@ -25,6 +25,7 @@ const EditConop = () => {
       newData[event.target.id] = event.target.value;
     }
     ctx.setSubmitConopForm(newData);
+    console.log(newData);
   };
 
   //Clears the form data
@@ -43,13 +44,16 @@ const EditConop = () => {
     } else {
       setValidated(true);
       event.preventDefault();
-      let response = await fetch("http://localhost:8081/missions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(ctx.submitConopForm),
-      });
+      let response = await fetch(
+        `http://localhost:8081/missions/${ctx.submitConopForm.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(ctx.submitConopForm),
+        }
+      );
       ctx.setSubmitConopForm({});
       setValidated(false);
       if (response.status !== 201) {
@@ -61,7 +65,7 @@ const EditConop = () => {
   return (
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
       <div className="submit-conop-container">
-        <h1>Submit CONOP</h1>
+        <h1>Edit CONOP</h1>
         <div className="submit-buttons-container">
           <Button
             className="conop-clear-button"
@@ -79,7 +83,7 @@ const EditConop = () => {
         <Row>
           <Col>
             <h3>Admin Data</h3>
-            <Form.Group as={Col} md="3">
+            <Form.Group as={Col} md="4">
               <Form.Label>Team Name</Form.Label>
               <Form.Select
                 id="team_id"
