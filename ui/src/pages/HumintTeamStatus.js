@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import { Link } from "react-router-dom";
 
 const HumintTeamStatus = () => {
   const ctx = useContext(GlobalContext);
@@ -35,17 +36,17 @@ const HumintTeamStatus = () => {
         personnel_status === "RED" ||
         equipment_status === "RED"
       ) {
-        redHumintTeams.push(ctx.humintTeams[i].team_name);
+        redHumintTeams.push(ctx.humintTeams[i]);
         ctx.setRedHumintTeams(redHumintTeams);
       } else if (
         comms_status === "YELLOW" ||
         personnel_status === "YELLOW" ||
         equipment_status === "YELLOW"
       ) {
-        yellowHumintTeams.push(ctx.humintTeams[i].team_name);
+        yellowHumintTeams.push(ctx.humintTeams[i]);
         ctx.setYellowHumintTeams(yellowHumintTeams);
       } else {
-        greenHumintTeams.push(ctx.humintTeams[i].team_name);
+        greenHumintTeams.push(ctx.humintTeams[i]);
         ctx.setGreenHumintTeams(greenHumintTeams);
       }
     }
@@ -60,27 +61,46 @@ const HumintTeamStatus = () => {
         <div className="red_teams">
           {ctx.redHumintTeams.map((team, index) => {
             return (
-              <div className="humint-teams-status" key={index}>
-                <span>{team}</span> <span>🟥</span>
-              </div>
+
+            <div className="humint-teams-status-red" key={index}>
+              <Link
+              onClick={() => {ctx.setClickedTeam(team)}}
+              className="dashboard-team-link"
+              to={`/teams/${team.id}`}>
+                <span>{team.team_name}</span> 
+              </Link>
+              {/* <span>🟥</span> */}
+            </div>
             );
           })}
         </div>
         <div className="yellow_teams">
           {ctx.yellowHumintTeams.map((team, index) => {
             return (
-              <div className="humint-teams-status" key={index}>
-                <span>{team}</span> <span>🟨</span>
-              </div>
+            <div className="humint-teams-status-yellow" key={index}>
+              <Link
+              onClick={() => {ctx.setClickedTeam(team)}}
+              className="dashboard-team-link"
+              to={`/teams/${team.id}`}>
+                <span>{team.team_name}</span> 
+              </Link>
+              {/* <span>🟨</span> */}
+            </div>
             );
           })}
         </div>
         <div className="green_teams">
           {ctx.greenHumintTeams.map((team, index) => {
             return (
-              <div className="humint-teams-status" key={index}>
-                <span>{team}</span> <span>🟩</span>
-              </div>
+            <div className="humint-teams-status-green" key={index}>
+              <Link
+              onClick={() => {ctx.setClickedTeam(team)}}
+              className="dashboard-team-link"
+              to={`/teams/${team.id}`}>
+                <span>{team.team_name}</span> 
+              </Link>
+              {/* <span>🟩</span> */}
+            </div>
             );
           })}
         </div>

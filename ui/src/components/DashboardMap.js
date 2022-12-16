@@ -127,6 +127,7 @@ export default function DashboardMap({ coordinates }) {
                 draggable={false}
                 onClick={() => {
                   setSelected(marker);
+                  console.log(selected)
                 }}
                 icon={{
                   url: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png",
@@ -147,11 +148,10 @@ export default function DashboardMap({ coordinates }) {
                 setSelected(null);
               }}
             >
-              <div>
+              <div className="info-window">
                 <p>{selected.id}</p>
-                <p>
-                  {selected.lat}, {selected.lng}
-                </p>
+                <div>{`lat: ${selected.lat}`}</div>
+                <div>{`long: ${selected.lng}`}</div>
               </div>
             </InfoWindow>
           ) : null}

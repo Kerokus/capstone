@@ -157,12 +157,10 @@ export default function TeamMap({ coordinates, zoom }) {
                 setSelected(null);
               }}
             >
-              <div>
-              <p>
-                  {selected.id}</p>
-                <p>
-                  lat:{selected.lat}, long:{selected.lng}
-                </p>
+              <div className="info-window">
+                <p>{selected.id}</p>
+                <div>{`lat: ${selected.lat}`}</div>
+                <div>{`long: ${selected.lng}`}</div>
               </div>
             </InfoWindow>
           ) : null}
