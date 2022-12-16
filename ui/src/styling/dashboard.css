@@ -31,6 +31,7 @@
   border: solid lightgrey;
   border-radius: 10px;
   height: 100%;
+  background-color: #212529;
 }
 
 .dashboard-upcoming {
@@ -38,6 +39,7 @@
   color: white;
   border: solid lightgray;
   border-radius: 10px;
+  background-color: #212529;
 }
 
 .upcoming-header {
@@ -331,7 +333,7 @@
   left: 10px;
   color: black;
 }
-.sigint-teams-status-red::before {
+.sigint-teams-status-red a::before {
   content: "";
   position: absolute;
   width: 100%;
@@ -340,7 +342,7 @@
   transform: scaleX(0);
   transition: 0.5s;
 }
-.sigint-teams-status-red:hover::before {
+.sigint-teams-status-red a:hover::before {
   transform: scaleX(1);
 }
 .sigint-teams-status-red span {
@@ -370,7 +372,7 @@
   left: 10px;
   color: black;
 }
-.sigint-teams-status-yellow::before {
+.sigint-teams-status-yellow a::before {
   content: "";
   position: absolute;
   width: 100%;
@@ -379,7 +381,7 @@
   transform: scaleX(0);
   transition: 0.5s;
 }
-.sigint-teams-status-yellow:hover::before {
+.sigint-teams-status-yellow a:hover::before {
   transform: scaleX(1);
 }
 .sigint-teams-status-yellow span {
@@ -409,7 +411,7 @@
   left: 10px;
   color: black;
 }
-.sigint-teams-status-green::before {
+.sigint-teams-status-green a::before {
   content: "";
   position: absolute;
   width: 100%;
@@ -418,7 +420,7 @@
   transform: scaleX(0);
   transition: 0.5s;
 }
-.sigint-teams-status-green:hover::before {
+.sigint-teams-status-green a:hover::before {
   transform: scaleX(1);
 }
 .sigint-teams-status-green span {
@@ -532,6 +534,7 @@
   border-radius: 10px;
   font-family: "Poppins", sans-serif;
   font-size: 20px;
+  background-color: #212529;
 }
 
 .humint-team-status {
@@ -541,6 +544,7 @@
   border-radius: 10px;
   font-family: "Poppins", sans-serif;
   font-size: 20px;
+  background-color: #212529;
 }
 
 .sigint-team-status {
@@ -550,6 +554,7 @@
   border-radius: 10px;
   font-family: "Poppins", sans-serif;
   font-size: 20px;
+  background-color: #212529;
 }
 
 .google-container {
