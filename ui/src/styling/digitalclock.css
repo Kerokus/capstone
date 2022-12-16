@@ -1,27 +1,14 @@
-
-
-
-.digital-container-clock{
-
-}
-
-.digital-clock{
-
-}
 .clocks-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  
 }
 
 .clocks-container > div {
   text-align: center;
   align-items: center;
   text-align: center;
-  margin: 5px;
   justify-content: space-evenly;
-  padding: 1em;
   /* position: fixed; */
 }
 
@@ -35,19 +22,13 @@
   justify-content: space-evenly;
 }
 
-
-
-.timer-background{
+.timer-background {
   /* height: 100%; */
   /* background-color: rgb(42, 42, 42); */
   color: lightgray;
   /* background-color: #212529; */
-  background-color: rgb(73, 88, 73)
-  /* margin-bottom: 30px; */
+  /* margin-top: 100px; */
 }
-
-
-
 
 .clocks-container1 {
   display: flex;
@@ -55,7 +36,6 @@
   justify-content: center;
   justify-content: space-between;
   /* justify-content: space-evenly; */
-  
 }
 
 .clocks-container1 > div {
@@ -64,7 +44,6 @@
   margin: 5px;
   width: 100%;
   /* justify-content: space-evenly; */
-  
 }
 
 .dashboard-clock1 {
@@ -72,7 +51,4 @@
   font-family: "Orbitron", sans-serif;
   font-size: 20px;
   color: rgb(152, 193, 217);
-
 }
-
-

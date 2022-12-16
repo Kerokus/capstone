@@ -4,6 +4,7 @@ import { ContextProvider } from "../Context/GlobalContext";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import DigitalClock from "../components/DigitalClock";
 
 //import pages
 import Fetches from "../components/Fetches";
@@ -16,18 +17,14 @@ import SingleTeam from "./SingleTeam";
 import SubmitConop from "./SubmitConop";
 import EditConop from "./EditConop";
 
-import DigitalClock from "../components/DigitalClock";
-
-import Csv from "../components/Csv";
 function App() {
   return (
-    <>
-      <ContextProvider>
-        <Fetches />
-        <div className="app-container">
-          <Navbar />
-          {/* <DigitalClock /> */}
-          <div className ="app-js-div">
+    <ContextProvider>
+      <Fetches />
+      <div className="app-container">
+        <Navbar />
+        <div className="app-styling-div">
+          <DigitalClock />
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/missions" element={<Missions />} />
@@ -41,9 +38,8 @@ function App() {
           </Routes>
           <Footer />
         </div>
-        </div>
-      </ContextProvider>
-    </>
+      </div>
+    </ContextProvider>
   );
 }
 

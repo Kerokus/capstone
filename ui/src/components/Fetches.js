@@ -9,6 +9,7 @@ const Fetches = () => {
   const urlTeams = "http://localhost:8081/teams";
 
   useEffect(() => {
+    console.log("UseEffect Fired.");
     fetch(urlMissions)
       .then((res) => res.json())
       .then((data) => ctx.setMissions(data))
@@ -23,64 +24,50 @@ const Fetches = () => {
       .then((res) => res.json())
       .then((data) => ctx.setTeams(data))
       .catch((err) => console.error(err));
-
   }, [ctx.refresh]);
 
+  // async FETCH TEAM TABLE DATA (needed to render team names)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8081/teams");
+        const data = await response.json();
+        ctx.setTeamData(data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchData();
+  }, [ctx.refresh]);
 
-
-// async FETCH TEAM TABLE DATA (needed to render team names)
-useEffect(() => {
-  const fetchData = async () => {
-    try{
-      const response = await fetch("http://localhost:8081/teams")
-      const data = await response.json()
-      ctx.setTeamData(data)
-    } catch (e) {
-      console.log(e)
-    }
-  }
-  fetchData()
-}, [ctx.refresh])
-
-// async FETCH PERSONNEL TABLE DATA 
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await fetch("http://localhost:8081/personnel")
-      const data = await response.json()
-      let dataSlice = data.map(item => {
-        if (item.dep_start) {
-          item.dep_start = item.dep_start.slice(0, 10);
-        } if (item.dep_end) {
-          item.dep_end = item.dep_end.slice(0, 10);
-        }
-        return item;
-      })
-    ctx.setPersonnelData(dataSlice);
-    ctx.setFilteredData(dataSlice);
-    } catch (e) {
-      console.log(e)
-    }
-  }
-  fetchData()
-}, [ctx.refresh])
-
-  
+  // async FETCH PERSONNEL TABLE DATA
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8081/personnel");
+        const data = await response.json();
+        let dataSlice = data.map((item) => {
+          if (item.dep_start) {
+            item.dep_start = item.dep_start.slice(0, 10);
+          }
+          if (item.dep_end) {
+            item.dep_end = item.dep_end.slice(0, 10);
+          }
+          return item;
+        });
+        ctx.setPersonnelData(dataSlice);
+        ctx.setFilteredData(dataSlice);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchData();
+  }, [ctx.refresh]);
 
   return <div></div>;
-  
 };
 
-
-
-
-
-
 export default Fetches;
-
-
-
-
 
 //Creates new "team_name" column in personnel table being rendered
 // useEffect(() => {
@@ -95,4 +82,3 @@ export default Fetches;
 //   ctx.setFilteredData(withTeamNames)
 //   console.log(ctx.filteredData)
 // }, [ctx.personnelData, ctx.teamData])
-
