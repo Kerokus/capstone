@@ -65,11 +65,18 @@ useEffect(() => {
   fetchData()
 }, [ctx.refresh])
 
-  
+
+useEffect(() => {
+  // ctx.setDashboardMarkers([])
+  ctx.setUpcomingMissions([])
+}, []);
+
 
   return <div></div>;
   
 };
+
+
 
 
 

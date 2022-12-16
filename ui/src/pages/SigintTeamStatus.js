@@ -5,6 +5,14 @@ import { Link } from "react-router-dom";
 const SigintTeamStatus = () => {
   const ctx = useContext(GlobalContext);
 
+  const toggleRefresh = () => {
+    ctx.setRefresh((current) => !current);
+  };
+  
+  useEffect(() => {
+    toggleRefresh()
+  }, [ctx.redSigintTeams, ctx.yellowSigintTeams, ctx.greenSigintTeams])
+
   /* iterates over the teams state variable, then pushes all teams with 'SIGINT' in their name to the sigintTeamsArray,
   then sets the sigintTeams state variable with that array. [fires whenever the teams state variable changes]. */
   useEffect(() => {

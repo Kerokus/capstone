@@ -11,6 +11,7 @@
   width: 100%;
   height: 85vh;
   padding: 2em;
+  
 }
 
 .map.map {
@@ -557,9 +558,7 @@
   background-color: #212529;
 }
 
-.google-container {
-  height: 100%;
-}
+
 
 /* .clocks-container {
   display: flex;
