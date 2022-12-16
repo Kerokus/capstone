@@ -17,6 +17,13 @@
 .app-container {
   height: 100%;
   background-color: rgb(42, 42, 42);
+  background-color: #212529;
   color: lightgray;
   margin-bottom: 30px;
+  overflow-x: hidden;
+}
+
+.app-js-div{
+  margin-top: 175px;
+
 }
