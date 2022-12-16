@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import { GlobalContext } from "../Context/GlobalContext";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import { Link } from "react-router-dom";
 import format from "date-fns/format";

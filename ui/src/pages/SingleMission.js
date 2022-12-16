@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import { GlobalContext } from "../Context/GlobalContext";
 import SingleMissionMap from "../components/SingleMissionMap";
 import { toPoint } from "mgrs";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/esm/Row";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 
 const SingleMission = () => {
   const ctx = useContext(GlobalContext);
