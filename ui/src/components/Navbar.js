@@ -16,9 +16,10 @@ const NavbarComponent = () => {
   const [loading, setLoading] = useState(false);
 
   return (
-    <>
+    <div className ="nav-position">
+    
       <Row>
-        <Navbar className="nav" bg="dark" variant="dark">
+        <Navbar className="nav py-" bg="dark" variant="dark">
           <Container className="navbar" position="absolute">
             <Navbar.Brand className="webpage-title" as={Link} to="/">
               Theater Operations Management System
@@ -46,7 +47,7 @@ const NavbarComponent = () => {
           </Container>
         </Navbar>
       </Row>
-      <Row>
+      <Row className ="timer-background">
         <Col style={{ textAlign: "center" }}>
           <div className="clock-left">
             <Clock
@@ -81,7 +82,7 @@ const NavbarComponent = () => {
           </div>
         </Col>
       </Row>
-    </>
+    </div>
   );
 };
 

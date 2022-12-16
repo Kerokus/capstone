@@ -1,11 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Quantico&display=swap");
 
+.nav-position{
+  top: 0;
+  position: fixed;
+  width: 100vw;
+  height: 150px;
+  border: 1px solid red;
+
+}
 .navbar {
   --bs-nav-brand-color: white;
+
+
 }
 .navbar-nav {
   --bs-nav-link-hover-color: lightgray;
   --bs-nav-link-disabled-color: white;
+
 }
 
 .missions {
@@ -20,6 +31,8 @@
   display: flex;
   justify-content: space-between;
   flex: 12;
+
+
 }
 .personnel {
   color: white;

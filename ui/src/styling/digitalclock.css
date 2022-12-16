@@ -1,5 +1,6 @@
 
 
+
 .digital-container-clock{
 
 }
@@ -20,8 +21,8 @@
   text-align: center;
   margin: 5px;
   justify-content: space-evenly;
-  padding: 1em
-
+  padding: 1em;
+  /* position: fixed; */
 }
 
 .dashboard-clock {
@@ -36,7 +37,14 @@
 
 
 
-
+.timer-background{
+  /* height: 100%; */
+  /* background-color: rgb(42, 42, 42); */
+  color: lightgray;
+  /* background-color: #212529; */
+  background-color: rgb(73, 88, 73)
+  /* margin-bottom: 30px; */
+}
 
 
 
