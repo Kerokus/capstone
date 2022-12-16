@@ -26,6 +26,8 @@ function App() {
         <Fetches />
         <div className="app-container">
           <Navbar />
+          {/* <DigitalClock /> */}
+          <div className ="app-js-div">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/missions" element={<Missions />} />
@@ -38,6 +40,7 @@ function App() {
             <Route path="/conop" element={<SubmitConop />} />
           </Routes>
           <Footer />
+        </div>
         </div>
       </ContextProvider>
     </>
