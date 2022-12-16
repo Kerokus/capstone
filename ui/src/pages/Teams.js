@@ -176,7 +176,9 @@ const Teams = () => {
         text="white"
         className="mission-card"
       >
+        <div className="teams-headers">
         <Card.Header> {team.team_name} </Card.Header>
+        </div>
         <Card.Body className="card-body">
           <div className="test" key={index}>
             <div className="team-map">

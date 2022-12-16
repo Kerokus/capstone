@@ -8,7 +8,7 @@ const CiTeamStatus = () => {
   const toggleRefresh = () => {
     ctx.setRefresh((current) => !current);
   };
-  
+  console.log("string")
   useEffect(() => {
     toggleRefresh()
   }, []);

@@ -1,4 +1,6 @@
 .card-header {
+  display: inline-block;
+  justify-content: center;
   align-content: center;
   align-items: center;
   align-self: baseline;
@@ -63,9 +65,16 @@
   color: black;
   text-align: center;
   align-content: center;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
   height: 20em;
 }
 
-.team-location-data {
+.teams-headers {
+  display:grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.teams-map {
+  height: calc(100% - 18px)
 }
