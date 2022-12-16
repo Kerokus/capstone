@@ -34,6 +34,7 @@ const Dashboard = () => {
     missionsFetch();
     statusFetch();
     toggleRefresh();
+    ctx.setClickedMission();
   }, []);
 
   useEffect(() => {
@@ -143,9 +144,12 @@ const Dashboard = () => {
       <li className="dashboard-team-list" key={index}>
         <span>
           <Link
+          onClick={() => {ctx.setClickedMission(mission)}}
             className="dashboard-mission-link"
             to={`/missions/${mission.id}`}
+            
           >{`${mission.start_date} - ${mission.name}`}</Link>
+          
         </span>
       </li>
     );

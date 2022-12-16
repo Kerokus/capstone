@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import { Link } from "react-router-dom";
 
 const SigintTeamStatus = () => {
   const ctx = useContext(GlobalContext);
@@ -35,17 +36,17 @@ const SigintTeamStatus = () => {
         personnel_status === "RED" ||
         equipment_status === "RED"
       ) {
-        redSigintTeams.push(ctx.sigintTeams[i].team_name);
+        redSigintTeams.push(ctx.sigintTeams[i]);
         ctx.setRedSigintTeams(redSigintTeams);
       } else if (
         comms_status === "YELLOW" ||
         personnel_status === "YELLOW" ||
         equipment_status === "YELLOW"
       ) {
-        yellowSigintTeams.push(ctx.sigintTeams[i].team_name);
+        yellowSigintTeams.push(ctx.sigintTeams[i]);
         ctx.setYellowSigintTeams(yellowSigintTeams);
       } else {
-        greenSigintTeams.push(ctx.sigintTeams[i].team_name);
+        greenSigintTeams.push(ctx.sigintTeams[i]);
         ctx.setGreenSigintTeams(greenSigintTeams);
       }
     }
@@ -60,27 +61,45 @@ const SigintTeamStatus = () => {
         <div className="red_teams">
           {ctx.redSigintTeams.map((team, index) => {
             return (
-              <div className="sigint-teams-status" key={index}>
-                <span>{team}</span> <span>🟥</span>
-              </div>
+            <div className="sigint-teams-status-red" key={index}>
+              <Link
+              onClick={() => {ctx.setClickedTeam(team)}}
+              className="dashboard-team-link"
+              to={`/teams/${team.id}`}>
+                <span>{team.team_name}</span> 
+              </Link>
+              {/* <span>🟥</span> */}
+            </div>
             );
           })}
         </div>
         <div className="yellow_teams">
           {ctx.yellowSigintTeams.map((team, index) => {
             return (
-              <div className="sigint-teams-status" key={index}>
-                <span>{team}</span> <span>🟨</span>
-              </div>
+            <div className="sigint-teams-status-yellow" key={index}>
+              <Link
+              onClick={() => {ctx.setClickedTeam(team)}}
+              className="dashboard-team-link"
+              to={`/teams/${team.id}`}>
+                <span>{team.team_name}</span> 
+              </Link>
+              {/* <span>🟨</span> */}
+            </div>
             );
           })}
         </div>
         <div className="green_teams">
           {ctx.greenSigintTeams.map((team, index) => {
             return (
-              <div className="sigint-teams-status" key={index}>
-                <span>{team}</span> <span>🟩</span>
-              </div>
+            <div className="sigint-teams-status-green" key={index}>
+              <Link
+              onClick={() => {ctx.setClickedTeam(team)}}
+              className="dashboard-team-link"
+              to={`/teams/${team.id}`}>
+                <span>{team.team_name}</span> 
+              </Link>
+              {/* <span>🟩</span> */}
+            </div>
             );
           })}
         </div>
