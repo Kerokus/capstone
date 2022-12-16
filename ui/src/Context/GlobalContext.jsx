@@ -50,6 +50,7 @@ const ContextProvider = ({ children }) => {
   const [showDelete, setShowDelete] = useState(false);
   const [singleMission, setSingleMission] = useState([]);
   const [latLong, setLatLong] = useState([]);
+  const [upcomingMissions, setUpcomingMissions] = useState([]);
 
   // <- <- Personnel
   const [showWarning, setShowWarning] = useState(false);
@@ -174,7 +175,9 @@ const ContextProvider = ({ children }) => {
     dashboardMarkers,
     setDashboardMarkers, 
     missionMarkers,
-    setMissionMarkers
+    setMissionMarkers,
+    upcomingMissions,
+    setUpcomingMissions
   };
 
   return (

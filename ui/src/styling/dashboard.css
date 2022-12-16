@@ -11,6 +11,7 @@
   width: 100%;
   height: 90vh;
   padding: 2em;
+  
 }
 
 .map.map {
@@ -30,7 +31,7 @@
   grid-area: dashboard-map;
   border: solid lightgrey;
   border-radius: 10px;
-  height: 100%;
+  height: calc(100% );
   background-color: #212529;
 }
 
@@ -552,7 +553,13 @@
 }
 
 .google-container {
-  height: 100%;
+  height: calc(100% - 18px);
+}
+
+.search {
+  display: grid;
+  justify-content: center;
+  align-items: center;
 }
 
 /* .clocks-container {

@@ -1,11 +1,11 @@
 .dashboard-map {
   border-radius: 10px;
-  height: calc(100% - 5.8%);
+  height: calc(100% - 10%);
   width: 100%;
 }
 
 .teams-map {
-  height: calc(100% - 24px);
+  height: 100%;
   width: 100%;
   border-radius: 10px;
 }
@@ -14,4 +14,26 @@
   color: black;
   font-size: 14px;
   font-weight: 400;
+}
+
+/* this is the one with the title */
+.team-mapp {
+  grid-area: team-mapp;
+  border-style: solid;
+  border-radius: 10px;
+  text-align: center;
+  background-color: #212529;
+}
+/* this is the one with the whitespace */
+.team-map {
+  background-color: azure;
+  color: black;
+  text-align: center;
+  align-content: center;
+  margin-bottom: 15px;
+  height: 20em;
+}
+
+.google-container {
+  height: 100%;
 }

@@ -246,7 +246,7 @@ app.post("/missions", async (req, res) => {
       location: req.body.location,
       name: req.body.name,
       description: req.body.description,
-      status: "pending",
+      status: "Pending",
       purpose: req.body.purpose,
       authority: req.body.authority,
       end_state: req.body.end_state,
@@ -335,6 +335,7 @@ app.put("/missions/:id", async (req, res) => {
       decision_point: req.body.decision_point,
       team_id: req.body.team_id,
     };
+
     await knex("missions").where("id", id).update(updatedMission);
     res.status(201).send("Mission successfully updated.");
   } catch (e) {
