@@ -67,6 +67,8 @@ const Fetches = () => {
   return <div></div>;
 };
 
+
+
 export default Fetches;
 
 //Creates new "team_name" column in personnel table being rendered

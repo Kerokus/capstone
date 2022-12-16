@@ -5,6 +5,14 @@ import { Link } from "react-router-dom";
 const HumintTeamStatus = () => {
   const ctx = useContext(GlobalContext);
 
+  const toggleRefresh = () => {
+    ctx.setRefresh((current) => !current);
+  };
+  
+  useEffect(() => {
+    toggleRefresh()
+  }, [ctx.redHumintTeams, ctx.yellowHumintTeams, ctx.greenHumintTeams])
+
   /* iterates over the teams state variable, then pushes all teams with 'HUMINT' in their name to the humintTeamsArray,
   then sets the humintTeams state variable with that array. [fires whenever the teams state variable changes]. */
   useEffect(() => {
