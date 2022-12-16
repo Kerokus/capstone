@@ -109,14 +109,14 @@ const options = {
   
     return (
       <>
-        <div>
+        <div className="google-container">
 
           <Search panTo={panTo} />
           
   
           <GoogleMap
             id="map"
-            mapContainerClassName="map"
+            mapContainerClassName="dash-map"
             zoom={3}
             center={coordinates}
             options={options}
@@ -154,6 +154,8 @@ const options = {
                 }}
               >
                 <div>
+                <p>
+                  {selected.id}</p>
                   <p>
                     {selected.lat}, {selected.lng}
                   </p>

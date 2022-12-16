@@ -1,6 +1,6 @@
-.dashboard-map {
+.dash-map {
   border-radius: 10px;
-  height: calc(100% - 5.8%);
+  height: calc(100% - 30px);
   width: 100%;
 }
 
@@ -8,4 +8,8 @@
   height: calc(100% - 24px);
   width: 100%;
   border-radius: 10px;
+}
+
+.miss-map {
+  height:100%;
 }

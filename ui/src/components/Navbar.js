@@ -19,7 +19,12 @@ const NavbarComponent = () => {
       <Row>
         <Navbar className="nav" bg="dark" variant="dark">
           <Container className="navbar" position="absolute">
+          
             <Navbar.Brand className="webpage-title" as={Link} to="/">
+              
+            {/* <img src="../../public/LOGO.png" alt="" width="36" height="36"/> */}
+            
+            
               Theater Operations Management System
             </Navbar.Brand>
             <Nav className="me-right">

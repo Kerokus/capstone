@@ -117,12 +117,12 @@ import React, {
   
     return (
       <>
-        <div>
+        <div className="google-container">
           {/* <Search panTo={panTo} /> */}
   
           <GoogleMap
             id="map"
-            mapContainerClassName="map"
+            mapContainerClassName="miss-map"
             zoom={zoom}
             center={coordinates}
             options={options}
@@ -160,6 +160,8 @@ import React, {
                 }}
               >
                 <div>
+                <p>
+                  {selected.id}</p>
                   <p>
                     lat:{selected.lat}, long:{selected.lng}
                   </p>
