@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import { GlobalContext } from "../Context/GlobalContext";
 import Image from "react-bootstrap/Image";
-import ArchiveIcon from "@mui/icons-material/Archive";
+import RestoreIcon from '@mui/icons-material/Restore';
 
 const NavbarComponent = () => {
   const ctx = useContext(GlobalContext);
@@ -44,8 +44,8 @@ const NavbarComponent = () => {
                   as={Link}
                   to="/conop"
                 ></Nav.Link>
-                <Nav.Link className="personnel" as={Link} to="/conop">
-                  <ArchiveIcon></ArchiveIcon>
+                <Nav.Link className="archives-link" as={Link} to="/archives">
+                  <RestoreIcon></RestoreIcon>
                 </Nav.Link>
               </Nav>
             </Container>

@@ -23,6 +23,7 @@
   border-radius: 10px;
   text-align: center;
   background-color: #212529;
+  height: calc(100% - 5%)
 }
 /* this is the one with the whitespace */
 .team-map {
@@ -36,4 +37,27 @@
 
 .google-container {
   height: 100%;
+}
+
+.single-team-map{
+    grid-area: team-mapp;
+    text-align: center;
+    background-color: #212529;
+    height: calc(100% - 4.5%)
+    /* border-style: solid;
+    border-radius: 10px; */
+}
+.single-team-mapp{
+  grid-area: team-mapp;
+
+  border-style: solid;
+  border-radius: 10px;
+  text-align: center;
+  background-color: #212529;
+  height: 100%
+}
+
+.single-map-header{
+width: 100%;
+/* background-color: aqua; */
 }

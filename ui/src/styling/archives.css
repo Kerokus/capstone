@@ -1,0 +1,26 @@
+.archives-header-text {
+    padding-right: 1%;
+}
+
+.header-and-entity{
+    display: flex;
+    text-align: center;
+    font-size: x-large;
+    padding-left: 2.5%;
+    padding-bottom: .3%;
+    margin-top: 2.3em;
+    justify-content: space-evenly;
+  }
+
+
+.jeff{
+   
+    background-color: rgb(43, 208, 226);
+    color:brown;
+}
+
+
+
+.personnel-header-text{
+    padding-left: 50%;
+}

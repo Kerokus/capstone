@@ -14,7 +14,7 @@ import getDay from "date-fns/getDay";
 import { toPoint } from "mgrs";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
-import TeamMap from "../components/TeamMap";
+import SingleTeamMap from "../components/SingleTeamMap";
 
 const SingleTeam = () => {
   const ctx = useContext(GlobalContext);
@@ -302,9 +302,9 @@ Then sets the missions state variable with that array. Fires when the missions s
         />
       </div>
 
-      <div className="team-mapp">
-        <b>{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</b>
-        <TeamMap coordinates={coordinates} zoom={zoom} />
+      <div className="single-team-mapp">
+        <b className="single-map-header">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</b>
+        <SingleTeamMap coordinates={coordinates} zoom={zoom} />
       </div>
 
       <div className="team-personnel-container">
