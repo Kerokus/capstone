@@ -179,6 +179,90 @@ app.get("/teams/:id", async (req, res) => {
   }
 });
 
+//archived Missions Endpoint 
+app.get("/archives/missions", async (req, res) => {
+  try {
+    let data = await knex("missions")
+      .join("teams", "missions.team_id", "=", "teams.id")
+      .select(
+        "missions.id",
+        "missions.start_date",
+        "missions.end_date",
+        "missions.location",
+        "missions.name",
+        "missions.description",
+        "missions.status",
+        "missions.purpose",
+        "missions.authority",
+        "missions.end_state",
+        "missions.transportation_methods",
+        "missions.timeline",
+        "missions.pace",
+        "missions.risks",
+        "missions.decision_point",
+        "missions.is_archived",
+        "missions.team_id",
+        "team_name"
+      )
+      .where("missions.is_archived", true)
+      .orderBy("missions.start_date");
+    (await (!data || data.length))
+      ? res.status(200).send(data)
+      : res.status(404).send(`Missions endpoint experiencing difficulties.`);
+  } catch (e) {
+    console.log(e);
+    res.status(400).send("There was an error processing your request.");
+  }
+});
+
+//archived Personnel Endpoint 
+app.get("/archives/personnel", async (req, res) => {
+  try {
+    let data = await knex("personnel")
+      .join("teams", "personnel.team_id", "=", "teams.id")
+      .select(
+        "personnel.id",
+        "personnel.first_name",
+        "personnel.last_name",
+        "personnel.rank",
+        "personnel.mos",
+        "personnel.email",
+        "personnel.status",
+        "personnel.city_base",
+        "personnel.country",
+        "personnel.deployment_start",
+        "personnel.deployment_end",
+        "personnel.is_archived",
+        "personnel.team_id",
+        "team_name"
+      )
+      .where("personnel.is_archived", true)
+      .orderBy("personnel.last_name");
+    (await (!data || data.length))
+      ? res.status(200).send(data)
+      : res.status(404).send(`Personnel endpoint experiencing difficulties.`);
+  } catch (e) {
+    console.log(e);
+    res.status(400).send("There was an error processing your request.");
+  }
+});
+
+//archived Teams Endpoint 
+app.get("/archives/teams", async (req, res) => {
+  try {
+    let data = await knex("teams")
+      .select("*")
+      .where("teams.is_archived", true)
+      .orderBy("teams.team_name");
+    (await (!data || data.length))
+      ? res.status(200).send(data)
+      : res.status(404).send(`Teams endpoint experiencing difficulties.`);
+  } catch (e) {
+    console.log(e);
+    res.status(400).send("There was an error processing your request.");
+  }
+});
+
 /////////////////////////////////////////////////////////////  DELETE  ////////////////////////////////////////////////////////////
 //delete mission by id endpoint
 app.delete("/missions/:id", async (req, res) => {
@@ -186,6 +270,7 @@ app.delete("/missions/:id", async (req, res) => {
   try {
     await knex("missions").where("id", id).update({
       is_archived: true,
+      status: 'Archived'
     });
     res.status(202).send(`Mission with id ${id} successfully deleted.`);
   } catch (e) {
@@ -200,6 +285,7 @@ app.delete("/personnel/:id", async (req, res) => {
   try {
     await knex("personnel").where("id", id).update({
       is_archived: true,
+      status: 'Archived'
     });
     res.status(202).send(`Personnel with id ${id} successfully deleted.`);
   } catch (e) {

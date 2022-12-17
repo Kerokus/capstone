@@ -16,6 +16,7 @@ import SingleMission from "./SingleMission";
 import SingleTeam from "./SingleTeam";
 import SubmitConop from "./SubmitConop";
 import EditConop from "./EditConop";
+import Archives from "./Archives";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/personnel" element={<Personnel />} />
             <Route path="/personnel/:personid" />
             <Route path="/conop" element={<SubmitConop />} />
+            <Route path="/archives" element={<Archives />} />
           </Routes>
           <Footer />
         </div>
