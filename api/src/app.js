@@ -12,6 +12,7 @@ app.use(cors());
 app.get("/missions", async (req, res) => {
   try {
     let data = await knex("missions")
+    
       .join("teams", "missions.team_id", "=", "teams.id")
       .select(
         "missions.id",
@@ -33,8 +34,10 @@ app.get("/missions", async (req, res) => {
         "missions.team_id",
         "team_name"
       )
+      
       .where("missions.is_archived", false)
       .orderBy("missions.start_date");
+      
     (await (!data || data.length))
       ? res.status(200).send(data)
       : res.status(404).send(`Missions endpoint experiencing difficulties.`);

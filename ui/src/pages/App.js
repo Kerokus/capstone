@@ -17,6 +17,7 @@ import SingleTeam from "./SingleTeam";
 import SubmitConop from "./SubmitConop";
 import EditConop from "./EditConop";
 import Archives from "./Archives";
+import { CartX } from "react-bootstrap-icons";
 
 function App() {
   return (

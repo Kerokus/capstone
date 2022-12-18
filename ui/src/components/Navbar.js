@@ -13,6 +13,10 @@ const NavbarComponent = () => {
   const ctx = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
 
+  const toggleRefresh = () => {
+    ctx.setRefresh((current) => !current);
+  };
+
   return (
     <>
       <div className="nav-position">
@@ -24,6 +28,9 @@ const NavbarComponent = () => {
                   className="nav-logo"
                   src="/toms-logo.png"
                   style={{ height: 75, width: 150 }}
+                  onClick={() => {
+                    toggleRefresh()
+                  }}
                 />
               </Navbar.Brand>
               <Nav className="me-right">

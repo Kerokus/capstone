@@ -9,7 +9,7 @@ const Fetches = () => {
   const urlTeams = "http://localhost:8081/teams";
 
   useEffect(() => {
-    console.log("UseEffect Fired.");
+   console.log('fetch')
     fetch(urlMissions)
       .then((res) => res.json())
       .then((data) => ctx.setMissions(data))
@@ -24,6 +24,8 @@ const Fetches = () => {
       .then((res) => res.json())
       .then((data) => ctx.setTeams(data))
       .catch((err) => console.error(err));
+
+      ctx.setUpcomingMissions([]);
   }, [ctx.refresh]);
 
   // async FETCH TEAM TABLE DATA (needed to render team names)
