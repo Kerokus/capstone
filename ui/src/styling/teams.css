@@ -41,13 +41,14 @@
   flex: 2 1 auto;
 }
 /* .card-body{
-    display:flex;
+  display: block;
+  max-height: inherit; */
+    /* display:flex;
     flex-direction:column;
     align-content: stretch;
     margin: 0 auto;
     flex: 3 1 auto;
-    padding: 1em;
-  } */
+    padding: 1em; */
 .header-text {
   color: white;
   margin: 0.5em;
@@ -57,7 +58,7 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  height: 90vh;
+  max-height: 90vh;
 }
 
 .mission-card {
