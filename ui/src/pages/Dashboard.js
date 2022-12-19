@@ -19,7 +19,10 @@ const Dashboard = () => {
   const [statusLoad, setStatusLoad] = useState(false);
   let coordinates = { lat: 32.313793143601366, lng: 55.194812819979404 };
 
+  let ongoingMissionsArray = [];
   let upcomingMissionsArray = [];
+  let ongoingAndUpcomingMissionsArray = [];
+
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
   };
@@ -47,10 +50,9 @@ const Dashboard = () => {
     ctx.setRedSigintTeams([])
     ctx.setYellowSigintTeams([])
     ctx.setGreenSigintTeams([])
-    // ctx.setDashboardMarkers([])
-    
   }, []);
   
+  // upcoming missions
   useEffect(() => {
     ctx.missions.forEach((mission, index) => {
       if (
@@ -58,8 +60,22 @@ const Dashboard = () => {
         mission.start_date === ctx.twoDayDate
       ) {
         upcomingMissionsArray.push(mission);
+        ongoingAndUpcomingMissionsArray.push(mission);
       }
       ctx.setUpcomingMissions(upcomingMissionsArray);
+    });
+  }, [ctx.missions]);
+
+  // ongoing missions
+  useEffect(() => {
+    ctx.missions.forEach((mission, index) => {
+      if (
+        mission.status === "Active"
+      ) {
+        ongoingMissionsArray.push(mission);
+        ongoingAndUpcomingMissionsArray.push(mission);
+      }
+      ctx.setOngoingMissions(ongoingAndUpcomingMissionsArray);
     });
   }, [ctx.missions]);
 
@@ -175,7 +191,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     let dashboardMarkersArray = [];
-    ctx.upcomingMissions.forEach((mission) => {
+    ctx.ongoingMissions.forEach((mission) => {
       ctx.dashboard.forEach((otherMission) => {
         if (mission.id === otherMission.id) {
           dashboardMarkersArray.push({

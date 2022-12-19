@@ -373,14 +373,15 @@ const Archives = () => {
         <div className="displayed-entity">
           <Form.Group as={Col} md="12" id='displayed-entity' >
             <Form.Select
-            
+             
               md="3"
               id="displayed-entity"
               onChange={(e) => ctx.setDisplayedEntity(e.target.value)}
               value={ctx.displayedEntity}
-              // aria-label="Default select example"
+               aria-label="Default select example"
+               
             >
-              <option >Missions</option>
+              <option>Missions</option>
               <option>Teams</option>
               <option>Personnel</option>
             </Form.Select>
