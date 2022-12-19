@@ -220,6 +220,8 @@ const Teams = () => {
 
   return (
     <div className="teams-container">
+    <h1 className ="total-counter-missions">Total Teams: {ctx.teams.length}
+    </h1>
       <div className="nav-buttons">
         <Button className="add-mission" variant="success" onClick={handleAdd}>
           Add Team

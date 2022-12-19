@@ -14,7 +14,7 @@ const DigitalClock = () => {
               ticking={true}
               timezone={"US/Eastern"}
             />
-            <p>Ft. Gordon, GA</p>
+            <p><b>Ft. Gordon, GA</b></p>
           </div>
         </Col>
         <Col style={{ textAlign: "center" }}>
@@ -25,7 +25,7 @@ const DigitalClock = () => {
               ticking={true}
               timezone={"zulu"}
             />
-            <p>Zulu</p>
+            <p><b>Zulu</b></p>
           </div>
         </Col>
         <Col style={{ textAlign: "center" }}>
@@ -36,7 +36,7 @@ const DigitalClock = () => {
               ticking={true}
               timezone={"Asia/Kuwait"}
             />
-            <p>Kuwait City</p>
+            <p><b>Kuwait City</b></p>
           </div>
         </Col>
       </Row>

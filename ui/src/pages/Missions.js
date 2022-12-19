@@ -130,6 +130,7 @@ const Missions = () => {
     //   coordinates = { lat: 48.8566, lng: 2.3522 };
     // }
     return (
+      <>
       <Card
         border="light"
         style={{ width: "18rem" }}
@@ -179,12 +180,15 @@ const Missions = () => {
           </div>
         </Card.Body>
       </Card>
+
+      </>
     );
   };
 
   return (
     <>
       <div className="missions-page-container">
+        <h1 className ="total-counter-missions">Total Missions: {ctx.missions.length}</h1>
         <div className="nav-buttons">
           <Link className="submit-conop-link" to="/conop">
             <Button className="add-mission" variant="success">
@@ -241,6 +245,7 @@ const Missions = () => {
             Delete
           </Button>
         </Modal.Footer>
+
       </Modal>
     </>
   );
