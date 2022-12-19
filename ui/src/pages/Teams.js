@@ -254,6 +254,7 @@ const Teams = () => {
         onHide={handleCloseWarning}
         backdrop="static"
         keyboard={false}
+        // className="modal-main"
       >
         <Modal.Header>
           <Modal.Title>CONFIRM</Modal.Title>
