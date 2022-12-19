@@ -16,6 +16,7 @@ const Missions = () => {
     ctx.setShow(false);
     ctx.setTeamMarkers([]);
     ctx.setMissionMarkers([]);
+    toggleRefresh()
   }, []);
 
   useEffect(() => {

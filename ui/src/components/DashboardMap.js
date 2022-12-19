@@ -120,14 +120,14 @@ export default function DashboardMap({ coordinates }) {
           draggable="true"
         >
           {ctx.dashboardMarkers.map(
-            (marker) => (
+            (marker) => ( 
+              
               <Marker
-                key={`${marker.lat}-${marker.lng}`}
+                key={marker.id}
                 position={{ lat: marker.lat, lng: marker.lng }}
                 draggable={false}
                 onClick={() => {
                   setSelected(marker);
-                  console.log(selected)
                 }}
                 icon={{
                   url: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png",

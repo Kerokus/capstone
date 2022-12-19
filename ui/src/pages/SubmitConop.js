@@ -13,6 +13,10 @@ const SubmitConop = () => {
   const ctx = useContext(GlobalContext);
   const [validated, setValidated] = useState(false);
 
+  useEffect(() => {
+    ctx.setSubmitConopForm({});
+  }, [])
+
   //DATA HANDLERS
   const handleFormData = (event, nestedObject) => {
     let newData = { ...ctx.submitConopForm };
