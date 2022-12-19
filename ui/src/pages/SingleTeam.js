@@ -16,6 +16,15 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import SingleTeamMap from "../components/SingleTeamMap";
 
+
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import InputGroup from "react-bootstrap/InputGroup";
+import Row from "react-bootstrap/Row";
+import BootstrapTable from "react-bootstrap-table-next";
+import { Pen, Trash3 } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
+
 const SingleTeam = () => {
   const ctx = useContext(GlobalContext);
   const [members, setMembers] = useState([]);
@@ -236,9 +245,24 @@ Then sets the missions state variable with that array. Fires when the missions s
   };
 
   return (
+    <>
+
+    <div className = "mission-buttons">
+          <div className="mission-edit-delete">
+            <Button variant="secondary" >
+              <Pen />
+            </Button>
+            <Button variant="danger">
+              <Trash3 />
+            </Button>
+          </div>
+          </div>
+      <h1 className="team-name-center">{ctx.clickedTeam.team_name}</h1>
+
+
     <div className="single-team-container">
       <div className="team-admin-container">
-        <div className="team-name">{ctx.clickedTeam.team_name}</div>
+
 
         <div className="team-personnel-status">
           Personnel Status:{" "}
@@ -255,6 +279,7 @@ Then sets the missions state variable with that array. Fires when the missions s
               <option>Yellow</option>
               <option>Red</option>
             </Form.Select>
+
           </Form.Group>
         </div>
 
@@ -345,6 +370,7 @@ Then sets the missions state variable with that array. Fires when the missions s
         )}
       </div>
     </div>
+    </>
   );
 };
 
