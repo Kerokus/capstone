@@ -405,6 +405,7 @@ app.post("/teams", async (req, res) => {
 /////////////////////////////////////////////////////////////  PUT  ////////////////////////////////////////////////////////////
 //missions update endpoint
 app.put("/missions/:id", async (req, res) => {
+  console.log('update missions endpoint called')
   const id = parseInt(req.params.id);
   try {
     let updatedMission = {
@@ -424,7 +425,6 @@ app.put("/missions/:id", async (req, res) => {
       decision_point: req.body.decision_point,
       team_id: req.body.team_id,
     };
-
     await knex("missions").where("id", id).update(updatedMission);
     res.status(201).send("Mission successfully updated.");
   } catch (e) {
