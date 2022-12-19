@@ -244,19 +244,9 @@ Then sets the missions state variable with that array. Fires when the missions s
     ctx.setRefresh((current) => !current);
   };
 
+  
   return (
     <>
-
-    <div className = "mission-buttons">
-          <div className="mission-edit-delete">
-            <Button variant="secondary" >
-              <Pen />
-            </Button>
-            <Button variant="danger">
-              <Trash3 />
-            </Button>
-          </div>
-          </div>
       <h1 className="team-name-center">{ctx.clickedTeam.team_name}</h1>
 
 
