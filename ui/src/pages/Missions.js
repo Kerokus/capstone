@@ -1,15 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import { GlobalContext } from "../Context/GlobalContext";
 import Card from "react-bootstrap/Card";
 import "../styling/missions.css";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import Row from "react-bootstrap/Row";
-import Places from "../components/Map";
 import MissionMap from "../components/MissionMap";
 
 const Missions = () => {
@@ -32,7 +27,7 @@ const Missions = () => {
   const handleSearch = (event) => {
     setMissionSearchTerm(event.target.value);
   };
-//console.log("dashboard", ctx.dashboard)
+  //console.log("dashboard", ctx.dashboard)
   //Filters the data without having to select a "Search By" Category
   useEffect(() => {
     let searchArray = [];
@@ -158,8 +153,7 @@ const Missions = () => {
               <u> Decision Point: </u>
               <p>{`${mission.decision_point}`}</p>
             </div>
-            <div className='asd'>
-            </div>
+            <div className="asd"></div>
           </div>
           <div className="buttons">
             <Link

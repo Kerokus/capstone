@@ -5,84 +5,61 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Clock from "react-live-clock";
-import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
-import DigitalClock from "./DigitalClock";
-import ArchiveIcon from "@mui/icons-material/Archive";
+import { GlobalContext } from "../Context/GlobalContext";
+import Image from "react-bootstrap/Image";
+import RestoreIcon from '@mui/icons-material/Restore';
 
 const NavbarComponent = () => {
   const ctx = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
 
-  return (
-    <div className ="nav-position">
-    
-      <Row>
-        <Navbar className="nav py-" bg="dark" variant="dark">
-          <Container className="navbar" position="absolute">
-            <Navbar.Brand className="webpage-title" as={Link} to="/">
-              Theater Operations Management System
-            </Navbar.Brand>
-            <Nav className="me-right">
-              <Nav.Link className="missions" as={Link} to="/missions">
-                Missions
-              </Nav.Link>
-              <Nav.Link className="teams" as={Link} to="/teams">
-                Teams
-              </Nav.Link>
-              <Nav.Link className="personnel" as={Link} to="/personnel">
-                Personnel
-              </Nav.Link>
-              <Nav.Link className="personnel" as={Link} to="/conop">
-                Submit Conop
-              </Nav.Link>
-              <Nav.Link className="personnel" as={Link} to="/conop"></Nav.Link>
-              <Nav.Link className="personnel" as={Link} to="/conop">
-                <ArchiveIcon></ArchiveIcon>
-              </Nav.Link>
-            </Nav>
+  const toggleRefresh = () => {
+    ctx.setRefresh((current) => !current);
+  };
 
-            {/* <Nav className="me-bottom"><DigitalClock/></Nav> */}
-          </Container>
-        </Navbar>
-      </Row>
-      <Row className ="timer-background">
-        <Col style={{ textAlign: "center" }}>
-          <div className="clock-left">
-            <Clock
-              className="dashboard-clock"
-              format={"HH:mm:ss"}
-              ticking={true}
-              timezone={"US/Eastern"}
-            />
-            <p>Ft. Gordon, GA</p>
-          </div>
-        </Col>
-        <Col style={{ textAlign: "center" }}>
-          <div className="clock-center">
-            <Clock
-              className="dashboard-clock"
-              format={"HH:mm:ss"}
-              ticking={true}
-              timezone={"zulu"}
-            />
-            <p>Zulu</p>
-          </div>
-        </Col>
-        <Col style={{ textAlign: "center" }}>
-          <div className="clock-right">
-            <Clock
-              className="dashboard-clock"
-              format={"HH:mm:ss"}
-              ticking={true}
-              timezone={"Asia/Kuwait"}
-            />
-            <p>Kuwait City</p>
-          </div>
-        </Col>
-      </Row>
-    </div>
+  return (
+    <>
+      <div className="nav-position">
+        <Row>
+          <Navbar className="nav py-" bg="dark" variant="dark">
+            <Container className="navbar" position="absolute">
+              <Navbar.Brand className="webpage-title" as={Link} to="/">
+                <Image
+                  className="nav-logo"
+                  src="/toms-logo.png"
+                  style={{ height: 75, width: 150 }}
+                  onClick={() => {
+                    toggleRefresh()
+                  }}
+                />
+              </Navbar.Brand>
+              <Nav className="me-right">
+                <Nav.Link className="missions" as={Link} to="/missions">
+                  Missions
+                </Nav.Link>
+                <Nav.Link className="teams" as={Link} to="/teams">
+                  Teams
+                </Nav.Link>
+                <Nav.Link className="personnel" as={Link} to="/personnel">
+                  Personnel
+                </Nav.Link>
+                <Nav.Link className="personnel" as={Link} to="/conop">
+                  Submit Conop
+                </Nav.Link>
+                <Nav.Link
+                  className="personnel"
+                  as={Link}
+                  to="/conop"
+                ></Nav.Link>
+                <Nav.Link className="archives-link" as={Link} to="/archives">
+                  <RestoreIcon></RestoreIcon>
+                </Nav.Link>
+              </Nav>
+            </Container>
+          </Navbar>
+        </Row>
+      </div>
+    </>
   );
 };
 

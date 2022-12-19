@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import React, { useEffect, useContext } from "react";
+import { GlobalContext } from "../Context/GlobalContext";
 import "../styling/personnel.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -11,7 +11,6 @@ import BootstrapTable from "react-bootstrap-table-next";
 import { Pen, Trash3 } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import Csv from "../components/Csv";
-import DownloadIcon from "@mui/icons-material/Download";
 
 const Personnel = () => {
   //Justin's Original Functionality States:
@@ -20,6 +19,7 @@ const Personnel = () => {
   //
   useEffect(() => {
     ctx.setShow(false);
+    ctx.setSearchTerm('');
   }, []);
 
   //TABLE HEADERS
@@ -310,23 +310,22 @@ const Personnel = () => {
   // background-color: #212529;
   return (
     <div className="personnel-page-container">
-      
       <div className="nav-buttons">
         <Button className="add-mission" variant="success" onClick={handleAdd}>
           Add Personnel
         </Button>
 
         <div className="mainsearch">
-        <input
-          className="text-search-bar"
-          type="text"
-          placeholder="Search Personnel"
-          onChange={(event) => {
-            handleSearch(event);
-          }}
-          value={ctx.searchTerm}
-        />
-      </div>
+          <input
+            className="text-search-bar"
+            type="text"
+            placeholder="Search Personnel"
+            onChange={(event) => {
+              handleSearch(event);
+            }}
+            value={ctx.searchTerm}
+          />
+        </div>
 
         <Link className="homepage-button-personnel" to="/">
           <Button variant="primary" className="homepage-button">
@@ -335,10 +334,6 @@ const Personnel = () => {
         </Link>
       </div>
 
-
-
-      
-      
       <Modal
         show={ctx.show}
         onHide={handleClose}
@@ -557,17 +552,13 @@ const Personnel = () => {
         </Modal.Body>
       </Modal>
 
-
-      
-      
       {/* <div className="personnel-header-text"> <Csv/> Deployed Personnel <Csv/> </div> */}
-        <div className="header-and-csv">
-            <div className="personnel-header-text"> Deployed Personnel </div>
-            <Csv/>
-        </div>
-      
+      <div className="header-and-csv">
+        <div className="personnel-header-text"> Deployed Personnel </div>
+        <Csv />
+      </div>
+
       <div className="table-div">
-      
         <BootstrapTable
           keyField="id"
           data={ctx.filteredData}

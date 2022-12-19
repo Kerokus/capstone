@@ -1,23 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Quantico&display=swap");
 
-.nav-position{
+.nav-position {
   top: 0;
-  position: fixed;
+  /* position: fixed; */
   width: 100vw;
   height: 150px;
-  border: 1px solid red;
   z-index: 1;
-
 }
 .navbar {
   --bs-nav-brand-color: white;
-
-
 }
 .navbar-nav {
   --bs-nav-link-hover-color: lightgray;
   --bs-nav-link-disabled-color: white;
-
 }
 
 .missions {
@@ -32,9 +27,17 @@
   display: flex;
   justify-content: space-between;
   flex: 12;
-
-
 }
+.nav-logo{
+  border-radius: 15px;
+  border-style: solid;
+  border-width: 2px;
+  color: white;
+}
+.archives-link {
+color: white
+}
+
 .personnel {
   color: white;
 }

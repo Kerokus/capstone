@@ -1,4 +1,10 @@
+.teams-container {
+  height: 95vh;
+}
+
 .card-header {
+  display: inline-block;
+  justify-content: center;
   align-content: center;
   align-items: center;
   align-self: baseline;
@@ -51,7 +57,7 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  height: 95vh;
+  max-height: 90vh;
 }
 
 .mission-card {
@@ -63,9 +69,6 @@
   color: black;
   text-align: center;
   align-content: center;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
   height: 20em;
-}
-
-.team-location-data {
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ContextProvider, GlobalContext } from "../Context/GlobalContext";
+import { GlobalContext } from "../Context/GlobalContext";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import { Link } from "react-router-dom";
 import format from "date-fns/format";
@@ -33,8 +33,24 @@ const Dashboard = () => {
     statusFetch();
     toggleRefresh();
     ctx.setClickedMission();
+    ctx.setCiTeams([])
+    ctx.setTeams([])
+    ctx.setCiTeams([])
+    ctx.setHumintTeams([])
+    ctx.setSigintTeams([])
+    ctx.setRedCiTeams([])
+    ctx.setYellowCiTeams([])
+    ctx.setGreenCiTeams([])
+    ctx.setRedHumintTeams([])
+    ctx.setYellowHumintTeams([])
+    ctx.setGreenHumintTeams([])
+    ctx.setRedSigintTeams([])
+    ctx.setYellowSigintTeams([])
+    ctx.setGreenSigintTeams([])
+    // ctx.setDashboardMarkers([])
+    
   }, []);
-
+  
   useEffect(() => {
     ctx.missions.forEach((mission, index) => {
       if (
@@ -43,9 +59,9 @@ const Dashboard = () => {
       ) {
         upcomingMissionsArray.push(mission);
       }
-      setUpcomingMissions(upcomingMissionsArray);
+      ctx.setUpcomingMissions(upcomingMissionsArray);
     });
-  }, [ctx.missions, ctx.refresh]);
+  }, [ctx.missions]);
 
   //next 24 hours
   let oneDayDate = new Date();
@@ -159,7 +175,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     let dashboardMarkersArray = [];
-    upcomingMissions.forEach((mission) => {
+    ctx.upcomingMissions.forEach((mission) => {
       ctx.dashboard.forEach((otherMission) => {
         if (mission.id === otherMission.id) {
           dashboardMarkersArray.push({
@@ -194,10 +210,10 @@ const Dashboard = () => {
 
         <div className="dashboard-upcoming">
           <h3 className="upcoming-header">Next 48 hours</h3>{" "}
-          {upcomingMissions.length > 0 ? (
+          {ctx.upcomingMissions.length > 0 ? (
             <div className="team-missions">
               {" "}
-              <ul>{[...upcomingMissions].map(renderUpcomingMissions)}</ul>
+              <ul>{[...ctx.upcomingMissions].map(renderUpcomingMissions)}</ul>
             </div>
           ) : (
             <div>

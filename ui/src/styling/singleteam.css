@@ -82,13 +82,7 @@
   background-color: #212529;
 }
 
-.team-mapp {
-  grid-area: team-mapp;
-  border-style: solid;
-  border-radius: 10px;
-  text-align: center;
-  background-color: #212529;
-}
+
 
 .team-personnel-container {
   grid-area: team-personnel-container;
