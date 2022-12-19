@@ -4,7 +4,6 @@
 
 .personnel-header-text {
 padding-right: 1%;
-
 }
 
 .header-and-csv{
@@ -29,12 +28,13 @@ padding-right: 1%;
   margin: 1em;
   margin-top: -0.7em;
   margin-left: 2.3em;
+  
 }
 
 .text-search-bar {
   background-color: #212529;
   margin-top: 35px;
-  color: white;
+  color: white
 }
 
 .table-div {
@@ -62,3 +62,4 @@ padding-right: 1%;
   cursor: pointer;
   background-color: #212529;
 }
+

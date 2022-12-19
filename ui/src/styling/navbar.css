@@ -28,6 +28,16 @@
   justify-content: space-between;
   flex: 12;
 }
+.nav-logo{
+  border-radius: 15px;
+  border-style: solid;
+  border-width: 2px;
+  color: white;
+}
+.archives-link {
+color: white
+}
+
 .personnel {
   color: white;
 }

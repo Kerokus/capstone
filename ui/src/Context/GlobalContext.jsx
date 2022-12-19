@@ -15,7 +15,9 @@ const ContextProvider = ({ children }) => {
   // <- <- App
   const [clickedMission, setClickedMission] = useState(null); // Missions;
   const [clickedTeam, setClickedTeam] = useState(null); // Teams;
-  
+
+  // <- <- Archives
+  const [displayedEntity, setDisplayedEntity] = useState('Missions');
 
   // <- <- Dashboard
   const [dashboard, setDashboard] = useState([]);
@@ -50,6 +52,7 @@ const ContextProvider = ({ children }) => {
   const [showDelete, setShowDelete] = useState(false);
   const [singleMission, setSingleMission] = useState([]);
   const [latLong, setLatLong] = useState([]);
+  const [upcomingMissions, setUpcomingMissions] = useState([]);
 
   // <- <- Personnel
   const [showWarning, setShowWarning] = useState(false);
@@ -174,7 +177,11 @@ const ContextProvider = ({ children }) => {
     dashboardMarkers,
     setDashboardMarkers, 
     missionMarkers,
-    setMissionMarkers
+    setMissionMarkers,
+    upcomingMissions,
+    setUpcomingMissions,
+    displayedEntity,
+    setDisplayedEntity
   };
 
   return (

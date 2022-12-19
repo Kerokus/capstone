@@ -7,11 +7,15 @@ import { Link } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import { GlobalContext } from "../Context/GlobalContext";
 import Image from "react-bootstrap/Image";
-import ArchiveIcon from "@mui/icons-material/Archive";
+import RestoreIcon from '@mui/icons-material/Restore';
 
 const NavbarComponent = () => {
   const ctx = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
+
+  const toggleRefresh = () => {
+    ctx.setRefresh((current) => !current);
+  };
 
   return (
     <>
@@ -24,6 +28,9 @@ const NavbarComponent = () => {
                   className="nav-logo"
                   src="/toms-logo.png"
                   style={{ height: 75, width: 150 }}
+                  onClick={() => {
+                    toggleRefresh()
+                  }}
                 />
               </Navbar.Brand>
               <Nav className="me-right">
@@ -44,8 +51,8 @@ const NavbarComponent = () => {
                   as={Link}
                   to="/conop"
                 ></Nav.Link>
-                <Nav.Link className="personnel" as={Link} to="/conop">
-                  <ArchiveIcon></ArchiveIcon>
+                <Nav.Link className="archives-link" as={Link} to="/archives">
+                  <RestoreIcon></RestoreIcon>
                 </Nav.Link>
               </Nav>
             </Container>
