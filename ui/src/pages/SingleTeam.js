@@ -16,7 +16,6 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import SingleTeamMap from "../components/SingleTeamMap";
 
-
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -246,130 +245,122 @@ Then sets the missions state variable with that array. Fires when the missions s
 
   return (
     <>
-
-    <div className = "mission-buttons">
-          <div className="mission-edit-delete">
-            <Button variant="secondary" >
-              <Pen />
-            </Button>
-            <Button variant="danger">
-              <Trash3 />
-            </Button>
-          </div>
-          </div>
       <h1 className="team-name-center">{ctx.clickedTeam.team_name}</h1>
 
+      <div className="single-team-container">
+        <div className="team-admin-container">
+          <div className="team-personnel-status">
+            Personnel Status:{" "}
+            <Form.Group as={Col} md="4">
+              <Form.Select
+                className="single-personnel-dropdown"
+                md="3"
+                id="personnel_status"
+                style={{
+                  backgroundColor: `${ctx.clickedTeam.personnel_status}`,
+                }}
+                onChange={(e) => handleStatusChange(e)}
+                value={ctx.clickedTeam.personnel_status}
+                aria-label="Default select example"
+              >
+                <option>Green</option>
+                <option>Yellow</option>
+                <option>Red</option>
+              </Form.Select>
+            </Form.Group>
+          </div>
 
-    <div className="single-team-container">
-      <div className="team-admin-container">
+          <div className="team-equipment-status">
+            Equipment Status:
+            <Form.Group as={Col} md="4">
+              <Form.Select
+                md="3"
+                id="equipment_status"
+                style={{
+                  backgroundColor: `${ctx.clickedTeam.equipment_status}`,
+                }}
+                onChange={(e) => handleStatusChange(e)}
+                value={ctx.clickedTeam.equipment_status || ""}
+                aria-label="Default select example"
+              >
+                <option>Green</option>
+                <option>Yellow</option>
+                <option>Red</option>
+              </Form.Select>
+            </Form.Group>
+          </div>
 
-
-        <div className="team-personnel-status">
-          Personnel Status:{" "}
-          <Form.Group as={Col} md="4">
-            <Form.Select
-              className="single-personnel-dropdown"
-              md="3"
-              id="personnel_status"
-              onChange={(e) => handleStatusChange(e)}
-              value={ctx.clickedTeam.personnel_status}
-              aria-label="Default select example"
-            >
-              <option>Green</option>
-              <option>Yellow</option>
-              <option>Red</option>
-            </Form.Select>
-
-          </Form.Group>
+          <div className="team-comms-status">
+            Comms Status:
+            <Form.Group as={Col} md="4">
+              <Form.Select
+                md="3"
+                id="comms_status"
+                style={{ backgroundColor: `${ctx.clickedTeam.comms_status}` }}
+                onChange={(e) => handleStatusChange(e)}
+                value={ctx.clickedTeam.comms_status || ""}
+                aria-label="Default select example"
+              >
+                <option>Green</option>
+                <option>Yellow</option>
+                <option>Red</option>
+              </Form.Select>
+            </Form.Group>
+          </div>
         </div>
 
-        <div className="team-equipment-status">
-          Equipment Status:
-          <Form.Group as={Col} md="4">
-            <Form.Select
-              md="3"
-              id="equipment_status"
-              onChange={(e) => handleStatusChange(e)}
-              value={ctx.clickedTeam.equipment_status || ""}
-              aria-label="Default select example"
-            >
-              <option>Green</option>
-              <option>Yellow</option>
-              <option>Red</option>
-            </Form.Select>
-          </Form.Group>
+        <div className="team-calendar">
+          <Calendar
+            localizer={localizer}
+            events={ctx.dashboard}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: "1fr", width: "1fr" }}
+          />
         </div>
 
-        <div className="team-comms-status">
-          Comms Status:
-          <Form.Group as={Col} md="4">
-            <Form.Select
-              md="3"
-              id="comms_status"
-              onChange={(e) => handleStatusChange(e)}
-              value={ctx.clickedTeam.comms_status || ""}
-              aria-label="Default select example"
-            >
-              <option>Green</option>
-              <option>Yellow</option>
-              <option>Red</option>
-            </Form.Select>
-          </Form.Group>
+        <div className="single-team-mapp">
+          <b className="single-map-header">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</b>
+          <SingleTeamMap coordinates={coordinates} zoom={zoom} />
+        </div>
+
+        <div className="team-personnel-container">
+          <h3>Team Personnel</h3>
+          {members.length > 0 ? (
+            <div className="team-members">
+              {[...members].map(renderTeamMembers)}
+            </div>
+          ) : (
+            <div>Loading...</div>
+          )}
+        </div>
+
+        <div className="team-upcoming-container">
+          <h3>Next 48 hours</h3>
+          {upcomingMissions.length > 0 ? (
+            <div className="team-missions">
+              <ul>{[...upcomingMissions].map(renderUpcomingMissions)}</ul>
+            </div>
+          ) : (
+            <div className="team-missions">
+              <div>{`None`} </div>
+            </div>
+          )}
+        </div>
+
+        <div className="team-all-missions-container">
+          <h3>All pending activities</h3>
+          {missions.length > 0 ? (
+            <div className="team-missions">
+              <ul>{[...missions].map(renderTeamMissions)}</ul>
+            </div>
+          ) : (
+            <div className="team-missions">
+              <div>{`None`} </div>
+            </div>
+          )}
         </div>
       </div>
-
-      <div className="team-calendar">
-        <Calendar
-          localizer={localizer}
-          events={ctx.dashboard}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: "1fr", width: "1fr" }}
-        />
-      </div>
-
-      <div className="single-team-mapp">
-        <b className="single-map-header">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</b>
-        <SingleTeamMap coordinates={coordinates} zoom={zoom} />
-      </div>
-
-      <div className="team-personnel-container">
-        <h3>Team Personnel</h3>
-        {members.length > 0 ? (
-          <div className="team-members">
-            {[...members].map(renderTeamMembers)}
-          </div>
-        ) : (
-          <div>Loading...</div>
-        )}
-      </div>
-
-      <div className="team-upcoming-container">
-        <h3>Next 48 hours</h3>
-        {upcomingMissions.length > 0 ? (
-          <div className="team-missions">
-            <ul>{[...upcomingMissions].map(renderUpcomingMissions)}</ul>
-          </div>
-        ) : (
-          <div className="team-missions">
-            <div>{`None`} </div>
-          </div>
-        )}
-      </div>
-
-      <div className="team-all-missions-container">
-        <h3>All pending activities</h3>
-        {missions.length > 0 ? (
-          <div className="team-missions">
-            <ul>{[...missions].map(renderTeamMissions)}</ul>
-          </div>
-        ) : (
-          <div className="team-missions">
-            <div>{`None`} </div>
-          </div>
-        )}
-      </div>
-    </div>
     </>
   );
 };
