@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import { GlobalContext } from "../Context/GlobalContext";
 import Image from "react-bootstrap/Image";
 import RestoreIcon from '@mui/icons-material/Restore';
+import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 
 const NavbarComponent = () => {
   const ctx = useContext(GlobalContext);
@@ -52,7 +53,8 @@ const NavbarComponent = () => {
                   to="/conop"
                 ></Nav.Link>
                 <Nav.Link className="archives-link" as={Link} to="/archives">
-                  <RestoreIcon></RestoreIcon>
+                  <EventRepeatIcon></EventRepeatIcon>
+                  {/* <RestoreIcon></RestoreIcon> */}
                 </Nav.Link>
               </Nav>
             </Container>
