@@ -9,7 +9,7 @@ const Fetches = () => {
   const urlTeams = "http://localhost:8081/teams";
 
   useEffect(() => {
-   console.log('fetch')
+   //console.log('fetch')
     fetch(urlMissions)
       .then((res) => res.json())
       .then((data) => ctx.setMissions(data))
