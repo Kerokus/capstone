@@ -19,7 +19,7 @@ const Personnel = () => {
   //
   useEffect(() => {
     ctx.setShow(false);
-    ctx.setSearchTerm('');
+    ctx.setSearchTerm("");
   }, []);
 
   //TABLE HEADERS
@@ -308,6 +308,7 @@ const Personnel = () => {
     });
   }, [ctx.searchTerm]);
   // background-color: #212529;
+
   return (
     <div className="personnel-page-container">
       <div className="nav-buttons">
@@ -554,7 +555,7 @@ const Personnel = () => {
 
       {/* <div className="personnel-header-text"> <Csv/> Deployed Personnel <Csv/> </div> */}
       <div className="header-and-csv">
-        <div className="personnel-header-text"> Deployed Personnel </div>
+        <div className="personnel-header-text"> Total Personnel: <span>{ctx.personnelData.length}</span></div>
         <Csv />
       </div>
 
