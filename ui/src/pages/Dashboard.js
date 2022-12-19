@@ -48,7 +48,7 @@ const Dashboard = () => {
     ctx.setYellowSigintTeams([])
     ctx.setGreenSigintTeams([])
     // ctx.setDashboardMarkers([])
-
+    
   }, []);
   
   useEffect(() => {
@@ -61,7 +61,7 @@ const Dashboard = () => {
       }
       ctx.setUpcomingMissions(upcomingMissionsArray);
     });
-  }, [ctx.missions, ctx.refresh, ctx.clickedMission]);
+  }, [ctx.missions]);
 
   //next 24 hours
   let oneDayDate = new Date();

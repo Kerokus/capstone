@@ -19,6 +19,7 @@ const Personnel = () => {
   //
   useEffect(() => {
     ctx.setShow(false);
+    ctx.setSearchTerm('');
   }, []);
 
   //TABLE HEADERS
