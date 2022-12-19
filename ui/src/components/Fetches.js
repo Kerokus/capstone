@@ -9,7 +9,6 @@ const Fetches = () => {
   const urlTeams = "http://localhost:8081/teams";
 
   useEffect(() => {
-   //console.log('fetch')
     fetch(urlMissions)
       .then((res) => res.json())
       .then((data) => ctx.setMissions(data))
@@ -66,8 +65,71 @@ const Fetches = () => {
     fetchData();
   }, [ctx.refresh]);
 
+
+  useEffect(() => {  
+    const missionStatusCheck = (missionArr) => {
+    let changeNeeded = false;
+    let today = new Date()
+    missionArr.forEach(missionObj => {
+      let startCheck = new Date(missionObj.start_date)
+      let endCheck = new Date(missionObj.end_date)
+        if (missionObj.status === "Cancelled" || missionObj.status === "Complete") {
+          
+        } else if 
+          (today < startCheck && missionObj.status === "Pending") {
+        
+        } else if 
+            (today < startCheck && missionObj.status !== "Pending") {
+            missionObj.status = "Pending"
+            changeNeeded = true;
+          
+        } else if 
+            (today > endCheck && missionObj.status !== "Complete") {
+            missionObj.status = "Complete"
+            changeNeeded = true;
+        } else if 
+            (today >= startCheck && today <= endCheck && missionObj.status !== "Active") {
+            missionObj.status = "Active"
+            changeNeeded = true;
+        }
+        if (changeNeeded) {
+          let updateObj = {
+            start_date: missionObj.start_date,
+            end_date: missionObj.end_date,
+            location: missionObj.location,
+            name: missionObj.name,
+            description: missionObj.description,
+            status: missionObj.status,
+            purpose: missionObj.purpose,
+            authority: missionObj.authority,
+            end_state: missionObj.end_state,
+            transportation_methods: missionObj.transportation_methods,
+            timeline: missionObj.timeline,
+            pace: missionObj.pace,
+            risks: missionObj.risks,
+            decision_point: missionObj.decision_point,
+            team_id: missionObj.team_id,
+          }
+          fetch(`http://localhost:8081/missions/${missionObj.id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updateObj),
+          });
+        }
+    })
+  }
+  
+    missionStatusCheck(ctx.missions)
+  }, [ctx.missions])
+
+
+
   return <div></div>;
 };
+
+
 
 
 
