@@ -74,6 +74,10 @@
   height: 20em;
 }
 
+.total-counter{
+  margin-left: 1.1em;
+  font-size: 30px;
+}
 .modal-content {
   border-width: 10px;
   border-radius: 10px;
