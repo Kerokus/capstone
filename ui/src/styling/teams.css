@@ -73,3 +73,34 @@
   /* margin-bottom: 15px; */
   height: 20em;
 }
+
+.modal-content {
+  border-width: 10px;
+  border-radius: 10px;
+  border-color: rgba(174, 171, 171, 0.749);
+  background-color: rgb(28, 28, 28);
+  color:rgba(197, 196, 196, 0.917)
+}
+
+.modal-header {
+  justify-content: center;
+  font-weight: 500;
+  color:rgba(197, 196, 196, 0.917)
+}
+
+.form-control {
+background-color: rgb(201, 201, 201);
+color:black;
+}
+
+#comms_status {
+  background-color: rgb(201, 201, 201);
+}
+
+#personnel_status{
+  background-color: rgb(201, 201, 201);
+}
+
+#equipment_status{
+  background-color: rgb(201, 201, 201);
+}
