@@ -1,7 +1,3 @@
-.mission-data {
-  /* text-align: center; */
-}
-
 .missions-map {
   background-color: azure;
   color: black;
@@ -46,4 +42,13 @@
   align-self: center;
   margin-right: 2.3em;
   text-decoration: none;
+}
+
+.mission-card-header {
+  text-align: center;
+}
+
+.card-header {
+  width: 100%;
+  justify-content: center;
 }

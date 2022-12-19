@@ -27,7 +27,8 @@
 .timer-background {
   /* height: 100%; */
   /* background-color: rgb(42, 42, 42); */
-  color: lightgray;
+  /* color: lightgray; */
+  color: white;
   /* background-color: #212529; */
   /* margin-top: 100px; */
 }

@@ -131,6 +131,7 @@ const Missions = () => {
     //   coordinates = { lat: 48.8566, lng: 2.3522 };
     // }
     return (
+      <>
       <Card
         border="light"
         style={{ width: "18rem" }}
@@ -141,7 +142,7 @@ const Missions = () => {
       >
         <Card.Header>
           {" "}
-          {`${mission.name} - ${mission.status.toUpperCase()}`}{" "}
+          {`${mission.name}`} <p> {`${mission.status.toUpperCase()}`}</p>{" "}
         </Card.Header>
         <Card.Body className="card-body">
           <div className="test" key={index}>
@@ -180,6 +181,8 @@ const Missions = () => {
           </div>
         </Card.Body>
       </Card>
+
+      </>
     );
   };
 
@@ -211,6 +214,7 @@ const Missions = () => {
             </Button>
           </Link>
         </div>
+        <h1 className ="total-counter">Total Missions: {ctx.missions.length}</h1>
 
         <div className="mission-card-container">
           {[...filteredMissionData].map(renderMissionCard)}
@@ -242,6 +246,7 @@ const Missions = () => {
             Delete
           </Button>
         </Modal.Footer>
+
       </Modal>
     </>
   );

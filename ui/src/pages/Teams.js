@@ -243,6 +243,7 @@ const Teams = () => {
           </Button>
         </Link>
       </div>
+      <h1 className ="total-counter">Total Teams: {ctx.teams.length}</h1>
 
       <div className="mission-card-container">
         {[...filteredTeamData].map(renderTeamCard)}
@@ -253,6 +254,7 @@ const Teams = () => {
         onHide={handleCloseWarning}
         backdrop="static"
         keyboard={false}
+        // className="modal-main"
       >
         <Modal.Header>
           <Modal.Title>CONFIRM</Modal.Title>

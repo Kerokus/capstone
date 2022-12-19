@@ -14,11 +14,12 @@
 @import "dashboardstatuses.css";
 @import "digitalclock.css";
 
+
 .app-container {
   height: 100%;
   background-color: rgb(42, 42, 42);
   color: lightgray;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   overflow-x: hidden;
 }
 
@@ -29,4 +30,10 @@
 
 body {
   overflow-y: hidden;
+}
+
+* {
+  /* font-family: 'Roboto', sans-serif; */
+  /* font-size: 15px;
+  font-weight: 10000; */
 }
