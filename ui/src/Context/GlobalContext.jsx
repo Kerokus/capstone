@@ -23,7 +23,7 @@ const ContextProvider = ({ children }) => {
   const [dashboard, setDashboard] = useState([]);
   const [oneDayDate, setOneDayDate] = useState("");
   const [twoDayDate, setTwoDayDate] = useState("");
-
+  
   // <- <- Map Markers
   const [dashboardMarkers, setDashboardMarkers] = useState([]);
   const [teamMarkers, setTeamMarkers] = useState([]);
@@ -53,6 +53,7 @@ const ContextProvider = ({ children }) => {
   const [singleMission, setSingleMission] = useState([]);
   const [latLong, setLatLong] = useState([]);
   const [upcomingMissions, setUpcomingMissions] = useState([]);
+  const [ongoingMissions, setOngoingMissions] = useState([]);
 
   // <- <- Personnel
   const [showWarning, setShowWarning] = useState(false);
@@ -181,7 +182,9 @@ const ContextProvider = ({ children }) => {
     upcomingMissions,
     setUpcomingMissions,
     displayedEntity,
-    setDisplayedEntity
+    setDisplayedEntity,
+    ongoingMissions, 
+    setOngoingMissions
   };
 
   return (

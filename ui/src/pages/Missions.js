@@ -140,7 +140,7 @@ const Missions = () => {
       >
         <Card.Header>
           {" "}
-          {`${mission.name} - ${mission.status.toUpperCase()}`}{" "}
+          {`${mission.name}`} <p> {`${mission.status.toUpperCase()}`}</p>{" "}
         </Card.Header>
         <Card.Body className="card-body">
           <div className="test" key={index}>
@@ -150,8 +150,8 @@ const Missions = () => {
             <div className="mission-data">
               <u> Location: </u>
               <p>{`${mission.location.country} - ${mission.location.city_base}`}</p>
-              <u> Decision Point: </u>
-              <p>{`${mission.decision_point}`}</p>
+              <u> Start Date: </u>
+              <p>{`${mission.start_date}`}</p>
             </div>
             <div className="asd"></div>
           </div>

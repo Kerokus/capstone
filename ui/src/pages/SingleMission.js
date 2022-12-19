@@ -187,10 +187,14 @@ const SingleMission = () => {
               <b>End Date:</b> {ctx.singleMission[0].end_date}{" "}
             </p>
             <p>
+              <b>Authority:</b> {ctx.singleMission[0].authority}{" "}
+            </p>
+            <p>
               <b>Purpose:</b> {ctx.singleMission[0].purpose}{" "}
             </p>
             <p>
-              <b>Authority:</b> {ctx.singleMission[0].authority}{" "}
+              <b>Full Mission Description:</b>{" "}
+              {ctx.singleMission[0].description}{" "}
             </p>
             <p>
               <b>End State:</b> {ctx.singleMission[0].end_state}{" "}
