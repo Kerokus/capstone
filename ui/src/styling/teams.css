@@ -72,3 +72,8 @@
   /* margin-bottom: 15px; */
   height: 20em;
 }
+
+.total-counter{
+  margin-left: 1.1em;
+  font-size: 30px;
+}
