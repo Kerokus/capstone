@@ -235,6 +235,8 @@ Then sets the missions state variable with that array. Fires when the missions s
     ctx.setRefresh((current) => !current);
   };
 
+  const setBackgroundColor = (team) => {};
+
   return (
     <div className="single-team-container">
       <div className="team-admin-container">
@@ -247,6 +249,7 @@ Then sets the missions state variable with that array. Fires when the missions s
               className="single-personnel-dropdown"
               md="3"
               id="personnel_status"
+              style={{ backgroundColor: `${ctx.clickedTeam.personnel_status}` }}
               onChange={(e) => handleStatusChange(e)}
               value={ctx.clickedTeam.personnel_status}
               aria-label="Default select example"
@@ -264,6 +267,7 @@ Then sets the missions state variable with that array. Fires when the missions s
             <Form.Select
               md="3"
               id="equipment_status"
+              style={{ backgroundColor: `${ctx.clickedTeam.equipment_status}` }}
               onChange={(e) => handleStatusChange(e)}
               value={ctx.clickedTeam.equipment_status || ""}
               aria-label="Default select example"
@@ -281,6 +285,7 @@ Then sets the missions state variable with that array. Fires when the missions s
             <Form.Select
               md="3"
               id="comms_status"
+              style={{ backgroundColor: `${ctx.clickedTeam.comms_status}` }}
               onChange={(e) => handleStatusChange(e)}
               value={ctx.clickedTeam.comms_status || ""}
               aria-label="Default select example"
