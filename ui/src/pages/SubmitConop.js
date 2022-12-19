@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import { Link } from "react-router-dom";
 
 //submitConopForm, setSubmitConopForm
 
@@ -25,6 +26,10 @@ const SubmitConop = () => {
       newData[event.target.id] = event.target.value;
     }
     ctx.setSubmitConopForm(newData);
+  };
+
+  const toggleRefresh = () => {
+    ctx.setRefresh((current) => !current);
   };
 
   //Clears the form data
@@ -70,6 +75,15 @@ const SubmitConop = () => {
           >
             Clear Form
           </Button>
+          <Link to={`/`} style={{ color: "white", textDecoration: "none" }}>
+            <Button
+              className="conop-cancel-button"
+              variant="warning"
+              onClick={toggleRefresh}
+            >
+              Cancel
+            </Button>
+          </Link>
           <Button type="submit" className="conop-submit-button">
             Submit
           </Button>

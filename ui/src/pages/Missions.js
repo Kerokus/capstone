@@ -140,7 +140,7 @@ const Missions = () => {
       >
         <Card.Header>
           {" "}
-          {`${mission.name} - ${mission.status.toUpperCase()}`}{" "}
+          {`${mission.name}`} <p> {`${mission.status.toUpperCase()}`}</p>{" "}
         </Card.Header>
         <Card.Body className="card-body">
           <div className="test" key={index}>
