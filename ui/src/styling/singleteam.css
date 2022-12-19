@@ -1,7 +1,7 @@
 .single-team-container {
   display: grid;
   grid-template-columns: 1.4fr 0.8fr 0.8fr;
-  grid-template-rows: 0.2fr 4.0fr 1fr 0.35fr;
+  grid-template-rows: 0.2fr 4fr 1fr 0.35fr;
   gap: 5px 5px;
   padding: 1em;
   grid-template-areas:
@@ -81,8 +81,6 @@
   border-radius: 10px;
   background-color: #212529;
 }
-
-
 
 .team-personnel-container {
   grid-area: team-personnel-container;

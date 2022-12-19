@@ -244,6 +244,7 @@ Then sets the missions state variable with that array. Fires when the missions s
           Personnel Status:{" "}
           <Form.Group as={Col} md="4">
             <Form.Select
+              className="single-personnel-dropdown"
               md="3"
               id="personnel_status"
               onChange={(e) => handleStatusChange(e)}
