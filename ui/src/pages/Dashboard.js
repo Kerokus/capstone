@@ -17,8 +17,8 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [upcomingMissions, setUpcomingMissions] = useState([]);
   const [statusLoad, setStatusLoad] = useState(false);
-  let coordinates = { lat: 32.313793143601366, lng: 55.194812819979404 };
-
+  let coordinates = { lat: 27.462945821868242, lng: 49.41946212564189 };
+  
   let activeMissionsArray = [];
   let upcomingMissionsArray = [];
 
