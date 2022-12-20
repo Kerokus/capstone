@@ -395,7 +395,7 @@ const Teams = () => {
             <Button variant="secondary" onClick={handleClose}>
               Cancel
             </Button>
-            <Button variant="primary" type="submit">
+            <Button className="green-button" type="submit">
               Submit
             </Button>
           </Form>
@@ -418,6 +418,7 @@ const Teams = () => {
           </Button>
           <Button
             variant="warning"
+            className= "red-button"
             onClick={() => {
               handleDelete();
               ctx.setSearchTerm("");

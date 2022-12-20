@@ -84,7 +84,7 @@ const SubmitConop = () => {
               Cancel
             </Button>
           </Link>
-          <Button type="submit" className="conop-submit-button">
+          <Button type="submit" className="green-button">
             Submit
           </Button>
         </div>

@@ -16,13 +16,26 @@
 } */
 
 .mission-search-bar {
-  background-color: #212529;
+  /* background-color: #212529; */
+  /* background-color: rgb(242, 240, 240); */
   margin-top: 20px;
-  color: white;
+  /* background-color: #212529; */
+    /* background-color: #212529; */
+    background-color: lightgray;
+  color: black;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 18px;
+  width: 400px;
+  height: 42px;
+  /* border: gray;
+  border-width: 100px; */
+  border-color: gray;
+  border-width: 5px;
 }
 
 .mission-card-container {
-  background-color: rgb(42, 42, 42);
+  background-color: rgb( #0b5ed7);
 }
 
 .missions-page-container {

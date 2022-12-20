@@ -546,7 +546,7 @@ const Personnel = () => {
             <Button variant="secondary" onClick={handleClose}>
               Cancel
             </Button>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" className= "green-button" type="submit">
               Submit
             </Button>
           </Form>
@@ -584,6 +584,7 @@ const Personnel = () => {
           </Button>
           <Button
             variant="warning"
+            className= "red-button"
             onClick={() => {
               handleDelete();
               ctx.setSearchTerm("");

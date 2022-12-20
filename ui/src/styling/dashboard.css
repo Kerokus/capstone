@@ -562,6 +562,7 @@
   display: grid;
   justify-content: center;
   align-items: center;
+
 }
 
 /* .clocks-container {
@@ -584,13 +585,24 @@
 
 } */
 
-/* .fuck{
+/* .{
   align-content: center;
   justify-content: center;
-}
+}*/
 
 .search-box{
   display: flex;
-  background-color: bisque;
-  margin-left: 25%;
-} */
+  /* background-color: rgb(228, 222, 222); */
+  background-color: lightgray;
+  color: black;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 18px;
+  width: 400px;
+  height: 42px;
+  /* border: gray;
+  border-width: 100px; */
+  border-color: gray;
+  border-width: 5px;
+
+} 
