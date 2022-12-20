@@ -58,7 +58,9 @@ const Dashboard = () => {
         mission.start_date === ctx.oneDayDate ||
         mission.start_date === ctx.twoDayDate
       ) {
-        upcomingMissionsArray.push(mission);
+        if (mission.status !== 'Complete' && mission.status !== 'Cancelled') {
+          upcomingMissionsArray.push(mission);
+        }
       }
       ctx.setUpcomingMissions(upcomingMissionsArray);
     });
@@ -72,12 +74,13 @@ const Dashboard = () => {
     ctx.missions.forEach((mission, index) => {
       // console.log(mission.start_date <= today)
       // console.log(mission.start_date <= today)
-
+    if (mission.status !== 'Complete' && mission.status !== 'Cancelled') {
       if (
         mission.start_date <= today && mission.end_date >= today
       ) {
         activeMissionsArray.push(mission);
       }
+    }
     });
     ctx.setOngoingMissions(activeMissionsArray);
   }, [ctx.missions]);
