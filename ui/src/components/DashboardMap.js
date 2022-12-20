@@ -126,8 +126,65 @@ export default function DashboardMap({ coordinates }) {
           onLoad={onMapLoad}
           draggable="true"
         >
+            {/* clicked tab (all, active, upcoming) mission pins */}
+            {ctx.displayedMarkers.map(
+            (marker) => ( 
+              // console.log(marker.marker_status)
+              marker.marker_status === 'all' ? 
+              <Marker
+                key={marker.id}
+                position={{lat: marker.lat, lng: marker.lng}}
+                draggable={false}
+                onClick={() => {
+                marker.status = (marker.marker_status).toUpperCase() 
+                setSelected(marker);
+                }}
+                icon={{
+                  url: "http://maps.google.com/mapfiles/kml/paddle/grn-circle.png",
+                  origin: new window.google.maps.Point(0, 0),
+                  anchor: new window.google.maps.Point(15, 15),
+                  scaledSize: new window.google.maps.Size(30, 30),
+                }}
+              /> : marker.marker_status === 'active' ?
+              <Marker
+              key={marker.id}
+              position={{lat: marker.lat, lng: marker.lng}}
+              draggable={false}
+              onClick={() => {
+              marker.status = (marker.marker_status).toUpperCase() 
+              setSelected(marker);
+              }}
+              icon={{
+                //active
+                url: "http://maps.google.com/mapfiles/kml/paddle/purple-circle.png",
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+                scaledSize: new window.google.maps.Size(30, 30),
+              }}
+            /> : 
+            <Marker
+            key={marker.id}
+            position={{lat: marker.lat, lng: marker.lng}}
+            draggable={false}
+            onClick={() => {
+            marker.status = (marker.marker_status).toUpperCase() 
+            setSelected(marker);
+            }}
+            icon={{
+              //upcoming
+              url: "http://maps.google.com/mapfiles/kml/paddle/orange-circle.png",
+              origin: new window.google.maps.Point(0, 0),
+              anchor: new window.google.maps.Point(15, 15),
+              scaledSize: new window.google.maps.Size(30, 30),
+            }}
+          />
+            ),
+            []
+          )}
+          <Marker />
+
           {/* upcoming mission pins */}
-          {ctx.dashboardMarkersUpcoming.map(
+          {/* {ctx.dashboardMarkersUpcoming.map(
             (marker) => ( 
               
               <Marker
@@ -139,7 +196,7 @@ export default function DashboardMap({ coordinates }) {
                 setSelected(marker);
                 }}
                 icon={{
-                  url: "http://maps.google.com/mapfiles/kml/paddle/ylw-circle.png",
+                  url: "http://maps.google.com/mapfiles/kml/paddle/orange-circle.png",
                   origin: new window.google.maps.Point(0, 0),
                   anchor: new window.google.maps.Point(15, 15),
                   scaledSize: new window.google.maps.Size(30, 30),
@@ -148,10 +205,10 @@ export default function DashboardMap({ coordinates }) {
             ),
             []
           )}
-          <Marker />
+          <Marker /> */}
 
           {/* active mission pins */}
-          {ctx.dashboardMarkersActive.map(
+          {/* {ctx.dashboardMarkersActive.map(
             (marker) => (
               <Marker 
               key={marker.id}
@@ -162,7 +219,7 @@ export default function DashboardMap({ coordinates }) {
               setSelected(marker);
               }}
               icon={{
-                url: "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+                url: "http://maps.google.com/mapfiles/kml/paddle/grn-circle.png",
                 origin: new window.google.maps.Point(0, 0),
                 anchor: new window.google.maps.Point(15, 15),
                 scaledSize: new window.google.maps.Size(30, 30),
@@ -171,7 +228,7 @@ export default function DashboardMap({ coordinates }) {
               
             ),
             []
-          )}
+          )} */}
 
           {selected ? (
             <InfoWindow
