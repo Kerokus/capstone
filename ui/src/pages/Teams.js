@@ -25,6 +25,11 @@ const Teams = () => {
     ctx.setTeamMarkers([]);
   }, []);
 
+    // scrolls screen to the top when the component is mounted
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
   useEffect(() => {
     setFilteredTeamData(ctx.teams);
   }, [ctx.teams]);
@@ -158,7 +163,7 @@ const Teams = () => {
       coordinates = { lat: 31.261837409143272, lng: 36.740018930765636 };
       zoom = 6;
     } else if (team.location.country === "USA") {
-      coordinates = { lat: 35.14193183877861, lng: -78.99943678131243 };
+      coordinates = { lat: 33.411867719890346, lng: -82.04860551242295 };
       zoom = 9;
     } else if (team.location.country === "Saudi Arabia") {
       coordinates = { lat: 23.66644483894103, lng: 45.145512699263534 };

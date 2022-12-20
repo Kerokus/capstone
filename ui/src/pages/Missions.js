@@ -19,6 +19,11 @@ const Missions = () => {
     toggleRefresh()
   }, []);
 
+    // scrolls screen to the top when the component is mounted
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
   useEffect(() => {
     setFilteredMissionData(ctx.missions);
   }, [ctx.missions]);

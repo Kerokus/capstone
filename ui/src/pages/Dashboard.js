@@ -26,6 +26,11 @@ const Dashboard = () => {
     "en-US": require("date-fns/locale/en-US"),
   };
 
+    // scrolls screen to the top when the component is mounted
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
   const toggleRefresh = () => {
     ctx.setRefresh((current) => !current);
   };
