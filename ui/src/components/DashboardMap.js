@@ -187,7 +187,7 @@ export default function DashboardMap({ coordinates }) {
               }}
             >
               <div className="info-window">
-                {/* <p>{`${selected.id} (Upcoming)`}</p> */}
+                <p>{`${selected.id} (Upcoming)`}</p>
                 <div>{`lat: ${selected.lat}`}</div>
                 <div>{`long: ${selected.lng}`}</div>
               </div>
