@@ -87,19 +87,7 @@ export default function DashboardMap({ coordinates }) {
     mapRef.current.setZoom(8);
   }, []);
 
-  // const handleChoice = () => {
-  //   if (countries.name === 'Saudi Arabia'){
-  //     setChoice(panTo({lat:24.689868, lng:46.735424}))
-  //     console.log(choice)
-  //   } else {
-  //     console.log('Shit is fucked')
-  //   }
-
-  // }
-
-  // const getDirections = () => {
-
-  // }
+ 
 
   if (loadError) return "Error";
   if (!isLoaded) return "Loading...";

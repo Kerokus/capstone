@@ -179,6 +179,7 @@ const Missions = () => {
             </Link>
             <Button
               variant="danger"
+          
               onClick={() => {
                 ctx.setClickedMission(mission);
                 handleShowWarning();
@@ -245,6 +246,7 @@ const Missions = () => {
           </Button>
           <Button
             variant="warning"
+            className="red-button"
             onClick={() => {
               handleDelete();
               ctx.setSearchTerm("");
