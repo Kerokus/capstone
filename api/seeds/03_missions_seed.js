@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
- exports.seed = async function (knex) {
+exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("missions").del();
   await knex("missions").insert([
@@ -117,7 +117,7 @@
       },
       decision_point: "2023-12-05",
       is_archived: false,
-      team_id: 2,
+      team_id: 15,
     },
     {
       id: 4,
