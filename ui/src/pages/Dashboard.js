@@ -19,9 +19,8 @@ const Dashboard = () => {
   const [statusLoad, setStatusLoad] = useState(false);
   let coordinates = { lat: 32.313793143601366, lng: 55.194812819979404 };
 
-  let ongoingMissionsArray = [];
+  let activeMissionsArray = [];
   let upcomingMissionsArray = [];
-  let ongoingAndUpcomingMissionsArray = [];
 
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
@@ -60,7 +59,6 @@ const Dashboard = () => {
         mission.start_date === ctx.twoDayDate
       ) {
         upcomingMissionsArray.push(mission);
-        ongoingAndUpcomingMissionsArray.push(mission);
       }
       ctx.setUpcomingMissions(upcomingMissionsArray);
     });
@@ -72,10 +70,9 @@ const Dashboard = () => {
       if (
         mission.status === "Active"
       ) {
-        ongoingMissionsArray.push(mission);
-        ongoingAndUpcomingMissionsArray.push(mission);
+        activeMissionsArray.push(mission);
       }
-      ctx.setOngoingMissions(ongoingAndUpcomingMissionsArray);
+      ctx.setOngoingMissions(activeMissionsArray);
     });
   }, [ctx.missions]);
 
@@ -190,18 +187,33 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    let dashboardMarkersArray = [];
-    ctx.ongoingMissions.forEach((mission) => {
+    let dashboardMarkersUpcomingArray = [];
+    ctx.upcomingMissions.forEach((mission) => {
       ctx.dashboard.forEach((otherMission) => {
         if (mission.id === otherMission.id) {
-          dashboardMarkersArray.push({
+          dashboardMarkersUpcomingArray.push({
             id: otherMission.title,
             lat: otherMission.coords[1],
             lng: otherMission.coords[0],
           });
         }
       });
-    }, ctx.setDashboardMarkers(dashboardMarkersArray));
+    }, ctx.setDashboardMarkersUpcoming(dashboardMarkersUpcomingArray));
+  }, [ctx.dashboard, ctx.refresh]);
+
+  useEffect(() => {
+    let dashboardMarkersActiveArray = [];
+    ctx.ongoingMissions.forEach((mission) => {
+      ctx.dashboard.forEach((otherMission) => {
+        if (mission.id === otherMission.id) {
+          dashboardMarkersActiveArray.push({
+            id: otherMission.title,
+            lat: otherMission.coords[1],
+            lng: otherMission.coords[0],
+          });
+        }
+      });
+    }, ctx.setDashboardMarkersActive(dashboardMarkersActiveArray));
   }, [ctx.dashboard, ctx.refresh]);
 
   return (
