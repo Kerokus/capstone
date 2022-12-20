@@ -116,6 +116,10 @@ export default function DashboardMap({ coordinates }) {
 
   };
 
+  //function to distinguish active markers from upcoming markers 
+  let statusChecker = () => {
+
+  }
 
 
   return (
@@ -143,6 +147,7 @@ export default function DashboardMap({ coordinates }) {
                 position={{lat: marker.lat, lng: marker.lng}}
                 draggable={false}
                 onClick={() => {
+                marker.status = 'Upcoming'  
                 setSelected(marker);
                 }}
                 icon={{
@@ -165,6 +170,7 @@ export default function DashboardMap({ coordinates }) {
               position={{lat: marker.lat, lng: marker.lng}}
               draggable={false}
               onClick={() => {
+              marker.status = 'Active'
               setSelected(marker);
               }}
               icon={{
@@ -187,7 +193,7 @@ export default function DashboardMap({ coordinates }) {
               }}
             >
               <div className="info-window">
-                <p>{`${selected.id} (Upcoming)`}</p>
+                <p>{`${selected.id} (${selected.status})`}</p>
                 <div>{`lat: ${selected.lat}`}</div>
                 <div>{`long: ${selected.lng}`}</div>
               </div>
