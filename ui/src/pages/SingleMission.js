@@ -159,7 +159,7 @@ const SingleMission = () => {
                 ctx.setSubmitConopForm(ctx.singleMission[0]);
               }}
             >
-              <Button>Edit CONOP</Button>
+              <Button className="gray-button">Edit CONOP</Button>
             </Link>
 
             <div className="single-mission-status">

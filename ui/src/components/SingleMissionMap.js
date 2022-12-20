@@ -122,7 +122,7 @@ import React, {
   
           <GoogleMap
             id="map"
-            mapContainerClassName="single-mission-map"
+            mapContainerClassName="single-mission-mapp"
             zoom={zoom}
             center={coordinates}
             options={options}
