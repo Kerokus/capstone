@@ -16,7 +16,13 @@ const Missions = () => {
     ctx.setShow(false);
     ctx.setTeamMarkers([]);
     ctx.setMissionMarkers([]);
+    toggleRefresh()
   }, []);
+
+    // scrolls screen to the top when the component is mounted
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
   useEffect(() => {
     setFilteredMissionData(ctx.missions);
@@ -102,8 +108,11 @@ const Missions = () => {
       coordinates = { lat: 25.253654783876964, lng: 51.2066182649342 };
       zoom = 8;
     } else if (mission.location.country === "Iraq") {
-      coordinates = { lat: 36.230501, lng: 43.956688 };
-      zoom = 6;
+      coordinates = { lat: 33.12531111219817, lng: 43.42720100219237 };
+      zoom = 5;
+    } else if (mission.location.country === "Saudi Arabia") {
+      coordinates = { lat: 24.062887, lng: 47.561123 };
+      zoom = 5;
     } else {
       coordinates = { lat: 32.69215511648702, lng: 43.645439965585325 };
       zoom = 3;

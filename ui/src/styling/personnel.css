@@ -4,15 +4,17 @@
 
 .personnel-header-text {
 padding-right: 1%;
+font-size: 30px;
 }
 
 .header-and-csv{
   display: flex;
   text-align: center;
   font-size: x-large;
-  padding-left: 2.5%;
+  padding-left: 2%;
   padding-bottom: .3%;
-  margin-top: 2.3em;
+  margin-top: .5em;
+  margin-bottom: .5em;
 }
 
 

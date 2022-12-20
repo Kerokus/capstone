@@ -16,7 +16,6 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import SingleTeamMap from "../components/SingleTeamMap";
 
-
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -39,7 +38,7 @@ const SingleTeam = () => {
   // scrolls screen to the top when the component is mounted
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [ctx.clickedTeam]);
 
   let coordinates = {};
   let zoom;
@@ -51,14 +50,17 @@ const SingleTeam = () => {
     coordinates = { lat: 31.00994216931093, lng: 36.6326645727253 };
     zoom = 7;
   } else if (ctx.clickedTeam.location.country === "USA") {
-    coordinates = { lat: 33.4302, lng: -82.1261 };
-    zoom = 9;
+    coordinates = { lat: 33.411867719890346, lng: -82.04860551242295 };
+    zoom = 10;
   } else if (ctx.clickedTeam.location.country === "Qatar") {
-    coordinates = { lat: 25.27628, lng: 51.525105 };
-    zoom = 6;
+    coordinates = { lat: 25.3048552165822, lng: 51.20092464221381 };
+    zoom = 9;
   } else if (ctx.clickedTeam.location.country === "Iraq") {
-    coordinates = { lat: 36.230501, lng: 43.956688 };
+    coordinates = { lat: 33.510153781888555, lng: 43.382197021092345 };
     zoom = 6;
+  } else if (ctx.clickedTeam.location.country === "Saudi Arabia") {
+    coordinates = { lat: 24.309466707622047, lng: 45.79604776134829 };
+    zoom = 5;
   } else {
     coordinates = { lat: 48.8566, lng: 2.3522 };
     zoom = 9;
@@ -200,19 +202,26 @@ Then sets the missions state variable with that array. Fires when the missions s
   /* renders all missions assigned to the clicked team */
   const renderTeamMissions = (mission, index) => {
     return (
-      <li className="team-missions" key={index}>
-        {" "}
-        {`${mission.start_date} | ${mission.name}`}{" "}
-      </li>
+      <Link className="team-mission-link" to={`/missions/${mission.id}`}
+      onClick={() => ctx.setClickedMission(mission)}>
+        <li className="team-missions" key={index}>
+          {" "}
+          {`${mission.start_date} | ${mission.name}`}{" "}
+        </li>
+    </Link>
+
     );
   };
   /* renders upcoming missions assigned to the clicked team */
   const renderUpcomingMissions = (mission, index) => {
     return (
-      <li className="team-missions" key={index}>
-        {" "}
-        {`${mission.start_date} | ${mission.name}`}{" "}
-      </li>
+      <Link className="team-mission-link" to={`/missions/${mission.id}`}
+      onClick={() => ctx.setClickedMission(mission)}>
+        <li className="team-missions" key={index}>
+          {" "}
+          {`${mission.start_date} | ${mission.name}`}{" "}
+        </li>
+    </Link>
     );
   };
 
@@ -244,122 +253,124 @@ Then sets the missions state variable with that array. Fires when the missions s
     ctx.setRefresh((current) => !current);
   };
 
-  
   return (
     <>
       <h1 className="team-name-center">{ctx.clickedTeam.team_name}</h1>
 
+      <div className="single-team-container">
+        <div className="team-admin-container">
+          <div className="team-personnel-status">
+            Personnel Status:{" "}
+            <Form.Group as={Col} md="4">
+              <Form.Select
+                className="single-personnel-dropdown"
+                md="3"
+                id="personnel_status"
+                style={{
+                  backgroundColor: `${ctx.clickedTeam.personnel_status}`,
+                }}
+                onChange={(e) => handleStatusChange(e)}
+                value={ctx.clickedTeam.personnel_status}
+                aria-label="Default select example"
+              >
+                <option>Green</option>
+                <option>Yellow</option>
+                <option>Red</option>
+              </Form.Select>
+            </Form.Group>
+          </div>
 
-    <div className="single-team-container">
-      <div className="team-admin-container">
+          <div className="team-equipment-status">
+            Equipment Status:
+            <Form.Group as={Col} md="4">
+              <Form.Select
+                md="3"
+                id="equipment_status"
+                style={{
+                  backgroundColor: `${ctx.clickedTeam.equipment_status}`,
+                }}
+                onChange={(e) => handleStatusChange(e)}
+                value={ctx.clickedTeam.equipment_status || ""}
+                aria-label="Default select example"
+              >
+                <option>Green</option>
+                <option>Yellow</option>
+                <option>Red</option>
+              </Form.Select>
+            </Form.Group>
+          </div>
 
-
-        <div className="team-personnel-status">
-          Personnel Status:{" "}
-          <Form.Group as={Col} md="4">
-            <Form.Select
-              className="single-personnel-dropdown"
-              md="3"
-              id="personnel_status"
-              onChange={(e) => handleStatusChange(e)}
-              value={ctx.clickedTeam.personnel_status}
-              aria-label="Default select example"
-            >
-              <option>Green</option>
-              <option>Yellow</option>
-              <option>Red</option>
-            </Form.Select>
-
-          </Form.Group>
+          <div className="team-comms-status">
+            Comms Status:
+            <Form.Group as={Col} md="4">
+              <Form.Select
+                md="3"
+                id="comms_status"
+                style={{ backgroundColor: `${ctx.clickedTeam.comms_status}` }}
+                onChange={(e) => handleStatusChange(e)}
+                value={ctx.clickedTeam.comms_status || ""}
+                aria-label="Default select example"
+              >
+                <option>Green</option>
+                <option>Yellow</option>
+                <option>Red</option>
+              </Form.Select>
+            </Form.Group>
+          </div>
         </div>
 
-        <div className="team-equipment-status">
-          Equipment Status:
-          <Form.Group as={Col} md="4">
-            <Form.Select
-              md="3"
-              id="equipment_status"
-              onChange={(e) => handleStatusChange(e)}
-              value={ctx.clickedTeam.equipment_status || ""}
-              aria-label="Default select example"
-            >
-              <option>Green</option>
-              <option>Yellow</option>
-              <option>Red</option>
-            </Form.Select>
-          </Form.Group>
+        <div className="team-calendar">
+          <Calendar
+            localizer={localizer}
+            events={ctx.dashboard}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: "1fr", width: "1fr" }}
+          />
         </div>
 
-        <div className="team-comms-status">
-          Comms Status:
-          <Form.Group as={Col} md="4">
-            <Form.Select
-              md="3"
-              id="comms_status"
-              onChange={(e) => handleStatusChange(e)}
-              value={ctx.clickedTeam.comms_status || ""}
-              aria-label="Default select example"
-            >
-              <option>Green</option>
-              <option>Yellow</option>
-              <option>Red</option>
-            </Form.Select>
-          </Form.Group>
+        <div className="single-team-mapp">
+          <b className="single-map-header">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</b>
+          <SingleTeamMap coordinates={coordinates} zoom={zoom} />
+        </div>
+
+        <div className="team-personnel-container">
+          <h3>Team Personnel</h3>
+          {members.length > 0 ? (
+            <div className="team-members">
+              {[...members].map(renderTeamMembers)}
+            </div>
+          ) : (
+            <div>Loading...</div>
+          )}
+        </div>
+
+        <div className="team-upcoming-container">
+          <h3>Next 48 hours</h3>
+          {upcomingMissions.length > 0 ? (
+            <div className="team-missions">
+              <ul>{[...upcomingMissions].map(renderUpcomingMissions)}</ul>
+            </div>
+          ) : (
+            <div className="team-missions">
+              <div>{`None`} </div>
+            </div>
+          )}
+        </div>
+
+        <div className="team-all-missions-container">
+          <h3>All pending activities</h3>
+          {missions.length > 0 ? (
+            <div className="team-missions">
+              <ul>{[...missions].map(renderTeamMissions)}</ul>
+            </div>
+          ) : (
+            <div className="team-missions">
+              <div>{`None`} </div>
+            </div>
+          )}
         </div>
       </div>
-
-      <div className="team-calendar">
-        <Calendar
-          localizer={localizer}
-          events={ctx.dashboard}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: "1fr", width: "1fr" }}
-        />
-      </div>
-
-      <div className="single-team-mapp">
-        <b className="single-map-header">{`${ctx.clickedTeam.location.country} - ${ctx.clickedTeam.location.city_base}`}</b>
-        <SingleTeamMap coordinates={coordinates} zoom={zoom} />
-      </div>
-
-      <div className="team-personnel-container">
-        <h3>Team Personnel</h3>
-        {members.length > 0 ? (
-          <div className="team-members">
-            {[...members].map(renderTeamMembers)}
-          </div>
-        ) : (
-          <div>Loading...</div>
-        )}
-      </div>
-
-      <div className="team-upcoming-container">
-        <h3>Next 48 hours</h3>
-        {upcomingMissions.length > 0 ? (
-          <div className="team-missions">
-            <ul>{[...upcomingMissions].map(renderUpcomingMissions)}</ul>
-          </div>
-        ) : (
-          <div className="team-missions">
-            <div>{`None`} </div>
-          </div>
-        )}
-      </div>
-
-      <div className="team-all-missions-container">
-        <h3>All pending activities</h3>
-        {missions.length > 0 ? (
-          <div className="team-missions">
-            <ul>{[...missions].map(renderTeamMissions)}</ul>
-          </div>
-        ) : (
-          <div className="team-missions">
-            <div>{`None`} </div>
-          </div>
-        )}
-      </div>
-    </div>
     </>
   );
 };

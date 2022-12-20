@@ -14,6 +14,10 @@ const SubmitConop = () => {
   const ctx = useContext(GlobalContext);
   const [validated, setValidated] = useState(false);
 
+  useEffect(() => {
+    ctx.setSubmitConopForm({});
+  }, [])
+
   //DATA HANDLERS
   const handleFormData = (event, nestedObject) => {
     let newData = { ...ctx.submitConopForm };
@@ -84,7 +88,11 @@ const SubmitConop = () => {
               Cancel
             </Button>
           </Link>
+
           <Button type="submit" className="green-button">
+
+          <Button type="submit" className="conop-submit-button" variant='success'>
+
             Submit
           </Button>
         </div>

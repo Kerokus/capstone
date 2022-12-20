@@ -1,30 +1,174 @@
 /**
  * @param { import("knex").Knex } knex
- * @returns { Promise<void> } 
+ * @returns { Promise<void> }
  */
 
-
-exports.seed = async function(knex) {
-  await knex.schema.raw('TRUNCATE teams CASCADE')
+exports.seed = async function (knex) {
+  await knex.schema.raw("TRUNCATE teams CASCADE");
   // Deletes ALL existing entries
-  await knex('teams').del()
-  await knex('teams').insert([
-    {id: 1, team_name: 'Unassigned Team', location: {"city_base": "", "country": ""}, comms_status: '', personnel_status: '', equipment_status: '', is_archived: false},
-    {id: 2, team_name: 'CI Team 1', location: {"city_base": "Camp Arifjan", "country": "Kuwait"}, comms_status: 'Green', personnel_status: 'Green', equipment_status: 'Green', is_archived: false},
-    {id: 3, team_name: 'HUMINT Team 1', location: {"city_base": "Air Base Ali Al Salem", "country": "Kuwait"}, comms_status: 'Green', personnel_status: 'Red', equipment_status: 'Green', is_archived: false},
-    {id: 4, team_name: 'SIGINT Team 1', location: {"city_base": "Camp Partriot Army Base", "country": "Kuwait"}, comms_status: 'Green', personnel_status: 'Green', equipment_status: 'Green', is_archived: false},
-    {id: 5, team_name: 'CI Team 2', location: {"city_base": "H-4 Air Base", "country": "Kuwait"}, comms_status: 'Green', personnel_status: 'Green', equipment_status: 'Green', is_archived: false},
-    {id: 6, team_name: 'HUMINT Team 2', location: {"city_base": "Camp Arifjan", "country": "Kuwait"}, comms_status: 'Green', personnel_status: 'Green', equipment_status: 'Green', is_archived: false},
-    {id: 7, team_name: 'SIGINT Team 2', location: {"city_base": "King Abdullah II Air Base", "country": "Jordan"}, comms_status: 'Green', personnel_status: 'Green', equipment_status: 'Green', is_archived: false},
-    {id: 8, team_name: 'CI Team 3', location: {"city_base": "Air Base Ali Al Salem", "country": "Kuwait"}, comms_status: 'Yellow', personnel_status: 'Green', equipment_status: 'Green', is_archived: false},
-    {id: 9, team_name: 'HUMINT Team 3', location: {"city_base": "H-4 Air Base", "country": "Kuwait"}, comms_status: 'Green', personnel_status: 'Green', equipment_status: 'Green', is_archived: false},
-    {id: 10, team_name: 'SIGINT Team 3', location: {"city_base": "Air Base Ali Al Salem", "country": "Kuwait"}, comms_status: 'Red', personnel_status: 'Green', equipment_status: 'Green', is_archived: false},
-    {id: 11, team_name: 'CI Team 4', location: {"city_base": "Camp Partriot Army Base", "country": "Kuwait"}, comms_status: 'Green', personnel_status: 'Green', equipment_status: 'Green', is_archived: false},
-    {id: 12, team_name: 'HUMINT Team 4', location: {"city_base": "King Abdullah II Air Base", "country": "Jordan"}, comms_status: 'Green', personnel_status: 'Green', equipment_status: 'Green', is_archived: false},
-    {id: 13, team_name: 'SIGINT Team 4', location: {"city_base": "H-4 Air Base", "country": "Kuwait"}, comms_status: 'Green', personnel_status: 'Green', equipment_status: 'Green', is_archived: false},
-    {id: 14, team_name: 'CI Team 5', location: {"city_base": "Air Base Ali Al Salem", "country": "Kuwait"}, comms_status: 'Green', personnel_status: 'Yellow', equipment_status: 'Green', is_archived: false},
-    {id: 15, team_name: 'HUMINT Team 5', location: {"city_base": "Camp Partriot Army Base", "country": "Kuwait"}, comms_status: 'Green', personnel_status: 'Green', equipment_status: 'Green', is_archived: false},
-    {id: 16, team_name: 'SIGINT Team 5', location: {"city_base": "King Abdullah II Air Base", "country": "Jordan"}, comms_status: 'Yellow', personnel_status: 'Green', equipment_status: 'Green', is_archived: false},
-    {id: 17, team_name: 'Maintenance Team', location: {"city_base": "Camp Arifjan", "country": "Kuwait"}, comms_status: 'Green', personnel_status: 'Green', equipment_status: 'Green', is_archived: false}
+  await knex("teams").del();
+  await knex("teams").insert([
+    {
+      id: 1,
+      team_name: "Unassigned Team",
+      location: { city_base: "Fort Gordon", country: "USA" },
+      comms_status: "",
+      personnel_status: "",
+      equipment_status: "",
+      is_archived: false,
+    },
+    {
+      id: 2,
+      team_name: "CI Team 1",
+      location: { city_base: "Camp Arifjan", country: "Kuwait" },
+      comms_status: "Red",
+      personnel_status: "Green",
+      equipment_status: "Green",
+      is_archived: false,
+    },
+    {
+      id: 3,
+      team_name: "HUMINT Team 1",
+      location: { city_base: "Ali Al Salem Air Base", country: "Kuwait" },
+      comms_status: "Green",
+      personnel_status: "Green",
+      equipment_status: "Green",
+      is_archived: false,
+    },
+    {
+      id: 4,
+      team_name: "SIGINT Team 1",
+      location: { city_base: "Camp Partriot Army Base", country: "Kuwait" },
+      comms_status: "Green",
+      personnel_status: "Green",
+      equipment_status: "Green",
+      is_archived: false,
+    },
+    {
+      id: 5,
+      team_name: "CI Team 2",
+      location: { city_base: "King Abdullah II Air Base", country: "Jordan" },
+      comms_status: "Green",
+      personnel_status: "Green",
+      equipment_status: "Green",
+      is_archived: false,
+    },
+    {
+      id: 6,
+      team_name: "HUMINT Team 2",
+      location: { city_base: "King Abdullah II Air Base", country: "Jordan" },
+      comms_status: "Green",
+      personnel_status: "Green",
+      equipment_status: "Green",
+      is_archived: false,
+    },
+    {
+      id: 7,
+      team_name: "SIGINT Team 2",
+      location: { city_base: "King Abdullah II Air Base", country: "Jordan" },
+      comms_status: "Green",
+      personnel_status: "Green",
+      equipment_status: "Green",
+      is_archived: false,
+    },
+    {
+      id: 8,
+      team_name: "CI Team 3",
+      location: {
+        city_base: "Prince Sultan Air Base",
+        country: "Saudi Arabia",
+      },
+      comms_status: "Yellow",
+      personnel_status: "Green",
+      equipment_status: "Green",
+      is_archived: false,
+    },
+    {
+      id: 9,
+      team_name: "HUMINT Team 3",
+      location: {
+        city_base: "Prince Sultan Air Base",
+        country: "Saudi Arabia",
+      },
+      comms_status: "Green",
+      personnel_status: "Green",
+      equipment_status: "Red",
+      is_archived: false,
+    },
+    {
+      id: 10,
+      team_name: "SIGINT Team 3",
+      location: {
+        city_base: "Prince Sultan Air Base",
+        country: "Saudi Arabia",
+      },
+      comms_status: "Red",
+      personnel_status: "Green",
+      equipment_status: "Green",
+      is_archived: false,
+    },
+    {
+      id: 11,
+      team_name: "CI Team 4",
+      location: { city_base: "Al Udeid Air Base", country: "Qatar" },
+      comms_status: "Green",
+      personnel_status: "Green",
+      equipment_status: "Green",
+      is_archived: false,
+    },
+    {
+      id: 12,
+      team_name: "HUMINT Team 4",
+      location: { city_base: "Al Udeid Air Base", country: "Qatar" },
+      comms_status: "Green",
+      personnel_status: "Green",
+      equipment_status: "Green",
+      is_archived: false,
+    },
+    {
+      id: 13,
+      team_name: "SIGINT Team 4",
+      location: { city_base: "Al Udeid Air Base", country: "Qatar" },
+      comms_status: "Green",
+      personnel_status: "Green",
+      equipment_status: "Yellow",
+      is_archived: false,
+    },
+    {
+      id: 14,
+      team_name: "CI Team 5",
+      location: { city_base: "Victory Base Complex", country: "Iraq" },
+      comms_status: "Green",
+      personnel_status: "Yellow",
+      equipment_status: "Green",
+      is_archived: false,
+    },
+    {
+      id: 15,
+      team_name: "HUMINT Team 5",
+      location: { city_base: "Victory Base Complex", country: "Iraq" },
+      comms_status: "Green",
+      personnel_status: "Green",
+      equipment_status: "Yellow",
+      is_archived: false,
+    },
+    {
+      id: 16,
+      team_name: "SIGINT Team 5",
+      location: { city_base: "Victory Base Complex", country: "Iraq" },
+      comms_status: "Red",
+      personnel_status: "Green",
+      equipment_status: "Green",
+      is_archived: false,
+    },
+    {
+      id: 17,
+      team_name: "Maintenance Team",
+      location: { city_base: "Camp Arifjan", country: "Kuwait" },
+      comms_status: "Green",
+      personnel_status: "Green",
+      equipment_status: "Green",
+      is_archived: false,
+    },
   ]);
 };

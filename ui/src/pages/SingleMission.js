@@ -70,11 +70,14 @@ const SingleMission = () => {
     coordinates = { lat: 35.14147146711656, lng: -79.00823128996466 };
     zoom = 12;
   } else if (ctx.clickedMission.location.country === "Qatar") {
-    coordinates = { lat: 25.27628, lng: 51.525105 };
-    zoom = 6;
+    coordinates = { lat: 25.260281790356256, lng: 51.46267068233816 };
+    zoom = 10;
   } else if (ctx.clickedMission.location.country === "Iraq") {
-    coordinates = { lat: 36.230501, lng: 43.956688 };
-    zoom = 6;
+    coordinates = { lat: 33.31491140810114, lng: 44.377725699000514 };
+    zoom = 8;
+  } else if (ctx.clickedMission.location.country === "Saudi Arabia") {
+    coordinates = { lat: 24.062887, lng: 47.561123 };
+    zoom = 5;
   } else {
     coordinates = { lat: 32.313793143601366, lng: 55.194812819979404 };
     zoom = 4;
@@ -91,8 +94,10 @@ const SingleMission = () => {
     setLoading(false);
   };
 
-  //console.log('dashboard mission:', ctx.dashboard)
-  //console.log('single mission:', ctx.singleMission)
+  // scrolls screen to the top when the component is mounted
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     let missionMarkersArray = [];
@@ -106,6 +111,8 @@ const SingleMission = () => {
       }
     }, ctx.setMissionMarkers(missionMarkersArray));
   }, [ctx.dashboard]);
+
+
 
   const toggleRefresh = () => {
     ctx.setRefresh((current) => !current);
