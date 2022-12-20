@@ -103,8 +103,8 @@ const Missions = () => {
       coordinates = { lat: 25.253654783876964, lng: 51.2066182649342 };
       zoom = 8;
     } else if (mission.location.country === "Iraq") {
-      coordinates = { lat: 36.230501, lng: 43.956688 };
-      zoom = 6;
+      coordinates = { lat: 33.12531111219817, lng: 43.42720100219237 };
+      zoom = 5;
     } else if (mission.location.country === "Saudi Arabia") {
       coordinates = { lat: 24.062887, lng: 47.561123 };
       zoom = 5;
