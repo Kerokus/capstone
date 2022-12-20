@@ -87,50 +87,116 @@ export default function DashboardMap({ coordinates }) {
     mapRef.current.setZoom(8);
   }, []);
 
-  // const handleChoice = () => {
-  //   if (countries.name === 'Saudi Arabia'){
-  //     setChoice(panTo({lat:24.689868, lng:46.735424}))
-  //     console.log(choice)
-  //   } else {
-  //     console.log('Shit is fucked')
-  //   }
-
-  // }
-
-  // const getDirections = () => {
-
-  // }
+ 
 
   if (loadError) return "Error";
   if (!isLoaded) return "Loading...";
 
+  const icons = {
+    Active: {
+      name: "Active Missions",
+      icon: "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+    },
+    Upcoming: {
+      name: "Upcoming Missions",
+      icon: "http://maps.google.com/mapfiles/kml/paddle/ylw-circle.png",
+    },
+
+  };
+
+  //function to distinguish active markers from upcoming markers 
+  let statusChecker = () => {
+
+  }
+
+
   return (
     <>
       <div className="google-container">
+      
         <Search panTo={panTo} />
-
+        
         <GoogleMap
           id="map"
           mapContainerClassName="dashboard-map"
-          zoom={3}
+          zoom={3.5}
           center={coordinates}
           options={options}
           // onClick={onMapClick}
           onLoad={onMapLoad}
           draggable="true"
         >
-          {ctx.dashboardMarkers.map(
+            {/* clicked tab (all, active, upcoming) mission pins */}
+            {ctx.displayedMarkers.map(
+            (marker) => ( 
+              // console.log(marker.marker_status)
+              marker.marker_status === 'all' ? 
+              <Marker
+                key={marker.id}
+                position={{lat: marker.lat, lng: marker.lng}}
+                draggable={false}
+                onClick={() => {
+                marker.status = (marker.marker_status).toUpperCase() 
+                setSelected(marker);
+                }}
+                icon={{
+                  url: "http://maps.google.com/mapfiles/kml/paddle/grn-circle.png",
+                  origin: new window.google.maps.Point(0, 0),
+                  anchor: new window.google.maps.Point(15, 15),
+                  scaledSize: new window.google.maps.Size(30, 30),
+                }}
+              /> : marker.marker_status === 'active' ?
+              <Marker
+              key={marker.id}
+              position={{lat: marker.lat, lng: marker.lng}}
+              draggable={false}
+              onClick={() => {
+              marker.status = (marker.marker_status).toUpperCase() 
+              setSelected(marker);
+              }}
+              icon={{
+                //active
+                url: "http://maps.google.com/mapfiles/kml/paddle/purple-circle.png",
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+                scaledSize: new window.google.maps.Size(30, 30),
+              }}
+            /> : 
+            <Marker
+            key={marker.id}
+            position={{lat: marker.lat, lng: marker.lng}}
+            draggable={false}
+            onClick={() => {
+            marker.status = (marker.marker_status).toUpperCase() 
+            setSelected(marker);
+            }}
+            icon={{
+              //upcoming
+              url: "http://maps.google.com/mapfiles/kml/paddle/orange-circle.png",
+              origin: new window.google.maps.Point(0, 0),
+              anchor: new window.google.maps.Point(15, 15),
+              scaledSize: new window.google.maps.Size(30, 30),
+            }}
+          />
+            ),
+            []
+          )}
+          <Marker />
+
+          {/* upcoming mission pins */}
+          {/* {ctx.dashboardMarkersUpcoming.map(
             (marker) => ( 
               
               <Marker
                 key={marker.id}
-                position={{ lat: marker.lat, lng: marker.lng }}
+                position={{lat: marker.lat, lng: marker.lng}}
                 draggable={false}
                 onClick={() => {
-                  setSelected(marker);
+                marker.status = 'Upcoming'  
+                setSelected(marker);
                 }}
                 icon={{
-                  url: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png",
+                  url: "http://maps.google.com/mapfiles/kml/paddle/orange-circle.png",
                   origin: new window.google.maps.Point(0, 0),
                   anchor: new window.google.maps.Point(15, 15),
                   scaledSize: new window.google.maps.Size(30, 30),
@@ -139,7 +205,30 @@ export default function DashboardMap({ coordinates }) {
             ),
             []
           )}
-          <Marker />
+          <Marker /> */}
+
+          {/* active mission pins */}
+          {/* {ctx.dashboardMarkersActive.map(
+            (marker) => (
+              <Marker 
+              key={marker.id}
+              position={{lat: marker.lat, lng: marker.lng}}
+              draggable={false}
+              onClick={() => {
+              marker.status = 'Active'
+              setSelected(marker);
+              }}
+              icon={{
+                url: "http://maps.google.com/mapfiles/kml/paddle/grn-circle.png",
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+                scaledSize: new window.google.maps.Size(30, 30),
+              }}
+              />
+              
+            ),
+            []
+          )} */}
 
           {selected ? (
             <InfoWindow
@@ -149,12 +238,14 @@ export default function DashboardMap({ coordinates }) {
               }}
             >
               <div className="info-window">
-                <p>{selected.id}</p>
+                <p>{`${selected.id} (${selected.status})`}</p>
                 <div>{`lat: ${selected.lat}`}</div>
                 <div>{`long: ${selected.lng}`}</div>
               </div>
             </InfoWindow>
           ) : null}
+          
+
         </GoogleMap>
       </div>
       {/* <div>Converter</div>

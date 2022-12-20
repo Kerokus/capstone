@@ -27,6 +27,7 @@
   display: flex;
   justify-content: space-between;
   flex: 12;
+  font-size: 20px;
 }
 .nav-logo{
   border-radius: 15px;
@@ -65,3 +66,4 @@ color: white
 .webpage-title:focus {
   color: white;
 }
+

@@ -4,15 +4,17 @@
 
 .personnel-header-text {
 padding-right: 1%;
+font-size: 30px;
 }
 
 .header-and-csv{
   display: flex;
   text-align: center;
   font-size: x-large;
-  padding-left: 2.5%;
+  padding-left: 2%;
   padding-bottom: .3%;
-  margin-top: 2.3em;
+  margin-top: .5em;
+  margin-bottom: .5em;
 }
 
 
@@ -32,9 +34,21 @@ padding-right: 1%;
 }
 
 .text-search-bar {
-  background-color: #212529;
+  /* background-color: #212529; */
+  background-color: lightgray;
   margin-top: 35px;
-  color: white
+  /* color: white; */
+  color: black;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 18px;
+  width: 400px;
+  height: 42px;
+  /* border: gray;
+  border-width: 100px; */
+  border-color: gray;
+  border-width: 5px;
+
 }
 
 .table-div {

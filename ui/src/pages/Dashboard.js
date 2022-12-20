@@ -12,20 +12,47 @@ import SigintTeamStatus from "./SigintTeamStatus";
 import { toPoint } from "mgrs";
 import DashboardMap from "../components/DashboardMap";
 
+// try the tabs imports
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+
+
+
 const Dashboard = () => {
   const ctx = useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
   const [upcomingMissions, setUpcomingMissions] = useState([]);
   const [statusLoad, setStatusLoad] = useState(false);
-  let coordinates = { lat: 32.313793143601366, lng: 55.194812819979404 };
+  let coordinates = { lat: 27.462945821868242, lng: 49.41946212564189 };
 
-  let ongoingMissionsArray = [];
+  //tab state
+const [value, setValue] = useState('1');
+
+// handle Change for tabs
+const handleChange = (event, newValue ) => {
+  setValue(newValue);
+};
+
+//handle click for tabs
+const handleClick = (event) => {
+  
+};
+
+  let allMissionsArray = [ctx.missions];
+  let activeMissionsArray = [];
   let upcomingMissionsArray = [];
-  let ongoingAndUpcomingMissionsArray = [];
 
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
   };
+
+    // scrolls screen to the top when the component is mounted
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
 
   const toggleRefresh = () => {
     ctx.setRefresh((current) => !current);
@@ -51,6 +78,12 @@ const Dashboard = () => {
     ctx.setYellowSigintTeams([])
     ctx.setGreenSigintTeams([])
   }, []);
+
+  //all missions markers 
+  useEffect(() => {
+    ctx.setDisplayedMarkers(ctx.dashboardMarkersAll)
+  }, [ctx.missions, ctx.dashboardMarkersAll])
+  
   
   // upcoming missions
   useEffect(() => {
@@ -59,8 +92,9 @@ const Dashboard = () => {
         mission.start_date === ctx.oneDayDate ||
         mission.start_date === ctx.twoDayDate
       ) {
-        upcomingMissionsArray.push(mission);
-        ongoingAndUpcomingMissionsArray.push(mission);
+        if (mission.status !== 'Complete' && mission.status !== 'Cancelled') {
+          upcomingMissionsArray.push(mission);
+        }
       }
       ctx.setUpcomingMissions(upcomingMissionsArray);
     });
@@ -68,15 +102,21 @@ const Dashboard = () => {
 
   // ongoing missions
   useEffect(() => {
+    let currentDate = new Date();
+    currentDate.setTime(currentDate.getTime());
+    let today = formatDate(currentDate)
     ctx.missions.forEach((mission, index) => {
+      // console.log(mission.start_date <= today)
+      // console.log(mission.start_date <= today)
+    if (mission.status !== 'Complete' && mission.status !== 'Cancelled') {
       if (
-        mission.status === "Active"
+        mission.start_date <= today && mission.end_date >= today
       ) {
-        ongoingMissionsArray.push(mission);
-        ongoingAndUpcomingMissionsArray.push(mission);
+        activeMissionsArray.push(mission);
       }
-      ctx.setOngoingMissions(ongoingAndUpcomingMissionsArray);
+    }
     });
+    ctx.setOngoingMissions(activeMissionsArray);
   }, [ctx.missions]);
 
   //next 24 hours
@@ -168,10 +208,46 @@ const Dashboard = () => {
     locales,
   });
 
+    /* renders All missions that aren't pending or complete */
+    const testRender = (mission, index) => {
+      if (mission.status !== 'Complete' && mission.status !== 'Cancelled') {
+        if (mission.marker_status === 'active') {
+          return (
+            <li className="dashboard-team-list-active" key={index}>
+              <span>
+                <Link
+                  onClick={() => {
+                    ctx.setClickedMission(mission);
+                  }}
+                  className="dashboard-mission-link"
+                  to={`/missions/${mission.id}`}
+                >{`${mission.start_date} - ${mission.name} (${mission.status})`}</Link>
+              </span>
+            </li>
+          );
+        } else if (mission.marker_status === 'upcoming') {
+          return (
+            <li className="dashboard-team-list-upcoming" key={index}>
+              <span>
+                <Link
+                  onClick={() => {
+                    ctx.setClickedMission(mission);
+                  }}
+                  className="dashboard-mission-link"
+                  to={`/missions/${mission.id}`}
+                >{`${mission.start_date} - ${mission.name} (${mission.status})`}</Link>
+              </span>
+            </li>
+          );
+        }
+      }
+    };
+
+
   /* renders upcoming missions assigned to the clicked team */
   const renderUpcomingMissions = (mission, index) => {
     return (
-      <li className="dashboard-team-list" key={index}>
+      <li className="dashboard-team-list-not-all" key={index}>
         <span>
           <Link
             onClick={() => {
@@ -185,24 +261,116 @@ const Dashboard = () => {
     );
   };
 
+    /* renders All missions that aren't pending or complete */
+    const renderAllMissions = (mission, index) => {
+      if (mission.status !== 'Complete' && mission.status !== 'Cancelled') {
+        return (
+          <li className="dashboard-team-list-all" key={index}>
+            <span>
+              <Link
+                onClick={() => {
+                  ctx.setClickedMission(mission);
+                }}
+                className="dashboard-mission-link"
+                to={`/missions/${mission.id}`}
+              >{`${mission.start_date} - ${mission.name}`}</Link>
+            </span>
+          </li>
+        );
+      }
+    };
+
   const renderMap = () => {
     return <DashboardMap coordinates={coordinates} />;
   };
 
   useEffect(() => {
-    let dashboardMarkersArray = [];
-    ctx.ongoingMissions.forEach((mission) => {
+    let dashboardMarkersUpcomingArray = [];
+    ctx.upcomingMissions.forEach((mission) => {
       ctx.dashboard.forEach((otherMission) => {
+        mission.marker_status = 'upcoming'
         if (mission.id === otherMission.id) {
-          dashboardMarkersArray.push({
+          dashboardMarkersUpcomingArray.push({
             id: otherMission.title,
+            marker_status: 'upcoming',
             lat: otherMission.coords[1],
             lng: otherMission.coords[0],
           });
         }
       });
-    }, ctx.setDashboardMarkers(dashboardMarkersArray));
+    }, ctx.setDashboardMarkersUpcoming(dashboardMarkersUpcomingArray));
+  }, [ctx.dashboard, ctx.refresh, ctx.upcomingMissions]);
+
+  useEffect(() => {
+    let dashboardMarkersActiveArray = [];
+    ctx.ongoingMissions.forEach((mission) => {
+      ctx.dashboard.forEach((otherMission) => {
+        mission.marker_status = 'active'
+        if (mission.id === otherMission.id) {
+          dashboardMarkersActiveArray.push({
+            id: otherMission.title,
+            marker_status: 'active',
+            lat: otherMission.coords[1],
+            lng: otherMission.coords[0],
+          });
+        }
+      });
+    }, ctx.setDashboardMarkersActive(dashboardMarkersActiveArray));
   }, [ctx.dashboard, ctx.refresh]);
+
+  // useEffect(() => {
+  //   let dashboardMarkersAllArray = [];
+  //   ctx.missions.forEach((mission) => {
+  //     ctx.dashboard.forEach((otherMission) => {
+  //       if (mission.id === otherMission.id) {
+  //         console.log(mission)
+  //         dashboardMarkersAllArray.push({
+  //           id: otherMission.title,
+  //           marker_status: 'all',
+  //           lat: otherMission.coords[1],
+  //           lng: otherMission.coords[0],
+  //         });
+  //       }
+  //     });
+  //   }, ctx.setDashboardMarkersAll(dashboardMarkersAllArray));
+  // }, [ctx.dashboard, ctx.refresh]);
+
+  useEffect(() => {
+    let dashboardMarkersAllArray = []
+
+    ctx.ongoingMissions.forEach((mission) => {
+      ctx.dashboard.forEach((otherMission) => {
+        if (mission.id === otherMission.id) {
+          mission.marker_status = 'active'
+          dashboardMarkersAllArray.push({
+            id: otherMission.title,
+            marker_status: 'active',
+            lat: otherMission.coords[1],
+            lng: otherMission.coords[0],
+          })
+        }
+      })
+    },
+    ctx.upcomingMissions.forEach((mission) => {
+      ctx.dashboard.forEach((otherMission) => {
+        if (mission.id === otherMission.id) {
+          mission.marker_status = 'upcoming'
+          dashboardMarkersAllArray.push({
+            id: otherMission.title,
+            marker_status: 'upcoming',
+            lat: otherMission.coords[1],
+            lng: otherMission.coords[0],
+          })
+        }
+      })
+    },
+
+
+    
+    ctx.setDashboardMarkersAll(dashboardMarkersAllArray))
+    
+
+)}, [ctx.dashboard, ctx.refresh, ctx.missions]);
 
   return (
     <>
@@ -224,13 +392,66 @@ const Dashboard = () => {
           {ctx.dashboard[0] ? renderMap() : "Loading..."}
         </div>
 
-        <div className="dashboard-upcoming">
+        <Box sx={{ width: '100%', typography: 'body1' }} className="dashboard-upcoming">
+          <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }} textColor="primary">
+              <TabList onChange={handleChange} aria-label="lab API tabs example" textColor="primary">
+                <Tab label={`Ongoing and Upcoming (${ctx.dashboardMarkersAll.length})`} value="1" onClick={(event) => {
+                  ctx.setDisplayedMarkers(ctx.dashboardMarkersAll)
+                  handleClick(event)}}/>
+                <Tab label={`Ongoing (${ctx.dashboardMarkersActive.length})`}value="2" onClick={(event) => {
+                  ctx.setDisplayedMarkers(ctx.dashboardMarkersActive)
+                  handleClick(event)}}/>
+                <Tab label={`Upcoming (${ctx.dashboardMarkersUpcoming.length})`} value="3" onClick={(event) => {
+                  ctx.setDisplayedMarkers(ctx.dashboardMarkersUpcoming)
+                  handleClick(event)}}/>
+              </TabList>
+            </Box>
+
+                <TabPanel value="1">
+                  <div >
+                    <h3 className="upcoming-header">Ongoing and Upcoming</h3>{" "}
+                        {" "}
+                    <ul>{[...ctx.missions].map(testRender)}</ul>
+                  </div>
+                </TabPanel>
+
+                <TabPanel value="2">
+                  <div >
+                    <h3 className="upcoming-header">Ongoing</h3>{" "}
+                        {" "}
+                    <ul>{[...ctx.ongoingMissions].map(testRender)}</ul>
+                  </div>
+                </TabPanel>
+
+                <TabPanel value="3">
+                  <div >
+                    <h3 className="upcoming-header">Upcoming</h3>{" "}
+                        {" "}
+                    <ul>{[...ctx.upcomingMissions].map(testRender)}</ul>
+                  </div>
+                </TabPanel>
+
+          </TabContext>
+        </Box>
+
+        {/* <div className="dashboard-upcoming">
           <h3 className="upcoming-header">Next 48 hours</h3>{" "}
           {ctx.upcomingMissions.length > 0 ? (
-            <div className="team-missions">
-              {" "}
+            <>
+            className="dashboard-upcoming"
+          <div >
+            <h3 className="upcoming-header">Active</h3>{" "}
+                {" "}
               <ul>{[...ctx.upcomingMissions].map(renderUpcomingMissions)}</ul>
+          </div>
+
+            <div >
+              <h3 className="upcoming-header">Next 48 hours</h3>{" "}
+                  {" "}
+                <ul>{[...ctx.upcomingMissions].map(renderUpcomingMissions)}</ul>
             </div>
+            </>
           ) : (
             <div>
               <div className="team-missions" style={{ padding: 10 }}>
@@ -239,7 +460,7 @@ const Dashboard = () => {
               </div>
             </div>
           )}
-        </div>
+        </div> */}
 
         <CiTeamStatus />
 

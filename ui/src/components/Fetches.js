@@ -67,50 +67,63 @@ const Fetches = () => {
 
 
   useEffect(() => {  
-    const missionStatusCheck = (missionArr) => {
-    let changeNeeded = false;
-    let today = new Date()
-    missionArr.forEach(missionObj => {
-      let startCheck = new Date(missionObj.start_date)
-      let endCheck = new Date(missionObj.end_date)
-        if (missionObj.status === "Cancelled" || missionObj.status === "Complete") {
-          
-        } else if 
-          (today < startCheck && missionObj.status === "Pending") {
-        
-        } else if 
-            (today < startCheck && missionObj.status !== "Pending") {
-            missionObj.status = "Pending"
-            changeNeeded = true;
-          
-        } else if 
-            (today > endCheck && missionObj.status !== "Complete") {
-            missionObj.status = "Complete"
-            changeNeeded = true;
-        } else if 
-            (today >= startCheck && today <= endCheck && missionObj.status !== "Active") {
-            missionObj.status = "Active"
-            changeNeeded = true;
+    const missionStatusCheck = (missions) => {
+      //the following two functions are necessary to do string comparissons against the mission dates.
+      const padTo2Digits = (num) => {
+        return num.toString().padStart(2, "0");
+      };
+
+      const formatDate = (date) => {
+        return [
+          date.getFullYear(),
+          padTo2Digits(date.getMonth() + 1),
+          padTo2Digits(date.getDate()),
+        ].join("-");
+      };
+// the following 4 lines of code are necessary to get todays date in a string format to be compared to the mission dates
+      let currentDate = new Date();
+      currentDate.setTime(currentDate.getTime());
+      let today = formatDate(currentDate)
+
+      
+
+      missions.forEach(mission => {
+        let changeNeeded = false;
+        // console.log(`start: ${mission.start_date}, end: ${mission.end_date}, today: ${today}`)
+
+        if (mission.status !== 'Cancelled') {
+          if (today > mission.end_date && mission.status !== 'Complete'){
+            mission.status = 'Complete'
+            changeNeeded = true
+          }
+          if (today < mission.start_date && mission.status !== 'Pending' && mission.status !== 'Complete') {
+            mission.status = 'Pending'
+            changeNeeded = true
+          }
+          if (today >= mission.start_date && today < mission.end_date && mission.status !== 'Complete') {
+            mission.status = 'Active'
+            changeNeeded = true
+          }
         }
         if (changeNeeded) {
           let updateObj = {
-            start_date: missionObj.start_date,
-            end_date: missionObj.end_date,
-            location: missionObj.location,
-            name: missionObj.name,
-            description: missionObj.description,
-            status: missionObj.status,
-            purpose: missionObj.purpose,
-            authority: missionObj.authority,
-            end_state: missionObj.end_state,
-            transportation_methods: missionObj.transportation_methods,
-            timeline: missionObj.timeline,
-            pace: missionObj.pace,
-            risks: missionObj.risks,
-            decision_point: missionObj.decision_point,
-            team_id: missionObj.team_id,
+            start_date: mission.start_date,
+            end_date: mission.end_date,
+            location: mission.location,
+            name: mission.name,
+            description: mission.description,
+            status: mission.status,
+            purpose: mission.purpose,
+            authority: mission.authority,
+            end_state: mission.end_state,
+            transportation_methods: mission.transportation_methods,
+            timeline: mission.timeline,
+            pace: mission.pace,
+            risks: mission.risks,
+            decision_point: mission.decision_point,
+            team_id: mission.team_id,
           }
-          fetch(`http://localhost:8081/missions/${missionObj.id}`, {
+          fetch(`http://localhost:8081/missions/${mission.id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -120,7 +133,6 @@ const Fetches = () => {
         }
     })
   }
-  
     missionStatusCheck(ctx.missions)
   }, [ctx.missions])
 

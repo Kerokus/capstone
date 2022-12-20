@@ -28,7 +28,7 @@ const NavbarComponent = () => {
                 <Image
                   className="nav-logo"
                   src="/toms-logo.png"
-                  style={{ height: 75, width: 150 }}
+                  style={{ height: 75, width: 200 }}
                   onClick={() => {
                     toggleRefresh()
                   }}
@@ -53,7 +53,8 @@ const NavbarComponent = () => {
                   to="/conop"
                 ></Nav.Link>
                 <Nav.Link className="archives-link" as={Link} to="/archives">
-                  <EventRepeatIcon></EventRepeatIcon>
+                  <EventRepeatIcon className="historical-data"></EventRepeatIcon>
+
                   {/* <RestoreIcon></RestoreIcon> */}
                 </Nav.Link>
               </Nav>
