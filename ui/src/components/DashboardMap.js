@@ -104,33 +104,54 @@ export default function DashboardMap({ coordinates }) {
   if (loadError) return "Error";
   if (!isLoaded) return "Loading...";
 
+  const icons = {
+    Active: {
+      name: "Active Missions",
+      icon: "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+    },
+    Upcoming: {
+      name: "Upcoming Missions",
+      icon: "http://maps.google.com/mapfiles/kml/paddle/ylw-circle.png",
+    },
+
+  };
+
+  //function to distinguish active markers from upcoming markers 
+  let statusChecker = () => {
+
+  }
+
+
   return (
     <>
       <div className="google-container">
+      
         <Search panTo={panTo} />
-
+        
         <GoogleMap
           id="map"
           mapContainerClassName="dashboard-map"
-          zoom={3}
+          zoom={3.5}
           center={coordinates}
           options={options}
           // onClick={onMapClick}
           onLoad={onMapLoad}
           draggable="true"
         >
-          {ctx.dashboardMarkers.map(
+          {/* upcoming mission pins */}
+          {ctx.dashboardMarkersUpcoming.map(
             (marker) => ( 
               
               <Marker
                 key={marker.id}
-                position={{ lat: marker.lat, lng: marker.lng }}
+                position={{lat: marker.lat, lng: marker.lng}}
                 draggable={false}
                 onClick={() => {
-                  setSelected(marker);
+                marker.status = 'Upcoming'  
+                setSelected(marker);
                 }}
                 icon={{
-                  url: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png",
+                  url: "http://maps.google.com/mapfiles/kml/paddle/ylw-circle.png",
                   origin: new window.google.maps.Point(0, 0),
                   anchor: new window.google.maps.Point(15, 15),
                   scaledSize: new window.google.maps.Size(30, 30),
@@ -141,6 +162,29 @@ export default function DashboardMap({ coordinates }) {
           )}
           <Marker />
 
+          {/* active mission pins */}
+          {ctx.dashboardMarkersActive.map(
+            (marker) => (
+              <Marker 
+              key={marker.id}
+              position={{lat: marker.lat, lng: marker.lng}}
+              draggable={false}
+              onClick={() => {
+              marker.status = 'Active'
+              setSelected(marker);
+              }}
+              icon={{
+                url: "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+                scaledSize: new window.google.maps.Size(30, 30),
+              }}
+              />
+              
+            ),
+            []
+          )}
+
           {selected ? (
             <InfoWindow
               position={{ lat: selected.lat, lng: selected.lng }}
@@ -149,12 +193,14 @@ export default function DashboardMap({ coordinates }) {
               }}
             >
               <div className="info-window">
-                <p>{selected.id}</p>
+                <p>{`${selected.id} (${selected.status})`}</p>
                 <div>{`lat: ${selected.lat}`}</div>
                 <div>{`long: ${selected.lng}`}</div>
               </div>
             </InfoWindow>
           ) : null}
+          
+
         </GoogleMap>
       </div>
       {/* <div>Converter</div>

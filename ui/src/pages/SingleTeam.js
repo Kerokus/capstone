@@ -38,7 +38,7 @@ const SingleTeam = () => {
   // scrolls screen to the top when the component is mounted
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [ctx.clickedTeam]);
 
   let coordinates = {};
   let zoom;
@@ -50,16 +50,16 @@ const SingleTeam = () => {
     coordinates = { lat: 31.00994216931093, lng: 36.6326645727253 };
     zoom = 7;
   } else if (ctx.clickedTeam.location.country === "USA") {
-    coordinates = { lat: 33.4302, lng: -82.1261 };
-    zoom = 9;
+    coordinates = { lat: 33.411867719890346, lng: -82.04860551242295 };
+    zoom = 10;
   } else if (ctx.clickedTeam.location.country === "Qatar") {
-    coordinates = { lat: 25.27628, lng: 51.525105 };
-    zoom = 6;
+    coordinates = { lat: 25.3048552165822, lng: 51.20092464221381 };
+    zoom = 9;
   } else if (ctx.clickedTeam.location.country === "Iraq") {
-    coordinates = { lat: 36.230501, lng: 43.956688 };
+    coordinates = { lat: 33.510153781888555, lng: 43.382197021092345 };
     zoom = 6;
-  } else if (ctx.clickedMission.location.country === "Saudi Arabia") {
-    coordinates = { lat: 24.062887, lng: 47.561123 };
+  } else if (ctx.clickedTeam.location.country === "Saudi Arabia") {
+    coordinates = { lat: 24.309466707622047, lng: 45.79604776134829 };
     zoom = 5;
   } else {
     coordinates = { lat: 48.8566, lng: 2.3522 };
@@ -202,19 +202,26 @@ Then sets the missions state variable with that array. Fires when the missions s
   /* renders all missions assigned to the clicked team */
   const renderTeamMissions = (mission, index) => {
     return (
-      <li className="team-missions" key={index}>
-        {" "}
-        {`${mission.start_date} | ${mission.name}`}{" "}
-      </li>
+      <Link className="team-mission-link" to={`/missions/${mission.id}`}
+      onClick={() => ctx.setClickedMission(mission)}>
+        <li className="team-missions" key={index}>
+          {" "}
+          {`${mission.start_date} | ${mission.name}`}{" "}
+        </li>
+    </Link>
+
     );
   };
   /* renders upcoming missions assigned to the clicked team */
   const renderUpcomingMissions = (mission, index) => {
     return (
-      <li className="team-missions" key={index}>
-        {" "}
-        {`${mission.start_date} | ${mission.name}`}{" "}
-      </li>
+      <Link className="team-mission-link" to={`/missions/${mission.id}`}
+      onClick={() => ctx.setClickedMission(mission)}>
+        <li className="team-missions" key={index}>
+          {" "}
+          {`${mission.start_date} | ${mission.name}`}{" "}
+        </li>
+    </Link>
     );
   };
 

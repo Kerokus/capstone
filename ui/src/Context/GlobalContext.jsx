@@ -25,7 +25,8 @@ const ContextProvider = ({ children }) => {
   const [twoDayDate, setTwoDayDate] = useState("");
   
   // <- <- Map Markers
-  const [dashboardMarkers, setDashboardMarkers] = useState([]);
+  const [dashboardMarkersActive, setDashboardMarkersActive] = useState([]);
+  const [dashboardMarkersUpcoming, setDashboardMarkersUpcoming] = useState([]);
   const [teamMarkers, setTeamMarkers] = useState([]);
   const [missionMarkers, setMissionMarkers] = useState([]);
 
@@ -175,8 +176,10 @@ const ContextProvider = ({ children }) => {
     setCenter,
     teamMarkers,
     setTeamMarkers, 
-    dashboardMarkers,
-    setDashboardMarkers, 
+    dashboardMarkersActive,
+    setDashboardMarkersActive,
+    dashboardMarkersUpcoming,
+    setDashboardMarkersUpcoming,  
     missionMarkers,
     setMissionMarkers,
     upcomingMissions,
