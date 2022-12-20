@@ -131,7 +131,7 @@ export default function DashboardMap({ coordinates }) {
         <GoogleMap
           id="map"
           mapContainerClassName="dashboard-map"
-          zoom={3}
+          zoom={3.5}
           center={coordinates}
           options={options}
           // onClick={onMapClick}

@@ -11,7 +11,7 @@ exports.seed = async function (knex) {
     {
       id: 1,
       team_name: "Unassigned Team",
-      location: { city_base: "", country: "" },
+      location: { city_base: "Fort Gordon", country: "USA" },
       comms_status: "",
       personnel_status: "",
       equipment_status: "",

@@ -25,6 +25,11 @@ const Teams = () => {
     ctx.setTeamMarkers([]);
   }, []);
 
+    // scrolls screen to the top when the component is mounted
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
   useEffect(() => {
     setFilteredTeamData(ctx.teams);
   }, [ctx.teams]);
@@ -158,17 +163,17 @@ const Teams = () => {
       coordinates = { lat: 31.261837409143272, lng: 36.740018930765636 };
       zoom = 6;
     } else if (team.location.country === "USA") {
-      coordinates = { lat: 35.14193183877861, lng: -78.99943678131243 };
+      coordinates = { lat: 33.411867719890346, lng: -82.04860551242295 };
       zoom = 9;
     } else if (team.location.country === "Saudi Arabia") {
-      coordinates = { lat: 24.062887, lng: 47.561123 };
+      coordinates = { lat: 23.66644483894103, lng: 45.145512699263534 };
       zoom = 5;
     } else if (team.location.country === "Qatar") {
-      coordinates = { lat: 25.27628, lng: 51.525105 };
-      zoom = 6;
+      coordinates = { lat: 25.253654783876964, lng: 51.2066182649342 };
+      zoom = 8;
     } else if (team.location.country === "Iraq") {
-      coordinates = { lat: 36.230501, lng: 43.956688 };
-      zoom = 6;
+      coordinates = { lat: 33.12531111219817, lng: 43.42720100219237 };
+      zoom = 5;
     } else{
       coordinates = { lat: 33.42643305816639, lng: -82.0571350866326 };
       zoom = 9;

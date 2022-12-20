@@ -80,6 +80,8 @@
   padding-top: 5px;
   border-radius: 10px;
   background-color: #212529;
+  color: white;
+  text-decoration: none;
 }
 
 .team-personnel-container {
@@ -114,4 +116,12 @@
 }
 .mission-edit-delete{
   grid-area: b;
+}
+
+.team-mission-link{
+  text-decoration: none;
+}
+
+.team-mission-link :hover{
+  color:darkblue;
 }
