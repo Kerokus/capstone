@@ -68,6 +68,7 @@ const SubmitConop = () => {
   };
 
   return (
+    <>
     <div className="submit-conop-container">
       <h1>Submit CONOP</h1>
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -89,7 +90,8 @@ const SubmitConop = () => {
             </Button>
           </Link>
 
-          <Button type="submit" className="green-button" variant='success'>
+
+          <Button type="submit" className="green-button-1" variant='success'>
 
             Submit
           </Button>
@@ -560,6 +562,7 @@ const SubmitConop = () => {
         </Row>
       </Form>
     </div>
+    </>
   );
 };
 

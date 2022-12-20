@@ -477,38 +477,38 @@
 } */
 /* =================================== */
 
-.dashboard-team-list {
+.dashboard-team-list-active {
   position: relative;
   left: 0;
   color: #999;
   list-style: none;
   margin: 4px;
-  border-left: 2px solid #24ff0b;
+  border-left: 8px solid #46197c;
   transition: 0.5s;
   cursor: pointer;
 }
 
-.dashboard-team-list::before {
+.dashboard-team-list-active::before {
   content: "";
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #24ff0b;
+  background: #46197c;
   transform: scaleX(0);
   transition: 0.5s;
 }
 
-.dashboard-team-list:hover::before {
+.dashboard-team-list-active:hover::before {
   transform: scaleX(1);
   color: black;
 }
 
-.dashboard-team-list:hover {
+.dashboard-team-list-active:hover {
   left: 10px;
   color: black;
 }
 
-.dashboard-team-list span {
+.dashboard-team-list-active span {
   position: relative;
   padding: 8px;
   display: inline-block;
@@ -516,13 +516,108 @@
   transition: 0.5s;
 }
 
-.dashboard-team-list:hover {
+.dashboard-team-list-active:hover {
   color: black;
 }
 
-.dashboard-team-list a:hover {
+.dashboard-team-list-active a:hover {
   color: black;
 }
+
+
+.dashboard-team-list-upcoming {
+  position: relative;
+  left: 0;
+  color: #999;
+  list-style: none;
+  margin: 4px;
+  border-left: 8px solid #bc9238;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.dashboard-team-list-upcoming::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #bc9238;
+  transform: scaleX(0);
+  transition: 0.5s;
+}
+
+.dashboard-team-list-upcoming:hover::before {
+  transform: scaleX(1);
+  color: black;
+}
+
+.dashboard-team-list-upcoming:hover {
+  left: 10px;
+  color: black;
+}
+
+.dashboard-team-list-upcoming span {
+  position: relative;
+  padding: 8px;
+  display: inline-block;
+  z-index: 1;
+  transition: 0.5s;
+}
+
+.dashboard-team-list-upcoming:hover {
+  color: black;
+}
+
+.dashboard-team-list-upcoming a:hover {
+  color: black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .ci-team-status {
   grid-area: ci-team-status;
@@ -606,3 +701,26 @@
   border-width: 5px;
 
 } 
+
+.tab-header{
+  color: white;
+}
+
+#all-tab{
+  color: #ffeb0b;
+}
+
+
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected{
+  background-color: #999;
+  color: black !important;
+  
+}
+
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root{
+background-color: #24ff0b;
+}
+
+.MuiTab-textColorPrimary {
+color: white !important;
+}

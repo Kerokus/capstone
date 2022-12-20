@@ -40,3 +40,8 @@ REACT_APP_GOOGLE_KEY= "AIzaSyBRK58z-C-6RfjetZE-TA3eNq777nWc2WA"
 may need to install
 
 npm i -S @react-google-maps/api
+
+
+//tabs install tabs
+ npm install @mui/lab --force
+  npm install @mui/system --force
