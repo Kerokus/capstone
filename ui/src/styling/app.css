@@ -26,6 +26,7 @@
   --tronblue: rgb(9,50,101);
   --trongreen: rgb(0,110,66);
   --tronlightblue:rgb(2,197,209);
+  
 }
 .app-container {
   height: 100%;
@@ -38,6 +39,7 @@
 .app-styling-div {
   height: calc(100vh - 150px);
   overflow-y: auto;
+ 
 }
 
 body {
