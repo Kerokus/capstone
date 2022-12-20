@@ -75,6 +75,9 @@ const SingleMission = () => {
   } else if (ctx.clickedMission.location.country === "Iraq") {
     coordinates = { lat: 36.230501, lng: 43.956688 };
     zoom = 6;
+  } else if (ctx.clickedMission.location.country === "Saudi Arabia") {
+    coordinates = { lat: 24.062887, lng: 47.561123 };
+    zoom = 5;
   } else {
     coordinates = { lat: 32.313793143601366, lng: 55.194812819979404 };
     zoom = 4;
