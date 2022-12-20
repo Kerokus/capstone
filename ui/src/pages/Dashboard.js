@@ -66,14 +66,20 @@ const Dashboard = () => {
 
   // ongoing missions
   useEffect(() => {
+    let currentDate = new Date();
+    currentDate.setTime(currentDate.getTime());
+    let today = formatDate(currentDate)
     ctx.missions.forEach((mission, index) => {
+      // console.log(mission.start_date <= today)
+      // console.log(mission.start_date <= today)
+
       if (
-        mission.status === "Active"
+        mission.start_date <= today && mission.end_date >= today
       ) {
         activeMissionsArray.push(mission);
       }
-      ctx.setOngoingMissions(activeMissionsArray);
     });
+    ctx.setOngoingMissions(activeMissionsArray);
   }, [ctx.missions]);
 
   //next 24 hours

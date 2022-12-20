@@ -58,7 +58,7 @@ const SingleTeam = () => {
   } else if (ctx.clickedTeam.location.country === "Iraq") {
     coordinates = { lat: 36.230501, lng: 43.956688 };
     zoom = 6;
-  } else if (ctx.clickedMission.location.country === "Saudi Arabia") {
+  } else if (ctx.clickedTeam.location.country === "Saudi Arabia") {
     coordinates = { lat: 24.062887, lng: 47.561123 };
     zoom = 5;
   } else {
