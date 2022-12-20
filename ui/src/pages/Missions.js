@@ -219,7 +219,7 @@ const Missions = () => {
 
           <Link className="homepage-link" to="/">
             <Button variant="primary" className="homepage-button">
-              Back to Home
+              Dashboard
             </Button>
           </Link>
         </div>
