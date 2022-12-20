@@ -1,14 +1,14 @@
 .mission-container {
   display: grid;
-  grid-template-columns: 1fr 0.7fr 1.3fr;
-  grid-template-rows: 1.3fr 1.1fr 0.6fr;
-  gap: 5px 5px;
-  padding: 1em;
+  grid-template-columns: .9fr 0.6fr 1.5fr;
+  grid-template-rows: 0.5fr 0.5fr 0.2fr;
+  gap: 8px 8px;
+  padding: 3em;
   grid-template-areas:
     "mission-admin-data mission-admin-data mission-map"
     "mission-risks mission-timeline mission-map"
     "mission-risks mission-pace mission-signatures";
-  padding: 2em;
+  
   
 }
 
@@ -37,13 +37,20 @@
 }
 .single-mission-map {
   grid-area: mission-map;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   border-style: solid;
   border-radius: 10px;
   background-color: #212529;
   
 }
+.single-mission-mapp {
+ /* grid-area: mission-map;  */
+  height: 100vh;
+  width: 100%;
+  grid-template-areas: inherit;
+}
+
 
 
 .mission-risks {
