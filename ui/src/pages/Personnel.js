@@ -96,7 +96,7 @@ const Personnel = () => {
     },
     {
       dataField: "city_base",
-      text: "City",
+      text: "Installation",
       sort: true,
       headerStyle: (column, colIndex) => {
         return { width: "120px", backgroundColor: "#212529", color: "white" };
