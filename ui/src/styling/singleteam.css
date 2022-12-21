@@ -29,7 +29,6 @@
   padding: 5px;
   border-radius: 10px;
   background-color: #212529;
-
 }
 
 .team-name {
@@ -58,10 +57,11 @@
   color: black;
   border-style: solid;
   border-radius: 10px;
+  overflow-y: auto;
 }
 
 .team-upcoming-container {
-  grid-area: team-upcoming-container;
+  /* grid-area: team-upcoming-container; */
   border-style: solid;
   border-radius: 10px;
   padding: 5px;
@@ -69,20 +69,23 @@
 }
 
 .team-all-missions-container {
-  grid-area: team-all-missions-container;
+  /* grid-area: team-all-missions-container; */
   border-style: solid;
   border-radius: 10px;
   padding: 5px;
   background-color: #212529;
 }
 
-.team-missions {
-  grid-area: team-personnel-container;
+.not-team-missions {
+  /* grid-area: team-personnel-container;
   padding-top: 5px;
   border-radius: 10px;
   background-color: #212529;
   color: white;
-  text-decoration: none;
+  text-decoration: none; */
+  /* color: black;
+  font-size: large;
+  z-index: 5; */
 }
 
 .team-personnel-container {
@@ -120,9 +123,117 @@
 }
 
 .team-mission-link{
+  position: relative;
   text-decoration: none;
+  z-index:inherit;
+  font-size: large;
+  color: lightgray;
+  font-size: 18;
 }
 
-.team-mission-link :hover{
-  color:darkblue;
+/* .team-mission-link:hover{
+  z-index: 5;
+} */
+
+
+
+
+.team-active-missions {
+  position: relative;
+  left: 0;
+  color: #999;
+  list-style: none;
+  margin: 4px;
+  border-left: 8px solid #46197c;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.team-active-missions::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #46197c;
+  transform: scaleX(0);
+  transition: 0.5s;
+}
+
+.team-active-missions:hover::before {
+  transform: scaleX(1);
+  color: black;
+}
+
+.team-active-missions:hover {
+  left: 10px;
+  color: black;
+}
+
+.team-active-missions span {
+  position: relative;
+  padding: 8px;
+  display: inline-block;
+  z-index: 10;
+  transition: 0.5s;
+}
+
+.team-active-missions:hover {
+  color: black;
+}
+
+.team-active-missions a:hover {
+  color: black;
+}
+
+
+
+
+
+
+
+.team-upcoming-missions {
+  position: relative;
+  left: 0;
+  color: #999;
+  list-style: none;
+  margin: 4px;
+  border-left: 8px solid #bc9238;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.team-upcoming-missions::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #bc9238;
+  transform: scaleX(0);
+  transition: 0.5s;
+}
+
+.team-upcoming-missions:hover::before {
+  transform: scaleX(1);
+  color: black;
+}
+
+.team-upcoming-missions:hover {
+  left: 10px;
+  color: black;
+}
+
+.team-upcoming-missions span {
+  position: relative;
+  padding: 8px;
+  display: inline-block;
+  z-index: 10;
+  transition: 0.5s;
+}
+
+.team-upcoming-missions:hover {
+  color: black;
+}
+
+.team-upcoming-missions a:hover {
+  color: black;
 }

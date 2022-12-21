@@ -111,7 +111,7 @@ import React, {
     // const getDirections = () => {
   
     // }
-  console.log("check",ctx.singleMission.map)
+  
     if (loadError) return "Error";
     if (!isLoaded) return "Loading...";
   
@@ -131,41 +131,108 @@ import React, {
             draggable="true"
           >
             {ctx.missionMarkers.map(
-              (marker) => (
+              (marker) => ( 
+                // console.log(marker.marker_status)
+                marker.marker_status === 'active' ?
                 <Marker
-                  key={`${marker.lat}-${marker.lng}`}
-                  position={{ lat: marker.lat, lng: marker.lng }}
-                  draggable={false}
-                  onClick={() => {
-                    setSelected(marker);
-                  }}
-                  icon={{
-                    url: "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
-                    origin: new window.google.maps.Point(0, 0),
-                    anchor: new window.google.maps.Point(15, 15),
-                    scaledSize: new window.google.maps.Size(30, 30),
-                  }}
-  
-                />
+                key={marker.id}
+                position={{lat: marker.lat, lng: marker.lng}}
+                draggable={false}
+                onClick={() => {
+                marker.status = (marker.marker_status).toUpperCase() 
+                setSelected(marker);
+                }}
+                icon={{
+                  //active
+                  url: "http://maps.google.com/mapfiles/kml/paddle/purple-circle.png",
+                  origin: new window.google.maps.Point(0, 0),
+                  anchor: new window.google.maps.Point(15, 15),
+                  scaledSize: new window.google.maps.Size(30, 30),
+                }}
+              /> : marker.marker_status === 'upcoming' ?
+              <Marker
+              key={marker.id}
+              position={{lat: marker.lat, lng: marker.lng}}
+              draggable={false}
+              onClick={() => {
+              marker.status = (marker.marker_status).toUpperCase() 
+              setSelected(marker);
+              }}
+              icon={{
+                //upcoming
+                url: "http://maps.google.com/mapfiles/kml/paddle/orange-circle.png",
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+                scaledSize: new window.google.maps.Size(30, 30),
+              }}
+            /> : marker.marker_status === 'complete' ?
+            <Marker
+              key={marker.id}
+              position={{lat: marker.lat, lng: marker.lng}}
+              draggable={false}
+              onClick={() => {
+              marker.status = (marker.marker_status).toUpperCase() 
+              setSelected(marker);
+              }}
+              icon={{
+                //complete
+                url: "http://maps.google.com/mapfiles/kml/paddle/grn-circle.png",
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+                scaledSize: new window.google.maps.Size(30, 30),
+              }}
+              /> : marker.marker_status === 'cancelled' ?
+              <Marker
+              key={marker.id}
+              position={{lat: marker.lat, lng: marker.lng}}
+              draggable={false}
+              onClick={() => {
+              marker.status = (marker.marker_status).toUpperCase() 
+              setSelected(marker);
+              }}
+              icon={{
+                //cancelled
+                url: "http://maps.google.com/mapfiles/kml/paddle/red-circle.png",
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+                scaledSize: new window.google.maps.Size(30, 30),
+              }}
+              /> : 
+              <Marker
+              key={marker.id}
+              position={{lat: marker.lat, lng: marker.lng}}
+              draggable={false}
+              onClick={() => {
+              marker.status = (marker.marker_status).toUpperCase() 
+              setSelected(marker);
+              }}
+              icon={{
+                //pending
+                url: "http://maps.google.com/mapfiles/kml/paddle/blu-circle.png",
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+                scaledSize: new window.google.maps.Size(30, 30),
+              }} 
+              />
               ),
               []
             )}
             <Marker />
   
             {selected ? (
-              <InfoWindow
-                position={{ lat: selected.lat, lng: selected.lng }}
-                onCloseClick={() => {
-                  setSelected(null);
-                }}
-              >
+            <InfoWindow
+              position={{ lat: selected.lat, lng: selected.lng }}
+              onCloseClick={() => {
+                setSelected(null);
+              }}
+            >
               <div className="info-window">
-                <p>{selected.id}</p>
+                <p>{`${selected.id} (${selected.status})`}</p>
                 <div>{`lat: ${selected.lat}`}</div>
                 <div>{`long: ${selected.lng}`}</div>
               </div>
-              </InfoWindow>
-            ) : null}
+            </InfoWindow>
+          ) : null}
           </GoogleMap>
         </div>
         {/* <div>Converter</div>

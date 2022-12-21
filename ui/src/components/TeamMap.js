@@ -139,7 +139,7 @@ export default function TeamMap({ coordinates, zoom }) {
                   setSelected(marker);
                 }}
                 icon={{
-                  url: "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png",
+                  url: "http://maps.google.com/mapfiles/kml/paddle/purple-circle.png",
                   origin: new window.google.maps.Point(0, 0),
                   anchor: new window.google.maps.Point(15, 15),
                   scaledSize: new window.google.maps.Size(30, 30),
