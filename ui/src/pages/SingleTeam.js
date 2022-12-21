@@ -44,8 +44,8 @@ const SingleTeam = () => {
   let zoom;
 
   useEffect(() => {
-    toggleRefresh()
-  }, [])
+    toggleRefresh();
+  }, []);
 
   if (ctx.clickedTeam.location.country === "Kuwait") {
     coordinates = { lat: 29.34562355852184, lng: 47.67637238617149 };
@@ -80,36 +80,39 @@ const SingleTeam = () => {
     ctx.dashboard.forEach((mission) => {
       if (mission.team === ctx.clickedTeam.id) {
         ctx.missions.forEach((otherMission) => {
-          if(otherMission.status !== 'Complete' && otherMission.status !== 'Cancelled')
-          if (mission.title === otherMission.name) {
-            if (otherMission.status === 'Active') {
-              teamMarkersArray.push({
-                id: mission.title,
-                marker_status: 'active',
-                lat: mission.coords[1],
-                lng: mission.coords[0],
-              });
+          if (
+            otherMission.status !== "Complete" &&
+            otherMission.status !== "Cancelled"
+          )
+            if (mission.title === otherMission.name) {
+              if (otherMission.status === "Active") {
+                teamMarkersArray.push({
+                  id: mission.title,
+                  marker_status: "active",
+                  lat: mission.coords[1],
+                  lng: mission.coords[0],
+                });
+              }
             }
-          }
-        })
+        });
       }
       ctx.dashboard.forEach((mission) => {
         upcomingMissions.forEach((upcomingMission) => {
           // console.log(mission)
-          if(mission.title === upcomingMission.name) {
+          if (mission.title === upcomingMission.name) {
             teamMarkersArray.push({
               id: mission.title,
-              marker_status: 'upcoming',
+              marker_status: "upcoming",
               lat: mission.coords[1],
               lng: mission.coords[0],
             });
           }
-        })
-      })
+        });
+      });
     }, ctx.setTeamMarkers(teamMarkersArray));
   }, [ctx.dashboard, ctx.missions]);
 
-  console.log(ctx.teamMarkers)
+  //console.log(ctx.teamMarkers)
 
   /* calendar tools */
   const locales = {
@@ -183,13 +186,12 @@ Then sets the missions state variable with that array. Fires when the missions s
         if (mission.status !== "Complete" && mission.status !== "Cancelled") {
           teamMissionsArray.push(mission);
         }
-        
       }
       setMissions(teamMissionsArray);
     });
   }, [ctx.missions, ctx.clickedTeam]);
-console.log(missions)
-  
+  //console.log(missions)
+
   // all this is for the upcoming missions data
   //next 24 hours
   let oneDayDate = new Date();
@@ -232,14 +234,11 @@ console.log(missions)
     );
   };
 
-
-
-
   /* renders ongoing missions assigned to the clicked team */
   const renderTeamMissions = (mission, index) => {
-      if (mission.status === 'Active') {
-        return (
-          <li className="team-active-missions" key={index}>
+    if (mission.status === "Active") {
+      return (
+        <li className="team-active-missions" key={index}>
           <span>
             <Link
               onClick={() => {
@@ -250,26 +249,24 @@ console.log(missions)
             >{`${mission.start_date} - ${mission.name}`}</Link>
           </span>
         </li>
-          );
-      }
+      );
+    }
   };
-
-
 
   /* renders upcoming missions assigned to the clicked team */
   const renderUpcomingMissions = (mission, index) => {
     return (
       <li className="team-upcoming-missions" key={index}>
-      <span>
-        <Link
-          onClick={() => {
-            ctx.setClickedMission(mission);
-          }}
-          className="team-mission-link"
-          to={`/missions/${mission.id}`}
-        >{`${mission.start_date} - ${mission.name}`}</Link>
-      </span>
-    </li>
+        <span>
+          <Link
+            onClick={() => {
+              ctx.setClickedMission(mission);
+            }}
+            className="team-mission-link"
+            to={`/missions/${mission.id}`}
+          >{`${mission.start_date} - ${mission.name}`}</Link>
+        </span>
+      </li>
     );
   };
 
@@ -409,9 +406,7 @@ console.log(missions)
         <div className="team-all-missions-container">
           <h3>Ongoing Missions</h3>
           {missions.length > 0 ? (
-            <ul>
-              {[...missions].map(renderTeamMissions)}
-            </ul>
+            <ul>{[...missions].map(renderTeamMissions)}</ul>
           ) : (
             <div className="none">
               <div></div>

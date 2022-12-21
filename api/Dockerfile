@@ -6,8 +6,8 @@ COPY . /app
 
 EXPOSE 8081
 
-RUN apk update && apk add bash
+# RUN apk update && apk add bash
 
-RUN npm install
+RUN npm install --force --legacy-peer-deps
 
-CMD [ "npm", "start" ]
+CMD ["npm", "start", "migrate", "seed"]

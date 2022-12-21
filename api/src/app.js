@@ -12,7 +12,6 @@ app.use(cors());
 app.get("/missions", async (req, res) => {
   try {
     let data = await knex("missions")
-    
       .join("teams", "missions.team_id", "=", "teams.id")
       .select(
         "missions.id",
@@ -34,10 +33,10 @@ app.get("/missions", async (req, res) => {
         "missions.team_id",
         "team_name"
       )
-      
+
       .where("missions.is_archived", false)
       .orderBy("missions.start_date");
-      
+
     (await (!data || data.length))
       ? res.status(200).send(data)
       : res.status(404).send(`Missions endpoint experiencing difficulties.`);
@@ -182,7 +181,7 @@ app.get("/teams/:id", async (req, res) => {
   }
 });
 
-//archived Missions Endpoint 
+//archived Missions Endpoint
 app.get("/archives/missions", async (req, res) => {
   try {
     let data = await knex("missions")
@@ -218,7 +217,7 @@ app.get("/archives/missions", async (req, res) => {
   }
 });
 
-//archived Personnel Endpoint 
+//archived Personnel Endpoint
 app.get("/archives/personnel", async (req, res) => {
   try {
     let data = await knex("personnel")
@@ -250,7 +249,7 @@ app.get("/archives/personnel", async (req, res) => {
   }
 });
 
-//archived Teams Endpoint 
+//archived Teams Endpoint
 app.get("/archives/teams", async (req, res) => {
   try {
     let data = await knex("teams")
@@ -273,7 +272,7 @@ app.delete("/missions/:id", async (req, res) => {
   try {
     await knex("missions").where("id", id).update({
       is_archived: true,
-      status: 'Archived'
+      status: "Archived",
     });
     res.status(202).send(`Mission with id ${id} successfully deleted.`);
   } catch (e) {
@@ -288,7 +287,7 @@ app.delete("/personnel/:id", async (req, res) => {
   try {
     await knex("personnel").where("id", id).update({
       is_archived: true,
-      status: 'Archived'
+      status: "Archived",
     });
     res.status(202).send(`Personnel with id ${id} successfully deleted.`);
   } catch (e) {
@@ -405,7 +404,6 @@ app.post("/teams", async (req, res) => {
 /////////////////////////////////////////////////////////////  PUT  ////////////////////////////////////////////////////////////
 //missions update endpoint
 app.put("/missions/:id", async (req, res) => {
-  console.log('update missions endpoint called')
   const id = parseInt(req.params.id);
   try {
     let updatedMission = {

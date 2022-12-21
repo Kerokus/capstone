@@ -26,7 +26,7 @@ const EditConop = () => {
       newData[event.target.id] = event.target.value;
     }
     ctx.setSubmitConopForm(newData);
-    console.log(newData);
+    //console.log(newData);
   };
 
   //Clears the form data

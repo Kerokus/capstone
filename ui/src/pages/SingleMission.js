@@ -69,7 +69,7 @@ const SingleMission = () => {
     coordinates = { lat: 31.00994216931093, lng: 36.6326645727253 };
     zoom = 7;
   } else if (ctx.clickedMission.location.country === "USA") {
-    console.log(ctx.clickedMission);
+    //console.log(ctx.clickedMission);
     coordinates = { lat: 35.14147146711656, lng: -79.00823128996466 };
     zoom = 12;
   } else if (ctx.clickedMission.location.country === "Qatar") {
@@ -114,38 +114,38 @@ const SingleMission = () => {
     ].join("-");
   };
 
-    // ongoing missions check
-    // useEffect(() => {
-    //   let currentDate = new Date();
-    //   currentDate.setTime(currentDate.getTime());
-    //   let today = formatDate(currentDate)
+  // ongoing missions check
+  // useEffect(() => {
+  //   let currentDate = new Date();
+  //   currentDate.setTime(currentDate.getTime());
+  //   let today = formatDate(currentDate)
 
-    //   if (ctx.clickedMission.status !== 'Complete' && ctx.clickedMission.status !== 'Cancelled') {
-    //     if (ctx.clickedMission.start_date <= today && ctx.clickedMission.end_date >= today) {
-    //       activeMissionsArray.push(ctx.clickedMission);
-    //     }
-    //   }
+  //   if (ctx.clickedMission.status !== 'Complete' && ctx.clickedMission.status !== 'Cancelled') {
+  //     if (ctx.clickedMission.start_date <= today && ctx.clickedMission.end_date >= today) {
+  //       activeMissionsArray.push(ctx.clickedMission);
+  //     }
+  //   }
 
-    //   ctx.setOngoingMissions(activeMissionsArray);
-    // }, [ctx.clickedMission]);
-
-
+  //   ctx.setOngoingMissions(activeMissionsArray);
+  // }, [ctx.clickedMission]);
 
   // upcoming missions
   useEffect(() => {
+    if (
+      ctx.clickedMission.start_date === ctx.oneDayDate ||
+      ctx.clickedMission.start_date === ctx.twoDayDate
+    ) {
       if (
-        ctx.clickedMission.start_date === ctx.oneDayDate ||
-        ctx.clickedMission.start_date === ctx.twoDayDate
+        ctx.clickedMission.status !== "Complete" &&
+        ctx.clickedMission.status !== "Cancelled"
       ) {
-        if (ctx.clickedMission.status !== 'Complete' && ctx.clickedMission.status !== 'Cancelled') {
-          upcomingMissionsArray.push(ctx.clickedMission);
-        }
+        upcomingMissionsArray.push(ctx.clickedMission);
       }
-      setisUpcoming(upcomingMissionsArray);
-   
+    }
+    setisUpcoming(upcomingMissionsArray);
   }, [ctx.missions, ctx.clickedMission]);
 
-    console.log(isUpcoming)
+  //console.log(isUpcoming)
 
   useEffect(() => {
     let missionMarkersArray = [];
@@ -153,39 +153,42 @@ const SingleMission = () => {
       ctx.missions.forEach((otherMission) => {
         if (mission.id === ctx.clickedMission.id) {
           if (mission.id === otherMission.id) {
-            if (otherMission.status === 'Complete') {
+            if (otherMission.status === "Complete") {
               missionMarkersArray.push({
                 id: mission.title,
-                marker_status: 'complete',
+                marker_status: "complete",
                 lat: mission.coords[1],
                 lng: mission.coords[0],
               });
-            } if (otherMission.status === 'Cancelled') {
+            }
+            if (otherMission.status === "Cancelled") {
               missionMarkersArray.push({
                 id: mission.title,
-                marker_status: 'cancelled',
+                marker_status: "cancelled",
                 lat: mission.coords[1],
                 lng: mission.coords[0],
               });
-            } if (otherMission.status === 'Active') {
+            }
+            if (otherMission.status === "Active") {
               missionMarkersArray.push({
                 id: mission.title,
-                marker_status: 'active',
+                marker_status: "active",
                 lat: mission.coords[1],
                 lng: mission.coords[0],
               });
-            } if (otherMission.status === 'Pending') {
-              if(isUpcoming.length) {
+            }
+            if (otherMission.status === "Pending") {
+              if (isUpcoming.length) {
                 missionMarkersArray.push({
                   id: mission.title,
-                  marker_status: 'upcoming',
+                  marker_status: "upcoming",
                   lat: mission.coords[1],
                   lng: mission.coords[0],
                 });
               } else {
                 missionMarkersArray.push({
                   id: mission.title,
-                  marker_status: 'pending',
+                  marker_status: "pending",
                   lat: mission.coords[1],
                   lng: mission.coords[0],
                 });
@@ -193,12 +196,9 @@ const SingleMission = () => {
             }
           }
         }
-      })
-
+      });
     }, ctx.setMissionMarkers(missionMarkersArray));
   }, [ctx.dashboard, isUpcoming]);
-
-
 
   const toggleRefresh = () => {
     ctx.setRefresh((current) => !current);
@@ -236,19 +236,21 @@ const SingleMission = () => {
           <div className="single-mission-map">
             <SingleMissionMap coordinates={coordinates} zoom={zoom} />
           </div>
-         
+
           <div className="mission-admin-data">
-          <h3>ADMIN DATA</h3>
+            <h3>ADMIN DATA</h3>
             <Link
-            
               to={`/missions/${ctx.singleMission[0].id}/edit`}
               style={{ color: "white", textDecoration: "none" }}
-
             >
-              
-              <Button className="gray-button" onClick={() => {
-                ctx.setSubmitConopForm(ctx.singleMission[0]);
-              }}>Edit CONOP </Button>
+              <Button
+                className="gray-button"
+                onClick={() => {
+                  ctx.setSubmitConopForm(ctx.singleMission[0]);
+                }}
+              >
+                Edit CONOP{" "}
+              </Button>
             </Link>
 
             <div className="single-mission-status">
@@ -269,7 +271,6 @@ const SingleMission = () => {
               </Form.Group>
             </div>
 
-            
             <p>
               <b>Team:</b> {ctx.singleMission[0].team_name}
             </p>
