@@ -25,10 +25,10 @@ const Teams = () => {
     ctx.setTeamMarkers([]);
   }, []);
 
-    // scrolls screen to the top when the component is mounted
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
+  // scrolls screen to the top when the component is mounted
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     setFilteredTeamData(ctx.teams);
@@ -141,7 +141,7 @@ const Teams = () => {
       newData[event.target.id] = event.target.value;
     }
     ctx.setFormData(newData);
-    console.log(ctx.formData);
+    //console.log(ctx.formData);
   };
 
   const handleAdd = () => {
@@ -174,7 +174,7 @@ const Teams = () => {
     } else if (team.location.country === "Iraq") {
       coordinates = { lat: 33.12531111219817, lng: 43.42720100219237 };
       zoom = 5;
-    } else{
+    } else {
       coordinates = { lat: 33.42643305816639, lng: -82.0571350866326 };
       zoom = 9;
     }
@@ -253,11 +253,11 @@ const Teams = () => {
 
         <Link className="homepage-button-personnel" to="/">
           <Button variant="primary" className="homepage-button">
-          Dashboard
+            Dashboard
           </Button>
         </Link>
       </div>
-      <h1 className ="total-counter">Total Teams: {ctx.teams.length}</h1>
+      <h1 className="total-counter">Total Teams: {ctx.teams.length}</h1>
 
       <div className="mission-card-container">
         {[...filteredTeamData].map(renderTeamCard)}
@@ -432,7 +432,7 @@ const Teams = () => {
           </Button>
           <Button
             variant="warning"
-            className= "red-button"
+            className="red-button"
             onClick={() => {
               handleDelete();
               ctx.setSearchTerm("");
