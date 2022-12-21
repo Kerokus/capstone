@@ -39,7 +39,7 @@ app.get("/missions", async (req, res) => {
 
     (await (!data || data.length))
       ? res.status(200).send(data)
-      : res.status(404).send(`Missions endpoint experiencing difficulties.`);
+      : res.status(404).send("Missions endpoint experiencing difficulties.");
   } catch (e) {
     console.log(e);
     res.status(400).send("There was an error processing your request.");
@@ -71,7 +71,7 @@ app.get("/personnel", async (req, res) => {
       .orderBy("personnel.last_name");
     (await (!data || data.length))
       ? res.status(200).send(data)
-      : res.status(404).send(`Personnel endpoint experiencing difficulties.`);
+      : res.status(404).send("Personnel endpoint experiencing difficulties.");
   } catch (e) {
     console.log(e);
     res.status(400).send("There was an error processing your request.");
@@ -258,7 +258,7 @@ app.get("/archives/teams", async (req, res) => {
       .orderBy("teams.team_name");
     (await (!data || data.length))
       ? res.status(200).send(data)
-      : res.status(404).send(`Teams endpoint experiencing difficulties.`);
+      : res.status(404).send("Teams endpoint experiencing difficulties.");
   } catch (e) {
     console.log(e);
     res.status(400).send("There was an error processing your request.");
