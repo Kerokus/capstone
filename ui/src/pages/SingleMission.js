@@ -10,6 +10,9 @@ import Form from "react-bootstrap/Form";
 const SingleMission = () => {
   const ctx = useContext(GlobalContext);
   const [loading, setLoading] = useState(true);
+  const [isUpcoming, setisUpcoming] = useState([]);
+  let upcomingMissionsArray = [];
+  let activeMissionsArray = [];
 
   useEffect(() => {
     missionFetch();
@@ -99,18 +102,101 @@ const SingleMission = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const padTo2Digits = (num) => {
+    return num.toString().padStart(2, "0");
+  };
+
+  const formatDate = (date) => {
+    return [
+      date.getFullYear(),
+      padTo2Digits(date.getMonth() + 1),
+      padTo2Digits(date.getDate()),
+    ].join("-");
+  };
+
+    // ongoing missions check
+    // useEffect(() => {
+    //   let currentDate = new Date();
+    //   currentDate.setTime(currentDate.getTime());
+    //   let today = formatDate(currentDate)
+
+    //   if (ctx.clickedMission.status !== 'Complete' && ctx.clickedMission.status !== 'Cancelled') {
+    //     if (ctx.clickedMission.start_date <= today && ctx.clickedMission.end_date >= today) {
+    //       activeMissionsArray.push(ctx.clickedMission);
+    //     }
+    //   }
+
+    //   ctx.setOngoingMissions(activeMissionsArray);
+    // }, [ctx.clickedMission]);
+
+
+
+  // upcoming missions
+  useEffect(() => {
+      if (
+        ctx.clickedMission.start_date === ctx.oneDayDate ||
+        ctx.clickedMission.start_date === ctx.twoDayDate
+      ) {
+        if (ctx.clickedMission.status !== 'Complete' && ctx.clickedMission.status !== 'Cancelled') {
+          upcomingMissionsArray.push(ctx.clickedMission);
+        }
+      }
+      setisUpcoming(upcomingMissionsArray);
+   
+  }, [ctx.missions, ctx.clickedMission]);
+
+    console.log(isUpcoming)
+
   useEffect(() => {
     let missionMarkersArray = [];
     ctx.dashboard.forEach((mission) => {
-      if (mission.id === ctx.clickedMission.id) {
-        missionMarkersArray.push({
-          id: mission.title,
-          lat: mission.coords[1],
-          lng: mission.coords[0],
-        });
-      }
+      ctx.missions.forEach((otherMission) => {
+        if (mission.id === ctx.clickedMission.id) {
+          if (mission.id === otherMission.id) {
+            if (otherMission.status === 'Complete') {
+              missionMarkersArray.push({
+                id: mission.title,
+                marker_status: 'complete',
+                lat: mission.coords[1],
+                lng: mission.coords[0],
+              });
+            } if (otherMission.status === 'Cancelled') {
+              missionMarkersArray.push({
+                id: mission.title,
+                marker_status: 'cancelled',
+                lat: mission.coords[1],
+                lng: mission.coords[0],
+              });
+            } if (otherMission.status === 'Active') {
+              missionMarkersArray.push({
+                id: mission.title,
+                marker_status: 'active',
+                lat: mission.coords[1],
+                lng: mission.coords[0],
+              });
+            } if (otherMission.status === 'Pending') {
+              if(isUpcoming.length) {
+                missionMarkersArray.push({
+                  id: mission.title,
+                  marker_status: 'upcoming',
+                  lat: mission.coords[1],
+                  lng: mission.coords[0],
+                });
+              } else {
+                missionMarkersArray.push({
+                  id: mission.title,
+                  marker_status: 'pending',
+                  lat: mission.coords[1],
+                  lng: mission.coords[0],
+                });
+              }
+            }
+          }
+        }
+      })
+
     }, ctx.setMissionMarkers(missionMarkersArray));
-  }, [ctx.dashboard]);
+  }, [ctx.dashboard, isUpcoming]);
 
 
 
