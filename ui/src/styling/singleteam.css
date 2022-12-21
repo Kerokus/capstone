@@ -7,7 +7,7 @@
   grid-template-areas:
     "team-admin-container team-admin-container team-admin-container"
     "team-calendar team-mapp team-mapp"
-    "team-personnel-container team-upcoming-container team-all-missions-container"
+    "team-personnel-container team-all-missions-container team-upcoming-container"
     ". . .";
   height: 85vh;
 }
@@ -29,7 +29,6 @@
   padding: 5px;
   border-radius: 10px;
   background-color: #212529;
-
 }
 
 .team-name {
