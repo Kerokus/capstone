@@ -28,8 +28,18 @@ const Dashboard = () => {
   const [statusLoad, setStatusLoad] = useState(false);
   let coordinates = { lat: 27.462945821868242, lng: 49.41946212564189 };
 
+  
+  
+  useEffect(() => {
+  document.getElementsByClassName("webpage-title").disabled='disabled';
+  }, [ctx.missions, ctx.refresh])
+
   //tab state
 const [value, setValue] = useState('1');
+
+useEffect(() => {
+  setValue('1')
+}, [ctx.refresh])
 
 // handle Change for tabs
 const handleChange = (event, newValue ) => {
@@ -38,8 +48,9 @@ const handleChange = (event, newValue ) => {
 
 //handle click for tabs
 const handleClick = (event) => {
-  
 };
+
+
 
   let allMissionsArray = [ctx.missions];
   let activeMissionsArray = [];
@@ -139,7 +150,7 @@ const handleClick = (event) => {
       });
     setStatusLoad(false);
   };
-
+  
   //grabbing calendar data from Missions table and formatting it
   const missionsFetch = async () => {
     setLoading(true);
@@ -212,6 +223,7 @@ const handleClick = (event) => {
     const testRender = (mission, index) => {
       if (mission.status !== 'Complete' && mission.status !== 'Cancelled') {
         if (mission.marker_status === 'active') {
+          console.log(mission)
           return (
             <li className="dashboard-team-list-active" key={index}>
               <span>
@@ -299,13 +311,13 @@ const handleClick = (event) => {
         }
       });
     }, ctx.setDashboardMarkersUpcoming(dashboardMarkersUpcomingArray));
-  }, [ctx.dashboard, ctx.refresh, ctx.upcomingMissions]);
+  }, [ctx.dashboard, ctx.upcomingMissions, ctx.dashboardMarkersActive]);
 
   useEffect(() => {
     let dashboardMarkersActiveArray = [];
     ctx.ongoingMissions.forEach((mission) => {
       ctx.dashboard.forEach((otherMission) => {
-        mission.marker_status = 'active'
+        
         if (mission.id === otherMission.id) {
           dashboardMarkersActiveArray.push({
             id: otherMission.title,
@@ -316,7 +328,7 @@ const handleClick = (event) => {
         }
       });
     }, ctx.setDashboardMarkersActive(dashboardMarkersActiveArray));
-  }, [ctx.dashboard, ctx.refresh]);
+  }, [ctx.dashboard, ctx.ongoingMissions]);
 
   // useEffect(() => {
   //   let dashboardMarkersAllArray = [];
@@ -370,7 +382,7 @@ const handleClick = (event) => {
     ctx.setDashboardMarkersAll(dashboardMarkersAllArray))
     
 
-)}, [ctx.dashboard, ctx.refresh, ctx.missions]);
+)}, [ctx.dashboard, ctx.missions, ctx.upcomingMissions, ctx.ongoingMissions]);
 
   return (
     <>
@@ -394,8 +406,8 @@ const handleClick = (event) => {
 
         <Box sx={{ width: '100%', typography: 'body1' }} className="dashboard-upcoming">
           <TabContext value={value}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }} textColor="primary">
-              <TabList onChange={handleChange} aria-label="lab API tabs example" textColor="primary">
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <TabList onChange={handleChange} aria-label="lab API tabs example">
                 <Tab label={`Ongoing and Upcoming (${ctx.dashboardMarkersAll.length})`} value="1" onClick={(event) => {
                   ctx.setDisplayedMarkers(ctx.dashboardMarkersAll)
                   handleClick(event)}}/>

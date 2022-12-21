@@ -34,6 +34,7 @@ const options = {
   disableDefaultUI: true,
   zoomControl: false,
   gestureHandling: "cooperative",
+  
 };
 
 export default function DashboardMap({ coordinates }) {
@@ -130,22 +131,7 @@ export default function DashboardMap({ coordinates }) {
             {ctx.displayedMarkers.map(
             (marker) => ( 
               // console.log(marker.marker_status)
-              marker.marker_status === 'all' ? 
-              <Marker
-                key={marker.id}
-                position={{lat: marker.lat, lng: marker.lng}}
-                draggable={false}
-                onClick={() => {
-                marker.status = (marker.marker_status).toUpperCase() 
-                setSelected(marker);
-                }}
-                icon={{
-                  url: "http://maps.google.com/mapfiles/kml/paddle/grn-circle.png",
-                  origin: new window.google.maps.Point(0, 0),
-                  anchor: new window.google.maps.Point(15, 15),
-                  scaledSize: new window.google.maps.Size(30, 30),
-                }}
-              /> : marker.marker_status === 'active' ?
+              marker.marker_status === 'active' ?
               <Marker
               key={marker.id}
               position={{lat: marker.lat, lng: marker.lng}}

@@ -201,8 +201,13 @@ Then sets the missions state variable with that array. Fires when the missions s
   };
   /* renders all missions assigned to the clicked team */
   const renderTeamMissions = (mission, index) => {
+    upcomingMissions.forEach((otherMission) => {
+      if (otherMission.id !== mission.id) {
+        console.log(mission.name)
+      }
+    })
     return (
-      <Link className="team-mission-link" to={`/missions/${mission.id}`}
+    <Link className="team-mission-link" to={`/missions/${mission.id}`}
       onClick={() => ctx.setClickedMission(mission)}>
         <li className="team-missions" key={index}>
           {" "}
@@ -346,7 +351,7 @@ Then sets the missions state variable with that array. Fires when the missions s
         </div>
 
         <div className="team-upcoming-container">
-          <h3>Next 48 hours</h3>
+          <h3>Upcoming Missions</h3>
           {upcomingMissions.length > 0 ? (
             <div className="team-missions">
               <ul>{[...upcomingMissions].map(renderUpcomingMissions)}</ul>
@@ -359,7 +364,7 @@ Then sets the missions state variable with that array. Fires when the missions s
         </div>
 
         <div className="team-all-missions-container">
-          <h3>All pending activities</h3>
+          <h3>Ongoing Missions</h3>
           {missions.length > 0 ? (
             <div className="team-missions">
               <ul>{[...missions].map(renderTeamMissions)}</ul>
