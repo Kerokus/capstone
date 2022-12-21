@@ -1,14 +1,10 @@
 const express = require("express");
+const knex = require("knex")(require("../knexfile.js")["development"]);
 const cors = require("cors");
 const app = express();
 
 app.use(express.json());
 app.use(cors());
-
-//REMOVE THESE LINES IF SHIT BREAKS
-const env = process.env.NODE_ENV || "development";
-const config = require("../knexfile")[env];
-const knex = require("knex")(config);
 
 /////////////////////////////////////////////////////////////  GET  ////////////////////////////////////////////////////////////
 
