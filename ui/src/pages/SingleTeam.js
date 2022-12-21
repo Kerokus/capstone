@@ -43,6 +43,10 @@ const SingleTeam = () => {
   let coordinates = {};
   let zoom;
 
+  useEffect(() => {
+    toggleRefresh()
+  }, [])
+
   if (ctx.clickedTeam.location.country === "Kuwait") {
     coordinates = { lat: 29.34562355852184, lng: 47.67637238617149 };
     zoom = 8;
@@ -75,14 +79,37 @@ const SingleTeam = () => {
     let teamMarkersArray = [];
     ctx.dashboard.forEach((mission) => {
       if (mission.team === ctx.clickedTeam.id) {
-        teamMarkersArray.push({
-          id: mission.title,
-          lat: mission.coords[1],
-          lng: mission.coords[0],
-        });
+        ctx.missions.forEach((otherMission) => {
+          if(otherMission.status !== 'Complete' && otherMission.status !== 'Cancelled')
+          if (mission.title === otherMission.name) {
+            if (otherMission.status === 'Active') {
+              teamMarkersArray.push({
+                id: mission.title,
+                marker_status: 'active',
+                lat: mission.coords[1],
+                lng: mission.coords[0],
+              });
+            }
+          }
+        })
       }
+      ctx.dashboard.forEach((mission) => {
+        upcomingMissions.forEach((upcomingMission) => {
+          // console.log(mission)
+          if(mission.title === upcomingMission.name) {
+            teamMarkersArray.push({
+              id: mission.title,
+              marker_status: 'upcoming',
+              lat: mission.coords[1],
+              lng: mission.coords[0],
+            });
+          }
+        })
+      })
     }, ctx.setTeamMarkers(teamMarkersArray));
-  }, [ctx.dashboard]);
+  }, [ctx.dashboard, ctx.missions]);
+
+  console.log(ctx.teamMarkers)
 
   /* calendar tools */
   const locales = {
@@ -199,34 +226,45 @@ Then sets the missions state variable with that array. Fires when the missions s
       </div>
     );
   };
-  /* renders all missions assigned to the clicked team */
-  const renderTeamMissions = (mission, index) => {
-    upcomingMissions.forEach((otherMission) => {
-      if (otherMission.id !== mission.id) {
-        console.log(mission.name)
-      }
-    })
-    return (
-    <Link className="team-mission-link" to={`/missions/${mission.id}`}
-      onClick={() => ctx.setClickedMission(mission)}>
-        <li className="team-missions" key={index}>
-          {" "}
-          {`${mission.start_date} | ${mission.name}`}{" "}
-        </li>
-    </Link>
 
-    );
+
+
+
+  /* renders ongoing missions assigned to the clicked team */
+  const renderTeamMissions = (mission, index) => {
+      if (mission.status === 'Active') {
+        return (
+          <li className="team-active-missions" key={index}>
+          <span>
+            <Link
+              onClick={() => {
+                ctx.setClickedMission(mission);
+              }}
+              className="team-mission-link"
+              to={`/missions/${mission.id}`}
+            >{`${mission.start_date} - ${mission.name}`}</Link>
+          </span>
+        </li>
+          );
+      }
   };
+
+
+
   /* renders upcoming missions assigned to the clicked team */
   const renderUpcomingMissions = (mission, index) => {
     return (
-      <Link className="team-mission-link" to={`/missions/${mission.id}`}
-      onClick={() => ctx.setClickedMission(mission)}>
-        <li className="team-missions" key={index}>
-          {" "}
-          {`${mission.start_date} | ${mission.name}`}{" "}
-        </li>
-    </Link>
+      <li className="team-upcoming-missions" key={index}>
+      <span>
+        <Link
+          onClick={() => {
+            ctx.setClickedMission(mission);
+          }}
+          className="team-mission-link"
+          to={`/missions/${mission.id}`}
+        >{`${mission.start_date} - ${mission.name}`}</Link>
+      </span>
+    </li>
     );
   };
 
@@ -353,11 +391,11 @@ Then sets the missions state variable with that array. Fires when the missions s
         <div className="team-upcoming-container">
           <h3>Upcoming Missions</h3>
           {upcomingMissions.length > 0 ? (
-            <div className="team-missions">
-              <ul>{[...upcomingMissions].map(renderUpcomingMissions)}</ul>
-            </div>
+            <ul className="not-team-missions">
+              {[...upcomingMissions].map(renderUpcomingMissions)}
+            </ul>
           ) : (
-            <div className="team-missions">
+            <div className="none">
               <div>{`None`} </div>
             </div>
           )}
@@ -366,11 +404,11 @@ Then sets the missions state variable with that array. Fires when the missions s
         <div className="team-all-missions-container">
           <h3>Ongoing Missions</h3>
           {missions.length > 0 ? (
-            <div className="team-missions">
-              <ul>{[...missions].map(renderTeamMissions)}</ul>
-            </div>
+            <ul className="idontknow">
+              {[...missions].map(renderTeamMissions)}
+            </ul>
           ) : (
-            <div className="team-missions">
+            <div className="none">
               <div>{`None`} </div>
             </div>
           )}

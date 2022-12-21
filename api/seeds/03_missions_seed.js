@@ -47,7 +47,7 @@ exports.seed = async function (knex) {
     {
       id: 2,
       start_date: "2022-12-19",
-      end_date: "2022-12-23",
+      end_date: "2022-12-24",
       location: {
         city_base: "Camp Arifjan",
         country: "Kuwait",
@@ -194,6 +194,44 @@ exports.seed = async function (knex) {
       decision_point: "2023-12-10",
       is_archived: false,
       team_id: 11,
+    },
+    {
+      id: 6,
+      start_date: "2022-12-24",
+      end_date: "2022-12-30",
+      location: {
+        city_base: "Kuwait City (West)",
+        country: "Kuwait",
+        mgrs: "38RQT4464449387",
+      },
+      name: "Operation Lateralus",
+      description:
+        "CI Team 1 meets with host nation security forces to discuss any security incidents which may have occured during the world cup.",
+      status: "Pending",
+      purpose: "Provide CI Support to Force Protection IAW 381-20.",
+      authority: "OPORD 22-007",
+      end_state:
+        "Activity ends once all topics have been discussed and rapport built.",
+      transportation_methods: "NTV",
+      timeline: {
+        sp: "Ali Al Salem Air Base",
+        departure: "12:00",
+        cp1: "checkpoint location",
+        destination_arrival: "13:00",
+        destination_departure: "15:00",
+        cp2: "checkpoint location",
+        rtb: "16:00",
+        eom: "16:30",
+        total_time: "4hrs 30min",
+      },
+      pace: { P: "Yell Micro", A: "Government Cell", C: "Signal", E: "Runner" },
+      risks: {
+        mission: "Weather, Vehicle Maintenence, VEO, VBIED",
+        force: "Vehicle Accident, Wildlife",
+      },
+      decision_point: "2023-12-10",
+      is_archived: false,
+      team_id: 2,
     },
   ]);
 };
