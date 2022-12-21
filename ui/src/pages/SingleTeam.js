@@ -180,11 +180,16 @@ Then sets the missions state variable with that array. Fires when the missions s
   useEffect(() => {
     ctx.missions.forEach((mission, index) => {
       if (mission.team_id === ctx.clickedTeam.id) {
-        teamMissionsArray.push(mission);
+        if (mission.status !== "Complete" && mission.status !== "Cancelled") {
+          teamMissionsArray.push(mission);
+        }
+        
       }
       setMissions(teamMissionsArray);
     });
-  }, [ctx.missions]);
+  }, [ctx.missions, ctx.clickedTeam]);
+console.log(missions)
+  
   // all this is for the upcoming missions data
   //next 24 hours
   let oneDayDate = new Date();
@@ -396,7 +401,7 @@ Then sets the missions state variable with that array. Fires when the missions s
             </ul>
           ) : (
             <div className="none">
-              <div>{`None`} </div>
+              <div></div>
             </div>
           )}
         </div>
@@ -404,12 +409,12 @@ Then sets the missions state variable with that array. Fires when the missions s
         <div className="team-all-missions-container">
           <h3>Ongoing Missions</h3>
           {missions.length > 0 ? (
-            <ul className="idontknow">
+            <ul>
               {[...missions].map(renderTeamMissions)}
             </ul>
           ) : (
             <div className="none">
-              <div>{`None`} </div>
+              <div></div>
             </div>
           )}
         </div>
