@@ -39,7 +39,7 @@ const EditConop = () => {
     ctx.setRefresh((current) => !current);
   };
 
-  //ADD new CONOP
+  //EDIT CONOP
   const handleSubmit = async (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -91,7 +91,11 @@ const EditConop = () => {
               Cancel
             </Button>
           </Link>
-          <Button type="submit" className="conop-submit-button" variant='success'>
+          <Button
+            type="submit"
+            className="conop-submit-button"
+            variant="success"
+          >
             Submit
           </Button>
         </div>
