@@ -236,7 +236,7 @@ const SingleMission = () => {
           <div className="single-mission-map">
             <SingleMissionMap coordinates={coordinates} zoom={zoom} />
           </div>
-
+         
           <div className="mission-admin-data">
           <h3>ADMIN DATA</h3>
             <Link
