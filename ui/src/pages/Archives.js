@@ -11,6 +11,14 @@ const Archives = () => {
   const [archivedMissions, setArchivedMissions] = useState([]);
   const [archivedTeams, setArchivedTeams] = useState([]);
 
+  const [personnelSearchTerm, setPersonnelSearchTerm] = useState("");
+  const [missionSearchTerm, setMissionSearchTerm] = useState("");
+  const [teamSearchTerm, setTeamSearchTerm] = useState("");
+
+  const [filteredPersonnelData, setFilteredPersonnelData] = useState("");
+  const [filteredMissionData, setFilteredMissionData] = useState("");
+  const [filteredTeamData, setFilteredTeamData] = useState("");
+
   // fetch archived personnel
     useEffect(() => {
       const fetchData = async () => {
@@ -18,7 +26,7 @@ const Archives = () => {
           const response = await fetch("http://localhost:8081/archives/personnel");
           const data = await response.json();
           setArchivedPersonnel(data);
-          // ctx.setFilteredData(dataSlice);
+          setFilteredPersonnelData(data);
         } catch (e) {
           console.log(e);
         }
@@ -33,7 +41,7 @@ const Archives = () => {
           const response = await fetch("http://localhost:8081/archives/teams");
           const data = await response.json();
           setArchivedTeams(data);
-          // ctx.setFilteredData(dataSlice);
+          setFilteredTeamData(data);
         } catch (e) {
           console.log(e);
         }
@@ -48,7 +56,7 @@ const Archives = () => {
           const response = await fetch("http://localhost:8081/archives/missions");
           const data = await response.json();
           setArchivedMissions(data);
-          // ctx.setFilteredData(dataSlice);
+          setFilteredMissionData(data);
         } catch (e) {
           console.log(e);
         }
@@ -364,19 +372,89 @@ const Archives = () => {
         },
     ];
 
-  {/* <Csv /> */}
+
+
+  //// Search Functions////
+
+// Personnel Search 
+  const handlePersonnelSearch = (event) => {
+    setPersonnelSearchTerm(event.target.value);
+  };
+
+ 
+    useEffect(() => {
+      let personnelSearchArray = [];
+      archivedPersonnel.forEach((person) => {
+        let personnelDataString = JSON.stringify(person);
+          if (personnelDataString.toLowerCase().includes(personnelSearchTerm.toLowerCase())) {
+            if (personnelSearchArray.filter((item) => {
+                return item.id === person.id;
+                }).length === 0
+            ) {personnelSearchArray.push(person);}
+          }
+          setFilteredPersonnelData(personnelSearchArray);
+      });
+    }, [personnelSearchTerm]);
+
+    
+// Mission Search 
+  const handleMissionSearch = (event) => {
+    setMissionSearchTerm(event.target.value);
+  };
+
+  useEffect(() => {
+    let MissionSearchArray = [];
+    archivedMissions.forEach((mission) => {
+      let missionDataString = JSON.stringify(mission);
+      if (missionDataString.toLowerCase().includes(missionSearchTerm.toLowerCase())) {
+        if (MissionSearchArray.filter((item) => {
+            return item.id === mission.id;
+            }).length === 0
+        ) {MissionSearchArray.push(mission);}
+      }
+      setFilteredMissionData(MissionSearchArray);
+    });
+  }, [missionSearchTerm]);
+
+
+  // Team Search 
+  const handleTeamSearch = (event) => {
+    setTeamSearchTerm(event.target.value);
+  };
+
+  useEffect(() => {
+    let teamSearchArray = [];
+    archivedTeams.forEach((team) => {
+      let teamDataString = JSON.stringify(team);
+      if (teamDataString.toLowerCase().includes(teamSearchTerm.toLowerCase())) {
+        if (teamSearchArray.filter((item) => {
+            return item.id === team.id;
+           }).length === 0
+        ) {teamSearchArray.push(team);}
+      }
+      setFilteredTeamData(teamSearchArray);
+    });
+  }, [teamSearchTerm]);
+
+  
   return (
-    <>
+    <div className="archives-page-container">
+
 
       <div className="header-and-csv">
       <div className="personnel-header-text"> Archived  </div>
         <div className="displayed-entity">
-          <Form.Group as={Col} md="12" id='displayed-entity' >
+          <Form.Group  id='displayed-entity'>
             <Form.Select
              
               md="3"
-              id="displayed-entity"
-              onChange={(e) => ctx.setDisplayedEntity(e.target.value)}
+              id="displayed-entity-1"
+              onChange={(e) => {
+                ctx.setDisplayedEntity(e.target.value)
+                setMissionSearchTerm("")
+                setPersonnelSearchTerm("")
+                setTeamSearchTerm("")
+              }}
               value={ctx.displayedEntity}
                aria-label="Default select example"
                
@@ -386,15 +464,10 @@ const Archives = () => {
               <option>Personnel</option>
             </Form.Select>
           </Form.Group>
+
         </div>
 
-        {/* {
-          ctx.displayedEntity === 'Missions' ? 
-          <div className="personnel-header-text"> Archived Missions </div> :
-          ctx.displayedEntity === 'Personnel' ? 
-          <div className="personnel-header-text"> Archived Personnel </div> :
-          <div className="personnel-header-text"> Archived Teams </div> 
-        } */}
+
 
       </div>
 
@@ -402,42 +475,84 @@ const Archives = () => {
     {
       ctx.displayedEntity === 'Missions' ?
       //missions
+      <div className="archived-missions-container">
+        <div className="mainsearch">
+          <input
+            className="text-search-bar"
+            type="text"
+            placeholder="Search Missions"
+            onChange={(event) => {
+              handleMissionSearch(event);
+              }}
+            value={missionSearchTerm}
+          />
+        </div>
+
         <div className="table-div">
           <BootstrapTable
           keyField="id"
-          data={archivedMissions}
+          data={filteredMissionData}
           columns={missionsColumns}
           rowStyle={{ backgroundColor: "#d3d3d3" }}
           striped
           />
         </div> 
+      </div>
       :
       ctx.displayedEntity === 'Personnel' ?
       //personnel
+      <>
+        <div className="mainsearch">
+          <input
+            className="text-search-bar"
+            type="text"
+            placeholder="Search Personnel"
+            onChange={(event) => {
+              handlePersonnelSearch(event);
+              }}
+            value={personnelSearchTerm}
+          />
+        </div>
+      
         <div className="table-div">
           <BootstrapTable
           keyField="id"
-          data={archivedPersonnel}
+          data={filteredPersonnelData}
           columns={personnelColumns}
           rowStyle={{ backgroundColor: "#d3d3d3" }}
           striped
           />
         </div> 
+      </>
       :
       //teams
+      <>
+        <div className="mainsearch">
+          <input
+            className="text-search-bar"
+            type="text"
+            placeholder="Search Teams"
+            onChange={(event) => {
+              handleTeamSearch(event);
+              }}
+            value={teamSearchTerm}
+          />
+        </div>
+
         <div className="table-div">
           <BootstrapTable
           keyField="id"
-          data={archivedTeams}
+          data={filteredTeamData}
           columns={teamsColumns}
           rowStyle={{ backgroundColor: "#d3d3d3" }}
           striped
           />
         </div> 
+      </>
     }
 
     
-    </>
+    </div>
   );
 };
 
