@@ -7,8 +7,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { Link } from "react-router-dom";
-const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
-import config from './config'
+
 //submitConopForm, setSubmitConopForm
 
 const EditConop = () => {
@@ -51,7 +50,7 @@ const EditConop = () => {
       setValidated(true);
       event.preventDefault();
       let response = await fetch(
-        (ApiUrl + `/missions/${ctx.submitConopForm.id}`),
+        `http://localhost:8081/missions/${ctx.submitConopForm.id}`,
         {
           method: "PUT",
           headers: {

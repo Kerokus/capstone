@@ -11,8 +11,7 @@ import HumintTeamStatus from "./HumintTeamStatus";
 import SigintTeamStatus from "./SigintTeamStatus";
 import { toPoint } from "mgrs";
 import DashboardMap from "../components/DashboardMap";
-const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
-import config from './config'
+
 // try the tabs imports
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
@@ -131,7 +130,7 @@ const Dashboard = () => {
 
   const statusFetch = async () => {
     setStatusLoad(true);
-    await fetch(ApiUrl + "/teams")
+    await fetch("http://localhost:8081/teams")
       .then((res) => res.json())
       .then((data) => ctx.setTeams(data))
       .catch((err) => {
@@ -143,9 +142,9 @@ const Dashboard = () => {
   //grabbing calendar data from Missions table and formatting it
   const missionsFetch = async () => {
     setLoading(true);
-    
+
     let missionCalendarArray = [];
-    await fetch(ApiUrl + "/missions")
+    await fetch(`http://localhost:8081/missions`)
       .then((res) => res.json())
       .then((data) =>
         data.map((event) => {
