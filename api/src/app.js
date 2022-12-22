@@ -1,19 +1,10 @@
 const express = require("express");
-// const knex = require("knex")(require("../knexfile.js")["development"]);
+const knex = require("knex")(require("../knexfile.js")["development"]);
 const cors = require("cors");
 const app = express();
 
 app.use(express.json());
 app.use(cors());
-
-const env = process.env.NODE_ENV || 'development'
-const config = require('../knexfile')[env]
-const knex = require('knex')(config)
-
-app.get('/', (request, response) => {
-  response.set("Access-Control-Allow-Origin", "*");
-  response.status(200).send('Capstone root route running');
-})
 
 /////////////////////////////////////////////////////////////  GET  ////////////////////////////////////////////////////////////
 
