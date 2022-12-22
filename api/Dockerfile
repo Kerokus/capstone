@@ -4,10 +4,12 @@ WORKDIR /app
 
 COPY . /app
 
+RUN npm install -g nodemon@2.0.20 &&\
+    npm install
+
 EXPOSE 8081
 
-# RUN apk update && apk add bash
+CMD ["npm", "start"]
 
-RUN npm install --force --legacy-peer-deps
 
-CMD ["npm", "start", "migrate", "seed"]
+
