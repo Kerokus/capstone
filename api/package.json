@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run migrate && npm run seed && nodemon ./src/server.js",
+    "start": "knex migrate:latest && knex seed:run && node ./src/server.js",
     "migrate": "npx knex migrate:latest",
     "seed": "npx knex seed:run",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,12 +13,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@googlemaps/react-wrapper": "^1.1.35",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "knex": "^2.3.0",
-    "nodemon": "^2.0.20",
-    "pg": "^8.8.0",
-    "react-big-calendar": "^1.5.2"
+    "pg": "^8.8.0"
   }
 }
