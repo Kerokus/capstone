@@ -6,7 +6,8 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
-
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+import config from './config'
 const SingleMission = () => {
   const ctx = useContext(GlobalContext);
   const [loading, setLoading] = useState(true);
@@ -34,7 +35,7 @@ const SingleMission = () => {
     setLoading(true);
 
     let missionCalendarArray = [];
-    await fetch(`http://localhost:8081/missions`)
+    await fetch(ApiUrl + `/missions`)
       .then((res) => res.json())
       .then((data) =>
         data.map((event) => {
@@ -88,7 +89,7 @@ const SingleMission = () => {
 
   const missionFetch = async () => {
     setLoading(true);
-    await fetch(`http://localhost:8081/missions/${ctx.clickedMission.id}`)
+    await fetch(ApiUrl + `/missions/${ctx.clickedMission.id}`)
       .then((res) => res.json())
       .then((data) => ctx.setSingleMission(data))
       .catch((err) => {
@@ -210,7 +211,7 @@ const SingleMission = () => {
     ctx.setSingleMission([newData]);
     try {
       let response = await fetch(
-        `http://localhost:8081/missions/${ctx.singleMission[0].id}`,
+        (ApiUrl + `/missions/${ctx.singleMission[0].id}`),
         {
           method: "PUT",
           headers: {

@@ -6,7 +6,8 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import MissionMap from "../components/MissionMap";
-
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+import config from './config'
 const Missions = () => {
   const ctx = useContext(GlobalContext);
   const [missionSearchTerm, setMissionSearchTerm] = useState("");
@@ -60,7 +61,7 @@ const Missions = () => {
   const handleDelete = async () => {
     try {
       let response = await fetch(
-        `http://localhost:8081/missions/${ctx.clickedMission.id}`,
+        (ApiUrl + `/missions/${ctx.clickedMission.id}`),
         {
           method: "DELETE",
           headers: {
