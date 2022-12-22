@@ -11,7 +11,8 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
-
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+import config from './config'
 const Teams = () => {
   const ctx = useContext(GlobalContext);
   const [teamSearchTerm, setTeamSearchTerm] = useState("");
@@ -62,7 +63,7 @@ const Teams = () => {
   const handleDelete = async () => {
     try {
       let response = await fetch(
-        `http://localhost:8081/teams/${ctx.clickedTeam.id}`,
+        (ApiUrl + `/teams/${ctx.clickedTeam.id}`),
         {
           method: "DELETE",
           headers: {
@@ -112,7 +113,7 @@ const Teams = () => {
     } else {
       setValidated(true);
       event.preventDefault();
-      let response = await fetch("http://localhost:8081/teams", {
+      let response = await fetch((ApiUrl + "/teams"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

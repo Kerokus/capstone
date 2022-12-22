@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import BootstrapTable from "react-bootstrap-table-next";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+import config from './config'
 
 const Archives = () => {
   const ctx = useContext(GlobalContext);
@@ -22,8 +24,9 @@ const Archives = () => {
   // fetch archived personnel
     useEffect(() => {
       const fetchData = async () => {
+        
         try {
-          const response = await fetch("http://localhost:8081/archives/personnel");
+          const response = await fetch(ApiUrl + "/archives/personnel");
           const data = await response.json();
           setArchivedPersonnel(data);
           setFilteredPersonnelData(data);
@@ -37,8 +40,9 @@ const Archives = () => {
   // fetch archived teams
     useEffect(() => {
       const fetchData = async () => {
+        
         try {
-          const response = await fetch("http://localhost:8081/archives/teams");
+          const response = await fetch(ApiUrl + "/archives/teams");
           const data = await response.json();
           setArchivedTeams(data);
           setFilteredTeamData(data);
@@ -52,8 +56,9 @@ const Archives = () => {
   // fetch archived missions
      useEffect(() => {
       const fetchData = async () => {
+        
         try {
-          const response = await fetch("http://localhost:8081/archives/missions");
+          const response = await fetch(ApiUrl + "/archives/missions");
           const data = await response.json();
           setArchivedMissions(data);
           setFilteredMissionData(data);
