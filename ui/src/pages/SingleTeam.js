@@ -15,8 +15,7 @@ import { toPoint } from "mgrs";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import SingleTeamMap from "../components/SingleTeamMap";
-const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
-import config from './config'
+
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -134,7 +133,7 @@ const SingleTeam = () => {
   const missionsFetch = async () => {
     setLoading(true);
     let missionCalendarArray = [];
-    await fetch (ApiUrl + `/missions`)
+    await fetch(`http://localhost:8081/missions`)
       .then((res) => res.json())
       .then((data) =>
         data.map((event) => {
@@ -277,7 +276,7 @@ Then sets the missions state variable with that array. Fires when the missions s
     ctx.setClickedTeam(newData);
     try {
       let response = await fetch(
-        (ApiUrl + `/teams/${ctx.clickedTeam.id}`),
+        `http://localhost:8081/teams/${ctx.clickedTeam.id}`,
         {
           method: "PUT",
           headers: {

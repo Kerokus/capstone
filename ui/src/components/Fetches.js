@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { GlobalContext } from "../Context/GlobalContext";
-import config from './config'
-const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+
 const Fetches = () => {
   const ctx = useContext(GlobalContext);
 
@@ -10,17 +9,17 @@ const Fetches = () => {
   const urlTeams = "http://localhost:8081/teams";
 
   useEffect(() => {
-    fetch(ApiUrl + "/missions")
+    fetch(urlMissions)
       .then((res) => res.json())
       .then((data) => ctx.setMissions(data))
       .catch((err) => console.error(err));
 
-    fetch(ApiUrl + "/personnel")
+    fetch(urlPersonnel)
       .then((res) => res.json())
       .then((data) => ctx.setPersonnel(data))
       .catch((err) => console.error(err));
 
-    fetch(ApiUrl + "/teams")
+    fetch(urlTeams)
       .then((res) => res.json())
       .then((data) => ctx.setTeams(data))
       .catch((err) => console.error(err));
@@ -32,7 +31,7 @@ const Fetches = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(ApiUrl + "/teams");
+        const response = await fetch("http://localhost:8081/teams");
         const data = await response.json();
         ctx.setTeamData(data);
       } catch (e) {
@@ -46,7 +45,7 @@ const Fetches = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(ApiUrl + "/personnel");
+        const response = await fetch("http://localhost:8081/personnel");
         const data = await response.json();
         let dataSlice = data.map((item) => {
           if (item.dep_start) {
@@ -124,7 +123,7 @@ const Fetches = () => {
             decision_point: mission.decision_point,
             team_id: mission.team_id,
           }
-          fetch((ApiUrl + `/missions/${mission.id}`), {
+          fetch(`http://localhost:8081/missions/${mission.id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",

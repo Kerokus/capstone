@@ -11,8 +11,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import { Pen, Trash3 } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import Csv from "../components/Csv";
-const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
-import config from './config'
+
 const Personnel = () => {
   //Justin's Original Functionality States:
   const ctx = useContext(GlobalContext);
@@ -191,7 +190,7 @@ const Personnel = () => {
   const handleEditShow = async (fieldId) => {
     ctx.setIsAdd(false);
     try {
-      let response = await fetch(ApiUrl + `/personnel/${fieldId}`)
+      let response = await fetch(`http://localhost:8081/personnel/${fieldId}`)
         .then((res) => {
           if (res.status !== 200) {
             throw new Error();
@@ -227,8 +226,8 @@ const Personnel = () => {
         event.preventDefault();
         let response = await fetch(
           ctx.isAdd
-            ? (ApiUrl + "/personnel")
-            : (ApiUrl + `/personnel/${ctx.formData.id}`),
+            ? "http://localhost:8081/personnel"
+            : `http://localhost:8081/personnel/${ctx.formData.id}`,
           {
             method: ctx.isAdd ? "POST" : "PUT",
             headers: {
@@ -253,7 +252,7 @@ const Personnel = () => {
   const handleDelete = async () => {
     try {
       let response = await fetch(
-        (ApiUrl + `/personnel/${ctx.deleteValue}`),
+        `http://localhost:8081/personnel/${ctx.deleteValue}`,
         {
           method: "DELETE",
           headers: {
