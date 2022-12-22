@@ -1,4 +1,6 @@
 const app = require("./app.js");
-const port = 8081;
+const PORT = process.env.PORT || 8081;
 
-app.listen(port, () => console.log(`Server is now listening on port ${port}.`));
+app.listen(PORT, () => {
+    console.log(`Capstone application listening on ${PORT}`);
+})
