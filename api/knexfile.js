@@ -3,28 +3,17 @@
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
- const HOST = process.env.DATABASE_HOST || '127.0.0.1';
- const USER = process.env.POSTGRES_USER || 'postgres';
- const PASSWORD = process.env.POSTGRES_PASSWORD || 'docker';
- const DATABASE = process.env.POSTGRES_DB || 'capstone';
- const PORT = process.env.PORT || 5432;
-
 module.exports = {
   development: {
-    client: 'postgresql',
-    connection: {
-      host: HOST,
-      user: USER,
-      password: PASSWORD,
-      port: PORT,
-      database: DATABASE
-    },
-    migrations: {
-      directory: './migrations'
-    },
-    seeds: {
-      directory: './seeds'
-    }
+    client: "postgresql",
+    connection: process.env.DB_CONNECTION_STRING,
+    // connection: {
+    //   host: "127.0.0.1",
+    //   password: "docker",
+    //   user: "postgres",
+    //   port: "5432",
+    //   database: "capstone", // !! THIS WILL BE <your database name>
+    // },
   },
 
   staging: {
@@ -44,17 +33,18 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
-    connection: process.env.DATABASE_URL+'?ssl=no-verify',
+    client: "postgresql",
+    connection: {
+      database: "my_db",
+      user: "username",
+      password: "password",
+    },
     pool: {
       min: 2,
-      max: 10
+      max: 10,
     },
     migrations: {
-      directory: './migrations'
+      tableName: "knex_migrations",
     },
-    seeds: {
-      directory: './seeds'
-    }
-  }
+  },
 };
